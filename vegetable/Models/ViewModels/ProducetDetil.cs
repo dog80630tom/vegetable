@@ -10,7 +10,7 @@ namespace vegetable.Models.ViewModels
     {
         [Key]
         public int ProductID { get; set; }
-        public int categoryID { get; set; }
+    
         [Display(Name="產品名稱")]
         public string ProductName { get; set; }
         [Display(Name = "類別")]

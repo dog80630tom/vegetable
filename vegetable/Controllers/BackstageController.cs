@@ -98,7 +98,7 @@ namespace vegetable.Controllers
         {
 
             TempData["ProductID"] = id;
-
+            //TempData是在專案啟動時把資料存到Session，不過在結束專案時會把此資料存到Session，詳細請參考https://dotblogs.com.tw/wadehuang36/2010/10/02/tempdata
             return View(initdetil().Find(x => x.ProductID == id));
         }
         [HttpPost]
@@ -111,7 +111,8 @@ namespace vegetable.Controllers
             pic.ProductID = product.ProductID;
             services.EditProduct(product, category, pic);
 
-
+            TempData["ProductID"] = null;
+            //此程式碼是為了把資料不要被攻擊的預防行為
             return RedirectToAction("Form", initdetil());
         }
 
