@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>ProducetDetil</h4>
         <hr />
@@ -55,6 +55,8 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PicUrl, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PicUrl, "", new { @class = "text-danger" })
+                <input id="fileupload" type="file" name="files[]" data-url="Assets/images" accept=".png,.jpg">
+
             </div>
         </div>
 
@@ -63,6 +65,8 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CategoryPic, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CategoryPic, "", new { @class = "text-danger" })
+                <input id="fileupload2" type="file" data-url="Assets/images" accept=".png,.jpg">
+
             </div>
         </div>
 
@@ -96,4 +100,30 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}
+@section Endscripts
+{
+    <script>
+        $(function () {
+                
+        
+     
+        $("#fileupload").change(function (e) {
+            var fp = $("#fileupload").val().split("\\");
+            var name = fp[fp.length - 1];
+
+
+            $("#PicUrl").val(name);
+
+        });
+        $("#fileupload2").change(function (e) {
+            var fp = $("#fileupload2").val().split("\\");
+            var name = fp[fp.length - 1];
+
+
+            $("#CategoryPic").val(name);
+
+        });
+            });
+    </script>
 }

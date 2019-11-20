@@ -63,7 +63,7 @@ namespace vegetable.Controllers
 
                 return View(new List<ProducetDetil>());
             }
-
+            ViewBag.ISuccess = "false";
             return View(initdata);
         }
         //[HttpPost]
@@ -81,28 +81,40 @@ namespace vegetable.Controllers
         public ActionResult Form(Product product,Category category,PicDetail picDetail)
         {
             PrductServices services = new PrductServices();
-         
-            services.addProduct(product, category, picDetail);
-
-            return View(initdetil());
+           
+            var result=services.addProduct(product, category, picDetail);
+            if (result.IsSuccess)
+            {
+                return View(initdetil());
+            }
+            else
+            {
+                ViewBag.ISuccess = "true";
+                ViewBag.ErrorMessage = result.Message;
+                return View(initdetil());
+            }
         }
-        //cinnaㄉ
         public ActionResult Edit(int? id)
         {
-           
 
+            TempData["ProductID"] = id;
 
-            return View(initdetil().Find(x=>x.ProductID==id));
+            return View(initdetil().Find(x => x.ProductID == id));
         }
         [HttpPost]
-        public ActionResult Edit(Product product, Category category, PicDetail pic) {
+        public ActionResult Edit(Product product, Category category, PicDetail pic)
+        {
             PrductServices services = new PrductServices();
-
+            product.ProductID = (int)TempData["ProductID"];
+            category.CategoryID = product.ProductID;
+            product.CategoryID = product.ProductID;
+            pic.ProductID = product.ProductID;
             services.EditProduct(product, category, pic);
 
 
             return RedirectToAction("Form", initdetil());
         }
+
 
     }
 }
