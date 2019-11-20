@@ -1,0 +1,99 @@
+﻿@using vegetable.Models.ViewModels;
+@model IEnumerable<vegetable.Models.ViewModels.ProducetDetil>
+
+@{
+    ViewBag.Title = "Form";
+    var data = new ProducetDetil();
+}
+
+
+
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <input type="button" class="btn btn-outline-warning" value="新增" id="Create">
+
+    <table class="table table-striped ">
+        <thead class="table-success">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitsInStock)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryDescription)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitsInStock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+        </td>
+    </tr>
+        }
+
+    </table>
+</div>
+<div class="col-md-7"></div>
+
+@Html.Partial("_CreatePartialView", data)
+@section Endscripts
+{
+    <script>
+
+        $('#Create').click(function (e) {
+            $('#exampleModal').modal('show');
+
+        });
+        $("#fileupload").change(function (e) {
+            var fp = $("#fileupload").val().split("\\");
+            var name = fp[fp.length - 1];
+
+
+            $("#PicUrl").val(name);
+
+        });
+        $("#fileupload2").change(function (e) {
+            var fp = $("#fileupload2").val().split("\\");
+            var name = fp[fp.length - 1];
+
+
+            $("#CategoryPic").val(name);
+
+        });
+
+    </script>
+}

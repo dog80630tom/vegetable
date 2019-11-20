@@ -1,0 +1,127 @@
+﻿@model vegetable.Models.ViewModels.ProducetDetil
+
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("Form", "Backstage"))
+                {
+                    @Html.AntiForgeryToken()
+
+
+                    <div class="row">
+
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="col-md-12">
+                            <p>
+                                <div class="card ">
+                                    <div class="card-header">
+                                        產品基本資料
+                                        <div class="card-body">
+                                            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-xs-10" })
+                                            <div class="card-body">
+                                                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body">
+                                            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-xs-10" })
+                                            <div class="card-body">
+                                                @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            @Html.LabelFor(model => model.ProductPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="card-body">
+                                                @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.ProductPrice, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p>
+                            <p>
+                                <div class="card ">
+                                    <div class="card-header">
+                                        產品描述
+                                        <div class="card-body">
+                                            @Html.LabelFor(model => model.ProductDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="card-body">
+                                                @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            @Html.LabelFor(model => model.CategoryDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="card-body">
+                                                @Html.EditorFor(model => model.CategoryDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.CategoryDescription, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            @Html.LabelFor(model => model.UnitsInStock, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="card-body">
+                                                @Html.EditorFor(model => model.UnitsInStock, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.UnitsInStock, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p>
+                            <p>
+                                <div class="card ">
+                                    <div class="card-header">
+                                        產品圖片
+                                        <div class="card-body">
+                                            @Html.LabelFor(model => model.PicUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="card-body">
+                                                @Html.EditorFor(model => model.PicUrl, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.PicUrl, "", new { @class = "text-danger" })
+                                                <input id="fileupload" type="file" data-url="Assets/images" accept=".png,.jpg">
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body">
+                                            @Html.LabelFor(model => model.CategoryPic, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="card-body">
+                                                @Html.EditorFor(model => model.CategoryPic, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.CategoryPic, "", new { @class = "text-danger" })
+                                                <input id="fileupload2" type="file" name="files[]" data-url="Assets/images" accept=".png,.jpg">
+                                            </div>
+                                        </div>
+
+                                        
+
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                        <button type="submit" class="btn btn-primary">新增</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section EndCss{
+    <script>
+        $(function () {
+
+        });
+    </script>
+}
