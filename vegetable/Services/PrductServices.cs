@@ -25,7 +25,7 @@ namespace vegetable.Services
         //    Category Category = new Category() {  CategoryDescription=CategoryDescription, CategoryName=CategoryName, CategoryPic=CategoryPic };
         //    return Category;
         //}
-        public bool addProduct(Product product,Category category,PicDetail pic) {
+        public ErrorMessage addProduct(Product product,Category category,PicDetail pic) {
             ErrorMessage error = new ErrorMessage();
             error.IsSuccess = true;
             using (var data = item.Database.BeginTransaction())
@@ -50,10 +50,10 @@ namespace vegetable.Services
                     error.IsSuccess = false;
                     data.Rollback();
 
-                    return error.IsSuccess;
+                    return error;
                 }
             }
-            return error.IsSuccess;
+            return error;
         }
 
 

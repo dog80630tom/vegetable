@@ -63,7 +63,7 @@ namespace vegetable.Controllers
 
                 return View(new List<ProducetDetil>());
             }
-
+            ViewBag.ISuccess = "false";
             return View(initdata);
         }
         //[HttpPost]
@@ -81,10 +81,18 @@ namespace vegetable.Controllers
         public ActionResult Form(Product product,Category category,PicDetail picDetail)
         {
             PrductServices services = new PrductServices();
-         
-            services.addProduct(product, category, picDetail);
-
-            return View(initdetil());
+           
+            var result=services.addProduct(product, category, picDetail);
+            if (result.IsSuccess)
+            {
+                return View(initdetil());
+            }
+            else
+            {
+                ViewBag.ISuccess = "true";
+                ViewBag.ErrorMessage = result.Message;
+                return View(initdetil());
+            }
         }
         public ActionResult Create() {
             

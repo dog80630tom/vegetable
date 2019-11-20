@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Form";
     var data = new ProducetDetil();
+    var IsSccess = @ViewBag.ISuccess;
 }
 
 
@@ -38,31 +39,31 @@
         </thead>
         @foreach (var item in Model)
         {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitsInStock)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryDescription)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
-        </td>
-    </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitsInStock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryDescription)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+                </td>
+            </tr>
         }
 
     </table>
@@ -70,10 +71,13 @@
 <div class="col-md-7"></div>
 
 @Html.Partial("_CreatePartialView", data)
+@Html.Partial("_ErrorPartial")
 @section Endscripts
 {
     <script>
-
+        if (@IsSccess==true) {
+             $('#MyModal').modal('show');
+        }
         $('#Create').click(function (e) {
             $('#exampleModal').modal('show');
 
