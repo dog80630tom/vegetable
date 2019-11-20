@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using vegetable.Controllers;
 using vegetable.Models;
+using vegetable.Models.ViewModels;
 
 namespace vegetable.Services
 {
@@ -75,6 +76,27 @@ namespace vegetable.Services
             }
             return error;
         }
-
+        public ErrorMessage DeleteProduct(ProducetDetil a)
+        {
+            ErrorMessage error = new ErrorMessage();
+            error.IsSuccess = true;
+             try
+            {
+                Product product = new Product();
+                PicDetail pic = new PicDetail();
+                product.ProductID = a.ProductID;
+                pic.ProductID = a.ProductID;
+                item.Entry(product).State = EntityState.Deleted;
+                item.Entry(pic).State = EntityState.Deleted;
+                item.SaveChanges();
+            }
+            catch (Exception ex)
+            {   
+                error.IsSuccess = false;
+                error.Message = ex.Message;
+                return error;
+            }
+            return error;
+        }
     }
 }

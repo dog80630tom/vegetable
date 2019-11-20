@@ -116,6 +116,25 @@ namespace vegetable.Controllers
             return RedirectToAction("Form", initdetil());
         }
 
+        public ActionResult Delete(int? id)
+        {
+                var delItem = initdetil().Find(x => x.ProductID == id);
+                PrductServices services = new PrductServices();
+                services.DeleteProduct(delItem);
+            return RedirectToAction("Index");
+        }
+        /*public ActionResult Delete2(Product product,PicDetail pic)
+        {
+            PrductServices services = new PrductServices();
+            product.ProductID = (int)TempData["ProductID"];
+            pic.ProductID = product.ProductID;
+            services.DeleteProduct(product,pic);
 
+            TempData["ProductID"] = null;
+            //此程式碼是為了把資料不要被攻擊的預防行為
+            return RedirectToAction("Index");
+        }*/
+
+      
     }
 }
