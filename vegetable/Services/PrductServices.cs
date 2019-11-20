@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using vegetable.Controllers;
@@ -55,7 +56,29 @@ namespace vegetable.Services
             }
             return error.IsSuccess;
         }
-
+        public ErrorMessage EditProduct(Product product, Category category, PicDetail pic) {
+            ErrorMessage error = new ErrorMessage();
+            error.IsSuccess = true;
+            try
+            {
+                List<Product> data = item.Products.ToList();
+                List<Category> data2 = item.Categories.ToList();
+                product.ProductID= data.Find(x => x.ProductName == product.ProductName).ProductID;
+                category.CategoryID = data2.Find(x => x.CategoryName == category.CategoryName).CategoryID;
+                pic.ProductID = product.ProductID;
+                item.Entry(product).State = EntityState.Modified;
+                item.Entry(category).State = EntityState.Modified;
+                item.Entry(pic).State = EntityState.Modified;
+                item.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                error.IsSuccess = false;
+                error.Message = ex.Message;
+                return error;
+            }
+            return error;
+        }
 
     }
 }

@@ -86,8 +86,20 @@ namespace vegetable.Controllers
 
             return View(initdetil());
         }
-        public ActionResult Create() {
-            
+        //cinnaㄉ
+        public ActionResult Edit(int? id)
+        {
+           
+
+
+            return View(initdetil().Find(x=>x.ProductID==id));
+        }
+        [HttpPost]
+        public ActionResult Edit(Product product, Category category, PicDetail pic) {
+            PrductServices services = new PrductServices();
+
+            services.EditProduct(product, category, pic);
+
 
             return RedirectToAction("Form", initdetil());
         }
