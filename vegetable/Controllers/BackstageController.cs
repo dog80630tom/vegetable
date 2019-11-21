@@ -118,15 +118,15 @@ namespace vegetable.Controllers
 
         public ActionResult Delete(int? id)
         {
-                Product delItem =(from d in item.Products
+                var delItem =from d in item.Products
                              where d.ProductID==id
-                             select d).FirstOrDefault();
-            Category co = (from d in item.Categories
+                             select d;
+            var co = from d in item.Categories
                      where d.CategoryID == id
-                     select d).FirstOrDefault();
-            PicDetail itempic = (from d in item.PicDetails
+                     select d;
+            var itempic = from d in item.PicDetails
                           where d.ProductID == id
-                          select d).FirstOrDefault() ;
+                          select d ;
                
                 PrductServices services = new PrductServices();
                 services.DeleteProduct(delItem, itempic, co);

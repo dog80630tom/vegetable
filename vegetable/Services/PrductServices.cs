@@ -12,6 +12,7 @@ namespace vegetable.Services
     public class PrductServices
     {
         ItemContext item = new ItemContext();
+        ItemContext item2 = new ItemContext();
         //public Product GetProduct( string ProductName, String CategoryName, string ProductDescription, int UnitsInStock,int ProductPrice)
         //{
         //    Product product = new Product() {  CategoryName = ProductName, ProductDescription = CategoryName, ProductName = ProductName, UnitsInStock = UnitsInStock, ProductPrice= ProductPrice };
@@ -57,7 +58,7 @@ namespace vegetable.Services
             }
             return error;
         }
-        public ErrorMessage EditProduct(Product product, Category category, PicDetail pic) {
+        public ErrorMessage EditProduct( Product product, Category category, PicDetail pic) {
             ErrorMessage error = new ErrorMessage();
             error.IsSuccess = true;
             try
@@ -76,29 +77,37 @@ namespace vegetable.Services
             }
             return error;
         }
-        public ErrorMessage DeleteProduct(Product a,PicDetail picDetail,Category category)
+        public ErrorMessage DeleteProduct(IQueryable<Product> a, IQueryable<PicDetail> picDetail, IQueryable<Category> category)
         {
             ErrorMessage error = new ErrorMessage();
-            error.IsSuccess = true;
-             try
+
+            using (var data = item.Database.BeginTransaction())
             {
-                item.Entry(picDetail).State = EntityState.Deleted;
-                item.SaveChanges();
-                item.Entry(a).State = EntityState.Deleted;
-                
-                item.SaveChanges();
+                error.IsSuccess = true;
+                try
+                {
+                   
+                    item.Entry(picDetail.FirstOrDefault()).State = EntityState.Deleted;
+                    item.SaveChanges();
 
-                item.Entry(category).State = EntityState.Deleted;
+                    category.Load();
+                    item.Entry(a.FirstOrDefault()).State = EntityState.Deleted;
+                    item.SaveChanges();
 
 
-                item.SaveChanges();
-            }
-            catch (Exception ex)
-            {   
+                    item.Entry(category.FirstOrDefault()).State = EntityState.Deleted;
+                    item.SaveChanges();
 
-                error.IsSuccess = false;
-                error.Message = ex.Message;
-                return error;
+                    data.Commit();
+                }
+                catch (Exception ex)
+                {
+
+                    error.IsSuccess = false;
+                    error.Message = ex.Message;
+                    data.Rollback();
+                    return error;
+                }
             }
             return error;
         }
