@@ -76,22 +76,26 @@ namespace vegetable.Services
             }
             return error;
         }
-        public ErrorMessage DeleteProduct(ProducetDetil a)
+        public ErrorMessage DeleteProduct(Product a,PicDetail picDetail,Category category)
         {
             ErrorMessage error = new ErrorMessage();
             error.IsSuccess = true;
              try
             {
-                Product product = new Product();
-                PicDetail pic = new PicDetail();
-                product.ProductID = a.ProductID;
-                pic.ProductID = a.ProductID;
-                item.Entry(product).State = EntityState.Deleted;
-                item.Entry(pic).State = EntityState.Deleted;
+                item.Entry(picDetail).State = EntityState.Deleted;
+                item.SaveChanges();
+                item.Entry(a).State = EntityState.Deleted;
+                
+                item.SaveChanges();
+
+                item.Entry(category).State = EntityState.Deleted;
+
+
                 item.SaveChanges();
             }
             catch (Exception ex)
             {   
+
                 error.IsSuccess = false;
                 error.Message = ex.Message;
                 return error;

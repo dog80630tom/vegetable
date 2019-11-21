@@ -305,8 +305,6 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Backstage\Form.cshtml" />
     <Content Include="Views\Backstage\Edit.cshtml" />
-    <Content Include="Views\Backstage\Delete.cshtml" />
-    <Content Include="Views\Backstage\Delete2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
