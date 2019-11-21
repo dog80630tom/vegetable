@@ -106,8 +106,8 @@ namespace vegetable.Controllers
         {
             PrductServices services = new PrductServices();
             product.ProductID = (int)TempData["ProductID"];
-            category.CategoryID = product.ProductID;
-            product.CategoryID = product.ProductID;
+            category.CategoryID = (from d in item.Products where d.ProductID == product.ProductID select d).FirstOrDefault().CategoryID;
+            product.CategoryID = (from d in item.Products where d.ProductID == product.ProductID select d).FirstOrDefault().CategoryID;
             pic.ProductID = product.ProductID;
             services.EditProduct(product, category, pic);
 
@@ -121,8 +121,9 @@ namespace vegetable.Controllers
                 var delItem =from d in item.Products
                              where d.ProductID==id
                              select d;
+            var data2= (from d in item.Products where d.ProductID == id select d).FirstOrDefault().CategoryID;
             var co = from d in item.Categories
-                     where d.CategoryID == id
+                     where d.CategoryID == data2
                      select d;
             var itempic = from d in item.PicDetails
                           where d.ProductID == id

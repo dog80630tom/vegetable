@@ -41,8 +41,8 @@ namespace vegetable.Services
                     product.CategoryID = item.Categories.FirstOrDefault(x=>x.CategoryPic==category.CategoryPic).CategoryID;
                     item.Products.Add(product);
                     item.SaveChanges();
-                    
-                     pic.ProductID = product.CategoryID;
+                    var data2 = (from d in item.Products where d.CategoryID == product.CategoryID select d).FirstOrDefault().ProductID;
+                    pic.ProductID = data2;
                     item.PicDetails.Add(pic);
                     item.SaveChanges();
                     data.Commit();
