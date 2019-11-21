@@ -13,5 +13,18 @@ namespace vegetable.Controllers
         {
             return View();
         }
+        public ActionResult ShowProducts()
+        {
+            return View();
+        }
+        public ActionResult MemberRegist()
+        {
+            return View();
+        }
+        public ActionResult MemberLogInModel()
+        {
+            return View();
+        }
+
     }
 }

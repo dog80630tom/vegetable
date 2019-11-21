@@ -1,0 +1,222 @@
+﻿
+@{
+    ViewBag.Title = "MemberRegist";
+    Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
+}
+<script>
+    <link data-stencil-stylesheet=""
+        href="./Lovoda - Create Account_files/theme-7c94da70-d2b3-0137-43a5-0242ac110008.css" rel="stylesheet">
+
+</script>
+
+
+<div class="body" style="margin-top: 0px;background-color: white!important">
+
+    <div class="container_page" style="border-top: 0px;">
+
+        <div class="container">
+            <h1 class="page-heading">New Account</h1>
+
+            <div class="account account--fixed">
+                <div class="account-body">
+                    <form action="https://lovoda.com/login.php?action=save_new_account"
+                          data-create-account-form="" method="post" class="form">
+                        <div class="form-row form-row--half">
+                            <div class="form-field form-field--input form-field--inputText" id="FormField_1"
+                                 data-validation="{&quot;type&quot;:&quot;singleline&quot;,&quot;label&quot;:&quot;Email Address&quot;,&quot;required&quot;:true,&quot;maxlength&quot;:0}"
+                                 data-type="EmailAddress">
+                                <label class="form-label" for="FormField_1_input">
+                                    Email Address
+                                    <small>*</small>
+                                </label>
+                                <input type="text" id="FormField_1_input" data-label="Email Address"
+                                       name="FormField[1][1]" class="form-input" aria-required="true"
+                                       data-field-type="EmailAddress">
+                                <span style="display: none;"></span>
+                            </div>
+
+                            <div class="form-field form-field--input form-field--inputPassword"
+                                 id="FormField_2"
+                                 data-validation="{&quot;type&quot;:&quot;password&quot;,&quot;label&quot;:&quot;Password&quot;,&quot;required&quot;:true,&quot;maxlength&quot;:0}"
+                                 data-type="Password">
+                                <label class="form-label" for="FormField_2_input">
+                                    Password
+                                    <small>*</small>
+                                </label>
+                                <input type="password" class="form-input" id="FormField_2_input"
+                                       data-label="Password" name="FormField[1][2]" value="" autocomplete="off"
+                                       aria-required="true" data-field-type="Password">
+                                <span style="display: none;"></span>
+                            </div>
+
+                            <div class="form-field form-field--input form-field--inputPassword"
+                                 id="FormField_3"
+                                 data-validation="{&quot;type&quot;:&quot;password&quot;,&quot;label&quot;:&quot;Confirm Password&quot;,&quot;required&quot;:true,&quot;maxlength&quot;:0}"
+                                 data-type="ConfirmPassword">
+                                <label class="form-label" for="FormField_3_input">
+                                    Confirm Password
+                                    <small>*</small>
+                                </label>
+                                <input type="password" class="form-input" id="FormField_3_input"
+                                       data-label="Confirm Password" name="FormField[1][3]" value=""
+                                       autocomplete="off" aria-required="true"
+                                       data-field-type="ConfirmPassword">
+                                <span style="display: none;"></span>
+                            </div>
+
+                            <div class="form-field form-field--select" id="FormField_11"
+                                 data-validation="{&quot;type&quot;:&quot;singleselect&quot;,&quot;label&quot;:&quot;Country&quot;,&quot;required&quot;:true,&quot;prefix&quot;:&quot;Choose a Country&quot;}"
+                                 data-type="Country">
+                                <label class="form-label" for="FormField_11_select">
+                                    Country
+                                    <small>*</small>
+                                </label>
+                                <select class=" form-select" id="FormField_11_select" data-label="Country"
+                                        aria-required="true" name="FormField[2][11]" data-field-type="Country">
+                                </select>
+                                <span style="display: none;"></span>
+                            </div>
+
+                            <div class="form-field form-field--input form-field--inputText" id="FormField_4"
+                                 data-validation="{&quot;type&quot;:&quot;singleline&quot;,&quot;label&quot;:&quot;First Name&quot;,&quot;required&quot;:true,&quot;maxlength&quot;:0}"
+                                 data-type="FirstName">
+                                <label class="form-label" for="FormField_4_input">
+                                    First Name
+                                    <small>*</small>
+                                </label>
+                                <input type="text" id="FormField_4_input" data-label="First Name"
+                                       name="FormField[2][4]" class="form-input" aria-required="true"
+                                       data-field-type="FirstName">
+                                <span style="display: none;"></span>
+                            </div>
+
+                            <div class="form-field form-field--input form-field--inputText" id="FormField_5"
+                                 data-validation="{&quot;type&quot;:&quot;singleline&quot;,&quot;label&quot;:&quot;Last Name&quot;,&quot;required&quot;:true,&quot;maxlength&quot;:0}"
+                                 data-type="LastName">
+                                <label class="form-label" for="FormField_5_input">
+                                    Last Name
+                                    <small>*</small>
+                                </label>
+                                <input type="text" id="FormField_5_input" data-label="Last Name"
+                                       name="FormField[2][5]" class="form-input" aria-required="true"
+                                       data-field-type="LastName">
+                                <span style="display: none;"></span>
+                            </div>
+
+                            <div class="form-field form-field--input form-field--inputText" id="FormField_8"
+                                 data-validation="{&quot;type&quot;:&quot;singleline&quot;,&quot;label&quot;:&quot;Address Line 1&quot;,&quot;required&quot;:true,&quot;maxlength&quot;:0}"
+                                 data-type="AddressLine1">
+                                <label class="form-label" for="FormField_8_input">
+                                    Address Line 1
+                                    <small>*</small>
+                                </label>
+                                <input type="text" id="FormField_8_input" data-label="Address Line 1"
+                                       name="FormField[2][8]" class="form-input" aria-required="true"
+                                       data-field-type="AddressLine1">
+                                <span style="display: none;"></span>
+                            </div>
+
+                            <div class="form-field form-field--input form-field--inputText" id="FormField_9"
+                                 data-validation="{&quot;type&quot;:&quot;singleline&quot;,&quot;label&quot;:&quot;Address Line 2&quot;,&quot;required&quot;:false,&quot;maxlength&quot;:0}"
+                                 data-type="AddressLine2">
+                                <label class="form-label" for="FormField_9_input">
+                                    Address Line 2
+
+                                </label>
+                                <input type="text" id="FormField_9_input" data-label="Address Line 2"
+                                       name="FormField[2][9]" class="form-input" aria-required="false"
+                                       data-field-type="AddressLine2">
+                            </div>
+
+                            <div class="form-field form-field--input form-field--inputText" id="FormField_6"
+                                 data-validation="{&quot;type&quot;:&quot;singleline&quot;,&quot;label&quot;:&quot;Company Name&quot;,&quot;required&quot;:false,&quot;maxlength&quot;:0}"
+                                 data-type="CompanyName">
+                                <label class="form-label" for="FormField_6_input">
+                                    Company Name
+
+                                </label>
+                                <input type="text" id="FormField_6_input" data-label="Company Name"
+                                       name="FormField[2][6]" class="form-input" aria-required="false"
+                                       data-field-type="CompanyName">
+                            </div>
+
+                            <div class="form-field form-field--input form-field--inputText"
+                                 id="FormField_10"
+                                 data-validation="{&quot;type&quot;:&quot;singleline&quot;,&quot;label&quot;:&quot;Suburb\/City&quot;,&quot;required&quot;:true,&quot;maxlength&quot;:0}"
+                                 data-type="City">
+                                <label class="form-label" for="FormField_10_input">
+                                    Suburb/City
+                                    <small>*</small>
+                                </label>
+                                <input type="text" id="FormField_10_input" data-label="Suburb/City"
+                                       name="FormField[2][10]" class="form-input" aria-required="true"
+                                       data-field-type="City">
+                                <span style="display: none;"></span>
+                            </div>
+
+                            <div class="form-field form-field--select" id="FormField_12"
+                                 data-validation="{&quot;type&quot;:&quot;selectortext&quot;,&quot;label&quot;:&quot;State\/Province&quot;,&quot;required&quot;:true}"
+                                 data-type="State">
+                                <noscript>
+                                    <label class="form-label" for="FormField_12_input">
+                                        State/Province
+                                        <small>*</small>
+                                    </label>
+                                    <input type="text" id="FormField_12_input" name="FormField[2][12]"
+                                           value="" class="form-input" aria-required="true"
+                                           data-label="State/Province" />
+                                </noscript>
+
+                                <label class="form-label" for="FormField_12_select">
+                                    State/Province
+                                    <small>*</small>
+                                </label>
+                                <select name="FormField[2][12]" class="form-select" aria-required="true"
+                                        id="FormField_12_select" data-label="State/Province"
+                                        data-field-type="State">
+                                </select>
+                                <span style="display: none;"></span>
+                            </div>
+
+                            <div class="form-field form-field--input form-field--inputText"
+                                 id="FormField_13"
+                                 data-validation="{&quot;type&quot;:&quot;singleline&quot;,&quot;label&quot;:&quot;Zip\/Postcode&quot;,&quot;required&quot;:true,&quot;maxlength&quot;:0}"
+                                 data-type="Zip">
+                                <label class="form-label" for="FormField_13_input">
+                                    Zip/Postcode
+                                    <small>*</small>
+                                </label>
+                                <input type="text" id="FormField_13_input" data-label="Zip/Postcode"
+                                       name="FormField[2][13]" class="form-input" aria-required="true"
+                                       data-field-type="Zip">
+                                <span style="display: none;"></span>
+                            </div>
+
+                            <div class="form-field form-field--input form-field--inputText" id="FormField_7"
+                                 data-validation="{&quot;type&quot;:&quot;singleline&quot;,&quot;label&quot;:&quot;Phone Number&quot;,&quot;required&quot;:true,&quot;maxlength&quot;:0}"
+                                 data-type="Phone">
+                                <label class="form-label" for="FormField_7_input">
+                                    Phone Number
+                                    <small>*</small>
+                                </label>
+                                <input type="text" id="FormField_7_input" data-label="Phone Number"
+                                       name="FormField[2][7]" class="form-input" aria-required="true"
+                                       data-field-type="Phone">
+                                <span style="display: none;"></span>
+                            </div>
+
+
+
+                        </div>
+                        <br>
+                        <div class="form-actions">
+                            <input type="submit" class="btn btn-checkout" value="Create Account">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

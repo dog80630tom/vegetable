@@ -1,0 +1,2441 @@
+﻿
+@{
+    ViewBag.Title = "ShowProducts";
+    Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
+}
+
+    <style>
+        body {
+            margin: 0;
+            letter-spacing: 0.02em;
+            font-family: "Open Sans", Arial, Helvetica, sans-serif;
+        }
+
+        * {
+            outline: 0
+        }
+
+        a,
+        a:hover,
+        img,
+        img:hover {
+            text-decoration: none
+        }
+
+            a:active,
+            a:focus,
+            img:active,
+            img:focus {
+                text-decoration: none
+            }
+
+        ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        a:hover {
+            cursor: pointer;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .show-all {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ---------------------- */
+        #container_page_nav {
+            background-color: #f7f8f9;
+            padding: 20px 0 15px 15px;
+            margin-top: 15px;
+            margin-bottom: 36px;
+        }
+
+        .breadcrumb {
+            background-color: #f7f8f9;
+            offset: 0;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb-item {
+            display: inline-block;
+            font-size: 12px;
+            padding-right: 10px;
+            color: #a0a0a0;
+        }
+
+            .breadcrumb-item::before {
+                content: ">" !important;
+                color: #b4b4b4 !important;
+                margin: 0 12px 0 3px;
+            }
+
+            .breadcrumb-item:first-child::before {
+                display: none;
+            }
+
+            .breadcrumb-item a {
+                color: #b4b4b4;
+            }
+
+                .breadcrumb-item a:hover {
+                    color: #000;
+                    text-decoration: none;
+                    border-bottom: 1px solid #000;
+                }
+
+            .breadcrumb-item.active a:hover {
+                color: #a0a0a0;
+            }
+
+        /* ---------------------- */
+        .container_page {
+            margin: 0;
+        }
+
+        /* ---------------------- */
+        .container_page_body {
+            padding: 0 15px;
+        }
+
+        .sidebarBlock {
+            margin-bottom: 17px;
+            clear: both;
+        }
+
+        .side-module-heading {
+            font-family: "Open Sans", Arial, Helvetica, sans-serif;
+            font-weight: 800;
+            margin-top: 22px;
+            padding-bottom: 22px;
+            margin-bottom: 0;
+            font-size: 15px;
+            text-transform: capitalize;
+            letter-spacing: .05em;
+        }
+
+        .sidebarBlock .side-module-heading {
+            margin-top: 0;
+            margin-bottom: 30px;
+            padding-top: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .navList {
+            padding: 0;
+        }
+
+        .navList-item {
+            padding: 0 0 22px 0;
+        }
+
+            .sidebarBlock a,
+            .navList-item p {
+                font-size: 12px;
+                color: #000;
+                transition: all .3s ease 0s;
+            }
+
+        .navList-action {
+            padding: 0;
+            display: inline;
+            font-weight: 600;
+        }
+
+            .navList-action:hover {
+                border-bottom: 1px dotted #000;
+            }
+
+        .side-module-heading + ul {
+            padding: 0;
+        }
+
+            .side-module-heading + ul li:not(.navList-item) {
+                padding: 0 0 10px 0;
+            }
+
+                .side-module-heading + ul li:not(.navList-item) a:hover {
+                    border-bottom: 1px solid #000;
+                }
+
+        /* ---------------------- */
+
+        .category-heading .page-heading {
+            display: inline-block;
+            padding: 2px 0 20px;
+            margin-bottom: 3px;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: left;
+            text-transform: capitalize;
+        }
+
+        .view-mode-btn {
+            /* position: relative;
+            align-items: center;
+            width: 150px;
+            margin: 0;
+            display: inline-flex; */
+        }
+
+            /*
+        .actionBar {
+
+            font-size: 12px;
+            font-weight: 600;
+        } */
+
+            .view-mode-btn a.current-view {
+                cursor: default;
+            }
+
+            .view-mode-btn label {
+                width: 65px;
+                /* font-family: "Open Sans", Arial, Helvetica, sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            white-space: nowrap;
+
+            letter-spacing: .05em;
+            padding-right: 12px; */
+            }
+
+            .view-mode-btn .btn-group {
+                display: inline-flex;
+            }
+
+            .view-mode-btn a,
+            .view-mode-btn a:active,
+            .view-mode-btn a:focus,
+            .view-mode-btn a:hover {
+                font-size: 11px;
+                font-weight: 400;
+                position: relative;
+                display: flex;
+                -ms-flex-align: center;
+                align-items: center;
+                -ms-flex-pack: start;
+                justify-content: flex-start;
+                width: 40px;
+                height: 40px;
+                margin-right: 0;
+                margin-left: 0;
+                text-decoration: none;
+                padding: 5px;
+                border: 1px solid #e5e5e5;
+            }
+
+                .view-mode-btn a > div {
+                    width: 30px;
+                }
+
+                .view-mode-btn a#grid-view {
+                    border-bottom: 1px solid #dedede;
+                    margin-right: -1px;
+                }
+
+                    .view-mode-btn a#grid-view .icon-bar {
+                        width: 4px
+                    }
+
+                        .view-mode-btn a#grid-view .icon-bar:after,
+                        .view-mode-btn a#grid-view .icon-bar:before {
+                            position: absolute;
+                            display: block;
+                            width: 4px;
+                            height: 4px;
+                            content: '';
+                            transition: all .15s ease;
+                            background: #e5e5e5;
+                        }
+
+                        .view-mode-btn a#grid-view .icon-bar:before {
+                            left: -5px;
+                        }
+
+                        .view-mode-btn a#grid-view .icon-bar:after {
+                            right: -5px;
+                        }
+
+                    .view-mode-btn a#grid-view.current-view .icon-bar:after,
+                    .view-mode-btn a#grid-view.current-view .icon-bar:before,
+                    .view-mode-btn a.current-view .icon-bar {
+                        background: #232323;
+                    }
+
+                .view-mode-btn a .icon-bar {
+                    filter: alpha(opacity=100);
+                    opacity: 1;
+                    position: relative;
+                    top: -1px;
+                    width: 14px;
+                    height: 4px;
+                    margin: 1px auto 0;
+                    transition: all .15s ease;
+                    background: #e5e5e5;
+                }
+
+        .actionBar {
+            margin: 0;
+            font-family: "Open Sans", Arial, Helvetica, sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+            .actionBar:after,
+            .actionBar:before {
+                content: " ";
+                display: table;
+            }
+
+        .actionBar {
+            text-align: right;
+            margin-left: 40px;
+        }
+
+        .fieldset {
+            float: none;
+        }
+
+        .form-field {
+            margin: 0;
+        }
+
+        .actionBar label {
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            position: relative;
+            top: 0;
+            margin-right: 11px;
+        }
+
+        .actionBar[data-sort-by] select {
+            display: inline-block;
+            max-width: 180px;
+            height: 40px;
+        }
+
+            .actionBar[data-sort-by] select option {
+                padding: 5px 10px;
+            }
+
+        .actionBar-section:after,
+        .actionBar:after {
+            clear: both;
+        }
+
+        .actionBar-section:after,
+        .actionBar-section:before {
+            content: " ";
+            display: table;
+        }
+
+        .form-fieldset {
+            border-width: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+            display: inline-block;
+            margin: 0 0 2rem;
+            max-width: none;
+        }
+
+            .form-field:after,
+            .form-field:before {
+                content: " ";
+                display: table;
+            }
+
+        .form-label {
+            letter-spacing: .05em;
+            margin-bottom: 10px;
+            display: block;
+            color: #000;
+            line-height: 1.5;
+        }
+
+        .product-pagination {
+            margin-bottom: 25px;
+            align-items: right;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+
+    <div class="show-all">
+        <div class="container_page">
+            <div id="container_page_nav">
+                <div class="container">
+                    <!-- 要塞目錄資料及連結資料   開頭-->
+                    <!-- 動態綁定有a標籤href及text屬性 -->
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="#">Necklaces</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <a href="#">Y-Necklace &amp; Lariat</a>
+                        </li>
+                    </ul>
+                    <!-- 要塞目錄資料及連結資料   結尾-->
+                </div>
+            </div>
+            <div class="container">
+                <div class="container_page_body row">
+                    <div class="page_sidebar col-sm-3" id="faceted-search-container">
+                        <!-- <div id="sidebar-toggle">
+                    <a class="btn btn-alt" href="#">SHOWSIDEBAR<i class="fa fa-plus"></i></a>
+                    </div> -->
+                        <nav>
+                            <div class="sidebarBlock" id="sidebar-wrapper">
+                                <h5 class="side-module-heading"><span>Categories</span></h5>
+                                <ul class="navList">
+                                    <li class="navList-item">
+                                        <a class="navList-action" href="https://lovoda.com/crawlers-and-pins/"
+                                           alt="Crawlers and Pins" title="Crawlers and Pins">Crawlers and Pins</a>
+                                    </li>
+                                    <li class="navList-item">
+                                        <a class="navList-action" href="https://lovoda.com/threader-earrings/"
+                                           alt="Threader Earrings" title="Threader Earrings">Threader Earrings</a>
+                                    </li>
+                                    <li class="navList-item">
+                                        <a class="navList-action" href="https://lovoda.com/earring-sets/"
+                                           alt="Earring Sets" title="Earring Sets">Earring Sets</a>
+                                    </li>
+                                    <li class="navList-item">
+                                        <a class="navList-action" href="https://lovoda.com/cuffs/" alt="Cuffs"
+                                           title="Cuffs">Cuffs</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="sidebarBlock" id="sideShopByPrice">
+                                <h5 class="side-module-heading"><span>Shop by Price</span></h5>
+                                <ul>
+                                    <li>
+                                        <a class=""
+                                           href="https://lovoda.com/y-necklace-lariat/?price_min=0&amp;price_max=19&amp;sort=newest"
+                                           alt="$0.00 - $19.00" title="$0.00 - $19.00">$0.00 - $19.00</a>
+                                    </li>
+                                    <li>
+                                        <a class=""
+                                           href="https://lovoda.com/y-necklace-lariat/?price_min=19&amp;price_max=23&amp;sort=newest"
+                                           alt="$19.00 - $23.00" title="$19.00 - $23.00">$19.00 - $23.00</a>
+                                    </li>
+                                    <li>
+                                        <a class=""
+                                           href="https://lovoda.com/y-necklace-lariat/?price_min=23&amp;price_max=27&amp;sort=newest"
+                                           alt="$23.00 - $27.00" title="$23.00 - $27.00">$23.00 - $27.00</a>
+                                    </li>
+                                    <li>
+                                        <a class=""
+                                           href="https://lovoda.com/y-necklace-lariat/?price_min=27&amp;price_max=31&amp;sort=newest"
+                                           alt="$27.00 - $31.00" title="$27.00 - $31.00">$27.00 - $31.00</a>
+                                    </li>
+                                    <li>
+                                        <a class=""
+                                           href="https://lovoda.com/y-necklace-lariat/?price_min=31&amp;price_max=35&amp;sort=newest"
+                                           alt="$31.00 - $35.00" title="$31.00 - $35.00">$31.00 - $35.00</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+
+                            <!-- BEGIN Side Custom CMS Block -->
+                            <!-- <div id="sideCustomCMS" class="sidebarBlock">
+                            <h5 class="side-module-heading"><span></span></h5>
+                            <div class="side-cms-content">
+                                <p></p>
+                                <p></p>
+                            </div>
+                        </div> -->
+                            <!-- END Side Custom CMS Block -->
+                        </nav>
+                    </div>
+
+                    <main class="page-content col-sm-9">
+                        <div class="category-heading">
+                            <h1 class="page-heading">Y-Necklace &amp; Lariat</h1>
+                        </div>
+
+                        <div id="product-listing-container" class="showMoreCat">
+                            <!-- snippet location categories -->
+
+                            <div class="product-pagination top">
+                                <div class="view-mode-btn">
+                                    <label class="view-as">VIEW AS</label>
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" id="grid-view" title="Grid View"
+                                           class="current-view">
+                                            <div>
+                                                <div class="icon-bar"></div>
+                                                <div class="icon-bar"></div>
+                                                <div class="icon-bar"></div>
+                                            </div>
+                                        </a>
+                                        <a href="javascript:void(0);" id="list-view" title="List View" class="">
+                                            <div>
+                                                <div class="icon-bar"></div>
+                                                <div class="icon-bar"></div>
+                                                <div class="icon-bar"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <form class="actionBar" method="get" data-sort-by="">
+                                    <fieldset class="form-fieldset actionBar-section">
+                                        <div class="form-field">
+                                            <label class="form-label" for="sort">Sort By:</label>
+                                            <select class="form-select form-select--small" name="sort" id="sort">
+                                                <option value="featured">Featured Items</option>
+                                                <option value="newest" selected="">Newest Items</option>
+                                                <option value="bestselling">Best Selling</option>
+                                                <option value="alphaasc">A to Z</option>
+                                                <option value="alphadesc">Z to A</option>
+                                                <option value="avgcustomerreview">By Review</option>
+                                                <option value="priceasc">Price: Ascending</option>
+                                                <option value="pricedesc">Price: Descending</option>
+                                            </select>
+                                        </div>
+                                    </fieldset>
+
+                                </form>
+                            </div>
+
+                            <form action="/compare" method="POST" data-product-compare="">
+                                <div class="module-wrapper">
+                                    <div class="productBlockContainer columns-3">
+                                        <div class="prod-item " data-wow-delay="0ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/shine-bright-y-necklace-14k/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24309/020400079-4__16018.1562615109.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=5597"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=5597"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="5597">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/shine-bright-y-necklace-14k/">
+                                                                Shine Bright Y-Necklace (14K)
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$24.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Shine bright and sparkle big with this gold chain
+                                                                Y-Necklace with crystal circle stones all throughout.
+                                                                &amp;bull; 14K Gold over Stainless Steel
+                                                                Measurements: &amp;bull; Length: 17.5 in. / 44.5 cm.
+                                                                &amp;bull; Extension: 2.5 in. / 6.4 cm. &amp;bull; Front
+                                                                Drop: 6 in. /...
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="5597"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=5597"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=5597"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="1ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/wish-away-lariat-necklace-gold-14k/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/4997/21423/020400075-G_1_of_2__59913.1532965705.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/4997/21423/020400075-G_1_of_2__59913.1532965705.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/4997/24355/020400075-G-5__32762.1563551117.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=4997"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=4997"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="4997">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/wish-away-lariat-necklace-gold-14k/">
+                                                                Wish Away Lariat Necklace | Gold (14K)
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$21.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                A single stone and pearl lariat necklace.
+                                                                &amp;bull; 14K Gold over Sterling Silver&amp;bull;
+                                                                Spring ring clasp&amp;nbsp;Measurements:
+                                                                &amp;bull; Length: 15.5 in. / 39.37
+                                                                cm.&amp;nbsp;&amp;nbsp;&amp;bull; Extension: 1.5 in. /
+                                                                3.81 cm.&amp;nbsp;&amp;nbsp;&amp;bull; Drop: 2 in. /
+                                                                5.08 cm
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="4997"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="5.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star"></i><i class="stamped-fa stamped-fa-star"></i><i class="stamped-fa stamped-fa-star"></i><i class="stamped-fa stamped-fa-star"></i><i class="stamped-fa stamped-fa-star"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="1"
+                                                                             data-rating="5.0" aria-label="1 reviews"
+                                                                             data-version="2">
+                                                                    1<span style="display:none;">
+                                                                        review
+                                                                    </span>
+                                                                </span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=4997"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=4997"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="2ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/falling-in-love-lariat-necklace-sterl/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/4982/21390/020400074_1_of_2__96509.1532550954.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/4982/21390/020400074_1_of_2__96509.1532550954.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/4982/24357/020400074-5__08722.1563551227.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=4982"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=4982"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="4982">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/falling-in-love-lariat-necklace-sterl/">
+                                                                Falling in Love Lariat Necklace (sterl.)
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$28.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Mini sterling silver hearts connecting together to make
+                                                                the perfect lariat necklace for every lover.
+                                                                &amp;bull; Sterling Silver&amp;bull; Spring ring
+                                                                clasp&amp;nbsp;Measurements:
+                                                                &amp;bull; Length: 15.5 in. / 39.37
+                                                                cm.&amp;nbsp;&amp;nbsp;&amp;bull; Extension: 2 in. /
+                                                                5.08 cm...
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="4982"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=4982"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=4982"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="3ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/wish-away-lariat-necklace-silver-sterl/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/4981/21388/020400075-S_1_of_2__73408.1532548670.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/4981/21388/020400075-S_1_of_2__73408.1532548670.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/4981/23452/020400075-S_M__59881.1558713601.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=4981"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=4981"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="4981">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/wish-away-lariat-necklace-silver-sterl/">
+                                                                Wish Away Lariat Necklace | Silver (sterl.)
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$21.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                A single stone and pearl lariat necklace.
+                                                                &amp;bull; Sterling Silver&amp;bull; Spring ring
+                                                                clasp&amp;nbsp;Measurements:
+                                                                &amp;bull; Length: 15.5 in. / 39.37
+                                                                cm.&amp;nbsp;&amp;nbsp;&amp;bull; Extension: 1.5 in. /
+                                                                3.81 cm.&amp;nbsp;&amp;nbsp;&amp;bull; Drop: 2 in. /
+                                                                5.08 cm.
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="4981"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=4981"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=4981"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="4ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/gold-medallion-y-necklace/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3969/22522/020400066-3__38398.1552662800.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3969/22522/020400066-3__38398.1552662800.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3969/17264/020400066-m_1_of_2__55181.1513960651.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3969"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3969"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3969">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/gold-medallion-y-necklace/">
+                                                                Gold Medallion Y-Necklace
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$18.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                A gold medal for a winning style. Golden medallion
+                                                                pendant necklace with a brushed finish.
+                                                                &amp;bull; Lobster clasp&amp;bull; Gold brass
+                                                                Measurements:&amp;bull; Length: 23 in. / 58.42
+                                                                cm.&amp;nbsp;&amp;bull; Pendant: 1.15 in. / 2.92
+                                                                cm.&amp;nbsp;&amp;bull; Extension: 2 in. / 5.08...
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3969"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3969"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3969"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="5ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/graceling-gold-orb-y-necklace/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3965/17205/020400067_1_of_2__14554.1513798896.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3965/17205/020400067_1_of_2__14554.1513798896.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3965/17265/020400067-m_1_of_1__94177.1513960672.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3965"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3965"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3965">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/graceling-gold-orb-y-necklace/">
+                                                                Graceling Gold Orb Y-Necklace
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$16.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+
+
+                                                                Nothing screams on-trend like this golden y-necklace
+                                                                with a drape of elegant golden orbs.&amp;nbsp;
+                                                                &amp;bull; Lobster clasp&amp;bull; Gold brass
+                                                                Measurements:&amp;bull; Length: 24 in. / 60.96
+                                                                cm.&amp;nbsp;&amp;bull; Drop: 7.5 in. / 19.05
+                                                                cm.&amp;nbsp;
+                                                                &amp;nbsp;
+
+
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3965"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3965"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3965"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="6ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/jules-lariat-necklace/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3886/16795/020400062_1_of_5__78100.1512405194.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3886/16795/020400062_1_of_5__78100.1512405194.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3886/17263/020400062-m_1_of_1__02418.1513960618.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3886"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3886"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3886">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/jules-lariat-necklace/">
+                                                                Jules Lariat Necklace
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$16.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Minimalist bar and chain pull through lariat necklace.
+                                                                One of those simple, jewelry pieces you need to keep
+                                                                around.&amp;nbsp;
+                                                                &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                                through adjustable length&amp;bull; Gold brass
+                                                                Measurements:&amp;bull; Length: 31 in. /...
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3886"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3886"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3886"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="7ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/darling-duo-wood-bolo-necklace/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3578/15361/020400057_1_of_4__31579.1505420681.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3578/15361/020400057_1_of_4__31579.1505420681.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3578"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3578"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3578">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/darling-duo-wood-bolo-necklace/">
+                                                                Darling Duo Wood Bolo Necklace
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$16.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Double semi-circle wood pendants balance between an
+                                                                adjustable, gold bolo synch.
+                                                                &amp;bull; Natural Wood
+                                                                Measurements:&amp;bull; Length: 36 in. / 91.44
+                                                                cm.&amp;nbsp;&amp;bull; Pendant: 1.25 in. / 3.17
+                                                                cm.&amp;nbsp;
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3578"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3578"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3578"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="8ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/rising-sun-wood-lariat-necklace/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3577/15349/020400056_1_of_4__79786.1505404090.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3577/15349/020400056_1_of_4__79786.1505404090.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3577/23453/020400056_M__44764.1558713679.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3577"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3577"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3577">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/rising-sun-wood-lariat-necklace/">
+                                                                Rising Sun Wood Lariat Necklace
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$16.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+
+
+                                                                Minimalist styled wood and gold bar lariat necklace.
+                                                                Pair this with your favorite solid colored v-neck
+                                                                top.&amp;nbsp;&amp;nbsp;
+                                                                &amp;bull; Lobster clasp&amp;bull; Pull through
+                                                                adjustable length&amp;bull; Natural Wood
+                                                                Measurements:&amp;bull; Length: 28 in. / 71.12 cm...
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3577"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3577"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3577"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="9ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/matchstick-wood-y-necklace-walnut/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3575/15322/020400060_1_of_4__63271.1505329413.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3575/15322/020400060_1_of_4__63271.1505329413.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3575/15320/020400060_2_of_4__91515.1505329413.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3575"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3575"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3575">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/matchstick-wood-y-necklace-walnut/">
+                                                                Matchstick Wood Y-Necklace | Walnut
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$16.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Minimalist styled gold chain necklace with a walnut brown
+                                                                matchstick finish.&amp;nbsp;
+                                                                &amp;bull; Lobster clasp&amp;bull; natural wood with
+                                                                color
+                                                                Measurements:&amp;bull; Length: 23.5 in. / 59.69
+                                                                cm.&amp;nbsp;&amp;bull; Drop: 7 in. / 17.78
+                                                                cm.&amp;nbsp;&amp;bull; Matchstick: 2.5 in. /...
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3575"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3575"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3575"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="10ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/matchstick-wood-y-necklace-white/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3574/15317/020400058_1_of_3__40347.1505329064.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3574/15317/020400058_1_of_3__40347.1505329064.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3574/15319/020400058_2_of_3__51263.1505329064.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3574"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3574"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3574">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/matchstick-wood-y-necklace-white/">
+                                                                Matchstick Wood Y-Necklace | White
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$16.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Minimalist styled gold chain necklace with a white
+                                                                matchstick finish.&amp;nbsp;
+                                                                &amp;bull; Lobster clasp&amp;bull; natural wood with
+                                                                color
+                                                                Measurements:&amp;bull; Length: 23.5 in. / 59.69
+                                                                cm.&amp;nbsp;&amp;bull; Drop: 7 in. / 17.78
+                                                                cm.&amp;nbsp;&amp;bull; Matchstick: 2.5 in. / 6.35...
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3574"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3574"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3574"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="11ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/matchstick-wood-y-necklace-pink/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3573/26887/020400059-1__51878.1573844386.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3573/26887/020400059-1__51878.1573844386.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3573/26888/020400059-3__43420.1573844392.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3573"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3573"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3573">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/matchstick-wood-y-necklace-pink/">
+                                                                Matchstick Wood Y-Necklace | Pink
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$16.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Minimalist styled gold chain necklace with a pink
+                                                                matchstick finish.&amp;nbsp;
+                                                                &amp;bull; Lobster clasp&amp;bull; natural wood with
+                                                                color
+                                                                Measurements:&amp;bull; Length: 23.5 in. / 59.69
+                                                                cm.&amp;nbsp;&amp;bull; Drop: 7 in. / 17.78
+                                                                cm.&amp;nbsp;&amp;bull; Matchstick: 2.5 in. / 6.35 cm...
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3573"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3573"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3573"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="12ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/elia-lariat-necklace-rose-gold-14k/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3199/13696/020400055_1_of_3__87799.1497290011.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3199/13696/020400055_1_of_3__87799.1497290011.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3199/13698/020400055_3_of_3__31513.1497290012.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3199"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3199"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3199">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/elia-lariat-necklace-rose-gold-14k/">
+                                                                Elia Lariat Necklace | Rose Gold (14K)
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$18.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Elegant pull through necklace with black and opal semi
+                                                                ellipse charms.&amp;nbsp;&amp;nbsp;
+                                                                &amp;bull; Lobster clasp&amp;bull; 14K Rose gold over
+                                                                stainless steel
+                                                                Measurements:&amp;bull; Length: 16 in. / 40.64
+                                                                cm.&amp;nbsp;&amp;nbsp;&amp;bull; Extension: 2 in. /
+                                                                5.08 cm.&amp;nbsp;
+                                                                &amp;nbsp;
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3199"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3199"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3199"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="13ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/elia-lariat-necklace-gold-14k/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3198/13694/020400054_1_of_3__69335.1497289788.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3198/13694/020400054_1_of_3__69335.1497289788.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3198/13695/020400054_3_of_3__78583.1497289788.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3198"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3198"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3198">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/elia-lariat-necklace-gold-14k/">
+                                                                Elia Lariat Necklace | Gold (14K)
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$18.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Elegant pull through necklace with black and opal semi
+                                                                ellipse charms.&amp;nbsp;&amp;nbsp;
+                                                                &amp;bull; Lobster clasp&amp;bull; 14K Gold over
+                                                                stainless steel
+                                                                Measurements:&amp;bull; Length: 16 in. / 40.64
+                                                                cm.&amp;nbsp;&amp;nbsp;&amp;bull; Extension: 2 in. /
+                                                                5.08 cm.&amp;nbsp;
+                                                                &amp;nbsp;
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3198"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3198"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3198"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="14ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/feather-y-necklace-14k/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3197/13689/020400051_4_of_4__82389.1497287470.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3197/13689/020400051_4_of_4__82389.1497287470.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3197/13690/020400051_3_of_4__84842.1497287470.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3197"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3197"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3197">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/feather-y-necklace-14k/">
+                                                                Feather Y-Necklace (14K)
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$18.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Free spirited golden dangling feather chain
+                                                                necklace.&amp;nbsp;&amp;nbsp;
+                                                                &amp;bull; Lobster clasp&amp;bull; 14K Gold over
+                                                                stainless steel
+                                                                Measurements:&amp;bull; Length: 17 in. / 43.18
+                                                                cm.&amp;nbsp;&amp;bull; Drop: 3 in. / 7.62 cm.&amp;nbsp;
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3197"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3197"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3197"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="15ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/sora-necklace-rose-gold-14k/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3196/13688/020400053_1_of_lazy__44125.1497286538.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3196/13688/020400053_1_of_lazy__44125.1497286538.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3196/13686/020400053_1_of_2__35907.1497286287.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3196"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3196"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3196">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/sora-necklace-rose-gold-14k/">
+                                                                Sora Necklace | Rose Gold (14K)
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$16.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Rose gold chained necklace with a sphere and dangling
+                                                                bars.&amp;nbsp;&amp;nbsp;
+                                                                &amp;bull; Lobster clasp&amp;bull; 14K rose gold plated
+                                                                stainless steel
+                                                                Measurements:&amp;bull; Length: 17 in. / 43.18
+                                                                cm.&amp;nbsp;&amp;bull; Drop: 2.5 in. / 6.35
+                                                                cm.&amp;nbsp;
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3196"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3196"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3196"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="16ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/sora-necklace-gold-14k/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3195/13685/020400052_1_of_3__07087.1497285903.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3195/13685/020400052_1_of_3__07087.1497285903.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3195/13683/020400052_2_of_3__11383.1497285903.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3195"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3195"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3195">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/sora-necklace-gold-14k/">
+                                                                Sora Necklace | Gold (14K)
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$16.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Gold chained necklace with a sphere and dangling
+                                                                bars.&amp;nbsp;&amp;nbsp;
+                                                                &amp;bull; Lobster clasp&amp;bull; 14K Gold over
+                                                                stainless steel
+                                                                Measurements:&amp;bull; Length: 17 in. / 43.18
+                                                                cm.&amp;nbsp;&amp;bull; Drop: 2.5 in. / 6.35
+                                                                cm.&amp;nbsp;
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3195"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3195"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3195"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="17ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/olivia-y-necklace/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3020/13021/020400047_1_of_4__16996.1493752412.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3020/13021/020400047_1_of_4__16996.1493752412.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3020/17261/020400047-m_1_of_1__36410.1513960570.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3020"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/olivia-y-necklace/"
+                                                               class="btn btn-primary btnATC btn-outofstock hidden-xs hidden-sm hidden-md"
+                                                               data-product-id="3020">Out of stock</a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3020">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                        <div class="soldout-badge">SOLD OUT</div>
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/olivia-y-necklace/">
+                                                                Olivia Y-Necklace
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$18.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Gold chain necklace with three round stone vertical
+                                                                drop.&amp;nbsp;
+                                                                &amp;bull; Plated Brass&amp;bull; Lobster
+                                                                claspMeasurement:&amp;bull; Chain: 23.5 in. / 59.6
+                                                                cm.&amp;nbsp;&amp;bull; Extension: 2 in. / 5.08
+                                                                cm.&amp;nbsp;&amp;bull; Drop: 4.5 in. / 11.4 cm.
+                                                                &amp;nbsp;
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3020"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/olivia-y-necklace/"
+                                                           class="btn btn-primary btnATC btn-outofstock hidden-lg"
+                                                           data-product-id="3020">Out of stock</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3020"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="18ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/abria-y-necklace/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3019/13017/020400049_2_of_6__49567.1493750877.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3019/13017/020400049_2_of_6__49567.1493750877.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3019/13019/020400049_5_of_6__93487.1493750879.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3019"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3019"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3019">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/abria-y-necklace/">
+                                                                Abria Y-Necklace
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$18.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Fine gold chain necklace with beautiful, round enclosed
+                                                                crystal stones and bar drop.&amp;nbsp;
+                                                                &amp;bull; Plated Brass&amp;bull; Lobster
+                                                                claspMeasurement:&amp;bull; Chain: 23.5 in. / 59.6
+                                                                cm.&amp;nbsp;&amp;bull; Extension: 2 in. / 5.08
+                                                                cm.&amp;nbsp;&amp;bull; Drop: 5.75 in. / 14.6 cm...
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3019"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3019"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3019"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                        <div class="prod-item " data-wow-delay="19ms">
+                                            <article class="card ">
+                                                <figure class="card-figure">
+                                                    <div class="prod-image">
+                                                        <a href="https://lovoda.com/journey-layered-y-necklace/">
+                                                            <img class="card-image lazyautosizes lazyloaded"
+                                                                 data-sizes="auto"
+                                                                 src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3018/13016/020700034_1_of_2__92576.1493750229.jpg?c=2"
+                                                                 data-src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3018/13016/020700034_1_of_2__92576.1493750229.jpg?c=2"
+                                                                 data-src-swap="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3018/23486/020700034_M__87944.1558720549.jpg?c=2"
+                                                                 alt="" title="" sizes="286px">
+                                                        </a>
+                                                        <div class="actions">
+                                                            <a href="/wishlist.php?action=add&amp;product_id=3018"
+                                                               class="btnWL" title="Add to Wish list">
+                                                                <i class="fa fa-heart-o"></i><span>
+                                                                    Add to Wish
+                                                                    list
+                                                                </span>
+                                                            </a>
+                                                            <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3018"
+                                                               class="btn btn-primary btnATC hidden-xs hidden-sm hidden-md">
+                                                                Add
+                                                                to Cart
+                                                            </a>
+
+                                                            <a href="#" class="btnQV quickview"
+                                                               data-product-id="3018">
+                                                                Quick
+                                                                view
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <figcaption class="prod-desc">
+
+                                                        <p class="prod-brand" data-test-info-type="brandName"></p>
+
+                                                        <h4 class="prod-name">
+                                                            <a href="https://lovoda.com/journey-layered-y-necklace/">
+                                                                Journey Layered Y-Necklace
+                                                            </a>
+                                                        </h4>
+
+                                                        <div class="prod-price" data-test-info-type="price">
+                                                            <div class="price-section price-section--withoutTax ">
+                                                                <span data-product-price-without-tax=""
+                                                                      class="price price--withoutTax">$18.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prod-summary">
+                                                            <p>
+                                                                Minimalist layered gold necklace with a dotted chain and
+                                                                triangle pendant drop. &amp;nbsp;
+                                                                &amp;bull; Plated Brass&amp;bull; Lobster
+                                                                clasp&amp;bull; Connected layersMeasurement:&amp;bull;
+                                                                Chain: 15 in. / 38.1 cm.&amp;nbsp;&amp;bull; Extension:
+                                                                2 in. / 5.08 cm.&amp;nbsp;&amp;bull; Drop: 10...
+                                                            </p>
+                                                        </div>
+                                                        <span class="stamped-product-reviews-badge" data-id="3018"
+                                                              style="display:block;">
+                                                            <span class="stamped-badge"
+                                                                  data-rating="0.0" data-lang="">
+                                                                <span class="stamped-starrating stamped-badge-starrating">
+                                                                    <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                                                                </span><span class="stamped-badge-caption" data-reviews="0"
+                                                                             data-rating="0.0" aria-label="0 reviews"
+                                                                             data-version="2"></span>
+                                                            </span>
+                                                        </span>
+
+
+
+
+                                                        <a href="https://lovoda.com/cart.php?action=add&amp;product_id=3018"
+                                                           class="btn btn-primary btnATC hidden-lg">Add to Cart</a>
+
+                                                        <a href="/wishlist.php?action=add&amp;product_id=3018"
+                                                           class="btnWL" title="Add to Wish list">
+                                                            <i class="fa fa-heart-o"></i><span>
+                                                                Add
+                                                                to Wish
+                                                                list
+                                                            </span>
+                                                        </a>
+
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="product-pagination bottom" data-total_products="44">
+                                <div class="pagination">
+                                    <ul class="pagination-list">
+                                        <li class="pagination-item pagination-item--current">
+                                            <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=1"
+                                               data-faceted-search-facet="">1</a>
+                                        </li>
+                                        <li class="pagination-item">
+                                            <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=2"
+                                               data-faceted-search-facet="">2</a>
+                                        </li>
+                                        <li class="pagination-item">
+                                            <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=3"
+                                               data-faceted-search-facet="">3</a>
+                                        </li>
+
+                                        <li class="pagination-item pagination-item--next">
+                                            <a class="pagination-link"
+                                               href="https://lovoda.com/y-necklace-lariat/?sort=newest&amp;page=2"
+                                               data-faceted-search-facet="">
+                                                <span>Next</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
