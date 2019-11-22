@@ -27,7 +27,7 @@ namespace vegetable.Helper
 
                 }
             }
-            option = option.Append("<option value="+ ActionName + ">新增類別</option>");
+            option = option.Append("<option class=btn-primary value=" + ActionName + ">新增類別</option>");
             Dropdown.InnerHtml = option.ToString();
             return MvcHtmlString.Create(Dropdown.ToString(TagRenderMode.Normal));
         }

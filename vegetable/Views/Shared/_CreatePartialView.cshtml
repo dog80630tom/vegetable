@@ -36,7 +36,7 @@
                                         <div class="card-body">
                                             @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-xs-10" })
                                             <div class="card-body">
-                                              @MyHtmlHelper.Dropdownlist(Model.CategoryName,"Form")
+                                              @MyHtmlHelper.Dropdownlist(Model.CategoryName,"@")
                                                 @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
