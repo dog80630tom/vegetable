@@ -17,6 +17,7 @@ namespace vegetable.Controllers
             List<ProducetDetil> data =new List<ProducetDetil>();
             try
             {
+                //有join有viewmodel才要用隱含轉換
                 data = (from d in item.Products
                             join c in item.Categories on d.CategoryID equals c.CategoryID
                             join pic in item.PicDetails on d.ProductID equals pic.ProductID
