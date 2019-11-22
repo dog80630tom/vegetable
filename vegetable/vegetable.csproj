@@ -187,6 +187,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BackstageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Helper\MyHtmlHelper.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
     <Compile Include="Models\ItemContext.cs" />

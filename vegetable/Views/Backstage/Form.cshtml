@@ -94,6 +94,12 @@
             $("#CategoryPic").val(name);
 
         });
-
+        $("#selectitem").change(function (e) {
+            console.log(e);
+            
+        if (e.target.options[e.target.selectedIndex].outerText== "新增類別") {
+            window.open(e.target.options[e.target.selectedIndex].value);
+        }
+        })
     </script>
 }
