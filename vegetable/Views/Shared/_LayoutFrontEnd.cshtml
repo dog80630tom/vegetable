@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - LOVODA</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/FrontCss")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
@@ -18,7 +17,7 @@
             letter-spacing: 2px;
         }
 
-        i {
+        .icon {
             font-size: 18px;
         }
 
@@ -80,7 +79,7 @@
             <ul class="navbar-nav p-0 text-center">
 
                 <li class="nav-item active border-right border-left  p-0">
-                    <a class="nav-link text-dark  mx-3 navTop" href=""><i class="fas fa-search"></i></a>
+                    <a class="nav-link text-dark  mx-3 navTop" href=""><i class="fas fa-search icon"></i></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link text-dark  mx-3 navTop" href="#">GIFT CERTIFICATES</a>
@@ -89,7 +88,7 @@
                     <a class="nav-link text-dark mx-3 navTop border-right border-left" href="#">WISH LISTS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark   mx-3 navTop" href="#">CART<i class="far fa-clipboard ml-3"></i></a>
+                    <a class="nav-link text-dark   mx-3 navTop" href="#">CART<i class="far fa-clipboard icon ml-3"></i></a>
                 </li>
             </ul>
         </div>
@@ -98,7 +97,7 @@
         <div class="row">
             <div class="col-lg-12 text-center title my-4">LOVODA</div>
         </div>
-        <ul class="nav justify-content-center">
+        <ul class="nav justify-content-center pb-4">
             <li class="nav-item">
                 <a class="nav-link text-dark mx-2" href="#">NEW</a>
             </li>
@@ -191,7 +190,7 @@
     </div>
     <div class="bg-footer text-light py-4 text-center">
         <div class="container">
-            <p class="footertext mb-5"><i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.<p>
+            <p class="footertext mb-5"><i class="far fa-copyright mr-1 icon"></i> 2019 Lovoda All Rights Reserved.<p>
                 <div class="row justify-content-center my-5">
                     <a href="" class=" text-white mr-3 mt-2 text-white">
                         <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />

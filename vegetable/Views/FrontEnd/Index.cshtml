@@ -10,66 +10,157 @@
         .font {
             font-weight:900;
         }
-        
-    </style>
+        .btn-outline-dark {
+         color: #343a40;
+         border-color: #343a40;
+         border: 3px solid;
+         background:white;
+        }
+        .img-row{
+            padding:0 15%;
+        }
+        figure{
+            max-height:100%;
+            overflow:hidden;
+        }
+        .currentImg:hover{
+            opacity: .4;
+        }
+        .maskImg:hover{
+            opacity: .4;         
+        }
+        .zoomin{
+            margin-bottom:0;
+        }
+        .zoomin:hover{
+            transform: scale(1.1);
+            transition: all 0.5s linear;
+        }
+        #carouselExampleControls .arrow-right-top,
+        #carouselExampleControls .arrow-left-top {
+              width:1%;
+           font-size:36px;
+           opacity:0;
+           color:black;
+        }
+         #carouselExampleInterval .arrow-right,
+         #carouselExampleInterval .arrow-left {
+           width:1%;
+           font-size:36px;
+           opacity:0;
+           color:black;
+        }
+          .arrow-right-top {
+            margin-right:8%;
+        }
+         .arrow-left-top {
+            margin-left:8%;
+        }
 
+        .arrow-right {
+            margin-right:-5%;
+        }
+         .arrow-left {
+            margin-left:-5%;
+        }
+        #carouselExampleControls:hover .arrow-right-top,
+        #carouselExampleControls:hover .arrow-left-top {
+              transition:2s;
+                 opacity:1;
+        }
+         #carouselExampleInterval:hover .arrow-right,
+         #carouselExampleInterval:hover .arrow-left {   
+                 transition:2s;
+                 opacity:1;
+            }
+
+    </style>
 <div class="container-fluid">
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div id="carouselExampleControls" class="carousel slide img-row"  data-interval="false">
         <div class="carousel-inner">
             <div class="carousel-item active">
+                <div class="row justify-content-center ">
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-1.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-2.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-3.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-4.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+
+                </div>
+            </div>
+            <div class="carousel-item">
                 <div class="row justify-content-center">
-                    <div class="col-xs-2 mr-2">
-                        <figure class="figure">
-                            <img src="~/Content/images/1-1.jpg" class="figure-img img-fluid" width="230" >
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-5.jpg" class="figure-img img-fluid currentImg">
                         </figure>
                     </div>
-                    <div class="col-xs-2 mr-2">
-                        <figure class="figure">
-                            <img src="~/Content/images/1-2.jpg" class="figure-img img-fluid" width="230">
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-6.jpg" class="figure-img img-fluid currentImg">
                         </figure>
                     </div>
-                    <div class="col-xs-2 mr-2">
-                        <figure class="figure">
-                            <img src="~/Content/images/1-3.jpg" class="figure-img img-fluid" width="230">
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-7.jpg" class="figure-img img-fluid currentImg">
                         </figure>
                     </div>
-                    <div class="col-xs-2 mr-2">
-                        <figure class="figure">
-                            <img src="~/Content/images/1-4.jpg" class="figure-img img-fluid" width="230">
-                        </figure>
-                    </div>
-                    <div class="col-xs-2 mr-2">
-                        <figure class="figure">
-                            <img src="~/Content/images/1-5.jpg" class="figure-img img-fluid" width="230">
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-8.jpg" class="figure-img img-fluid currentImg">
                         </figure>
                     </div>
 
                 </div>
             </div>
         </div>
-
+        <span class="carousel-control-prev arrow-left-top" href="#carouselExampleControls" role="button" data-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+            <span class="sr-only">Previous</span>
+        </span>
+        <span class="carousel-control-next arrow-right-top" href="#carouselExampleControls" role="button" data-slide="next">
+            <i class="fas fa-chevron-right"></i>
+            <span class="sr-only">Next</span>
+        </span>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-xs-5 mr-4">
-            <figure class="figure">
-                <img src="~/Content/images/2-1.jpg" class="figure-img img-fluid" width="583">
+</div>
+<div class="container-fluid">
+    <div class="row justify-content-center img-row">
+        <div class="col-12 col-md-6">
+            <figure class="mx-0">
+                <img src="~/Content/images/2-1.jpg" class="figure-img img-fluid w-100 zoomin currentImg">
             </figure>
         </div>
-        <div class="col-xs-5">
-            <figure class="figure">
-                <img src="~/Content/images/2-2.jpg" class="figure-img img-fluid" width="578">
+        <div class="col-12 col-md-6">
+            <figure class="mx-0">
+                <img src="~/Content/images/2-2.jpg" class="figure-img img-fluid w-100 zoomin currentImg">
             </figure>
         </div>
     </div>
 </div>
 <div class="container-fluid">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center align-items-center">
         <div class="col-xs-10 mb-3 mx-4">
             <a href="#"><img src="~/Content/images/3-1.jpg" alt="Alternate Text" class="figure-img img-fluid" /></a>
         </div>
     </div>
 </div>
-<div class="container-fluid jumbColor mt-3">
+<div class="container-fluid jumbColor mt-3 img-row">
     <div class="row justify-content-center">
         <div class="col-sm-12 text-center mt-5">
             <h2 class="footertext"><i class="fab fa-instagram mr-2 font"></i>#LOVODA</h2>
@@ -79,42 +170,76 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div id="carouselExampleInterval" class="carousel slide" data-interval="false">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="row my-5">
-                        <div class="col-xs-2 mr-5">
+                        <div class="col">
                             <figure class="figure">
-                                <img src="~/Content/images/4-1.jpg" class="figure-img img-fluid" width="270" height="345">
+                                <div class="maskImg">
+                                    <img src="~/Content/images/4-1.jpg" class="figure-img img-fluid ">
+                                </div>       
+                                
                             </figure>
                         </div>
-                        <div class="col-xs-2 mr-5">
+                        <div class="col">
                             <figure class="figure">
-                                <img src="~/Content/images/4-2.jpg" class="figure-img img-fluid" width="270" height="345">
+                                <img src="~/Content/images/4-2.jpg" class="figure-img img-fluid maskImg">
                             </figure>
                         </div>
-                        <div class="col-xs-2 mr-5">
+                        <div class="col">
                             <figure class="figure">
-                                <img src="~/Content/images/4-4.jpg" class="figure-img img-fluid" width="270" height="345">
+                                <img src="~/Content/images/4-9.jpg" class="figure-img img-fluid maskImg">
                             </figure>
                         </div>
-                        <div class="col-xs-2 mr-5">
+                        <div class="col">
                             <figure class="figure">
-                                <img src="~/Content/images/4-5.jpg" class="figure-img img-fluid" width="270" height="345">
+                                <img src="~/Content/images/4-4.jpg" class="figure-img img-fluid maskImg">
                             </figure>
                         </div>
 
                     </div>
                 </div>
+                <div class="carousel-item">
+                    <div class="row my-5">
+                        <div class="col">
+                            <figure class="figure">
+                                <img src="~/Content/images/4-5.jpg" class="figure-img img-fluid maskImg">
+                            </figure>
+                        </div>
+                        <div class="col">
+                            <figure class="figure">
+                                <img src="~/Content/images/4-6.jpg" class="figure-img img-fluid maskImg">
+                            </figure>
+                        </div>
+                        <div class="col">
+                            <figure class="figure">
+                                <img src="~/Content/images/4-7.jpg" class="figure-img img-fluid maskImg">
+                            </figure>
+                        </div>
+                        <div class="col">
+                            <figure class="figure">
+                                <img src="~/Content/images/4-8.jpg" class="figure-img img-fluid maskImg">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
             </div>
-
+            <span class="carousel-control-prev arrow-left" href="#carouselExampleInterval" role="button" data-slide="prev">
+                <i class="fas fa-chevron-left"></i>
+                <span class="sr-only">Previous</span>
+            </span>
+            <span class="carousel-control-next arrow-right" href="#carouselExampleInterval" role="button" data-slide="next">
+                <i class="fas fa-chevron-right"></i>
+                <span class="sr-only">Next</span>
+            </span>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-md-2 mb-5">
             <button type="button" class="btn btn-outline-dark rounded-0 btn-block font my-5">VIEW GALLERY</button>
         </div>
-       
+
     </div>
 </div>
 
