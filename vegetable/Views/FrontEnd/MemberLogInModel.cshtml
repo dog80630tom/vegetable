@@ -5,13 +5,7 @@
 }
 
 <style>
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    input[type=text],
-    input[type=password] {
-        width: 50%;
+    input {
         padding: 12px 20px;
         margin: 8px 0;
         display: inline-block;
@@ -20,36 +14,19 @@
     }
 
     button {
-        background-color: white;
-        color: #000;
         padding: 14px 20px;
         margin: 0px auto;
         cursor: pointer;
-        width: 50%;
     }
 
-        button:hover {
-            opacity: 0.8;
-        }
+    button:hover {
+        opacity: 0.8;
+    }
 
-    .imgcontainer {
+    .closecontainer {
         text-align: center;
         margin: 24px 0;
         position: relative;
-    }
-
-    img.avatar {
-        width: 40%;
-        border-radius: 50%;
-    }
-
-    .container {
-        padding: 16px;
-    }
-
-    span.psw {
-        float: right;
-        padding-top: 16px;
     }
 
     .modal {
@@ -65,13 +42,29 @@
         background-color: rgba(0, 0, 0, 0.4);
         padding-top: 60px;
     }
+    .modal label {
+        padding:10px 0;
+        margin-top:5px;
+        margin-bottom:0;
+    }
 
+    .modal input {
+        padding:10px 0;
+        margin-top:5px;
+        margin-bottom:0;
+    }
+
+    .modal button {
+        padding:10px 0;
+        margin:20px 0;
+    }
+    
     .modal-content {
         background-color: #fefefe;
         margin: 0% auto 10% auto;
         border: 1px solid #888;
-        width: 570px;
-        height: 530px;
+        width: 550px;
+        height: 550px;
         overflow: auto;
     }
 
@@ -84,30 +77,24 @@
         font-weight: bold;
     }
 
-        .close:hover,
-        .close:focus {
-            color: #e82b1a;
-            cursor: pointer;
-        }
+    .close:hover,
+    .close:focus {
+        color: #e82b1a;
+        cursor: pointer;
+    }
 
     .animate {
         -webkit-animation: animatezoom 0.6s;
         animation: animatezoom 0.6s
     }
 
-    .btn-outline-dark:hover{
-        background-color
-    }
-
 </style>
-<h2>Modal Login Form</h2>
 
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
 
 <div id="id01" class="modal">
-
     <form class="modal-content animate" action="/action_page.php" method="post">
-        <div class="imgcontainer">
+        <div class="closecontainer">
             <span onclick="document.getElementById('id01').style.display='none'" class="close"
                   title="Close Modal">&times;</span>
         </div>
@@ -115,52 +102,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-6 mx-auto">
-                    <label for="uname"
-                           style="font-family: Open Sans,Arial,Helvetica,sans-serif; font-size:24px; line-height: 1 ">
-                        <b>
-                            Sign
-                            In
-                        </b>
-                    </label>
-                    <br />
-                    <br />
-                    <label for="uname"
-                           style="font-family: Open Sans,Arial,Helvetica,sans-serif; font-size:12px; line-height: 1">
-                        <b>
-                            Email
-                            Address
-                        </b>
-                    </label>
-                    <br />
+                    <h4><b>Sign In</b></h4>
+                    <label for="uname"><b>Email Address</b></label>
                     <input class="w-100" type="text" placeholder="Enter Email" name="uname" required>
-                    <br />
-                    <label for="psw"
-                           style="font-family: Open Sans,Arial,Helvetica,sans-serif; font-size:12px; line-height: 1"><b>Password</b></label>
-                    <br />
+                    <label for="psw"><b>Password</b></label>
                     <input class="w-100" type="password" placeholder="Enter Password" name="psw" required>
-                    <br />
-                    <br />
-
-
-                    <button class="btn-outline-dark w-100 btn-block" type="submit">
-                        Login
-                    </button>
-                    <br />
-                    <br />
-
-                    <button class="btn-outline-dark w-100 btn-block" type="submit">
-                        Register
-                    </button>
-                    <br />
-
-
-                    <label for="psw"
-                           style="font-family: Open Sans,Arial,Helvetica,sans-serif; font-size:12px; line-height: 1">
-                        <b>
-                            Forget
-                            your Password?
-                        </b>
-                    </label>
+                    <button class="btn-outline-dark w-100 btn-block" type="submit">Login</button>
+                    <button class="btn-outline-dark w-100 btn-block" type="submit">Register</button>
+                    <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label>
                 </div>
             </div>
         </div>
