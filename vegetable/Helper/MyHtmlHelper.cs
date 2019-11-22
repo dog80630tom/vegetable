@@ -8,10 +8,10 @@ using vegetable.Controllers;
 
 namespace vegetable.Helper
 {
-    public class MyHtmlHelper
+    public static class MyHtmlHelper 
     {
        
-        public static MvcHtmlString Dropdownlist(string name,string ActionName) {
+        public static MvcHtmlString Dropdownlist(this HtmlHelper htmlHelper,string name,string ActionName) {
             ItemContext _context = new ItemContext();
             var Dropdown = new TagBuilder("select");
             Dropdown.Attributes.Add("name",name);
