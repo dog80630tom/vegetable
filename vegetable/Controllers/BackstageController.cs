@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -79,10 +80,43 @@ namespace vegetable.Controllers
         //    return View(initdetil());
         //}
         [HttpPost]
-        public ActionResult Form(Product product,Category category,PicDetail picDetail)
+        public void UploadFile()
+        {
+
+            if (Request.Files.AllKeys.Any())
+            {
+                //## 讀取指定的上傳檔案ID
+                var httpPostedFile = Request.Files["userfile"];
+
+                //## 真實有檔案，進行上傳
+                if (httpPostedFile != null && httpPostedFile.ContentLength != 0)
+                {
+                     string _FileName = Path.GetFileName(httpPostedFile.FileName);  
+                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);  
+                    httpPostedFile.SaveAs(_path); 
+                }
+            }
+        }
+        [HttpPost]
+        public ActionResult Form(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
         {
             PrductServices services = new PrductServices();
-           
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    string _FileName = Path.GetFileName(file.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);
+                    file.SaveAs(_path);
+                }
+                ViewBag.Message = "File Uploaded Successfully!!";
+                
+            }
+            catch
+            {
+                ViewBag.Message = "File upload failed!!";
+                
+            }
             var result=services.addProduct(product, category, picDetail);
             if (result.IsSuccess)
             {

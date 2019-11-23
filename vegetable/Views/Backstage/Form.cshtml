@@ -80,21 +80,49 @@
 
         });
         $("#fileupload").change(function (e) {
-            var fp = $("#fileupload").val().split("\\");
+            let form = new FormData();
+            form.append("userfile", e.target.files[0]);
+
+           $.ajax({
+               type: "POST",
+               processData: false,
+                url: "/Backstage/UploadFile",
+                data: form,
+                contentType: false,
+                success: function (response) {
+
+                }
+            });
+           var fp = $("#fileupload").val().split("\\");
             var name = fp[fp.length - 1];
-
-
             $("#PicUrl").val(name);
 
         });
         $("#fileupload2").change(function (e) {
-            var fp = $("#fileupload2").val().split("\\");
+             let form = new FormData();
+            form.append("userfile", e.target.files[0]);
+
+           $.ajax({
+               type: "POST",
+               processData: false,
+                url: "/Backstage/UploadFile",
+                data: form,
+                contentType: false,
+                success: function (response) {
+
+                }
+            });
+             var fp = $("#fileupload2").val().split("\\");
             var name = fp[fp.length - 1];
-
-
             $("#CategoryPic").val(name);
 
         });
-
+        $("#selectitem").change(function (e) {
+            console.log(e);
+            
+        if (e.target.options[e.target.selectedIndex].outerText== "新增類別") {
+            window.open(e.target.options[e.target.selectedIndex].value,true);
+        }
+        })
     </script>
 }

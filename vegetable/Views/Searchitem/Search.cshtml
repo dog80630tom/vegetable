@@ -1,0 +1,22 @@
+﻿@model IEnumerable<vegetable.Models.ViewModels.SearchViewModel>
+
+@{
+    ViewBag.Title = "item";
+
+}
+
+<h2>search</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+
+
+            <input type="text" asp-for=Seachstring id="Seachstring" /><input type="button" class="btn btn-success" id="Search" />
+            <div id="PartialContainer">
+
+              
+                </div>
+            </div>
+        </div>
+</div>
+  @Html.Partial("_SearchPartialView", Model)

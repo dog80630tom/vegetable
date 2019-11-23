@@ -1,0 +1,49 @@
+﻿@model IEnumerable<vegetable.Models.ViewModels.SearchViewModel>
+
+@{
+    ViewBag.Title = "item";
+   var data2 = (List<vegetable.Models.ViewModels.SearchViewModel>)@ViewBag.Data;
+}
+
+<h2>item</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            
+            @Html.BeginForm("Search","Searchitem")
+
+            @Html.DisplayText("Seachstring")
+
+            <input type="text" asp-for=Seachstring id="Seachstring" /><input type="submit" class="btn btn-success" id="Search" />
+            
+           
+               
+                    @Html.Partial("_SearchPartialView", Model)
+                
+            
+        </div>
+    </div>
+</div>
+@section Endscripts
+{
+    <script>
+        $(function () {
+            $("#Search").click(function (e) {
+                
+                console.log($("#Seachstring").val());
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Search","Searchitem")",
+                    data: { Seachstring: $("#Seachstring").val() },
+
+                    success: function (response) {
+                
+
+                       
+                    }
+                });
+
+            });
+        });
+    </script>
+}
