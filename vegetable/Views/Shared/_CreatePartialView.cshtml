@@ -87,7 +87,7 @@
                                             <div class="card-body">
                                                 @Html.EditorFor(model => model.PicUrl, new { htmlAttributes = new { @class = "form-control" } })
                                                 @Html.ValidationMessageFor(model => model.PicUrl, "", new { @class = "text-danger" })
-                                                <input id="fileupload" type="file" data-url="Assets/images" accept=".png,.jpg">
+                                                <input id="fileupload" name="fileupload" asp-for="FileUpload.FormFile" type="file" data-url="Assets/images" accept=".png,.jpg">
                                             </div>
                                         </div>
 
@@ -96,7 +96,7 @@
                                             <div class="card-body">
                                                 @Html.EditorFor(model => model.CategoryPic, new { htmlAttributes = new { @class = "form-control" } })
                                                 @Html.ValidationMessageFor(model => model.CategoryPic, "", new { @class = "text-danger" })
-                                                <input id="fileupload2" type="file" name="files[]" data-url="Assets/images" accept=".png,.jpg">
+                                                <input id="fileupload2" asp-for="FileUpload.FormFile" type="file" name="files[]" data-url="Assets/images" accept=".png,.jpg">
                                             </div>
                                         </div>
 

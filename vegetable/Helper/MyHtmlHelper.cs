@@ -14,8 +14,10 @@ namespace vegetable.Helper
         public static MvcHtmlString Dropdownlist(this HtmlHelper htmlHelper,string name,string ActionName) {
             ItemContext _context = new ItemContext();
             var Dropdown = new TagBuilder("select");
-            Dropdown.Attributes.Add("name",name);
+            Dropdown.Attributes.Add("name", "CategoryName");
             Dropdown.Attributes.Add("id", "selectitem");
+            Dropdown.Attributes.Add("class", "form-control");
+           
             var data = from c in _context.Categories select c;
             StringBuilder option = new StringBuilder();
             if (data != null)
@@ -23,7 +25,7 @@ namespace vegetable.Helper
                 foreach (var v in data)
                 {
 
-                    option = option.Append("<option value=" + v.CategoryID + "id=" + v.CategoryID + ">" + v.CategoryName + "</option>");
+                    option = option.Append("<option asp-for=CategoryName class=form-control value=" + v.CategoryName + " id=CategoryName name=CategoryName>" + v.CategoryName + "</option>");
 
                 }
             }
