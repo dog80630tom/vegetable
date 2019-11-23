@@ -19,25 +19,15 @@ namespace vegetable.Controllers
             try
             {
                 categoryData = (from c in item.Categories select c).ToList();
-
             }
             catch (Exception)
             {
-
                 throw;
             }
             return (categoryData);
         }
 
-
-
-
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult CatForm()
         {
             var initdata = initCategoryData();
             if (initdata == null)
@@ -59,11 +49,50 @@ namespace vegetable.Controllers
         public ActionResult Edit(Category category)
         {
             CategoryServices services = new CategoryServices();
-            category.CategoryID= (int)TempData["CategoryID"];
-            services.EditProduct(category);
-            return RedirectToAction("CatForm");
-
+            category.CategoryID = (int)TempData["CategoryID"];
+            services.EditCategory(category);
+            return RedirectToAction("Index");
         }
+
+        public ActionResult Delete(int? Id)
+        {
+            TempData["CategoryID"] = Id;
+            var temp = item.Products.Any(x => x.CategoryID == Id);
+
+            if (temp)
+            {
+                //需要做一個view跟他說有產品屬於這個類別所以不能刪除?
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(initCategoryData().Find(x => x.CategoryID == Id)); 
+            }               
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Category category)
+        {
+            category.CategoryID = (int)TempData["CategoryID"];
+            CategoryServices services = new CategoryServices();
+            services.DeleteCategory(category);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Create()
+        {
+            return View(new List<Category>());
+        }
+
+        [HttpPost]
+        public ActionResult Create(Category category)
+        {
+            CategoryServices services = new CategoryServices();
+            services.CreateCategory(category);
+            return RedirectToAction("Index");
+        }
+
+
 
 
 
@@ -71,3 +100,4 @@ namespace vegetable.Controllers
 
     }
 }
+

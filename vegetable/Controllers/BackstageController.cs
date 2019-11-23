@@ -134,17 +134,7 @@ namespace vegetable.Controllers
                 services.DeleteProduct(delItem, itempic, co);
             return RedirectToAction("Index");
         }
-        /*public ActionResult Delete2(Product product,PicDetail pic)
-        {
-            PrductServices services = new PrductServices();
-            product.ProductID = (int)TempData["ProductID"];
-            pic.ProductID = product.ProductID;
-            services.DeleteProduct(product,pic);
-
-            TempData["ProductID"] = null;
-            //此程式碼是為了把資料不要被攻擊的預防行為
-            return RedirectToAction("Index");
-        }*/
+       
 
       
     }
