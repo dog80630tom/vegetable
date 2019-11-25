@@ -34,9 +34,9 @@ namespace vegetable.Controllers
             return View();
         }
 
-        public ActionResult _Login()
+        public ActionResult ProductIndex ()
         {
-            return PartialView();
+            return View();
         }
     }
 }

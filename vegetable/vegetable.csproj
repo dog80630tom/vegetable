@@ -383,7 +383,7 @@
     <Content Include="Views\FrontEnd\ShowProducts.cshtml" />
     <Content Include="Views\FrontEnd\MemberPage.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
-    <Content Include="Views\FrontEnd\_Login.cshtml" />
+    <Content Include="Views\FrontEnd\ProductIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
