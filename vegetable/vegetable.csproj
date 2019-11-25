@@ -383,6 +383,7 @@
     <Content Include="Views\FrontEnd\ShowProducts.cshtml" />
     <Content Include="Views\FrontEnd\MemberPage.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
+    <Content Include="Views\FrontEnd\_Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -426,6 +427,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties content_4bootstrap-grid_1css_1map__JsonSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

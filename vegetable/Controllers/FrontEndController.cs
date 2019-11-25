@@ -33,5 +33,10 @@ namespace vegetable.Controllers
         {
             return View();
         }
+
+        public ActionResult _Login()
+        {
+            return PartialView();
+        }
     }
 }
