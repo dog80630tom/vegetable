@@ -3,80 +3,148 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
-    <style>
-        .jumbColor {
-            background: #fff8ee;
-        }
-        .font {
-            font-weight:900;
-        }
-        .btn-outline-dark {
-         color: #343a40;
-         border-color: #343a40;
-         border: 3px solid;
-         background:white;
-        }
-        .img-row{
-            padding:0 15%;
-        }
-        figure{
-            max-height:100%;
-            overflow:hidden;
-        }
-        .currentImg:hover{
-            opacity: .4;
-        }
-        .maskImg:hover{
-            opacity: .4;         
-        }
-        .zoomin{
-            margin-bottom:0;
-        }
-        .zoomin:hover{
+<style>
+    .jumbColor {
+        background: #fff8ee;
+    }
+
+    .font {
+        font-weight: 900;
+    }
+
+    .btn-outline-dark {
+        color: #343a40;
+        border-color: #343a40;
+        border: 3px solid;
+        background: white;
+    }
+
+    .img-row {
+        padding: 0 15%;
+    }
+
+    .toolbar {
+        max-height: 100%;
+        position: relative;
+        margin-bottom: 0;
+        overflow: hidden;
+    }
+    .current {
+         max-height: 100%;
+         overflow: hidden;
+    }
+
+    .currentImg:hover {
+        opacity: .4;
+    }
+    .zoomin {
+        margin-bottom: 0;
+    }
+
+    .zoomin:hover {
             transform: scale(1.1);
             transition: all 0.5s linear;
-        }
-        #carouselExampleControls .arrow-right-top,
-        #carouselExampleControls .arrow-left-top {
-              width:1%;
-           font-size:36px;
-           opacity:0;
-           color:black;
-        }
-         #carouselExampleInterval .arrow-right,
-         #carouselExampleInterval .arrow-left {
-           width:1%;
-           font-size:36px;
-           opacity:0;
-           color:black;
-        }
-          .arrow-right-top {
-            margin-right:8%;
-        }
-         .arrow-left-top {
-            margin-left:8%;
+    }
+
+    /*左右箭頭輪播效果*/
+
+    #carouselExampleControls .arrow-right-top,
+    #carouselExampleControls .arrow-left-top {
+        width: 1%;
+        font-size: 36px;
+        opacity: 0;
+        color: black;
+    }
+
+    #carouselExampleInterval .arrow-right,
+    #carouselExampleInterval .arrow-left {
+        width: 1%;
+        font-size: 36px;
+        opacity: 0;
+        color: black;
+    }
+
+    .arrow-right-top {
+        margin-right: 8%;
+    }
+
+    .arrow-left-top {
+        margin-left: 8%;
+    }
+
+    .arrow-right {
+        margin-right: -5%;
+    }
+
+    .arrow-left {
+        margin-left: -5%;
+    }
+
+    #carouselExampleControls:hover .arrow-right-top,
+    #carouselExampleControls:hover .arrow-left-top {
+        transition: 2s;
+        opacity: 1;
+    }
+
+    #carouselExampleInterval:hover .arrow-right,
+    #carouselExampleInterval:hover .arrow-left {
+        transition: 2s;
+        opacity: 1;
+    }
+
+    /*下方toolbar效果*/
+
+       .toolbar-img {
+            margin-bottom: 0;
         }
 
-        .arrow-right {
-            margin-right:-5%;
+        .toolbar .overlay {
+            transform: scale(1.1);
         }
-         .arrow-left {
-            margin-left:-5%;
-        }
-        #carouselExampleControls:hover .arrow-right-top,
-        #carouselExampleControls:hover .arrow-left-top {
-              transition:2s;
-                 opacity:1;
-        }
-         #carouselExampleInterval:hover .arrow-right,
-         #carouselExampleInterval:hover .arrow-left {   
-                 transition:2s;
-                 opacity:1;
-            }
 
-    </style>
+        .toolbar .info {
+            opacity: 0;
+        }
+
+        .toolbar:hover .overlay {
+            position: absolute;
+            background-color: rgba(0,0,0,.4);
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            transform: scale(1);
+            transition: all 0.4s ease-in-out;
+            overflow: hidden;
+        }
+
+        .toolbar:hover .info {
+            opacity: 1;
+            position: absolute;
+            top: 4%;
+            bottom: 4%;
+            left: 4%;
+            right: 4%;
+            border: 1px solid white;
+        }
+
+        .info a {
+            border-radius: 50%;
+            background-color: white;
+            height: 3em;
+            width: 3em;
+            line-height: 3em;
+            font-size: .8rem;
+            color: #312f2e;
+        }
+
+        .info a:hover{
+            background:#312f2e;
+            color:white;
+        }
+</style>
 <div class="container-fluid">
-    <div id="carouselExampleControls" class="carousel slide img-row"  data-interval="false">
+    <div id="carouselExampleControls" class="carousel slide img-row" data-interval="false">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="row justify-content-center ">
@@ -142,12 +210,12 @@
 <div class="container-fluid">
     <div class="row justify-content-center img-row">
         <div class="col-12 col-md-6">
-            <figure class="mx-0">
+            <figure class="mx-0 current">
                 <img src="~/Content/images/2-1.jpg" class="figure-img img-fluid w-100 zoomin currentImg">
             </figure>
         </div>
         <div class="col-12 col-md-6">
-            <figure class="mx-0">
+            <figure class="mx-0 current">
                 <img src="~/Content/images/2-2.jpg" class="figure-img img-fluid w-100 zoomin currentImg">
             </figure>
         </div>
@@ -169,59 +237,137 @@
             <P>to show us how you style Lovoda!</P>
         </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center my-5">
         <div id="carouselExampleInterval" class="carousel slide" data-interval="false">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <div class="row my-5">
-                        <div class="col">
-                            <figure class="figure">
-                                <div class="maskImg">
-                                    <img src="~/Content/images/4-1.jpg" class="figure-img img-fluid ">
-                                </div>       
-                                
+                    <div class="row">
+                        <div class="col-6 col-md-3">
+                            <figure class="figure toolbar">
+                                <img src="~/Content/images/4-1.jpg" class="figure-img img-fluid toolbar-img">
+                                <div class="overlay">
+                                    <div class="info text-center d-flex align-items-center justify-content-center">
+                                        <a href="#" class="mr-2">
+                                            <i class="fa fa-images fa-fw"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fa fa-link fa-fw"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </figure>
                         </div>
-                        <div class="col">
-                            <figure class="figure">
-                                <img src="~/Content/images/4-2.jpg" class="figure-img img-fluid maskImg">
+                        <div class="col-6 col-md-3">
+                            <figure class="figure toolbar">
+                                <img src="~/Content/images/4-2.jpg" class="figure-img img-fluid toolbar-img">
+                                <div class="overlay">
+                                    <div class="info text-center d-flex align-items-center justify-content-center">
+                                        <a href="#" class="mr-2">
+                                            <i class="fa fa-images fa-fw"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fa fa-link fa-fw"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </figure>
                         </div>
-                        <div class="col">
-                            <figure class="figure">
-                                <img src="~/Content/images/4-9.jpg" class="figure-img img-fluid maskImg">
+                        <div class="col-6 col-md-3">
+                            <figure class="figure toolbar">
+                                <img src="~/Content/images/4-4.jpg" class="figure-img img-fluid toolbar-img">
+                                <div class="overlay">
+                                    <div class="info text-center d-flex align-items-center justify-content-center">
+                                        <a href="#" class="mr-2">
+                                            <i class="fa fa-images fa-fw"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fa fa-link fa-fw"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </figure>
                         </div>
-                        <div class="col">
-                            <figure class="figure">
-                                <img src="~/Content/images/4-4.jpg" class="figure-img img-fluid maskImg">
+                        <div class="col-6 col-md-3">
+                            <figure class="figure toolbar">
+                                <img src="~/Content/images/4-5.jpg" class="figure-img img-fluid toolbar-img">
+                                <div class="overlay">
+                                    <div class="info text-center d-flex align-items-center justify-content-center">
+                                        <a href="#" class="mr-2">
+                                            <i class="fa fa-images fa-fw"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fa fa-link fa-fw"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </figure>
                         </div>
 
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="row my-5">
-                        <div class="col">
-                            <figure class="figure">
-                                <img src="~/Content/images/4-5.jpg" class="figure-img img-fluid maskImg">
+                    <div class="row">
+                        <div class="col-6 col-md-3">
+                            <figure class="figure toolbar">
+                                <img src="~/Content/images/4-6.jpg" class="figure-img img-fluid toolbar-img">
+                                <div class="overlay">
+                                    <div class="info text-center d-flex align-items-center justify-content-center">
+                                        <a href="#" class="mr-2">
+                                            <i class="fa fa-images fa-fw"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fa fa-link fa-fw"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </figure>
                         </div>
-                        <div class="col">
-                            <figure class="figure">
-                                <img src="~/Content/images/4-6.jpg" class="figure-img img-fluid maskImg">
+                        <div class="col-6 col-md-3">
+                            <figure class="figure toolbar">
+                                <img src="~/Content/images/4-7.jpg" class="figure-img img-fluid toolbar-img">
+                                <div class="overlay">
+                                    <div class="info text-center d-flex align-items-center justify-content-center">
+                                        <a href="#" class="mr-2">
+                                            <i class="fa fa-images fa-fw"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fa fa-link fa-fw"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </figure>
                         </div>
-                        <div class="col">
-                            <figure class="figure">
-                                <img src="~/Content/images/4-7.jpg" class="figure-img img-fluid maskImg">
+                        <div class="col-6 col-md-3">
+                            <figure class="figure toolbar">
+                                <img src="~/Content/images/4-8.jpg" class="figure-img img-fluid toolbar-img">
+                                <div class="overlay">
+                                    <div class="info text-center d-flex align-items-center justify-content-center">
+                                        <a href="#" class="mr-2">
+                                            <i class="fa fa-images fa-fw"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fa fa-link fa-fw"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </figure>
                         </div>
-                        <div class="col">
-                            <figure class="figure">
-                                <img src="~/Content/images/4-8.jpg" class="figure-img img-fluid maskImg">
+                        <div class="col-6 col-md-3">
+                            <figure class="figure toolbar">
+                                <img src="~/Content/images/4-9.jpg" class="figure-img img-fluid toolbar-img">
+                                <div class="overlay">
+                                    <div class="info text-center d-flex align-items-center justify-content-center">
+                                        <a href="#" class="mr-2">
+                                            <i class="fa fa-images fa-fw"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fa fa-link fa-fw"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </figure>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -236,11 +382,11 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-2 mb-5">
+        <div class="col-md-5 col-12 mb-5 col-lg-3">
             <button type="button" class="btn btn-outline-dark rounded-0 btn-block font my-5">VIEW GALLERY</button>
         </div>
-
     </div>
+
 </div>
 
 

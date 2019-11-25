@@ -376,9 +376,13 @@
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="Views\FrontEnd\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutFrontEnd.cshtml" />
-    <Content Include="Views\FrontEnd\ShowProducts.cshtml" />
-    <Content Include="Views\FrontEnd\MemberRegist.cshtml" />
+    <Content Include="Views\FrontEnd\Index - 複製.cshtml" />
+    <Content Include="Views\FrontEnd\index_clone.cshtml" />
     <Content Include="Views\FrontEnd\MemberLogInModel.cshtml" />
+    <Content Include="Views\FrontEnd\MemberRegist.cshtml" />
+    <Content Include="Views\FrontEnd\ShowProducts.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPage.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
