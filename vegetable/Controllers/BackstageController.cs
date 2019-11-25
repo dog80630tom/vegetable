@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,6 +18,7 @@ namespace vegetable.Controllers
             List<ProducetDetil> data =new List<ProducetDetil>();
             try
             {
+                //有join有viewmodel才要用隱含轉換
                 data = (from d in item.Products
                             join c in item.Categories on d.CategoryID equals c.CategoryID
                             join pic in item.PicDetails on d.ProductID equals pic.ProductID
@@ -78,10 +80,43 @@ namespace vegetable.Controllers
         //    return View(initdetil());
         //}
         [HttpPost]
-        public ActionResult Form(Product product,Category category,PicDetail picDetail)
+        public void UploadFile()
+        {
+
+            if (Request.Files.AllKeys.Any())
+            {
+                //## 讀取指定的上傳檔案ID
+                var httpPostedFile = Request.Files["userfile"];
+
+                //## 真實有檔案，進行上傳
+                if (httpPostedFile != null && httpPostedFile.ContentLength != 0)
+                {
+                     string _FileName = Path.GetFileName(httpPostedFile.FileName);  
+                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);  
+                    httpPostedFile.SaveAs(_path); 
+                }
+            }
+        }
+        [HttpPost]
+        public ActionResult Form(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
         {
             PrductServices services = new PrductServices();
-           
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    string _FileName = Path.GetFileName(file.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);
+                    file.SaveAs(_path);
+                }
+                ViewBag.Message = "File Uploaded Successfully!!";
+                
+            }
+            catch
+            {
+                ViewBag.Message = "File upload failed!!";
+                
+            }
             var result=services.addProduct(product, category, picDetail);
             if (result.IsSuccess)
             {
@@ -106,8 +141,8 @@ namespace vegetable.Controllers
         {
             PrductServices services = new PrductServices();
             product.ProductID = (int)TempData["ProductID"];
-            category.CategoryID = product.ProductID;
-            product.CategoryID = product.ProductID;
+            category.CategoryID = (from d in item.Products where d.ProductID == product.ProductID select d).FirstOrDefault().CategoryID;
+            product.CategoryID = (from d in item.Products where d.ProductID == product.ProductID select d).FirstOrDefault().CategoryID;
             pic.ProductID = product.ProductID;
             services.EditProduct(product, category, pic);
 
@@ -121,8 +156,9 @@ namespace vegetable.Controllers
                 var delItem =from d in item.Products
                              where d.ProductID==id
                              select d;
+            var data2= (from d in item.Products where d.ProductID == id select d).FirstOrDefault().CategoryID;
             var co = from d in item.Categories
-                     where d.CategoryID == id
+                     where d.CategoryID == data2
                      select d;
             var itempic = from d in item.PicDetails
                           where d.ProductID == id
@@ -132,17 +168,7 @@ namespace vegetable.Controllers
                 services.DeleteProduct(delItem, itempic, co);
             return RedirectToAction("Index");
         }
-        /*public ActionResult Delete2(Product product,PicDetail pic)
-        {
-            PrductServices services = new PrductServices();
-            product.ProductID = (int)TempData["ProductID"];
-            pic.ProductID = product.ProductID;
-            services.DeleteProduct(product,pic);
-
-            TempData["ProductID"] = null;
-            //此程式碼是為了把資料不要被攻擊的預防行為
-            return RedirectToAction("Index");
-        }*/
+       
 
       
     }
