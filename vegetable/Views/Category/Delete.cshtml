@@ -1,0 +1,46 @@
+﻿@model vegetable.Models.Category
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryPic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryDescription)
+            </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayFor(model => model.CategoryName)
+                
+            </th>
+            <th>
+                @Html.DisplayFor(model => model.CategoryPic)
+            </th>
+            <th>
+                @Html.DisplayFor(model => model.CategoryDescription)
+               
+            </th>
+        </tr>
+    </table>
+    <input type="submit" value="Confirm Delete" class="btn btn-default" />
+}
+
+
+
