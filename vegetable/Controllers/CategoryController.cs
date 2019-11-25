@@ -38,7 +38,7 @@ namespace vegetable.Controllers
             return View(initdata);
         }
 
-        //是否要做post的form
+
         public ActionResult Edit(int? Id)
         {
             TempData["CategoryID"] = Id;
@@ -62,10 +62,13 @@ namespace vegetable.Controllers
             if (temp)
             {
                 //需要做一個view跟他說有產品屬於這個類別所以不能刪除?
+                TempData["CanNotDelete"] = true;
+        
                 return RedirectToAction("Index");
             }
             else
             {
+                TempData["CanNotDelete"] = false;
                 return View(initCategoryData().Find(x => x.CategoryID == Id)); 
             }               
         }

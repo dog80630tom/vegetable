@@ -4,6 +4,8 @@
     ViewBag.Title = "Index";
 }
 
+
+
 <h2>Index</h2>
 
 <p>
@@ -23,23 +25,51 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryPic)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryDescription)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CategoryID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryPic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryDescription)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CategoryID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID })
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="CanNotDeleteCategory" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CanNotDeleteCategory">無法刪除此種類</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">請先刪除屬於該種類的產品</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Endscripts{
+    <script>
+
+        if ('@TempData["CanNotDelete"]'=='True') {
+            $('#modal2').modal('show');
+            }
+    </script>
+}
