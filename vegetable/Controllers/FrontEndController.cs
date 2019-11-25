@@ -25,6 +25,13 @@ namespace vegetable.Controllers
         {
             return View();
         }
-
+        public ActionResult MemberPage()
+        {
+            return View();
+        }
+        public ActionResult MemberPageSetting()
+        {
+            return View();
+        }
     }
 }
