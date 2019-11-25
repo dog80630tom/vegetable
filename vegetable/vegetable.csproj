@@ -376,7 +376,6 @@
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="Views\FrontEnd\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutFrontEnd.cshtml" />
-    <Content Include="Views\FrontEnd\index_clone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
