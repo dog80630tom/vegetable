@@ -314,7 +314,6 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Backstage\Form.cshtml" />
     <Content Include="Views\Backstage\Edit.cshtml" />
-    <Content Include="Views\Category\CatForm.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Searchitem\item.cshtml" />
     <Content Include="Views\Shared\_SearchPartialView.cshtml" />
