@@ -437,6 +437,10 @@
     .hoverin {
         visibility:visible !important;
     }
+
+    .showdown {
+        top: 20px !important;
+    }
 </style>
 
 <script>
@@ -593,10 +597,9 @@
                                                          src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
                                                 </a>
                                                 <div class="actions">
-                                                    <!--<a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i>
-                                                    <span>Add to Wish list</span>
-                                                    </a>-->
+                                                    <a href="#" class="btnWL">
+                                                    <i class="far fa-heart-o"></i>
+                                                    </a>
                                                     <a href="#" class="btn btn-outline-dark rounded-0 btnATC"><i class="fa fa-heart-o"></i>Add to Cart</a>
                                                     <a href="#" class="btnQV quickview">Quick view</a>
                                                 </div>
@@ -929,7 +932,7 @@
                                                 </span>-->
                                                 <a href="#" class="btn btn-outline-dark btnATC rounded-0">Add to Cart</a>
                                                 <a href="#" class="btnWL">
-                                                    <!--<i class="fa fa-heart-o"></i>--><span>Add to Wish list</span>
+                                                    <!--<i class="far fa-heart-o"></i>--><span>Add to Wish list</span>
                                                 </a>
                                             </figcaption>
                                         </figure>
@@ -980,10 +983,12 @@
 
             $(".card-figure").hover(function () {
                 $(this).find(".btnWL").addClass("hoverin");
+                $(this).find(".btnWL").addClass("showdown")
                 $(this).find(".btnQV").addClass("hoverin");
                 $(this).find(".btnATC").addClass("hoverin");
             }, function () {
                     $(this).find(".btnWL").removeClass("hoverin");
+                    $(this).find(".btnWL").removeClass("showdown")
                     $(this).find(".btnQV").removeClass("hoverin");
                     $(this).find(".btnATC").removeClass("hoverin");
             });
