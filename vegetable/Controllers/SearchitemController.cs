@@ -69,8 +69,9 @@ namespace vegetable.Controllers
             {
                 index = int.Parse(Seachstring);
             }
-            var data = search.Where(x => x.CategoryName == Seachstring || x.ProductName == Seachstring || x.ProductPrice == index || x.ProductDescription == Seachstring).ToList();
-          
+         
+                var data = search.Where(x => x.CategoryName.Contains(Seachstring) || x.ProductName.Contains(Seachstring) || x.ProductPrice == index || x.ProductDescription.Contains(Seachstring)).ToList();
+            
             return View("Search",data.ToList());
         }
         
