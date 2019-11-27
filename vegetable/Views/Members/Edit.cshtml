@@ -1,0 +1,60 @@
+﻿@model vegetable.Models.Member
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberGender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberPassword)
+        </th>
+    </tr>
+    <tr>
+        <td>
+            @Html.TextBox("MemberID")
+        </td>
+        <td>
+            @Html.TextBox("MemberName")
+        </td>
+        <td>
+            @Html.TextBox("MemberEmail")
+        </td>
+        <td>
+            @Html.TextBox("MemberGender")
+        </td>
+        <td>
+            @Html.TextBox("MemberPhone")
+        </td>
+        <td>
+            @Html.TextBox("MemberPassword")
+        </td>
+
+    </tr>
+</table>
+    <input type="submit" value="Save" class="btn btn-default" />
+}
