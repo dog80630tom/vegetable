@@ -101,23 +101,8 @@ namespace vegetable.Controllers
         public ActionResult Form(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
         {
             PrductServices services = new PrductServices();
-            try
-            {
-                if (file.ContentLength > 0)
-                {
-                    string _FileName = Path.GetFileName(file.FileName);
-                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);
-                    file.SaveAs(_path);
-                }
-                ViewBag.Message = "File Uploaded Successfully!!";
-                
-            }
-            catch
-            {
-                ViewBag.Message = "File upload failed!!";
-                
-            }
-            var result=services.addProduct(product, category, picDetail);
+    
+            var result=services.addProduct(product, category, picDetail);//增加產品
             if (result.IsSuccess)
             {
                 return View(initdetil());
@@ -140,7 +125,7 @@ namespace vegetable.Controllers
         public ActionResult Edit(Product product, Category category, PicDetail pic)
         {
             PrductServices services = new PrductServices();
-            product.ProductID = (int)TempData["ProductID"];
+            product.ProductID = (int)TempData["ProductID"];//找到ID
             category.CategoryID = (from d in item.Products where d.ProductID == product.ProductID select d).FirstOrDefault().CategoryID;
             product.CategoryID = (from d in item.Products where d.ProductID == product.ProductID select d).FirstOrDefault().CategoryID;
             pic.ProductID = product.ProductID;

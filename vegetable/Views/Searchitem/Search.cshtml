@@ -1,4 +1,4 @@
-﻿@model List<vegetable.Models.ViewModels.SearchViewModel>
+﻿@model PagedList.IPagedList<vegetable.Models.ViewModels.SearchViewModel>
 
 @{
     ViewBag.Title = "item";
@@ -18,9 +18,9 @@
                 <input type="text" asp-for=Seachstring id="Seachstring" name="Seachstring" /><input type="submit" class="btn btn-success" id="Search" />
             }
         <div id="PartialContainer">
-            @for (int i = 0; i < Model.Count(); i++)
-            {
-            <a href="@Url.Action("Detail","Searchitem", new { Id=Model[i].ProductID })">
+           @for (int i = 0; i < Model.Count(); i++)
+           {
+            <a href="@Url.Action("Detail", "Searchitem", new { Id = Model[i].ProductID })">
 
                 <div class="card">
                     <div class="card-header">
@@ -34,8 +34,8 @@
                     </div>
                 </div>
             </a>
-                }
-
+           }
+            @PagedList.Mvc.HtmlHelper.PagedListPager(Html,Model, Page=>Url.Action("Search",new { Page,Seachstring=(string)ViewBag.Searchstr }))
         </div>
         </div>
     </div>

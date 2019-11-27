@@ -36,9 +36,7 @@ namespace vegetable.Services
                 try
                 {
                     
-                    item.Categories.Add(category);
-                    item.SaveChanges();
-                    product.CategoryID = item.Categories.FirstOrDefault(x=>x.CategoryPic==category.CategoryPic).CategoryID;
+                    product.CategoryID = item.Categories.FirstOrDefault(x=>x.CategoryName==category.CategoryName).CategoryID;
                     item.Products.Add(product);
                     item.SaveChanges();
                     var data2 = (from d in item.Products where d.CategoryID == product.CategoryID select d).FirstOrDefault().ProductID;
@@ -65,7 +63,6 @@ namespace vegetable.Services
             {
                
                 item.Entry(product).State = EntityState.Modified;
-                item.Entry(category).State = EntityState.Modified;
                 item.Entry(pic).State = EntityState.Modified;
                 item.SaveChanges();
             }
@@ -86,17 +83,18 @@ namespace vegetable.Services
                 error.IsSuccess = true;
                 try
                 {
-                   
-                    item.Entry(picDetail.FirstOrDefault()).State = EntityState.Deleted;
+                    var data3 = picDetail.FirstOrDefault();
+                    item.Entry(data3).State = EntityState.Deleted;
                     item.SaveChanges();
 
                     category.Load();
-                    item.Entry(a.FirstOrDefault()).State = EntityState.Deleted;
+                    var data2 = a.FirstOrDefault();
+                    
+                    item.Entry(data2).State = EntityState.Deleted;
                     item.SaveChanges();
+                 
 
 
-                    item.Entry(category.FirstOrDefault()).State = EntityState.Deleted;
-                    item.SaveChanges();
 
                     data.Commit();
                 }
