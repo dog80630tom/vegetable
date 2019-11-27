@@ -1,0 +1,216 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
+}
+<style>
+    * {
+        font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    }
+
+    .ProductLargeImg {
+        width: 350px;
+    }
+
+    .fa-star {
+        color: rgb(255, 210, 0);
+    }
+
+    .Product-info {
+        box-sizing: border-box;
+        width: 120px;
+    }
+
+    .btn-size {
+        border: 1px solid #dedede;
+    }
+
+    .add-to-cart {
+        border: 2px solid #000;
+    }
+
+    .productView-title {
+        font-size: 20px;
+        font-weight: 400;
+        margin: 0 10px 10px 0;
+        letter-spacing: .02em;
+        line-height: 32px;
+    }
+
+    .productView-rating {
+        padding-top: 8px;
+        padding-bottom: 27px;
+    }
+
+    .productView-price {
+        font-family: Poppins,Arial,Helvetica,sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        color: #000;
+        letter-spacing: .02em;
+    }
+
+    #button#form-action-addToCart {
+        font-size: 90px;
+        min-width: 270px;
+        max-width: 280px;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -ms-flex-pack: center;
+        justify-content: center;
+        color: #000;
+        background-color: #fff;
+        border-color: #000;
+    }
+
+    /*產品小圖和社群列*/
+    .productView-thumbnail {
+        display: flex;
+        justify-content: center;
+    }
+
+    /*產品小圖*/
+    .viewPic {
+        width: 64px;
+        height: 97px;
+    }
+
+    .btn, .RAndQ {
+        border: 1px solid #e5e5e5;
+    }
+
+    #questionCount, #reviewCount {
+        background: #eee;
+        padding: 2px 5px;
+        margin-left: 10px;
+    }
+</style>
+
+@*<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Rings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tie and Knot Ring</a>
+                </li>
+            </ul>
+        </div>
+    </nav>*@
+
+<div class="container">
+    @*產品大圖和購買相關功能*@
+    <div class="row my-5">
+        <div class="col-4">
+            <img class="ProductLargeImg" src="~/Content/images/Product/p1.jpg" alt="">
+        </div>
+        <div class="col-8">
+            <div class="productView-title">Tie and Knot Ring</div>
+            <div class="productView-rating"></div>
+            <div class="productView-price">$16.00</div>
+            <span>
+                <!-- <i style="height:20px; width:20px" class="fa fa-star-o" aria-hidden="true"></i> -->
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+            </span>
+            <hr>
+            <span class="Product-info">SKU:</span>
+            <span class="Product-info">123123</span>
+            <br>
+            <span class="Product-info">Gift wrapping:</span>
+            <span class="Product-info">Options available</span>
+            <div class="productView-rating"></div>
+            <div>Size:</div>
+            <button type="button" class="btn btn-outline-dark btn-size mr-2">6</button>
+            <button type="button" class="btn btn-outline-dark btn-size mr-2">7</button>
+            <button type="button" class="btn btn-outline-dark btn-size">8</button>
+            <div class="productView-rating"></div>
+            <div>Quantity:</div>
+            <div class="productView-rating"></div>
+            <button id="button#form-action-addToCart" type="button" class="btn btn-outline-dark rounded-0">ADD TO CART</button>
+        </div>
+    </div>
+    @*產品小圖和社群按鈕*@
+    <div class="row">
+        <div class="col-4 productView-thumbnail mb-5">
+            <a class="mr-3" href="#">
+                <img class="viewPic" src="~/Content/images/Product/p1.jpg" alt="Tie and Knot Ring" />
+            </a>
+            <a class="mr-3" href="#">
+                <img class="viewPic" src="~/Content/images/Product/p2.jpg" alt="Tie and Knot Ring" />
+            </a>
+            <a href="#">
+                <img class="viewPic" src="~/Content/images/Product/p3.jpg" alt="Tie and Knot Ring" />
+            </a>
+        </div>
+    </div>
+
+    @* 產品detail *@
+    <div class="row">
+        <button type="button" class="btn rounded-0" style="border-right:0;border-bottom:0">DETAILS</button>
+        <button type="button" class="btn rounded-0" style="border-bottom:0">SHIPPING & RETURNS</button>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col-12" style="padding-top:30px; border-top: 1px solid #e5e5e5;">
+            <div><span>Knot your average statement ring ! </span></div>
+            <div>&nbsp;</div>
+            <ul>
+                <li>14k Gold over Stainless&nbsp;Steel</li>
+            </ul>
+            <div>&nbsp;</div>
+            <div><span>Measurements : </span></div>
+            <div>&nbsp;</div>
+            <ul>
+                <li>Available in sizes 6,7, and 8</li>
+            </ul>
+        </div>
+    </div>
+    @* 顧客回應 *@
+    <h2 class="mt-5">Customer Reviews</h2>
+    <div class="row">
+        <button type="button" class="btn ml-auto">
+            <i class="far fa-comments"></i>
+            Ask a Question
+        </button>
+        <button type="button" class="btn ml-4">
+            <i class="far fa-edit"></i>
+            Write a Review
+        </button>
+    </div>
+    <div class="row">
+        <button type="button" class="btn border-0">
+            <span>Reviews</span>
+            <span id="reviewCount">0</span>
+        </button>
+        <button type="button" class="btn border-0">
+            <span>Questions</span>
+            <span id="questionCount">0</span>
+        </button>
+    </div>
+    @* review and question 內容 *@
+    <div class="RAndQ row border-left-0 border-right-0">
+        <div class="my-5 mx-auto">
+            Be the first to review this item
+        </div>
+    </div>
+    @* 相關商品 *@
+    <div class="row mt-5">
+        <h4>Relative Produsts</h4>
+    </div>
+
+    <div class="row mb-3"></div>
+</div>

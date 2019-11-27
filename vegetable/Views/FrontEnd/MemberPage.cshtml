@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "MemberPage";
+    Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
+}
+
+<style>
+    nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
+        background: #fff;
+        position: relative;
+        text-decoration: none !important;
+    }
+
+
+
+    nav.navBar--sub ul.navBar-section li.navBar-item a {
+        font-size: 13px;
+        font-weight: 700;
+        display: block;
+        display: table-cell;
+        padding: 15px 30px 3px;
+        transition: background .3s ease 0s;
+        vertical-align: middle;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: #000;
+        border: 1px solid #e5e5e5;
+        background: #f7f8f9;
+        text-decoration: none !important;
+        float: left;
+        height: 51.6px;
+    }
+
+    .navBar-section {
+        list-style-type: none;
+    }
+
+
+    .btn.btn-checkout, .btn.btn-checkout:hover {
+        border-color: #000;
+        background: #000;
+    }
+
+    .btn.btn-checkout {
+        max-width: 270px;
+        padding-top: 10px;
+        color: #fff;
+    }
+
+    .form-input, .form-select {
+        border-style: solid;
+        border-width: 1px;
+        font-family: inherit;
+        margin: 0;
+        font-size: 1rem;
+        width: 100%;
+        height: 42px;
+        padding: 0px;
+        transition: border-color .1s ease-out;
+        background-color: #fff;
+        border-color: #dcdcdc;
+        color: #454545;
+        max-width: none;
+    }
+
+    .page-heading {
+        font-size: 24px;
+    }
+
+    .alert {
+        padding: 10px 30px 1px 25px;
+        margin-top: 40px;
+        margin-bottom: 160px;
+        border-radius: 1px;
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+        color: #31708f;
+    }
+
+    ul {
+        padding-left: 0px;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="page-heading" style="font-weight:600;">Orders</h1>
+
+            <nav class="navBar navBar--sub navBar--account">
+                <ul class="navBar-section">
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action">Orders</a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action">Returns</a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action">Messages</a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action">Addresses</a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action">Wish List </a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action">Recently Viewed</a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action">Account Settings</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <main class="account account--fixed">
+        <div class="account-body">
+            <section class="account-content">
+                <div class="alert">
+
+                    <p class="alertBox-column alertBox-message">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
+                        <span style="padding: 15px 30px 3px ;font-weight:100;">You haven't placed any orders with us. When you do, their status will appear on this page.</span>
+                    </p>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+

@@ -19,9 +19,9 @@
         cursor: pointer;
     }
 
-    button:hover {
-        opacity: 0.8;
-    }
+        button:hover {
+            opacity: 0.8;
+        }
 
     .closecontainer {
         text-align: center;
@@ -42,23 +42,24 @@
         background-color: rgba(0, 0, 0, 0.4);
         padding-top: 60px;
     }
-    .modal label {
-        padding:10px 0;
-        margin-top:5px;
-        margin-bottom:0;
-    }
 
-    .modal input {
-        padding:10px 0;
-        margin-top:5px;
-        margin-bottom:0;
-    }
+        .modal label {
+            padding: 10px 0;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
 
-    .modal button {
-        padding:10px 0;
-        margin:20px 0;
-    }
-    
+        .modal input {
+            padding: 10px 0;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+
+        .modal button {
+            padding: 10px 0;
+            margin: 20px 0;
+        }
+
     .modal-content {
         background-color: #fefefe;
         margin: 0% auto 10% auto;
@@ -77,23 +78,21 @@
         font-weight: bold;
     }
 
-    .close:hover,
-    .close:focus {
-        color: #e82b1a;
-        cursor: pointer;
-    }
+        .close:hover,
+        .close:focus {
+            color: #e82b1a;
+            cursor: pointer;
+        }
 
     .animate {
         -webkit-animation: animatezoom 0.6s;
         animation: animatezoom 0.6s
     }
-
 </style>
 
-<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
 
-<div id="id01" class="modal">
-    <form class="modal-content animate" action="/action_page.php" method="post">
+<div class="modal" id="loginModal">
+    <form class="modal-content animate" action="#" method="post">
         <div class="closecontainer">
             <span onclick="document.getElementById('id01').style.display='none'" class="close"
                   title="Close Modal">&times;</span>
@@ -116,11 +115,12 @@
     </form>
 </div>
 
-<script>
-        var modal = document.getElementById('id01');
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-</script>
+@section viewJquery{
+    <script>
+        $(function () {
+            $("#loginModal").modal;
+        });
+    </script>
+
+}
+
