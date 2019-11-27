@@ -376,14 +376,11 @@
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="Views\FrontEnd\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutFrontEnd.cshtml" />
-    <Content Include="Views\FrontEnd\Index - 複製.cshtml" />
     <Content Include="Views\FrontEnd\index_clone.cshtml" />
     <Content Include="Views\FrontEnd\MemberLogInModel.cshtml" />
-    <Content Include="Views\FrontEnd\MemberRegist.cshtml" />
     <Content Include="Views\FrontEnd\ShowProducts.cshtml" />
-    <Content Include="Views\FrontEnd\MemberPage.cshtml" />
-    <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
-    <Content Include="Views\FrontEnd\ProductIndex.cshtml" />
+    <Content Include="Views\FrontEnd\MemberRegist.cshtml" />
+    <Content Include="Views\FrontEnd\Index - 複製.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -427,7 +424,6 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4bootstrap-grid_1css_1map__JsonSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
