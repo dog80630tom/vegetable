@@ -1,0 +1,57 @@
+﻿@model IEnumerable<vegetable.Models.Member>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Create", "Members", "Post"))
+{
+    <table class="table">
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.MemberName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberGender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberPassword)
+            </th>
+        </tr>
+        <tr>
+            
+            <td>
+                @Html.TextBox("MemberName")
+            </td>
+            <td>
+                @Html.TextBox("MemberEmail")
+            </td>
+            <td>
+                @Html.TextBox("MemberGender")
+            </td>
+            <td>
+                @Html.TextBox("MemberPhone")
+            </td>
+            <td>
+                @Html.TextBox("MemberPassword")
+            </td>
+
+        </tr>
+    </table>
+    
+    <input type="submit" value="Save" class="btn btn-default" />
+}
+
