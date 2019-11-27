@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LOVODA</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .icon {
+            font-size: 18px;
+        }
+
+        .bg-footer {
+            background: #d4a299;
+        }
+
+        .navTop {
+            line-height: 40px;
+        }
+
+        .footericon {
+            font-size: 26px;
+        }
+
+        .footertext {
+            font-weight: 400;
+        }
+        .title{
+            font-family: 'Merriweather', serif;
+            font-size:55pt;
+             font-weight: 400;
+
+        }
+        .btn-outline-dark {
+        color: #343a40;
+        border-color: #343a40;
+        border: 3px solid;
+        background:white;
+        }
+
+        input {
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button {
+        padding: 14px 20px;
+        margin: 0px auto;
+        cursor: pointer;
+    }
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+    .closecontainer {
+        text-align: center;
+        margin: 24px 0;
+        position: relative;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+    }
+    .modal label {
+        padding:10px 0;
+        margin-top:5px;
+        margin-bottom:0;
+    }
+
+    .modal input {
+        padding:10px 0;
+        margin-top:5px;
+        margin-bottom:0;
+    }
+
+    .modal button {
+        padding:10px 0;
+        margin:20px 0;
+    }
+    
+    .modal-content {
+        background-color: #fefefe;
+        margin: 0% auto 10% auto;
+        border: 1px solid #888;
+        width: 550px;
+        height: 550px;
+        overflow: auto;
+    }
+
+    .close {
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #e82b1a;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #e82b1a;
+        cursor: pointer;
+    }
+
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+    </style>
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom p-0 justify-content-between">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse p-0 justify-content-between" id="navbarNavDropdown">
+            <ul class="navbar-nav p-0">
+                <li class="nav-item active border-right  p-0">
+                    <a class="nav-link text-dark mx-3 navTop" href="">ACCOUNT</a>
+                </li>
+                <li class="nav-item active">
+                    @if (Request.RequestContext.HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        <a href="@Url.Action("Product", "BackEnd")" class="nav-link text-dark mx-3 navTop">前往後台</a>
+                        <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
+                    }
+                    else
+                    {
+                        @*<a data-toggle="modal" data-target="#loginModal" href="@Url.Action("_Login", "FrontEnd")" class="nav-link text-dark mx-3 navTop">LOGIN</a>*@
+                        @*<a id="btn_login" class="nav-link text-dark mx-3 navTop" data-toggle="modal" data-target="#loginModal">LOGIN</a>*@
+                        <a id="btn_login" class="nav-link text-dark mx-3 navTop">LOGIN</a>
+                    }
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark  mx-3 navTop" href="@Url.Action("MemberRegist", "FrontEnd")">REGISTER</a>
+                </li>
+            </ul>
+            @*<a class="nav-link text-dark  mx-3 navTop" href="">US ONLY - FREE SHIPPING OVER $50 & FREE RETURNS SHOP NOW</a>*@
+            <ul class="navbar-nav p-0 text-center">
+
+                <li class="nav-item active border-right border-left  p-0">
+                    <a class="nav-link text-dark  mx-3 navTop" href=""><i class="fas fa-search icon"></i></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-dark  mx-3 navTop" href="#">GIFT CERTIFICATES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark mx-3 navTop border-right border-left" href="#">WISH LISTS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark   mx-3 navTop" href="#">CART<i class="far fa-clipboard icon ml-3"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center title my-4">LOVODA</div>
+        </div>
+        <ul class="nav justify-content-center pb-4">
+            <li class="nav-item">
+                <a class="nav-link text-dark mx-2" href="#">NEW</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark mx-2" href="#">EARRINGS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark mx-2" href="#">NECKLACES</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark mx-2" href="#">BRACELETS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark mx-2" href="#">RINGS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark mx-2" href="#">OTHER ACCESSORIES</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark mx-2" href="#">SALE</a>
+            </li>
+        </ul>
+    </div>
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+    <div id="footer" class="w-100 bg-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 col-xl-2 bg-footer mt-5">
+                    <ul class="list-group list-group-flush text-white mt-5">
+                        <li class="list-group-item bg-footer border-0">SHOP</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Home</li>
+                        <li class="list-group-item bg-footer border-0 footertext">new</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Earrings</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Necklaces</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Bracelets</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Rings</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Other Accessories</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Sale</li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2 mt-5">
+                    <ul class="list-group list-group-flush bg-footer border-0 text-white mt-5">
+                        <li class="list-group-item bg-footer border-0 ">ABOUT US</li>
+                        <li class="list-group-item bg-footer border-0 footertext">About us</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Style Blog</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Contact a Stylist</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Meet with a Stylist</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Visit Us</li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2 mt-5">
+                    <ul class="list-group list-group-flush border-0 text-white mt-5">
+                        <li class="list-group-item bg-footer border-0">CUSTOMER SERVICE</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Contact Us</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Shipping</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Returns Policy</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Privacy Policy</li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2 mt-5">
+                    <ul class="list-group list-group-flush bg-footer text-white mt-5">
+                        <li class="list-group-item bg-footer border-0">FURTHER INFO</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Sitemap</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Affiliates</li>
+                        <li class="list-group-item bg-footer border-0 footertext">Wholesale Application</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4 mt-5">
+                    <ul class="list-group list-group-flush bg-footer text-white mt-5">
+                        <li class="list-group-item bg-footer border-0">STAY CONNECTED</li>
+                        <li class="list-group-item bg-footer border-0">
+                            <i class="fab fa-instagram mr-4 bg-footer footericon"></i>
+                            <i class="fab fa-facebook-f mr-4 bg-footer footericon"></i>
+                            <i class="fab fa-pinterest mr-4 bg-footer footericon"></i>
+                            <i class="fab fa-twitter mr-4 bg-footer footericon"></i>
+                        </li>
+                        <li class="list-group-item bg-footer border-0">FEATURED ON</li>
+                        <li class="list-group-item bg-footer border-0">
+                            <img src="~/Content/images/asseenonwhite.png" width="370" alt="Alternate Text" />
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="bg-footer text-light py-4 text-center">
+        <div class="container">
+            <p class="footertext mb-5"><i class="far fa-copyright mr-1 icon"></i> 2019 Lovoda All Rights Reserved.<p>
+                <div class="row justify-content-center my-5">
+                    <a href="" class=" text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/visa-pay-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/master-card-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/american-express-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/discover-logo-of-pay-system.png" alt="Alternate Text" />
+                    </a>
+                </div>
+        </div>
+    </div>
+
+    <div class="modal fade text-center" id="loginModal" style="z-index:1000000000">
+        <div class="modal-dialog">
+            <form class="modal-content animate" action="#" method="post">
+                <div class="closecontainer">
+                    <span onclick="document.getElementById('loginModal').style.display='none'" class="close"
+                          title="Close Modal">&times;</span>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 mx-auto">
+                            <h4><b>Sign In</b></h4>
+                            <label for="uname"><b>Email Address</b></label>
+                            <input class="w-100" type="text" placeholder="Enter Email" name="uname" required>
+                            <label for="psw"><b>Password</b></label>
+                            <input class="w-100" type="password" placeholder="Enter Password" name="psw" required>
+                            <button class="btn-outline-dark w-100 btn-block" type="submit">Login</button>
+                            <button class="btn-outline-dark w-100 btn-block" type="submit">Register</button>
+                            <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    @RenderSection("viewJquery", required: false)
+
+    <script>
+        $(function () {
+            $("#btn_login").click(function () {
+                $('#loginModal').modal('show');
+            });
+        });
+    </script>
+</body>
+</html>
