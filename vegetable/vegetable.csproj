@@ -392,7 +392,7 @@
     <Content Include="Views\FrontEnd\MemberLogInModel.cshtml" />
     <Content Include="Views\FrontEnd\MemberRegist.cshtml" />
     <Content Include="Views\FrontEnd\ShowProducts.cshtml" />
-    <Content Include="Views\FrontEnd\MemberPage.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageOrder.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
     <Content Include="Views\FrontEnd\ProductIndex.cshtml" />
     <Content Include="Views\Backstage\Form.cshtml" />
@@ -408,6 +408,8 @@
     <Content Include="Views\Members\Delete.cshtml" />
     <Content Include="Views\Members\Edit.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageAddress.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageWishlist.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

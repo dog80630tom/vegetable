@@ -165,10 +165,10 @@
                     <!-- 動態綁定有a標籤href及text屬性 -->
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Home</a>
+                            <a href="@Url.Action("Index", "FrontEnd")">Home</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">Creat Account</a>
+                            <a href="@Url.Action("MemberRegist", "FrontEnd")">Creat Account</a>
                         </li>
                     </ul>
                     <!-- 要塞目錄資料及連結資料   結尾-->
@@ -440,8 +440,9 @@
                                     <option value="Zimbabwe">Zimbabwe</option>
                                 </select>
                             </div>
-
+                            
                         </div>
+                        
                         <div class="row">
                             <div class="col-6">
                                 <label>First Name</label>
@@ -494,6 +495,9 @@
                         </div>
                         <input type="submit" class="btn btn-checkout rounded-0" style="margin-top:50px;" value="Create Account">
                     </div>
+            
+            </div>
+        </div>
 </body>
 
 
