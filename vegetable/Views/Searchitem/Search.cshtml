@@ -1,7 +1,8 @@
-﻿@model IEnumerable<vegetable.Models.ViewModels.SearchViewModel>
+﻿@model List<vegetable.Models.ViewModels.SearchViewModel>
 
 @{
     ViewBag.Title = "item";
+    var routeValue = new RouteValueDictionary();
 
 }
 
@@ -10,13 +11,40 @@
     <div class="row">
         <div class="col-4">
 
+            @using (Html.BeginForm("Search", "Searchitem"))
+            {
 
-            <input type="text" asp-for=Seachstring id="Seachstring" /><input type="button" class="btn btn-success" id="Search" />
-            <div id="PartialContainer">
 
-              
+                <input type="text" asp-for=Seachstring id="Seachstring" name="Seachstring" /><input type="submit" class="btn btn-success" id="Search" />
+            }
+        <div id="PartialContainer">
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+            <a href="@Url.Action("Detail","Searchitem", new { Id=Model[i].ProductID })">
+
+                <div class="card">
+                    <div class="card-header">
+                        @Html.HiddenFor(model => model[i].ProductID, new { Id = "ProductID" })
+                        @Html.DisplayTextFor(model => model[i].ProductName)
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">@Html.DisplayTextFor(model => model[i].ProductDescription)</p>
+
+                    </div>
                 </div>
-            </div>
+            </a>
+                }
+
         </div>
+        </div>
+    </div>
 </div>
-  @Html.Partial("_SearchPartialView", Model)
+@section Endscripts
+{
+    <script>
+        $(function () {
+     
+        });
+    </script>
+}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -56,7 +57,7 @@ namespace vegetable.Controllers
                 index = int.Parse(Seachstring);
             }
             var data = search.Where(x => x.CategoryName == Seachstring || x.ProductName == Seachstring || x.ProductPrice == index || x.ProductDescription == Seachstring).ToList();
-            ViewBag.Data = data.ToList();
+            ViewBag.Data = JsonConvert.SerializeObject(search.ToList());
             return View(search.ToList());
         }
         public ActionResult Search(string Seachstring)
@@ -72,6 +73,11 @@ namespace vegetable.Controllers
           
             return View("Search",data.ToList());
         }
-
+        
+        public ActionResult Detail(int? Id) {
+            var search = getSearch();
+            var data = search.Find(x=>x.ProductID==Id);
+            return View("Detail", data);
+        }
     }
 }
