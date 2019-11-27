@@ -36,101 +36,103 @@
         .footertext {
             font-weight: 400;
         }
-        .title{
-            font-family: 'Merriweather', serif;
-            font-size:55pt;
-             font-weight: 400;
 
+        .title {
+            font-family: 'Merriweather', serif;
+            font-size: 55pt;
+            font-weight: 400;
         }
+
         .btn-outline-dark {
-        color: #343a40;
-        border-color: #343a40;
-        border: 3px solid;
-        background:white;
+            color: #343a40;
+            border-color: #343a40;
+            border: 3px solid;
+            background: white;
         }
 
         input {
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
 
-    button {
-        padding: 14px 20px;
-        margin: 0px auto;
-        cursor: pointer;
-    }
+        button {
+            padding: 14px 20px;
+            margin: 0px auto;
+            cursor: pointer;
+        }
 
-    button:hover {
-        opacity: 0.8;
-    }
+            button:hover {
+                opacity: 0.8;
+            }
 
-    .closecontainer {
-        text-align: center;
-        margin: 24px 0;
-        position: relative;
-    }
+        .closecontainer {
+            text-align: center;
+            margin: 24px 0;
+            position: relative;
+        }
 
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
-        padding-top: 60px;
-    }
-    .modal label {
-        padding:10px 0;
-        margin-top:5px;
-        margin-bottom:0;
-    }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
 
-    .modal input {
-        padding:10px 0;
-        margin-top:5px;
-        margin-bottom:0;
-    }
+            .modal label {
+                padding: 10px 0;
+                margin-top: 5px;
+                margin-bottom: 0;
+            }
 
-    .modal button {
-        padding:10px 0;
-        margin:20px 0;
-    }
-    
-    .modal-content {
-        background-color: #fefefe;
-        margin: 0% auto 10% auto;
-        border: 1px solid #888;
-        width: 550px;
-        height: 550px;
-        overflow: auto;
-    }
+            .modal input {
+                padding: 10px 0;
+                margin-top: 5px;
+                margin-bottom: 0;
+            }
 
-    .close {
-        position: absolute;
-        right: 25px;
-        top: 0;
-        color: #e82b1a;
-        font-size: 25px;
-        font-weight: bold;
-    }
+            .modal button {
+                padding: 10px 0;
+                margin: 20px 0;
+            }
 
-    .close:hover,
-    .close:focus {
-        color: #e82b1a;
-        cursor: pointer;
-    }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 0% auto 10% auto;
+            border: 1px solid #888;
+            width: 550px;
+            height: 550px;
+            overflow: auto;
+        }
 
-    .animate {
-        -webkit-animation: animatezoom 0.6s;
-        animation: animatezoom 0.6s
-    }
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #e82b1a;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #e82b1a;
+                cursor: pointer;
+            }
+
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
     </style>
 </head>
 <body>
@@ -296,9 +298,12 @@
         </div>
     </div>
 
+
     <div class="modal fade text-center" id="loginModal" style="z-index:1000000000">
         <div class="modal-dialog">
-            <form class="modal-content animate" action="#" method="post">
+            <!--<form class="modal-content animate" method="post">-->
+            @using (Html.BeginForm("Login", "Members", FormMethod.Post, new { @class = "modal-content animate" }))
+            {
                 <div class="closecontainer">
                     @*<span onclick="document.getElementById('loginModal').style.display='none'" class="close"
                           title="Close Modal">&times;</span>*@
@@ -316,15 +321,19 @@
                             <label for="psw"><b>Password</b></label>
                             <input class="w-100" type="password" placeholder="Enter Password" name="psw" required>
                             <button class="btn-outline-dark w-100 btn-block" type="submit">Login</button>
-                            <button class="btn-outline-dark w-100 btn-block" type="submit">Register</button>
+                            <a class="btn-outline-dark w-100 btn-block">Register</a>
                             <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label>
                         </div>
                     </div>
                 </div>
-            </form>
+            }
+
+
+            <!-- </form>-->
         </div>
     </div>
-    
+
+
     @RenderSection("viewJquery", required: false)
 
     <script>
@@ -334,6 +343,9 @@
             });
         });
     </script>
+    @RenderSection("Endscripts", required: false)
 </body>
 </html>
+
+
 
