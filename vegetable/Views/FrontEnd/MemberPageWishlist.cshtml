@@ -274,6 +274,28 @@
 </style>
 
 
+<div id="container_page_nav">
+    <div class="container">
+        <!-- 要塞目錄資料及連結資料   開頭-->
+        <!-- 動態綁定有a標籤href及text屬性 -->
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Index", "FrontEnd")">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("MemberPageOrder", "FrontEnd")">Member</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("MemberPageWishlist", "FrontEnd")"> Wishlist</a>
+            </li>
+
+        </ul>
+        <!-- 要塞目錄資料及連結資料   結尾-->
+    </div>
+</div>
+
+
+
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -298,25 +320,7 @@
             </nav>
         </div>
     </div>
-    <div id="container_page_nav">
-        <div class="container">
-            <!-- 要塞目錄資料及連結資料   開頭-->
-            <!-- 動態綁定有a標籤href及text屬性 -->
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="@Url.Action("Index", "FrontEnd")">Home</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="@Url.Action("MemberPageOrder", "FrontEnd")">Member</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="@Url.Action("MemberPageWishlist", "FrontEnd")"> Wishlist</a>
-                </li>
-                
-            </ul>
-            <!-- 要塞目錄資料及連結資料   結尾-->
-        </div>
-    </div>
+    
     <br />
     <br />
 
