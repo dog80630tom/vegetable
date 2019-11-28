@@ -191,7 +191,7 @@
         <div class="collapse navbar-collapse p-0 justify-content-between" id="navbarNavDropdown">
             <ul class="navbar-nav p-0">
                 <li class="nav-item active border-right  p-0">
-                    <a class="nav-link text-dark mx-3 navTop" href=""><span class="dot">ACCOUNT</span></a>
+                    <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
                 </li>
                 <li class="nav-item active">
                     @if (Request.RequestContext.HttpContext.User.Identity.IsAuthenticated)
@@ -411,10 +411,11 @@
                 </div>
         </div>
     </div>
+
     <div class="modal fade" id="loginModal" style="z-index:1000000000">
         <div class="modal-dialog">
-            <form class="modal-content animate  rounded-0 m-0" action="#" method="post">
-                <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
+            <form class="modal-content animate" action="#" method="post">
+                <a type="button" class="close mt-3" data-dismiss="modal">&times;</a>
                 <div class="container mt-5">
                     <div class="row px-5">
                         <div class="col-8 mx-auto justify-content-center">
@@ -424,26 +425,25 @@
                             <label for="psw"><b>Password<span class="text-danger">*</span></b></label>
                             <input class="w-100" type="password" placeholder="Enter Password" name="psw" required>
                             <button class="btn-outline-dark w-100 btn-block" type="submit">LOGIN</button>
-                            <button class="btn-outline-dark w-100 btn-block"type="submit"><a href="@Url.Action("MemberRegist", "FrontEnd")"class="band">REGISTER</a></button>
+                            <button class="btn-outline-dark w-100 btn-block" type="submit"><a href="@Url.Action("MemberRegist", "FrontEnd")" class="band">REGISTER</a></button>
                             <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label>
                         </div>
                     </div>
-            }
+                </div>
+             </form>
+            </div>
+                                </div>
 
-        </div>
-    </div>
+                                @RenderSection("viewJquery", required: false)
+                                @RenderSection("Endscripts", required: false)
 
-    @RenderSection("viewJquery", required: false)
-    @RenderSection("Endscripts", required: false)
-
-    <script>
-        $(function () {
-            $("#btn_login").click(function () {
-                $('#loginModal').modal('show');
-            });
-        });
-    </script>
-    @RenderSection("Endscripts", required: false)
+                                <script>
+                                    $(function () {
+                                        $("#btn_login").click(function () {
+                                            $('#loginModal').modal('show');
+                                        });
+                                    });
+                                </script>
 </body>
 </html>
 
