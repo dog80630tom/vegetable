@@ -29,5 +29,7 @@ namespace vegetable.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<vegetable.Models.Member> Member { get; set; }
     }
 }

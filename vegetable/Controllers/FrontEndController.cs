@@ -25,7 +25,7 @@ namespace vegetable.Controllers
         {
             return View();
         }
-        public ActionResult MemberPage()
+        public ActionResult MemberPageOrder()
         {
             return View();
         }
@@ -35,6 +35,14 @@ namespace vegetable.Controllers
         }
 
         public ActionResult ProductIndex ()
+        {
+            return View();
+        }
+        public ActionResult MemberPageAddress()
+        {
+            return View();
+        }
+        public ActionResult MemberPageWishlist()
         {
             return View();
         }
