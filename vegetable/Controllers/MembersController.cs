@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using vegetable.Models;
@@ -81,9 +83,57 @@ namespace vegetable.Controllers
         public ActionResult Create(Member Member)
         {
             MemberServices services = new MemberServices();
+            Member.MemberPassword=encryption(Member.MemberPassword, Member.MemberName);
             services.CreateMember(Member);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult FrontCreate(Member Member)
+        {
+            MemberServices services = new MemberServices();
+            Member.MemberPassword = encryption(Member.MemberPassword,Member.MemberName);
+            services.CreateMember(Member);
+            return Redirect("/FrontEnd/MemberLogInModel");
+        }
+
+        public string encryption(string password,string name)
+        {
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            byte[] encrypt;
+            UTF8Encoding encode = new UTF8Encoding();
+            encrypt = md5.ComputeHash(encode.GetBytes(password+name));
+            return Convert.ToBase64String(encrypt);
+            
+        }
+
+        [HttpPost]
+        public ActionResult Login(string uname ,string psw)
+        {
+            //var initdata = initMemberData();
+            var temp = item.Members.Any(x => x.MemberEmail == uname);
+            TempData["AccountNotExist"] = true;
+            if (temp)
+            {
+                TempData["AccountNotExist"] = false;
+                var membership =(from m in item.Members where m.MemberEmail == uname select m).ToList();
+               var password = encryption(psw,membership[0].MemberName);
+                if (membership[0].MemberEmail==uname && password== membership[0].MemberPassword)
+                {
+                    Session["userName"] = membership[0].MemberName;
+                    Session["isLogIn"] = "Y";
+                    return Redirect("/FrontEnd/MemberLogInModel");
+                }
+                return Redirect("/FrontEnd/MemberRegist");
+            }
+            else
+            {
+                return Redirect("/FrontEnd/MemberRegist");
+            }
+           
+        }
+
+
 
 
 

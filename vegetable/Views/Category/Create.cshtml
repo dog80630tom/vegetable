@@ -10,7 +10,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm("Create","Category","Post"))
+@using (Html.BeginForm("Create", "Category", "Post"))
 {
     <table class="table">
         <tr>
@@ -26,17 +26,17 @@
             <th></th>
         </tr>
 
-            <tr>
-                <td>
-                    @Html.TextBox("CategoryName")
-                </td>
-                <td>
-                    @Html.TextBox("CategoryPic")
-                </td>
-                <td>
-                    @Html.TextBox("CategoryDescription")
-                </td>
-            </tr>    
+        <tr>
+            <td>
+                @Html.TextBox("CategoryName")
+            </td>
+            <td>
+                @Html.TextBox("CategoryPic")
+            </td>
+            <td>
+                @Html.TextBox("CategoryDescription")
+            </td>
+        </tr>
     </table>
     <input type="submit" value="Save" class="btn btn-default" />
 }
