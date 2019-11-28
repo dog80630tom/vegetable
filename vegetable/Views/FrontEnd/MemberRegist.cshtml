@@ -1,4 +1,4 @@
-﻿
+
 @{
     ViewBag.Title = "MemberRegist";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -65,7 +65,9 @@
         margin-top: 25px;
     }
 
-   
+    body {
+        letter-spacing: 0.02em;
+    }
 
     a,
     a:hover,
@@ -85,20 +87,16 @@
         list-style: none;
         margin: 0;
     }
-
     a:hover {
         cursor: pointer;
     }
-
     li {
         list-style: none;
     }
-
     .show-all {
         margin: 0;
         padding: 0;
     }
-
     /* ---------------------- */
     #container_page_nav {
         background-color: #f7f8f9;
@@ -106,13 +104,11 @@
         margin-top: 15px;
         margin-bottom: 36px;
     }
-
     .breadcrumb {
         background-color: #f7f8f9;
         padding: 0;
         margin: 0;
     }
-
     .breadcrumb-item {
         display: inline-block;
         padding-right: 10px;
@@ -161,14 +157,16 @@
             <div class="container_page">
                 <div id="container_page_nav">
                     <div class="container">
+                                <a href="@Url.Action("Index", "FrontEnd")">Home</a>
+                                <a href="@Url.Action("MemberRegist", "FrontEnd")">Creat Account</a>
                         <!-- 要塞目錄資料及連結資料   開頭-->
                         <!-- 動態綁定有a標籤href及text屬性 -->
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="@Url.Action("Index", "FrontEnd")">Home</a>
+                                <a href="#">Home</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="@Url.Action("MemberRegist", "FrontEnd")">Creat Account</a>
+                                <a href="#">Creat Account</a>
                             </li>
                         </ul>
                         <!-- 要塞目錄資料及連結資料   結尾-->
@@ -181,45 +179,38 @@
                     <hr size:8px align="center" width="100%">
                     <div class="row">
                         <div class="col-6">
-                            <label>Name</label>
+                            <label>Name<span class="text-danger">*</span></label>
                             <input class="form-input" name="MemberName">
                         </div>
                         <div class="col-6">
-                            <label>EmailAddress</label>
+                            <label>EmailAddress<span class="text-danger">*</span></label>
                             <input class="form-input" type="email" name="MemberEmail">
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <label>PassWord</label>
+                            <label>PassWord<span class="text-danger">*</span></label>
                             <input class="form-input " type="password" id="password" name="MemberPassword">
                         </div>
                         <div class="col-6">
-                            <label>Confirm Password</label>
+                            <label>Confirm Password<span class="text-danger">*</span></label>
                             <input class="form-input " type="password" id="password2">
                         </div>
-
                     </div>
                     <div class="row">
-
                         <div class="col-6">
-                            <label>Gender</label><br />
+                            <label>Gender<span class="text-danger">*</span></label><br />
                             <input type="radio" value="Male" name="MemberGender">
                             Male
                             <input type="radio" value="Female" name="MemberGender" style="margin-left:20px">
                             Female
                         </div>
                         <div class="col-6">
-                            <label> Phone Number</label>                        <input class="form-input" name="MemberPhone">
+                            <label> Phone Number<span class="text-danger">*</span></label><input class="form-input" name="MemberPhone">
                         </div>
                     </div>
-
-
                     <div class="row">
-
                         <div class="col-6">
-
                         </div>
                         <br />
 
@@ -229,13 +220,9 @@
             </div>
         </div>
     }
-
 </body>
-
 @section Endscripts{
     <script>
-
-
 
     </script>
 }
