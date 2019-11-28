@@ -89,30 +89,32 @@
     }
 </style>
 
+@using (Html.BeginForm("Login", "Members", "Post"))
+{
+    <div class="modal" id="loginModal">
+        <form class="modal-content animate" action="#" method="post">
+            <div class="closecontainer">
+                <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                      title="Close Modal">&times;</span>
+            </div>
 
-<div class="modal" id="loginModal">
-    <form class="modal-content animate" action="#" method="post">
-        <div class="closecontainer">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                  title="Close Modal">&times;</span>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-6 mx-auto">
-                    <h4><b>Sign In</b></h4>
-                    <label for="uname"><b>Email Address</b></label>
-                    <input class="w-100" type="text" placeholder="Enter Email" name="uname" required>
-                    <label for="psw"><b>Password</b></label>
-                    <input class="w-100" type="password" placeholder="Enter Password" name="psw" required>
-                    <button class="btn-outline-dark w-100 btn-block" type="submit">Login</button>
-                    <button class="btn-outline-dark w-100 btn-block" type="submit">Register</button>
-                    <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 mx-auto">
+                        <h4><b>Sign In</b></h4>
+                        <label for="uname"><b>Email Address</b></label>
+                        <input class="w-100" type="text" placeholder="Enter Email" name="uname" required>
+                        <label for="psw"><b>Password</b></label>
+                        <input class="w-100" type="password" placeholder="Enter Password" name="psw" required>
+                        <button class="btn-outline-dark w-100 btn-block" type="submit">Login</button>
+                        <a class="btn-outline-dark w-100 btn-block" >Register</a>
+                        <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+}
 
 <script>
         //var modal = document.getElementById('id01');

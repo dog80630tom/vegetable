@@ -1,4 +1,4 @@
-﻿
+
 @{
     ViewBag.Title = "MemberRegist";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -64,6 +64,11 @@
     .row {
         margin-top: 25px;
     }
+
+    body {
+        letter-spacing: 0.02em;
+    }
+
     a,
     a:hover,
     img,
@@ -152,6 +157,8 @@
             <div class="container_page">
                 <div id="container_page_nav">
                     <div class="container">
+                                <a href="@Url.Action("Index", "FrontEnd")">Home</a>
+                                <a href="@Url.Action("MemberRegist", "FrontEnd")">Creat Account</a>
                         <!-- 要塞目錄資料及連結資料   開頭-->
                         <!-- 動態綁定有a標籤href及text屬性 -->
                         <ul class="breadcrumb">
