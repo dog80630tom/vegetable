@@ -46,5 +46,13 @@ namespace vegetable.Controllers
         {
             return View();
         }
+        public ActionResult LoginPage()
+        {
+            return View();
+        }
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
     }
 }

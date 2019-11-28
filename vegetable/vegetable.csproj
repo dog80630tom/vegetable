@@ -410,6 +410,8 @@
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageAddress.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageWishlist.cshtml" />
+    <Content Include="Views\FrontEnd\LoginPage.cshtml" />
+    <Content Include="Views\FrontEnd\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
