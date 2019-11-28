@@ -393,9 +393,7 @@
     <Content Include="Views\FrontEnd\MemberPageOrder.cshtml" />
     <Content Include="Views\FrontEnd\MemberRegist.cshtml" />
     <Content Include="Views\FrontEnd\Index - 複製.cshtml" />
-    <Content Include="Views\FrontEnd\MemberPage.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
-    <Content Include="Views\FrontEnd\_Login.cshtml" />
     <Content Include="Views\FrontEnd\ProductIndex.cshtml" />
     <Content Include="Views\Backstage\Form.cshtml" />
     <Content Include="Views\Backstage\Edit.cshtml" />
