@@ -60,9 +60,6 @@ namespace vegetable.Respository
             _context.Entry(Enity).State = EntityState.Modified;//修改，entry(泛型的變數)
         }
 
-        public static implicit operator ConnRespository<T>(ConnRespository<ProducetDetil> v)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
