@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using vegetable.Models;
 using vegetable.Models.ViewModels;
+using vegetable.Respository;
 using vegetable.Services;
 
 namespace vegetable.Controllers
@@ -13,39 +14,45 @@ namespace vegetable.Controllers
     public class BackstageController : Controller
     {
         ItemContext item = new ItemContext();
+       
         // GET: Backstage
         public List<ProducetDetil> initdetil() {
             List<ProducetDetil> data =new List<ProducetDetil>();
             try
             {
+                string sql = @"select * from Products p
+                                left join Categories c on p.CategoryID= c.CategoryID
+                                left join PicDetails pic on pic.ProductID=p.ProductID";
+                ConnRespository<ProducetDetil> Conn = new ConnRespository<ProducetDetil>(item);//ConnRespository<要放入的模型>
+             data =  Conn.GetAll(sql).ToList();
                 //有join有viewmodel才要用隱含轉換
-                data = (from d in item.Products
-                            join c in item.Categories on d.CategoryID equals c.CategoryID
-                            join pic in item.PicDetails on d.ProductID equals pic.ProductID
+                //data = (from d in item.Products
+                //            join c in item.Categories on d.CategoryID equals c.CategoryID
+                //            join pic in item.PicDetails on d.ProductID equals pic.ProductID
                             
-                    select new
-                    {
-                        ProductID = d.ProductID,
-                        CategoryDescription = c.CategoryDescription,
-                        CategoryName = c.CategoryName,
-                        CategoryPic = c.CategoryPic,
-                        PicUrl = pic.PicUrl,
-                        ProductDescription = d.ProductDescription,
-                        ProductName = d.ProductName,
-                        UnitsInStock = d.UnitsInStock,
-                        ProductPrice=d.ProductPrice
-                    }).ToList().Select(x=>new ProducetDetil
-                    {
-                        ProductID = x.ProductID,
-                        CategoryDescription = x.CategoryDescription,
-                        CategoryName = x.CategoryName,
-                        CategoryPic = x.CategoryPic,
-                        PicUrl = x.PicUrl,
-                        ProductDescription = x.ProductDescription,
-                        ProductName = x.ProductName,
-                        UnitsInStock = x.UnitsInStock,
-                        ProductPrice=x.ProductPrice
-                    }).ToList();
+                //    select new
+                //    {
+                //        ProductID = d.ProductID,
+                //        CategoryDescription = c.CategoryDescription,
+                //        CategoryName = c.CategoryName,
+                //        CategoryPic = c.CategoryPic,
+                //        PicUrl = pic.PicUrl,
+                //        ProductDescription = d.ProductDescription,
+                //        ProductName = d.ProductName,
+                //        UnitsInStock = d.UnitsInStock,
+                //        ProductPrice=d.ProductPrice
+                //    }).ToList().Select(x=>new ProducetDetil
+                //    {
+                //        ProductID = x.ProductID,
+                //        CategoryDescription = x.CategoryDescription,
+                //        CategoryName = x.CategoryName,
+                //        CategoryPic = x.CategoryPic,
+                //        PicUrl = x.PicUrl,
+                //        ProductDescription = x.ProductDescription,
+                //        ProductName = x.ProductName,
+                //        UnitsInStock = x.UnitsInStock,
+                //        ProductPrice=x.ProductPrice
+                //    }).ToList();
             }
             catch (Exception ex) {
                 return null;
@@ -83,16 +90,16 @@ namespace vegetable.Controllers
         public void UploadFile()
         {
 
-            if (Request.Files.AllKeys.Any())
+            if (Request.Files.AllKeys.Any())//判斷formdata是否有值
             {
                 //## 讀取指定的上傳檔案ID
-                var httpPostedFile = Request.Files["userfile"];
+                var httpPostedFile = Request.Files["userfile"];//取得formdata的資料
 
                 //## 真實有檔案，進行上傳
-                if (httpPostedFile != null && httpPostedFile.ContentLength != 0)
+                if (httpPostedFile != null && httpPostedFile.ContentLength != 0)//判斷是否檔案為空
                 {
-                     string _FileName = Path.GetFileName(httpPostedFile.FileName);  
-                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);  
+                     string _FileName = Path.GetFileName(httpPostedFile.FileName);//取得檔案名稱  
+                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);//path.combine為合併檔案路徑和名稱，server.mapPath為網路的相對位置取得檔案路徑  
                     httpPostedFile.SaveAs(_path); 
                 }
             }
@@ -101,8 +108,8 @@ namespace vegetable.Controllers
         public ActionResult Form(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
         {
             PrductServices services = new PrductServices();
-    
-            var result=services.addProduct(product, category, picDetail);//增加產品
+   
+            var result=services.addProduct(product, category, picDetail);//加入產品
             if (result.IsSuccess)
             {
                 return View(initdetil());
@@ -125,7 +132,7 @@ namespace vegetable.Controllers
         public ActionResult Edit(Product product, Category category, PicDetail pic)
         {
             PrductServices services = new PrductServices();
-            product.ProductID = (int)TempData["ProductID"];//找到ID
+            product.ProductID = (int)TempData["ProductID"];//取的Id
             category.CategoryID = (from d in item.Products where d.ProductID == product.ProductID select d).FirstOrDefault().CategoryID;
             product.CategoryID = (from d in item.Products where d.ProductID == product.ProductID select d).FirstOrDefault().CategoryID;
             pic.ProductID = product.ProductID;
@@ -150,7 +157,7 @@ namespace vegetable.Controllers
                           select d ;
                
                 PrductServices services = new PrductServices();
-                services.DeleteProduct(delItem, itempic, co);
+                services.DeleteProduct(delItem, itempic, co);//刪除產品資料
             return RedirectToAction("Index");
         }
        
