@@ -214,6 +214,7 @@
                     height: 4px;
                     content: '';
                     transition: all .15s ease;
+                    background: #e5e5e5;
                 }
 
                 .view-mode-btn a#grid-view .icon-bar:before {
@@ -224,10 +225,10 @@
                     right: -5px;
                 }
 
-    a#grid-view.current-view .icon-bar:after,
-    a#grid-view.current-view .icon-bar:before,
-    a#grid-view.current-view .icon-bar {
-        background: #232323;
+    a.current-view .icon-bar:after,
+    a.current-view .icon-bar:before,
+    a.current-view .icon-bar {
+        background: #232323 !important;
     }
 
     .view-mode-btn a .icon-bar {
@@ -341,22 +342,20 @@
             width: 100%;
         }
 
-    img {
+    .card-image {
         width: 270px;
         height: 405px;
         max-width: 100%;
+        border: 0;
+        display: inline-block;
     }
 
     .prod-item .prod-image > a img.lazyloaded {
         width: 100% !important;
     }
 
-    .card-image {
-        border: 0;
-        display: inline-block;
-    }
-
     .actions > .btnQV, .actions > a.btnWL, .actions > a.btnATC {
+        opacity:0;
         visibility: hidden;
         transition: all 0.3s ease 0s;
         position: absolute;
@@ -372,15 +371,28 @@
         text-align: center;
     }
 
-    .btnWL {
+    .actions > a.btnWL:hover {
+        border-bottom: none;
+    }
+
+    .btnWL span, .btnWL i {
         font-weight: 400;
         color: #000;
     }
 
-        .btnWL:hover {
+    .prod-desc .btnWL i {
+        font-size:16px;
+        margin-left:40px;
+    }
+
+    .prod-desc .btnWL span {
+        border-bottom: 1px dotted #000;
+        margin-left:10px;
+    }
+
+        .prod-desc .btnWL span:hover,.prod-desc .btnWL i:hover {
             cursor: pointer;
             color: #000;
-            border-bottom: 1px dotted #000;
         }
 
 
@@ -435,12 +447,73 @@
     }
 
     .hoverin {
+        opacity:1 !important;
         visibility:visible !important;
     }
 
     .showdown {
-        top: 20px !important;
+        opacity:1 !important;
+        visibility:visible !important;
+        top:15px !important;
     }
+
+    ul {
+        padding:0;
+    }
+
+    .pagination-list li {
+        display:inline;
+        padding:0 5px;
+    }
+
+    .pagination-list .pagination-item a {
+        color:#000;
+        font-weight:600;
+    }
+
+    .pagination-list .pagination-item a:hover {
+        text-decoration:none;
+        color:#000;
+    }
+
+    .pagination-item--current a {
+        border-bottom: 1px dotted #000;
+    }
+
+    .pagination-item--current a:hover {
+        cursor:none;
+    }
+    
+    .pagination-item--next a, .pagination-item--previous a {
+        color:#000;
+        border-bottom: 1px dotted #000;
+    }
+    .pagination-item--next a:hover, .pagination-item--previous a:hover {
+        color:#000;
+    }
+
+    .prod-desc > a.btnATC {
+        width: 40%;
+        font-weight: 700;
+    }
+    .prod-desc {
+        padding-top:25px;
+    }
+    .prod-image-small {
+        padding:0;
+    }
+    /*.imghchange {
+        height:300px;
+        margin-bottom:0 !important;
+        border-bottom:1px solid #ccc;
+    }*/
+    figure {
+        margin:20px 0;
+    }
+    .center {
+        text-align:center;
+    }
+
 </style>
 
 <script>
@@ -589,325 +662,25 @@
                         <form action="/compare" method="POST">
                             <div class="module-wrapper">
                                 <div class="productBlockContainer row">
-                                    <div class="prod-item col-4">
-                                        <figure class="card-figure">
-                                            <div class="prod-image">
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
                                                 <a href="#">
-                                                    <img class="card-image"
+                                                    <img class="card-image viewchange"
                                                          src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
                                                 </a>
                                                 <div class="actions">
-                                                    <a href="#" class="btnWL">
-                                                    <i class="far fa-heart-o"></i>
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
                                                     <a href="#" class="btnQV quickview">Quick view</a>
                                                 </div>
                                             </div>
-                                            <figcaption class="prod-desc">
-                                                <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                                                <div class="prod-price text-center"><span class="price">$24.00</span></div>
-                                                <!--<div class="prod-summary">
-                                                    <p>
-                                                        Shine bright and sparkle big with this gold chain
-                                                        Y-Necklace with crystal circle stones all throughout.
-                                                        &amp;bull; 14K Gold over Stainless Steel
-                                                        Measurements: &amp;bull; Length: 17.5 in. / 44.5 cm.
-                                                        &amp;bull; Extension: 2.5 in. / 6.4 cm. &amp;bull; Front
-                                                        Drop: 6 in. /...
-                                                    </p>
-                                                </div>
-                                                <span class="stamped-product-reviews-badge" data-id="5597"
-                                                    style="display:block;">
-                                                <span class="stamped-badge"
-                                                        data-rating="0.0" data-lang="">
-                                                    <span class="stamped-starrating stamped-badge-starrating">
-                                                        <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
-                                                    </span>
-                                                    <span class="stamped-badge-caption" data-reviews="0"
-                                                            data-rating="0.0" aria-label="0 reviews"
-                                                            data-version="2">
-                                                    </span>
-                                                </span>
-                                                </span>
-                                                <a href="#"
-                                                   class="btn btn-outline-dark btnATC hidden-lg">Add to Cart</a>
-                                                <a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i><span>Add to Wish list</span>
-                                                </a>-->
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div class="prod-item col-4">
-                                        <figure class="card-figure">
-                                            <div class="prod-image">
-                                                <a href="#">
-                                                    <img class="card-image"
-                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
-                                                </a>
-                                                <div class="actions">
-                                                    <!--<a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i>
-                                                    <span>Add to Wish list</span>
-                                                    </a>-->
-                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                                                    <a href="#" class="btnQV quickview">Quick view</a>
-                                                </div>
-                                            </div>
-                                            <figcaption class="prod-desc">
-                                                <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                                                <div class="prod-price text-center"><span class="price">$24.00</span></div>
-                                                <!--<div class="prod-summary">
-                                                    <p>
-                                                        Shine bright and sparkle big with this gold chain
-                                                        Y-Necklace with crystal circle stones all throughout.
-                                                        &amp;bull; 14K Gold over Stainless Steel
-                                                        Measurements: &amp;bull; Length: 17.5 in. / 44.5 cm.
-                                                        &amp;bull; Extension: 2.5 in. / 6.4 cm. &amp;bull; Front
-                                                        Drop: 6 in. /...
-                                                    </p>
-                                                </div>
-                                                <span class="stamped-product-reviews-badge" data-id="5597"
-                                                    style="display:block;">
-                                                <span class="stamped-badge"
-                                                        data-rating="0.0" data-lang="">
-                                                    <span class="stamped-starrating stamped-badge-starrating">
-                                                        <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
-                                                    </span>
-                                                    <span class="stamped-badge-caption" data-reviews="0"
-                                                            data-rating="0.0" aria-label="0 reviews"
-                                                            data-version="2">
-                                                    </span>
-                                                </span>
-                                                </span>
-                                                <a href="#"
-                                                   class="btn btn-outline-dark btnATC hidden-lg">Add to Cart</a>
-                                                <a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i><span>Add to Wish list</span>
-                                                </a>-->
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div class="prod-item col-4">
-                                        <figure class="card-figure">
-                                            <div class="prod-image">
-                                                <a href="#">
-                                                    <img class="card-image"
-                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
-                                                </a>
-                                                <div class="actions">
-                                                    <!--<a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i>
-                                                    <span>Add to Wish list</span>
-                                                    </a>-->
-                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                                                    <a href="#" class="btnQV quickview">Quick view</a>
-                                                </div>
-                                            </div>
-                                            <figcaption class="prod-desc">
-                                                <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                                                <div class="prod-price text-center"><span class="price">$24.00</span></div>
-                                                <!--<div class="prod-summary">
-                                                    <p>
-                                                        Shine bright and sparkle big with this gold chain
-                                                        Y-Necklace with crystal circle stones all throughout.
-                                                        &amp;bull; 14K Gold over Stainless Steel
-                                                        Measurements: &amp;bull; Length: 17.5 in. / 44.5 cm.
-                                                        &amp;bull; Extension: 2.5 in. / 6.4 cm. &amp;bull; Front
-                                                        Drop: 6 in. /...
-                                                    </p>
-                                                </div>
-                                                <span class="stamped-product-reviews-badge" data-id="5597"
-                                                    style="display:block;">
-                                                <span class="stamped-badge"
-                                                        data-rating="0.0" data-lang="">
-                                                    <span class="stamped-starrating stamped-badge-starrating">
-                                                        <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
-                                                    </span>
-                                                    <span class="stamped-badge-caption" data-reviews="0"
-                                                            data-rating="0.0" aria-label="0 reviews"
-                                                            data-version="2">
-                                                    </span>
-                                                </span>
-                                                </span>
-                                                <a href="#"
-                                                   class="btn btn-outline-dark btnATC hidden-lg">Add to Cart</a>
-                                                <a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i><span>Add to Wish list</span>
-                                                </a>-->
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div class="prod-item col-4">
-                                        <figure class="card-figure">
-                                            <div class="prod-image">
-                                                <a href="#">
-                                                    <img class="card-image"
-                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
-                                                </a>
-                                                <div class="actions">
-                                                    <!--<a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i>
-                                                    <span>Add to Wish list</span>
-                                                    </a>-->
-                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                                                    <a href="#" class="btnQV quickview">Quick view</a>
-                                                </div>
-                                            </div>
-                                            <figcaption class="prod-desc">
-                                                <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                                                <div class="prod-price text-center"><span class="price">$24.00</span></div>
-                                                <!--<div class="prod-summary">
-                                                    <p>
-                                                        Shine bright and sparkle big with this gold chain
-                                                        Y-Necklace with crystal circle stones all throughout.
-                                                        &amp;bull; 14K Gold over Stainless Steel
-                                                        Measurements: &amp;bull; Length: 17.5 in. / 44.5 cm.
-                                                        &amp;bull; Extension: 2.5 in. / 6.4 cm. &amp;bull; Front
-                                                        Drop: 6 in. /...
-                                                    </p>
-                                                </div>
-                                                <span class="stamped-product-reviews-badge" data-id="5597"
-                                                    style="display:block;">
-                                                <span class="stamped-badge"
-                                                        data-rating="0.0" data-lang="">
-                                                    <span class="stamped-starrating stamped-badge-starrating">
-                                                        <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
-                                                    </span>
-                                                    <span class="stamped-badge-caption" data-reviews="0"
-                                                            data-rating="0.0" aria-label="0 reviews"
-                                                            data-version="2">
-                                                    </span>
-                                                </span>
-                                                </span>
-                                                <a href="#"
-                                                   class="btn btn-outline-dark btnATC hidden-lg">Add to Cart</a>
-                                                <a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i><span>Add to Wish list</span>
-                                                </a>-->
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div class="prod-item col-4">
-                                        <figure class="card-figure">
-                                            <div class="prod-image">
-                                                <a href="#">
-                                                    <img class="card-image"
-                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
-                                                </a>
-                                                <div class="actions">
-                                                    <!--<a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i>
-                                                    <span>Add to Wish list</span>
-                                                                                                    </a>-->
-                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                                                    <a href="#" class="btnQV quickview">Quick view</a>
-                                                </div>
-                                            </div>
-                                            <figcaption class="prod-desc">
-                                                <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                                                <div class="prod-price text-center"><span class="price">$24.00</span></div>
-                                                <!--<div class="prod-summary">
-                                                    <p>
-                                                        Shine bright and sparkle big with this gold chain
-                                                        Y-Necklace with crystal circle stones all throughout.
-                                                        &amp;bull; 14K Gold over Stainless Steel
-                                                        Measurements: &amp;bull; Length: 17.5 in. / 44.5 cm.
-                                                        &amp;bull; Extension: 2.5 in. / 6.4 cm. &amp;bull; Front
-                                                        Drop: 6 in. /...
-                                                    </p>
-                                                </div>
-                                                <span class="stamped-product-reviews-badge" data-id="5597"
-                                                    style="display:block;">
-                                                <span class="stamped-badge"
-                                                        data-rating="0.0" data-lang="">
-                                                    <span class="stamped-starrating stamped-badge-starrating">
-                                                        <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
-                                                    </span>
-                                                    <span class="stamped-badge-caption" data-reviews="0"
-                                                            data-rating="0.0" aria-label="0 reviews"
-                                                            data-version="2">
-                                                    </span>
-                                                </span>
-                                                </span>
-                                                <a href="#"
-                                                   class="btn btn-outline-dark btnATC hidden-lg">Add to Cart</a>
-                                                <a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i><span>Add to Wish list</span>
-                                                </a>-->
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <div class="prod-item col-4">
-                                        <figure class="card-figure">
-                                            <div class="prod-image">
-                                                <a href="#">
-                                                    <img class="card-image"
-                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
-                                                </a>
-                                                <div class="actions">
-                                                    <!--<a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i>
-                                                    <span>Add to Wish list</span>
-                                                    </a>-->
-                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                                                    <a href="#" class="btnQV quickview">Quick view</a>
-                                                </div>
-                                            </div>
-                                            <figcaption class="prod-desc">
-                                                <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                                                <div class="prod-price text-center"><span class="price">$24.00</span></div>
-                                                <!--<div class="prod-summary">
-                                                    <p>
-                                                        Shine bright and sparkle big with this gold chain
-                                                        Y-Necklace with crystal circle stones all throughout.
-                                                        &amp;bull; 14K Gold over Stainless Steel
-                                                        Measurements: &amp;bull; Length: 17.5 in. / 44.5 cm.
-                                                        &amp;bull; Extension: 2.5 in. / 6.4 cm. &amp;bull; Front
-                                                        Drop: 6 in. /...
-                                                    </p>
-                                                </div>
-                                                <span class="stamped-product-reviews-badge" data-id="5597"
-                                                    style="display:block;">
-                                                <span class="stamped-badge"
-                                                        data-rating="0.0" data-lang="">
-                                                    <span class="stamped-starrating stamped-badge-starrating">
-                                                        <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
-                                                    </span>
-                                                    <span class="stamped-badge-caption" data-reviews="0"
-                                                            data-rating="0.0" aria-label="0 reviews"
-                                                            data-version="2">
-                                                    </span>
-                                                </span>
-                                                </span>
-                                                <a href="#"
-                                                   class="btn btn-outline-dark btnATC hidden-lg">Add to Cart</a>
-                                                <a href="#" class="btnWL">
-                                                    <i class="fa fa-heart-o"></i><span>Add to Wish list</span>
-                                                </a>-->
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <!------------------------------------------------------->
-                                    <div class="prod-item col-12 d-inline-block">
-                                        <figure class="card-figure row">
-                                            <div class="prod-image col-3">
-                                                <a href="#">
-                                                    <img class="card-image lazyautosizes lazyloaded w-75 h-auto"
-                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/3886/16795/020400062_1_of_5__78100.1512405194.jpg?c=2">
-                                                </a>
-                                                <!--<div class="actions">
-                                                    <a href="#" class="btnWL">
-                                                        <i class="fa fa-heart-o"></i><span>Add to Wish list</span>
-                                                    </a>
-                                                    <a href="#" class="btn btn-outline-dark btnATC hidden-xs hidden-sm hidden-md">Add to Cart</a>
-                                                    <a href="#" class="btnQV quickview" data-product-id="3886">Quick view</a>
-                                                </div>-->
-                                            </div>
-                                            <figcaption class="prod-desc col-9 mt-2">
+                                            <figcaption class="prod-desc viewchange center">
                                                 <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
                                                 <div class="prod-price"><span class="price">$24.00</span></div>
-                                                <div class="prod-summary">
+                                                <div class="prod-summary list-view">
                                                     <p>
                                                         Minimalist bar and chain pull through lariat necklace.
                                                         One of those simple, jewelry pieces you need to keep
@@ -917,56 +690,699 @@
                                                         Measurements:&amp;bull; Length: 31 in. /...
                                                     </p>
                                                 </div>
-                                                <!--<span class="stamped-product-reviews-badge" data-id="3886"
-                                                      style="display:block;">
-                                                    <span class="stamped-badge"
-                                                          data-rating="0.0" data-lang="">
-                                                        <span class="stamped-starrating stamped-badge-starrating">
-                                                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
-                                                        </span>
-                                                        <span class="stamped-badge-caption" data-reviews="0"
-                                                              data-rating="0.0" aria-label="0 reviews"
-                                                              data-version="2">
-                                                        </span>
-                                                    </span>
-                                                </span>-->
-                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0">Add to Cart</a>
-                                                <a href="#" class="btnWL">
-                                                    <!--<i class="far fa-heart-o"></i>--><span>Add to Wish list</span>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
                                                 </a>
                                             </figcaption>
                                         </figure>
                                     </div>
-                                    <hr />
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
+                                    <div class="prod-item viewchange col-4">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a href="#">
+                                                    <img class="card-image viewchange"
+                                                         src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                                                <div class="prod-price"><span class="price">$24.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        Minimalist bar and chain pull through lariat necklace.
+                                                        One of those simple, jewelry pieces you need to keep
+                                                        around.&amp;nbsp;
+                                                        &amp;bull; No clasp pull through necklace&amp;bull; Pull
+                                                        through adjustable length&amp;bull; Gold brass
+                                                        Measurements:&amp;bull; Length: 31 in. /...
+                                                    </p>
+                                                </div>
+                                                <!--<span class="stamped-product-reviews-badge" data-id="5597"
+                      style="display:block;">
+                    <span class="stamped-badge"
+                          data-rating="0.0" data-lang="">
+                        <span class="stamped-starrating stamped-badge-starrating">
+                            <i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i><i class="stamped-fa stamped-fa-star-o"></i>
+                        </span>
+                        <span class="stamped-badge-caption" data-reviews="0"
+                              data-rating="0.0" aria-label="0 reviews"
+                              data-version="2">
+                        </span>
+                    </span>
+                </span>-->
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
                                 </div>
                             </div>
                         </form>
 
-                        <div class="product-pagination bottom" data-total_products="44">
-                            <div class="pagination">
-                                <ul class="pagination-list">
-                                    <li class="pagination-item pagination-item--current">
-                                        <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=1"
-                                           data-faceted-search-facet="">1</a>
-                                    </li>
-                                    <li class="pagination-item">
-                                        <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=2"
-                                           data-faceted-search-facet="">2</a>
-                                    </li>
-                                    <li class="pagination-item">
-                                        <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=3"
-                                           data-faceted-search-facet="">3</a>
-                                    </li>
+                        <div class="product-pagination bottom">
+                            <div class="pagination row">
+                                    <div class="pagination-item pagination-item--previous ml-0 col-1">
+                                        <a class="pagination-link"
+                                           href="https://lovoda.com/y-necklace-lariat/?sort=newest&amp;page=1"
+                                           data-faceted-search-facet=""><span>Previous</span>
+                                        </a>
+                                    </div>
+                                    <ul class="pagination-list mx-auto">
+                                        <li class="pagination-item pagination-item--current">
+                                            <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=1"
+                                               data-faceted-search-facet="">1</a>
+                                        </li>
+                                        <li class="pagination-item">
+                                            <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=2"
+                                               data-faceted-search-facet="">2</a>
+                                        </li>
+                                        <li class="pagination-item">
+                                            <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=3"
+                                               data-faceted-search-facet="">3</a>
+                                        </li>
 
-                                    <li class="pagination-item pagination-item--next">
+                                    </ul>
+                                    <div class="pagination-item pagination-item--next mr-0 col-1">
                                         <a class="pagination-link"
                                            href="https://lovoda.com/y-necklace-lariat/?sort=newest&amp;page=2"
                                            data-faceted-search-facet="">
                                             <span>Next</span>
                                         </a>
-                                    </li>
-                                </ul>
-                            </div>
+                                    </div>
+                                </div>
 
                         </div>
                     </div>
@@ -980,49 +1396,58 @@
 @section viewJquery{
     <script>
         $(function () {
+            $(".list-view").hide();
+            $("#grid-view").click(function () {
+                $(".list-view").hide();
+                $(".grid-view").show();
+                $("#grid-view").addClass("current-view");
+                $("#list-view").removeClass("current-view");
+                $(".prod-item.viewchange").removeClass("col-12 d-inline-block imghchange").addClass("col-4");
+                $(".card-figure.viewchange").removeClass("row");
+                $(".prod-image.viewchange").removeClass("col-3 px-0 imghchange");
+                $(".card-image.viewchange").removeClass("h-100");
+                $(".prod-desc.viewchange").removeClass("col-9 mt-2").addClass("center");;
+
+            });
+            $("#list-view").click(function () {
+                $(".grid-view").hide();
+                $(".list-view").show();
+                $("#grid-view").removeClass("current-view");
+                $("#list-view").addClass("current-view");
+                $(".prod-item.viewchange").removeClass("col-4").addClass("col-12 d-inline-block imghchange");
+                $(".card-figure.viewchange").addClass("row");
+                $(".prod-image.viewchange").addClass("col-3 px-0 imghchange");
+                $(".card-image.viewchange").addClass("h-100");
+                $(".prod-desc.viewchange").addClass("col-9 mt-2").removeClass("center");;
+                
+            });
 
             $(".card-figure").hover(function () {
-                $(this).find(".btnWL").addClass("hoverin");
-                $(this).find(".btnWL").addClass("showdown")
+                $(this).find(".btnWL").addClass("showdown");
                 $(this).find(".btnQV").addClass("hoverin");
                 $(this).find(".btnATC").addClass("hoverin");
             }, function () {
-                    $(this).find(".btnWL").removeClass("hoverin");
-                    $(this).find(".btnWL").removeClass("showdown")
+                    $(this).find(".btnWL").removeClass("showdown");
                     $(this).find(".btnQV").removeClass("hoverin");
                     $(this).find(".btnATC").removeClass("hoverin");
             });
 
-            $("card-image").hover(function () {
-                $(this).attr("src", "https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2")
+            $(".card-image").hover(function () {
+                $(this).attr("style", "opacity:0.5");
+                $(this).attr("src", "https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24309/020400079-4__16018.1562615109.jpg?c=2");
             }, function () {
-                $(this).attr("src", "https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2")
+                $(this).attr("style", "opacity:0.5");
+                $(this).attr("src", "https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2");
             });
+
+            $(".btnWL").click(function () {
+                $(this).find("i").removeClass("far fa-heart");
+                $(this).find("i").addClass("fas fa-heart");
+            });
+
+            
         });
 
-
-            //function getElement(myclass) {
-            //    var item = document.getElementsByClassName("'." + myclass + "'");
-            //    console.log(item);
-            //    return item;
-            //}
-
-            //function mouseIn() {
-            //    document.getElementsByClassName(".btnWL").style.visibility = "visible";
-            //    getElement(btnQV).style.visibility = "visible";
-            //    getElement(btnATC).style.visibility = "visible";
-            //}
-            //function mouseOut() {
-            //    getElement(btnWL).style.visibility = "hidden";
-            //    getElement(btnQV).style.visibility = "hidden";
-            //    getElement(btnATC).style.visibility = "hidden";
-            //}
-
-            //$(".card-figure").hover(function () {
-            //    $(".btnWL").addClass("hoverin");
-            //}, function () {
-            //    $("..btnWL").removeClass("hoverin");
-            //});
 
 
     </script>

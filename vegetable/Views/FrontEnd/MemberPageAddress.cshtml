@@ -1,9 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "MemberPageSetting";
+    ViewBag.Title = "MemberPage";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
-
 
 <style>
     nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
@@ -81,8 +80,16 @@
     ul {
         padding-left: 0px;
     }
+    .container_page {
+    margin: 0 auto;
+    padding-bottom: 80px;
+    border-top: 1px solid #eaeaea;
+}
 
-    /*nav bar*/
+
+
+
+     /*nav bar*/
     #container_page_nav {
         background-color: #f7f8f9;
         padding: 20px 0 15px 15px;
@@ -126,6 +133,7 @@
 </style>
 
 
+
 <div id="container_page_nav">
     <div class="container">
         <!-- 要塞目錄資料及連結資料   開頭-->
@@ -138,7 +146,7 @@
                 <a href="@Url.Action("MemberPageOrder", "FrontEnd")">Member</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="@Url.Action("MemberPageSetting", "FrontEnd")"> Setting</a>
+                <a href="@Url.Action("MemberPageAddress", "FrontEnd")"> Address</a>
             </li>
 
         </ul>
@@ -148,11 +156,10 @@
 
 
 
-
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1 class="page-heading" style="font-weight:600;">Account Settings</h1>
+            <h1 class="page-heading" style="font-weight:600;">Address</h1>
 
             <nav class="navBar navBar--sub navBar--account">
                 <ul class="navBar-section">
@@ -175,54 +182,14 @@
     </div>
 
 
+    
 
 
 
+    <div class="body">
+        <div class="container_page">
 
-
-    <div class="container">
-        <div class="row">
-            <div class="col-6" style="margin-top:25px;">
-                <label>First Name</label>
-                <input class="form-input">
-            </div>
-            <div class="col-6" style="margin-top:25px;">
-                <label>Last Name</label>
-                <input class="form-input">
-            </div>
         </div>
-
-        <div class="row">
-            <div class="col-6" style="margin-top:25px;">
-                <label>Email Address</label>
-                <input class="form-input">
-            </div>
-            <div class="col-6" style="margin-top:25px;">
-                <label>Password</label>
-                <input class="form-input">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6" style="margin-top:25px;">
-                <label>Confirm Password</label>
-                <input class="form-input">
-            </div>
-            <div class="col-6" style="margin-top:25px;">
-                <label>Current Password</label>
-                <input class="form-input">
-            </div>
-        </div>
-        <div class="row">
-
-            <div class="col-6" style="margin-top:20px;">
-                <label>Phone Number</label>
-                <input class="form-input">
-            </div>
-            <div class="col-6" style="margin-top:20px;">
-
-            </div>
-        </div>
-
-        <input type="submit" class="btn btn-outline-dark rounded-0" style="margin-top:25px" value="Update Details">
     </div>
 </div>
+
