@@ -1,11 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "MemberRegist";
+    ViewBag.Title = "LoginPage";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
-<script>
-
-</script>
 <style>
     nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
         background: #fff;
@@ -66,7 +63,6 @@
     }
 
    
-
     a,
     a:hover,
     img,
@@ -153,7 +149,6 @@
 </style>
 
 
-
 <body>
     @using (Html.BeginForm("FrontCreate", "Members", "Post"))
     {
@@ -168,7 +163,7 @@
                                 <a href="@Url.Action("Index", "FrontEnd")">Home</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="@Url.Action("MemberRegist", "FrontEnd")">Creat Account</a>
+                                <a href="@Url.Action("LoginPage", "FrontEnd")">Login</a>
                             </li>
                         </ul>
                         <!-- 要塞目錄資料及連結資料   結尾-->
@@ -176,71 +171,40 @@
                 </div>
                 <div class="container">
                     <div class="row">
-                        <h1 class="page-heading">New Account</h1>
+                        <h1 class="page-heading">Login</h1>
                     </div>
-                    <hr size:8px align="center" width="100%">
+                    
                     <div class="row">
-                        <div class="col-6">
-                            <label>Name</label>
-                            <input class="form-input" name="MemberName">
-                        </div>
                         <div class="col-6">
                             <label>EmailAddress</label>
                             <input class="form-input" type="email" name="MemberEmail">
                         </div>
-
-                    </div>
-                    <div class="row">
                         <div class="col-6">
-                            <label>PassWord</label>
-                            <input class="form-input " type="password" id="password" name="MemberPassword">
-                        </div>
-                        <div class="col-6">
-                            <label>Confirm Password</label>
-                            <input class="form-input " type="password" id="password2">
+                            
                         </div>
 
                     </div>
                     <div class="row">
+                        <div class="col-6">
+                            <label>Password</label>
+                            <input class="form-input" type="password" name="MemberPassword">
+                        </div>
+                        <div class="col-6">
+                            
+                        </div>
 
-                        <div class="col-6">
-                            <label>Gender</label><br />
-                            <input type="radio" value="Male" name="MemberGender">
-                            Male
-                            <input type="radio" value="Female" name="MemberGender" style="margin-left:20px">
-                            Female
-                        </div>
-                        <div class="col-6">
-                            <label> Phone Number</label>                        <input class="form-input" name="MemberPhone">
-                        </div>
                     </div>
-
-
                     <div class="row">
-
                         <div class="col-6">
-
+                            <input type="submit" class="btn btn-outline-dark w-25 rounded-0" value="Login" id="Login">                     
+                            <a  href="@Url.Action("ForgotPassword", "FrontEnd")"style="margin:0 0 0 36px;color:black;">Forgot your password?</a>
                         </div>
-                        <br />
-
                     </div>
-                    <input type="submit" class="btn btn-checkout rounded-0" style="margin-top:50px;" value="Create Account" id="memberRegistSubmit">
+                    
                 </div>
             </div>
         </div>
     }
 
 </body>
-
-@section Endscripts{
-    <script>
-
-
-
-    </script>
-}
-
-
-
-
 
