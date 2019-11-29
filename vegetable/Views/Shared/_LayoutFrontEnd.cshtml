@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -21,6 +21,15 @@
             font-size: 18px;
         }
 
+        .band {
+            color: black;
+        }
+
+            .band:hover {
+                text-decoration: none;
+                color: black;
+            }
+
         .bg-footer {
             background: #d4a299;
         }
@@ -36,101 +45,149 @@
         .footertext {
             font-weight: 400;
         }
-        .title{
+
+        .title {
             font-family: 'Merriweather', serif;
-            font-size:55pt;
-             font-weight: 400;
-
+            font-size: 55pt;
+            font-weight: 400;
         }
+
         .btn-outline-dark {
-        color: #343a40;
-        border-color: #343a40;
-        border: 3px solid;
-        background:white;
+            color: #343a40;
+            border-color: #343a40;
+            border: 3px solid;
+            background: white;
         }
 
+        .dot:hover {
+            border-bottom: 1px dotted;
+        }
+
+        .icon:hover {
+            color: black;
+            transition: .2s;
+        }
+
+        .main-nav .nav-item .nav-link .line {
+            border-bottom: 2px solid white;
+            display: block;
+            transition: 0.5s;
+        }
+
+        .main-nav .nav-item:hover .nav-link .line {
+            transition: 0.5s;
+            border-bottom: 2px solid black;
+        }
+
+        .menu-block {
+            background-color: rgba(250,250,250,.95);
+            width: 100%;
+            position: absolute;
+            left: 0;
+            margin-top: 10px;
+            box-shadow: 1px 1px 10px #ddd;
+            padding: 40px;
+            z-index: 99;
+            display: none;
+            opacity: 0;
+        }
+
+        .menu-list li {
+            display: inline-block;
+            margin-right: 12px;
+        }
+
+        .main-nav .nav-item:hover .menu-block {
+            display: block;
+            transition: .2s;
+            opacity: 1;
+        }
+        /*Login modal*/
         input {
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
 
-    button {
-        padding: 14px 20px;
-        margin: 0px auto;
-        cursor: pointer;
-    }
+        button {
+            padding: 14px 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
 
-    button:hover {
-        opacity: 0.8;
-    }
+            button:hover {
+                opacity: 0.8;
+            }
 
-    .closecontainer {
-        text-align: center;
-        margin: 24px 0;
-        position: relative;
-    }
+        .closecontainer {
+            text-align: center;
+            margin: 24px 0;
+            position: relative;
+        }
 
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
-        padding-top: 60px;
-    }
-    .modal label {
-        padding:10px 0;
-        margin-top:5px;
-        margin-bottom:0;
-    }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
 
-    .modal input {
-        padding:10px 0;
-        margin-top:5px;
-        margin-bottom:0;
-    }
+            .modal label {
+                padding: 10px 0;
+                margin-top: 5px;
+                margin-bottom: 0;
+            }
 
-    .modal button {
-        padding:10px 0;
-        margin:20px 0;
-    }
-    
-    .modal-content {
-        background-color: #fefefe;
-        margin: 0% auto 10% auto;
-        border: 1px solid #888;
-        width: 550px;
-        height: 550px;
-        overflow: auto;
-    }
+            .modal input {
+                padding: 10px 0;
+                margin-top: 5px;
+                margin-bottom: 0;
+            }
 
-    .close {
-        position: absolute;
-        right: 25px;
-        top: 0;
-        color: #e82b1a;
-        font-size: 25px;
-        font-weight: bold;
-    }
+            .modal button {
+                padding: 10px 0;
+                margin: 20px 0;
+            }
 
-    .close:hover,
-    .close:focus {
-        color: #e82b1a;
-        cursor: pointer;
-    }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 0% auto 10% auto;
+            border: 1px solid #888;
+            width: 550px;
+            height: 500px;
+            overflow: auto;
+        }
 
-    .animate {
-        -webkit-animation: animatezoom 0.6s;
-        animation: animatezoom 0.6s
-    }
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #e82b1a;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #e82b1a;
+                cursor: pointer;
+            }
+
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
     </style>
 </head>
 <body>
@@ -141,7 +198,7 @@
         <div class="collapse navbar-collapse p-0 justify-content-between" id="navbarNavDropdown">
             <ul class="navbar-nav p-0">
                 <li class="nav-item active border-right  p-0">
-                    <a class="nav-link text-dark mx-3 navTop" href="">ACCOUNT</a>
+                    <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
                 </li>
                 <li class="nav-item active">
                     @if (Request.RequestContext.HttpContext.User.Identity.IsAuthenticated)
@@ -151,13 +208,12 @@
                     }
                     else
                     {
-                        @*<a data-toggle="modal" data-target="#loginModal" href="@Url.Action("_Login", "FrontEnd")" class="nav-link text-dark mx-3 navTop">LOGIN</a>*@
-                        @*<a id="btn_login" class="nav-link text-dark mx-3 navTop" data-toggle="modal" data-target="#loginModal">LOGIN</a>*@
-                        <a id="btn_login" class="nav-link text-dark mx-3 navTop">LOGIN</a>
+                        @*<a href="@Url.Action("Login", "FrontEnd")" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>*@
+                        <a id="btn_login" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>
                     }
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark  mx-3 navTop" href="@Url.Action("MemberRegist", "FrontEnd")">REGISTER</a>
+                    <a class="nav-link text-dark  mx-3 navTop " href="@Url.Action("MemberRegist", "FrontEnd")"><span class="dot">REGISTER</span></a>
                 </li>
             </ul>
             @*<a class="nav-link text-dark  mx-3 navTop" href="">US ONLY - FREE SHIPPING OVER $50 & FREE RETURNS SHOP NOW</a>*@
@@ -167,45 +223,112 @@
                     <a class="nav-link text-dark  mx-3 navTop" href=""><i class="fas fa-search icon"></i></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link text-dark  mx-3 navTop" href="#">GIFT CERTIFICATES</a>
+                    <a class="nav-link text-dark  mx-3 navTop" href="#"><span class="dot">GIFT CERTIFICATES</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark mx-3 navTop border-right border-left" href="#">WISH LISTS</a>
+                    <a class="nav-link text-dark mx-3 navTop border-right border-left" href="#"><span class="dot">WISH LISTS</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark   mx-3 navTop" href="#">CART<i class="far fa-clipboard icon ml-3"></i></a>
+                    <a class="nav-link text-dark   mx-3 navTop" href="#"><span class="dot">CART</span><i class="far fa-clipboard icon ml-3"></i></a>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center title my-4">LOVODA</div>
+            <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOVODA</a></div>
         </div>
-        <ul class="nav justify-content-center pb-4">
-            <li class="nav-item">
-                <a class="nav-link text-dark mx-2" href="#">NEW</a>
+        <ul class="main-nav nav justify-content-center mb-4 align-items-center">
+            <li class="nav-item mx-5 pb-3">
+                <a class="nav-link text-dark p-0" href="#"><span class="line">NEW</span></a>
+
+                <div class="menu-block">
+                    <div class="container">
+                        <ul class="menu-list">
+                            <li class="mx-4">New Arrivals</li>
+                            <li class="mx-4">Back in Stock</li>
+                        </ul>
+                    </div>
+                </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark mx-2" href="#">EARRINGS</a>
+
+            <li class="nav-item  mx-2 pb-3">
+                <a class="nav-link text-dark p-0" href="#"><span class="line">EARRINGS</span></a>
+
+                <div class="menu-block">
+                    <div class="container">
+                        <ul class="menu-list">
+                            <li class="mx-4">Statement Earrings</li>
+                            <li class="mx-4">Charm Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                        </ul>
+                    </div>
+                </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark mx-2" href="#">NECKLACES</a>
+            <li class="nav-item  mx-3 pb-3">
+                <a class="nav-link text-dark" href="#"><span class="line">NECKLACES</span></a>
+                <div class="menu-block">
+                    <div class="container">
+                        <ul class="menu-list">
+                            <li class="mx-4">Statement Earrings</li>
+                            <li class="mx-4">Charm Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                        </ul>
+                    </div>
+                </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark mx-2" href="#">BRACELETS</a>
+            <li class="nav-item  mx-2 pb-3">
+                <a class="nav-link text-dark" href="#"><span class="line">BRACELETS</span></a>
+                <div class="menu-block">
+                    <div class="container">
+                        <ul class="menu-list">
+                            <li class="mx-4">Statement Earrings</li>
+                            <li class="mx-4">Charm Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                        </ul>
+                    </div>
+                </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark mx-2" href="#">RINGS</a>
+            <li class="nav-item  mx-2 pb-3">
+                <a class="nav-link text-dark" href="#"><span class="line">RINGS</span></a>
+                <div class="menu-block">
+                    <div class="container">
+                        <ul class="menu-list">
+                            <li class="mx-4">Statement Earrings</li>
+                            <li class="mx-4">Charm Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                        </ul>
+                    </div>
+                </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark mx-2" href="#">OTHER ACCESSORIES</a>
+            <li class="nav-item  mx-2 pb-3">
+                <a class="nav-link text-dark" href="#"><span class="line">OTHER ACCESSORIES</span></a>
+                <div class="menu-block">
+                    <div class="container">
+                        <ul class="menu-list">
+                            <li class="mx-4">Statement Earrings</li>
+                            <li class="mx-4">Charm Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                            <li class="mx-4">Natural Earrings</li>
+                        </ul>
+                    </div>
+                </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark mx-2" href="#">SALE</a>
+            <li class="nav-item  mx-1 pb-3">
+                <a class="nav-link text-dark" href="#"><span class="line">SALE</span></a>
             </li>
         </ul>
     </div>
+
     @RenderBody()
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -217,51 +340,51 @@
                 <div class="col-6 col-md-3 col-xl-2 bg-footer mt-5">
                     <ul class="list-group list-group-flush text-white mt-5">
                         <li class="list-group-item bg-footer border-0">SHOP</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Home</li>
-                        <li class="list-group-item bg-footer border-0 footertext">new</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Earrings</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Necklaces</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Bracelets</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Rings</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Other Accessories</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Sale</li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Home</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">new</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Earrings</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Necklaces</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Bracelets</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Rings</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Other Accessories</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Sale</span></li>
                     </ul>
                 </div>
                 <div class="col-6 col-md-3 col-xl-2 mt-5">
                     <ul class="list-group list-group-flush bg-footer border-0 text-white mt-5">
                         <li class="list-group-item bg-footer border-0 ">ABOUT US</li>
-                        <li class="list-group-item bg-footer border-0 footertext">About us</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Style Blog</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Contact a Stylist</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Meet with a Stylist</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Visit Us</li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">About us</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Style Blog</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Contact a Stylist</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Meet with a Stylist</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Visit Us</span></li>
                     </ul>
                 </div>
                 <div class="col-6 col-md-3 col-xl-2 mt-5">
                     <ul class="list-group list-group-flush border-0 text-white mt-5">
                         <li class="list-group-item bg-footer border-0">CUSTOMER SERVICE</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Contact Us</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Shipping</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Returns Policy</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Privacy Policy</li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Contact Us</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Shipping</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Returns Policy</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Privacy Policy</span></li>
                     </ul>
                 </div>
                 <div class="col-6 col-md-3 col-xl-2 mt-5">
                     <ul class="list-group list-group-flush bg-footer text-white mt-5">
                         <li class="list-group-item bg-footer border-0">FURTHER INFO</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Sitemap</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Affiliates</li>
-                        <li class="list-group-item bg-footer border-0 footertext">Wholesale Application</li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Sitemap</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Affiliates</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Wholesale Application</span></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-6 col-xl-4 mt-5">
                     <ul class="list-group list-group-flush bg-footer text-white mt-5">
                         <li class="list-group-item bg-footer border-0">STAY CONNECTED</li>
                         <li class="list-group-item bg-footer border-0">
-                            <i class="fab fa-instagram mr-4 bg-footer footericon"></i>
-                            <i class="fab fa-facebook-f mr-4 bg-footer footericon"></i>
-                            <i class="fab fa-pinterest mr-4 bg-footer footericon"></i>
-                            <i class="fab fa-twitter mr-4 bg-footer footericon"></i>
+                            <i class="fab fa-instagram mr-4 bg-footer footericon icon"></i>
+                            <i class="fab fa-facebook-f mr-4 bg-footer footericon icon"></i>
+                            <i class="fab fa-pinterest mr-4 bg-footer footericon icon"></i>
+                            <i class="fab fa-twitter mr-4 bg-footer footericon icon"></i>
                         </li>
                         <li class="list-group-item bg-footer border-0">FEATURED ON</li>
                         <li class="list-group-item bg-footer border-0">
@@ -275,7 +398,7 @@
     </div>
     <div class="bg-footer text-light py-4 text-center">
         <div class="container">
-            <p class="footertext mb-5"><i class="far fa-copyright mr-1 icon"></i> 2019 Lovoda All Rights Reserved.<p>
+            <p class="footertext mb-5"><i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.<p>
                 <div class="row justify-content-center my-5">
                     <a href="" class=" text-white mr-3 mt-2 text-white">
                         <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
@@ -298,34 +421,66 @@
 
     <div class="modal fade" id="loginModal" style="z-index:1000000000">
         <div class="modal-dialog">
-            <form class="modal-content animate" action="#" method="post">
+            <div class="modal-content animate  rounded-0 m-0" >
                 <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
                 <div class="container mt-5">
-                    <div class="row">
-                        <div class="col-6 mx-auto">
+                    <div class="row px-5">
+                        <div class="col-8 mx-auto justify-content-center">
                             <h4><b>Sign In</b></h4>
-                            <label for="uname"><b>Email Address</b></label>
-                            <input class="w-100" type="text" placeholder="Enter Email" name="uname" required>
-                            <label for="psw"><b>Password</b></label>
-                            <input class="w-100" type="password" placeholder="Enter Password" name="psw" required>
-                            <button class="btn-outline-dark w-100 btn-block" type="submit">Login</button>
-                            <button class="btn-outline-dark w-100 btn-block" type="submit">Register</button>
+                            <label for="uname"><b>Email Address<span class="text-danger">*</span></b></label>
+                            <input class="w-100" type="text" placeholder="Enter Email" name="uname" id="loginId" required>
+                            <label for="psw"><b>Password<span class="text-danger">*</span></b></label>
+                            <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
+                            <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
+                            <button class="btn-outline-dark w-100 btn-block"><a href="@Url.Action("MemberRegist", "FrontEnd")" class="band">REGISTER</a></button>
                             <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label>
+                            <label class="mt-1 pt-0" for="pswproblem" id="loginStatus"><b>Msg</b></label>
                         </div>
                     </div>
+                    
                 </div>
-            </form>
+                </div>
         </div>
-    </div>
-    
-    @RenderSection("viewJquery", required: false)
 
-    <script>
-        $(function () {
-            $("#btn_login").click(function () {
-                $('#loginModal').modal('show');
-            });
-        });
-    </script>
+        @RenderSection("viewJquery", required: false)
+        @RenderSection("Endscripts", required: false)
+
+        <script>
+            $(function () {
+                $("#btn_login").click(function () {
+                    $('#loginModal').modal('show');
+                });
+
+                $("#loginConfirm").click(function () {
+
+                    var uname = $("#loginId").val();
+                    var psw = $("#loginPsw").val();
+                    console.log('uname is', uname);
+                    console.log('psw is', psw);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Members/Login",
+                        data: {uname,psw  },
+                        success: function (back) {
+                            console.log('back', back);
+                            if (back == "1") {
+                                $("#loginStatus").html("登入成功");
+                            }
+                            else if (back == "2") {
+                                $("#loginStatus").html("此帳號尚未註冊，請先註冊");
+                            }
+                            else {
+                                $("#loginStatus").html("密碼錯誤");
+                            }
+
+                        }
+
+                    });
+
+                });
+            })
+        </script>
+        @RenderSection("Endscripts", required: false)
 </body>
 </html>

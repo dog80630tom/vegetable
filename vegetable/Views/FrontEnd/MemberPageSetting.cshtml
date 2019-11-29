@@ -5,7 +5,6 @@
 }
 
 
-
 <style>
     nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
         background: #fff;
@@ -79,28 +78,75 @@
         color: #31708f;
     }
 
-    .row {
-        margin-top: 25px;
+    ul {
+        padding-left: 0px;
     }
 
-    .btn {
-        font-family: Poppins,Arial,Helvetica,sans-serif;
-        font-size: 13px;
-        font-weight: 600;
-        height: 42px;
-        letter-spacing: .1em;
-        line-height: initial;
-        padding: 9px 25px 8px;
-        border-radius: 0;
-        background: #fff;
-        display: -ms-inline-flexbox;
-        display: inline-flex;
-        -ms-flex-align: center;
-        align-items: center;
-        -ms-flex-pack: center;
-        justify-content: center;
+    /*nav bar*/
+    #container_page_nav {
+        background-color: #f7f8f9;
+        padding: 20px 0 15px 15px;
+        margin-top: 15px;
+        margin-bottom: 36px;
     }
+
+    .breadcrumb {
+        background-color: #f7f8f9;
+        padding: 0;
+        margin: 0;
+    }
+
+    .breadcrumb-item {
+        display: inline-block;
+        padding-right: 10px;
+    }
+
+        .breadcrumb-item::before {
+            content: ">" !important;
+            color: #b4b4b4 !important;
+            margin: 0 12px 0 3px;
+        }
+
+        .breadcrumb-item:first-child::before {
+            display: none;
+        }
+
+        .breadcrumb-item a {
+            color: #b4b4b4;
+        }
+
+            .breadcrumb-item a:hover {
+                color: #000;
+                /*border-bottom: 1px solid #000;*/
+            }
+
+        .breadcrumb-item.active a:hover {
+            color: #b4b4b4;
+        }
 </style>
+
+
+<div id="container_page_nav">
+    <div class="container">
+        <!-- 要塞目錄資料及連結資料   開頭-->
+        <!-- 動態綁定有a標籤href及text屬性 -->
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Index", "FrontEnd")">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("MemberPageOrder", "FrontEnd")">Member</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("MemberPageSetting", "FrontEnd")"> Setting</a>
+            </li>
+
+        </ul>
+        <!-- 要塞目錄資料及連結資料   結尾-->
+    </div>
+</div>
+
+
 
 
 <div class="container">
@@ -111,25 +157,16 @@
             <nav class="navBar navBar--sub navBar--account">
                 <ul class="navBar-section">
                     <li class="navBar-item is-active">
-                        <a class="navBar-action">Orders</a>
+                        <a class="navBar-action" href="/FrontEnd/MemberPageOrder">Orders</a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action">Returns</a>
+                        <a class="navBar-action" href="/FrontEnd/MemberPageAddress">Addresses</a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action">Messages</a>
+                        <a class="navBar-action" href="/FrontEnd/MemberPageWishlist">Wish List </a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action">Addresses</a>
-                    </li>
-                    <li class="navBar-item is-active">
-                        <a class="navBar-action">Wish List </a>
-                    </li>
-                    <li class="navBar-item is-active">
-                        <a class="navBar-action">Recently Viewed</a>
-                    </li>
-                    <li class="navBar-item is-active">
-                        <a class="navBar-action">Account Settings</a>
+                        <a class="navBar-action" href="/FrontEnd/MemberPageSetting">Account Settings</a>
                     </li>
 
                 </ul>
@@ -137,48 +174,55 @@
         </div>
     </div>
 
+
+
+
+
+
+
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <div class="col-6" style="margin-top:25px;">
                 <label>First Name</label>
                 <input class="form-input">
             </div>
-            <div class="col-6">
+            <div class="col-6" style="margin-top:25px;">
                 <label>Last Name</label>
                 <input class="form-input">
             </div>
         </div>
+
         <div class="row">
-            <div class="col-6">
-                <label>Company</label>
-                <input class="form-input">
-            </div>
-            <div class="col-6">
-                <label>Phone Number</label>
-                <input class="form-input">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
+            <div class="col-6" style="margin-top:25px;">
                 <label>Email Address</label>
                 <input class="form-input">
             </div>
-            <div class="col-6">
+            <div class="col-6" style="margin-top:25px;">
                 <label>Password</label>
                 <input class="form-input">
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-6" style="margin-top:25px;">
                 <label>Confirm Password</label>
                 <input class="form-input">
             </div>
-            <div class="col-6">
+            <div class="col-6" style="margin-top:25px;">
                 <label>Current Password</label>
                 <input class="form-input">
             </div>
         </div>
+        <div class="row">
 
-        <input type="submit" class="btn btn-outline-dark " style="margin-top:25px" value="Update Details">
+            <div class="col-6" style="margin-top:20px;">
+                <label>Phone Number</label>
+                <input class="form-input">
+            </div>
+            <div class="col-6" style="margin-top:20px;">
+
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-outline-dark rounded-0" style="margin-top:25px" value="Update Details">
     </div>
 </div>

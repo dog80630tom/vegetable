@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewBag.Title = "MemberPage";
+    Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
+}
+
+<style>
+    nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
+        background: #fff;
+        position: relative;
+        text-decoration: none !important;
+    }
+
+
+
+    nav.navBar--sub ul.navBar-section li.navBar-item a {
+        font-size: 13px;
+        font-weight: 700;
+        display: block;
+        display: table-cell;
+        padding: 15px 30px 3px;
+        transition: background .3s ease 0s;
+        vertical-align: middle;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: #000;
+        border: 1px solid #e5e5e5;
+        background: #f7f8f9;
+        text-decoration: none !important;
+        float: left;
+        height: 51.6px;
+    }
+
+    .navBar-section {
+        list-style-type: none;
+    }
+
+
+    .btn.btn-checkout, .btn.btn-checkout:hover {
+        border-color: #000;
+        background: #000;
+    }
+
+    .btn.btn-checkout {
+        max-width: 270px;
+        padding-top: 10px;
+        color: #fff;
+    }
+
+    .form-input, .form-select {
+        border-style: solid;
+        border-width: 1px;
+        font-family: inherit;
+        margin: 0;
+        font-size: 1rem;
+        width: 100%;
+        height: 42px;
+        padding: 0px;
+        transition: border-color .1s ease-out;
+        background-color: #fff;
+        border-color: #dcdcdc;
+        color: #454545;
+        max-width: none;
+    }
+
+    .page-heading {
+        font-size: 24px;
+    }
+
+    .alert {
+        padding: 10px 30px 1px 25px;
+        margin-top: 40px;
+        margin-bottom: 160px;
+        border-radius: 1px;
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+        color: #31708f;
+    }
+
+    ul {
+        padding-left: 0px;
+    }
+    .container_page {
+    margin: 0 auto;
+    padding-bottom: 80px;
+    border-top: 1px solid #eaeaea;
+}
+
+
+
+
+     /*nav bar*/
+    #container_page_nav {
+        background-color: #f7f8f9;
+        padding: 20px 0 15px 15px;
+        margin-top: 15px;
+        margin-bottom: 36px;
+    }
+
+    .breadcrumb {
+        background-color: #f7f8f9;
+        padding: 0;
+        margin: 0;
+    }
+
+    .breadcrumb-item {
+        display: inline-block;
+        padding-right: 10px;
+    }
+
+        .breadcrumb-item::before {
+            content: ">" !important;
+            color: #b4b4b4 !important;
+            margin: 0 12px 0 3px;
+        }
+
+        .breadcrumb-item:first-child::before {
+            display: none;
+        }
+
+        .breadcrumb-item a {
+            color: #b4b4b4;
+        }
+
+            .breadcrumb-item a:hover {
+                color: #000;
+                /*border-bottom: 1px solid #000;*/
+            }
+
+        .breadcrumb-item.active a:hover {
+            color: #b4b4b4;
+        }
+</style>
+
+
+
+<div id="container_page_nav">
+    <div class="container">
+        <!-- 要塞目錄資料及連結資料   開頭-->
+        <!-- 動態綁定有a標籤href及text屬性 -->
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Index", "FrontEnd")">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("MemberPageOrder", "FrontEnd")">Member</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("MemberPageAddress", "FrontEnd")"> Address</a>
+            </li>
+
+        </ul>
+        <!-- 要塞目錄資料及連結資料   結尾-->
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="page-heading" style="font-weight:600;">Address</h1>
+
+            <nav class="navBar navBar--sub navBar--account">
+                <ul class="navBar-section">
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action" href="/FrontEnd/MemberPageOrder">Orders</a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action" href="/FrontEnd/MemberPageAddress">Addresses</a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action" href="/FrontEnd/MemberPageWishlist">Wish List </a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action" href="/FrontEnd/MemberPageSetting">Account Settings</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+    
+
+
+
+    <div class="body">
+        <div class="container_page">
+
+        </div>
+    </div>
+</div>
+
