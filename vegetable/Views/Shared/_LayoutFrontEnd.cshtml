@@ -22,6 +22,7 @@
         }
 
         .band {
+            
             color: black;
         }
 
@@ -213,7 +214,7 @@
                     }
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark  mx-3 navTop " href="@Url.Action("MemberRegist", "FrontEnd")"><span class="dot">REGISTER</span></a>
+                    <a class="nav-link text-dark  mx-3 navTop ""><span class="dot">REGISTER</span></a>
                 </li>
             </ul>
             @*<a class="nav-link text-dark  mx-3 navTop" href="">US ONLY - FREE SHIPPING OVER $50 & FREE RETURNS SHOP NOW</a>*@
@@ -421,7 +422,7 @@
 
     <div class="modal fade" id="loginModal" style="z-index:1000000000">
         <div class="modal-dialog">
-            <div class="modal-content animate  rounded-0 m-0" >
+            <div class="modal-content animate  rounded-0 m-0">
                 <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
                 <div class="container mt-5">
                     <div class="row px-5">
@@ -432,15 +433,16 @@
                             <label for="psw"><b>Password<span class="text-danger">*</span></b></label>
                             <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
                             <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
-                            <button class="btn-outline-dark w-100 btn-block"><a href="@Url.Action("MemberRegist", "FrontEnd")" class="band">REGISTER</a></button>
-                            <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label>
-                            <label class="mt-1 pt-0" for="pswproblem" id="loginStatus"><b>Msg</b></label>
+                            <button class="btn-outline-dark w-100 btn-block" id="gotoRegist">REGISTER</button>
+                            <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
+                            <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
                         </div>
                     </div>
-                    
+
                 </div>
-                </div>
+            </div>
         </div>
+    </div>
 
         @RenderSection("viewJquery", required: false)
         @RenderSection("Endscripts", required: false)
@@ -449,6 +451,9 @@
             $(function () {
                 $("#btn_login").click(function () {
                     $('#loginModal').modal('show');
+                });
+                $("#gotoRegist").click(function () {
+                    location.href="/FrontEnd/MemberRegist"
                 });
 
                 $("#loginConfirm").click(function () {

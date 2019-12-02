@@ -430,6 +430,7 @@
     <Content Include="Views\FrontEnd\Cart.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
     <Content Include="Views\FrontEnd\MemberCart.cshtml" />
+    <Content Include="Views\FrontEnd\ShowProducts - 複製.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
