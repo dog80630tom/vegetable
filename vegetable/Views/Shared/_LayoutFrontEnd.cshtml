@@ -22,6 +22,7 @@
         }
 
         .band {
+            
             color: black;
         }
         .band:hover {
@@ -305,7 +306,7 @@
                     }
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark  mx-3 navTop " href="@Url.Action("MemberRegist", "FrontEnd")"><span class="dot">REGISTER</span></a>
+                    <a class="nav-link text-dark  mx-3 navTop ""><span class="dot">REGISTER</span></a>
                 </li>
             </ul>
             @*<a class="nav-link text-dark  mx-3 navTop" href="">US ONLY - FREE SHIPPING OVER $50 & FREE RETURNS SHOP NOW</a>*@
@@ -677,11 +678,12 @@
                             <label for="psw"><b>Password<span class="text-danger">*</span></b></label>
                             <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
                             <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
-                            <button class="btn-outline-dark w-100 btn-block"><span href="@Html.Action("MemberRegist", "FrontEnd")" class="band">REGISTER</span></button>
-                            <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label>
-                            <label class="mt-1 pt-0" for="pswproblem" id="loginStatus"></label>
+                            <button class="btn-outline-dark w-100 btn-block" id="gotoRegist">REGISTER</button>
+                            <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
+                            <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -690,13 +692,14 @@
         @RenderSection("viewJquery", required: false)
         @RenderSection("Endscripts", required: false)
 
-    <script>
-        $(function () {
-            $("#btn_login").click(function () {
-                $('#loginModal').modal('show');
-            });
-        });
-          $("#loginConfirm").click(function () {
+        <script>
+            $(function () {
+                $("#btn_login").click(function () {
+                    $('#loginModal').modal('show');
+                });
+                $("#gotoRegist").click(function () {
+                    location.href="/FrontEnd/MemberRegist"
+                });
 
                     var uname = $("#loginId").val();
                     var psw = $("#loginPsw").val();
