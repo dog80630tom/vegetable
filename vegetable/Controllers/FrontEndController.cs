@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using vegetable.Models;
 
 namespace vegetable.Controllers
 {
@@ -40,7 +41,12 @@ namespace vegetable.Controllers
 
         public ActionResult ProductIndex ()
         {
-            return View();
+            Product result = new Product();
+            using (ItemContext item = new ItemContext())
+            {
+                result = (from s in item.Products select s).FirstOrDefault();
+                return View(result);
+            }
         }
         public ActionResult MemberPageAddress()
         {
@@ -62,5 +68,6 @@ namespace vegetable.Controllers
         {
             return View();
         }
+
     }
 }
