@@ -60,18 +60,22 @@ namespace vegetable.Controllers
             ViewBag.Data = JsonConvert.SerializeObject(search.ToList());
             return View(search.ToList());
         }
+        public ActionResult Search()
+
+        {
+            var search = getSearch();
+           
+            return View();
+        }
+        [HttpPost]
         public ActionResult Search(string Seachstring)
 
         {
             var search = getSearch();
-            int index;
-            if (int.TryParse(Seachstring, out index))
-            {
-                index = int.Parse(Seachstring);
-            }
-            var data = search.Where(x => x.CategoryName == Seachstring || x.ProductName == Seachstring || x.ProductPrice == index || x.ProductDescription == Seachstring).ToList();
-          
-            return View("Search",data.ToList());
+
+            JsonViewModel jsonView = new JsonViewModel() { aaData = search.ToList() };
+            var json = JsonConvert.SerializeObject(jsonView);
+            return Json(json,JsonRequestBehavior.AllowGet);
         }
         
         public ActionResult Detail(int? Id) {
