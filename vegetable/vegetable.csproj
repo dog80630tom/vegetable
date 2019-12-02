@@ -248,6 +248,7 @@
     <Content Include="Content\images\1-7.jpg" />
     <Content Include="Content\images\1-8.jpg" />
     <Content Include="Content\images\1-9.jpg" />
+    <Content Include="Content\images\1.jpg" />
     <Content Include="Content\images\2-1.jpg" />
     <Content Include="Content\images\2-2.jpg" />
     <Content Include="Content\images\3-1.jpg" />
@@ -418,6 +419,8 @@
     <Content Include="Views\FrontEnd\ForgotPassword.cshtml" />
     <Content Include="Views\FrontEnd\Cart.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
+    <Content Include="Views\FrontEnd\MemberCart.cshtml" />
+    <Content Include="Views\FrontEnd\ShowProducts - 複製.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

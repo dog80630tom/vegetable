@@ -10,13 +10,20 @@ namespace vegetable.Controllers
     public class FrontEndController : Controller
     {
         // GET: FrontEnd
+        
         public ActionResult Index()
         {
             return View();
         }
         public ActionResult ShowProducts()
         {
-            return View();
+            List<Product> result = new List<Product>();
+            using(ItemContext item = new ItemContext())
+            {
+                result = (from s in item.Products select s ).ToList();
+                return View(result);
+            }
+            
         }
         public ActionResult MemberRegist()
         {
@@ -68,6 +75,9 @@ namespace vegetable.Controllers
         {
             return View();
         }
-
+        public ActionResult MemberCart()
+        {
+            return View();
+        }
     }
 }
