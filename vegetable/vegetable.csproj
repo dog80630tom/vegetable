@@ -266,6 +266,9 @@
     <Content Include="Content\images\discover-logo-of-pay-system.png" />
     <Content Include="Content\images\master-card-logo.png" />
     <Content Include="Content\images\paypal-logo.png" />
+    <Content Include="Content\images\Product\p1.jpg" />
+    <Content Include="Content\images\Product\p2.jpg" />
+    <Content Include="Content\images\Product\p3.jpg" />
     <Content Include="Content\images\visa-pay-logo.png" />
     <Content Include="Content\paypal-logo.png" />
     <Content Include="Content\regular.css" />
@@ -394,9 +397,7 @@
     <Content Include="Views\FrontEnd\MemberPageOrder.cshtml" />
     <Content Include="Views\FrontEnd\MemberRegist.cshtml" />
     <Content Include="Views\FrontEnd\Index - 複製.cshtml" />
-    <Content Include="Views\FrontEnd\MemberPage.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
-    <Content Include="Views\FrontEnd\_Login.cshtml" />
     <Content Include="Views\FrontEnd\ProductIndex.cshtml" />
     <Content Include="Views\Backstage\Form.cshtml" />
     <Content Include="Views\Backstage\Edit.cshtml" />
