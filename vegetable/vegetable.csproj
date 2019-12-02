@@ -193,6 +193,7 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\SearchitemController.cs" />
     <Compile Include="Helper\MyHtmlHelper.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
     <Compile Include="Models\ItemContext.cs" />
@@ -247,6 +248,7 @@
     <Content Include="Content\images\1-7.jpg" />
     <Content Include="Content\images\1-8.jpg" />
     <Content Include="Content\images\1-9.jpg" />
+    <Content Include="Content\images\1.jpg" />
     <Content Include="Content\images\2-1.jpg" />
     <Content Include="Content\images\2-2.jpg" />
     <Content Include="Content\images\3-1.jpg" />
@@ -265,6 +267,9 @@
     <Content Include="Content\images\discover-logo-of-pay-system.png" />
     <Content Include="Content\images\master-card-logo.png" />
     <Content Include="Content\images\paypal-logo.png" />
+    <Content Include="Content\images\Product\p1.jpg" />
+    <Content Include="Content\images\Product\p2.jpg" />
+    <Content Include="Content\images\Product\p3.jpg" />
     <Content Include="Content\images\visa-pay-logo.png" />
     <Content Include="Content\paypal-logo.png" />
     <Content Include="Content\regular.css" />
@@ -394,7 +399,6 @@
     <Content Include="Views\FrontEnd\MemberRegist.cshtml" />
     <Content Include="Views\FrontEnd\Index - 複製.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
-    <Content Include="Views\FrontEnd\_Login.cshtml" />
     <Content Include="Views\FrontEnd\ProductIndex.cshtml" />
     <Content Include="Views\Backstage\Form.cshtml" />
     <Content Include="Views\Backstage\Edit.cshtml" />
@@ -413,6 +417,9 @@
     <Content Include="Views\FrontEnd\MemberPageWishlist.cshtml" />
     <Content Include="Views\FrontEnd\LoginPage.cshtml" />
     <Content Include="Views\FrontEnd\ForgotPassword.cshtml" />
+    <Content Include="Views\FrontEnd\Cart.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
+    <Content Include="Views\FrontEnd\MemberCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

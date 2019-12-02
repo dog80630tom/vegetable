@@ -20,31 +20,17 @@
         .icon {
             font-size: 18px;
         }
+
         .band {
-            color:black;
-           
+            color: black;
         }
         .band:hover {
              text-decoration:none;
               color:black;
         }
-
-        .bg-footer {
-            background: #d4a299;
-        }
-
         .navTop {
             line-height: 40px;
         }
-
-        .footericon {
-            font-size: 26px;
-        }
-
-        .footertext {
-            font-weight: 400;
-        }
-
         .title {
             font-family: 'Merriweather', serif;
             font-size: 55pt;
@@ -66,16 +52,21 @@
             color: black;
             transition: .2s;
         }
-
+/*頁面商品分類選單*/
+         .main-nav{
+             display:none;
+         }
          .main-nav .nav-item .nav-link .line {
             border-bottom: 2px solid white;
             display: block;
             transition: 0.5s;
         }
-         .main-nav .nav-item:hover .nav-link .line {
+
+        .main-nav .nav-item:hover .nav-link .line {
             transition: 0.5s;
             border-bottom: 2px solid black;
-         }
+        }
+
         .menu-block {
             background-color: rgba(250,250,250,.95);
             width: 100%;
@@ -88,41 +79,148 @@
             display: none;
             opacity: 0;
         }
-
-        .menu-list li {
-            display: inline-block;
-            margin-right: 12px;
+        .bg-menu {
+             background-color: rgba(250,250,250,.95);
+             letter-spacing:0.5px;
+             font-weight:100;
         }
-
+        .menu-list{
+            padding:0;
+         }
+        .menu-list li {
+            padding:.3rem 0;
+            list-style:none;
+            color:black
+        }
+        .menu-list li a,
+        .menu-list li a:hover{
+             text-decoration:none;
+             color:black;
+        }
+        .menu-list li:not(:first-child){
+            font-weight:100;
+        }
         .main-nav .nav-item:hover .menu-block {
             display: block;
             transition: .2s;
             opacity: 1;
         }
+ /*search-bar相關 mobile*/        
+        .search-bar-sm{
+            width:90%;
+            margin:1rem auto;
+            border-bottom:2px solid black;
+             color: black;
+        }
+            .search-bar-sm input {
+                margin-top: 0;
+                border: none;
+                font-size: 12px;
+                
+            }
+                .search-bar-sm input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                    color: black;
+                    opacity: 1; /* Firefox */
+                    transition:.2s linear;
+                }
+
+                .search-bar-sm input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+                    color: black;
+                }
+
+                .search-bar-sm input::-ms-input-placeholder { /* Microsoft Edge */
+                    color: black;
+                }
+
+                .search-bar-sm input:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                    padding-left:20px;
+                    opacity: 0; /* Firefox */
+                    transition:.2s linear;
+                }
+
+                .search-bar-sm input:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
+                    padding-left:20px;
+                    opacity: 0; /* Firefox */
+                    transition:.2s linear;
+                }
+
+                .search-bar-sm input:focus::-ms-input-placeholder { /* Microsoft Edge */
+                    padding-left:20px;
+                    opacity: 0; /* Firefox */
+                    transition:.2s linear;
+                }
+         .search-bar-sm .input-group-text{
+             background:none;
+             border:none;
+         }
+          .search-bar-sm input:focus{
+              box-shadow:none;
+          }
+          @@media screen and (min-width:992px){
+             .search-bar-sm{
+                display:none;
+            }
+            .main-nav{
+                display:flex;
+            }
+          
+          }
+ /*footer相關*/
+        .bg-footer {
+                background: #d4a299;
+        }
+        .footericon {
+            font-size: 26px;
+        }
+        .footertext {
+            font-weight: 400;
+        }
+        .footer-list{
+            padding:0;
+            margin-top: 3rem;
+         }
+        .footer-list li  {
+            padding:.5rem .10rem;
+            list-style:none;
+            margin-right: 12px;
+            letter-spacing:1px;
+            color:white;
+        }
+         .footer-list li a,
+         .footer-list li a:hover{
+           color:white;
+           text-decoration:none;
+         }
+        .footer-list li:not(:first-child){
+            font-weight:100;
+        }
 /*Login modal*/
         input {
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
         }
 
         button {
             padding: 14px 20px;
             cursor: pointer;
-            font-size:12px;
-            font-weight:900;
+            font-size: 12px;
+            font-weight: 900;
             letter-spacing: 2px;
         }
-        button:hover {
-            opacity: 0.8;
-        }
+
+            button:hover {
+                opacity: 0.8;
+            }
+
         .closecontainer {
             text-align: center;
             margin: 24px 0;
             position: relative;
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -136,23 +234,24 @@
             background-color: rgba(0, 0, 0, 0.4);
             padding-top: 60px;
         }
-        .modal label {
-            padding:10px 0;
-            margin-top:5px;
-            margin-bottom:0;
-        }
 
-        .modal input {
-            padding:10px 0;
-            margin-top:5px;
-            margin-bottom:0;
-        }
+            .modal label {
+                padding: 10px 0;
+                margin-top: 5px;
+                margin-bottom: 0;
+            }
 
-        .modal button {
-            padding:10px 0;
-            margin:20px 0;
-        }
-    
+            .modal input {
+                padding: 10px 0;
+                margin-top: 5px;
+                margin-bottom: 0;
+            }
+
+            .modal button {
+                padding: 10px 0;
+                margin: 20px 0;
+            }
+
         .modal-content {
             background-color: #fefefe;
             margin: 0% auto 10% auto;
@@ -171,11 +270,11 @@
             font-weight: bold;
         }
 
-        .close:hover,
-        .close:focus {
-            color: #e82b1a;
-            cursor: pointer;
-        }
+            .close:hover,
+            .close:focus {
+                color: #e82b1a;
+                cursor: pointer;
+            }
 
         .animate {
             -webkit-animation: animatezoom 0.6s;
@@ -183,7 +282,7 @@
         }
     </style>
 </head>
-<body>
+<body class="pb-0">
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom p-0 justify-content-between">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -227,36 +326,79 @@
             </ul>
         </div>
     </nav>
+ 
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOVODA</a></div>
         </div>
         <ul class="main-nav nav justify-content-center mb-4 align-items-center">
-            <li class="nav-item mx-5 pb-3">
-                <a class="nav-link text-dark p-0" href="#"><span class="line">NEW</span></a>
-
+            <li class="nav-item mx-2 pb-3">
+                <a class="nav-link text-dark" href="#"><span class="line">NEW</span></a>
                 <div class="menu-block">
                     <div class="container">
-                        <ul class="menu-list">
-                            <li class="mx-4">New Arrivals</li>
-                            <li class="mx-4">Back in Stock</li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-6 col-md-3 col-xl-2">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">New Arrivals</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-md-3 col-xl-2">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Back in Stock</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </li>
 
             <li class="nav-item  mx-2 pb-3">
-                <a class="nav-link text-dark p-0" href="#"><span class="line">EARRINGS</span></a>
+                <a class="nav-link text-dark" href="#"><span class="line">EARRINGS</span></a>
 
                 <div class="menu-block">
                     <div class="container">
-                        <ul class="menu-list">
-                            <li class="mx-4">Statement Earrings</li>
-                            <li class="mx-4">Charm Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Statement Earrings</a></li>
+                                    <li><a href="#" class="dot">Drop Earrings</a></li>
+                                    <li><a href="#" class="dot">Golden</a></li>
+                                    <li><a href="#" class="dot">Lucite & Resin</a></li>
+                                    <li><a href="#" class="dot">Crystal Clear</a></li>
+                                    <li><a href="#" class="dot">Hoop Earrings</a></li>
+                                    <li><a href="#" class="dot">Ear Jackets</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Charm Earrings</a></li>
+                                    <li><a href="#" class="dot">Crawlers and Pins</a></li>
+                                    <li><a href="#" class="dot">Threader Earrings</a></li>
+                                    <li><a href="#" class="dot">Earring Sets</a></li>
+                                    <li><a href="#" class="dot">Cuffs</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Natural Earrings</a></li>
+                                    <li><a href="#" class="dot">Wood & Wicker</a></li>
+                                    <li><a href="#" class="dot">Stone & Marble Earrings</a></li>
+                                    <li><a href="#" class="dot">Geode Earrings</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Hypoallergenic Earrings</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Fine Earrings</a></li>
+                                    <li><a href="#" class="dot">Sterling Silver Earrings</a></li>
+                                    <li><a href="#" class="dot">Gold Plated Earrings</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </li>
@@ -264,27 +406,84 @@
                 <a class="nav-link text-dark" href="#"><span class="line">NECKLACES</span></a>
                 <div class="menu-block">
                     <div class="container">
-                        <ul class="menu-list">
-                            <li class="mx-4">Statement Earrings</li>
-                            <li class="mx-4">Charm Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-6 col-sm">
+                                <div class="d-flex flex-column">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Layered Necklaces</a></li>
+                                    </ul>
+                                    <ul class="menu-list  mt-2">
+                                        <li><a href="#" class="dot">Tassel & Pendant Necklaces</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <div class="d-flex flex-column">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Fine Necklaces</a></li>
+                                    </ul>
+                                    <ul class="menu-list  mt-2">
+                                        <li><a href="#" class="dot">Chokers</a></li>
+                                        <li><a href="#" class="dot">Gold/Silver Chokers</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Y-Necklace & Lariat</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Stone & Marble Necklaces</a></li>
+                                    <li><a href="#" class="dot">Marble Necklace</a></li>
+                                    <li><a href="#" class="dot">Geode Necklaces</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Charm Necklaces</a></li>
+                                    <li><a href="#" class="dot">Statement Necklaces</a></li>
+                                    <li><a href="#" class="dot">Beaded Necklace</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </li>
             <li class="nav-item  mx-2 pb-3">
                 <a class="nav-link text-dark" href="#"><span class="line">BRACELETS</span></a>
-                <div class="menu-block">
+                <div class="menu-block w-100">
                     <div class="container">
-                        <ul class="menu-list">
-                            <li class="mx-4">Statement Earrings</li>
-                            <li class="mx-4">Charm Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Fine Bracelets</a></li>
+                                </ul>
+                            </div>
+                            <div class=" col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Charm Bracelets</a></li>
+                                    <li><a href="#" class="dot">Cord & Bead Bracelets</a></li>
+                                </ul>
+                            </div>
+                            <div class=" col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Marble and Stone Jewelry</a></li>
+                                    <li><a href="#" class="dot">Cuffs & Bangles</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Statement Bracelets</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Anklets</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </li>
@@ -292,13 +491,32 @@
                 <a class="nav-link text-dark" href="#"><span class="line">RINGS</span></a>
                 <div class="menu-block">
                     <div class="container">
-                        <ul class="menu-list">
-                            <li class="mx-4">Statement Earrings</li>
-                            <li class="mx-4">Charm Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Fine Rings</a></li>
+                                    <li><a href="#" class="dot">Gem Stone Rings</a></li>
+                                </ul>
+                            </div>
+                            <div class=" col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Charm Rings</a></li>
+                                    <li><a href="#" class="dot">Geode Rings</a></li>
+                                    <li><a href="#" class="dot">Marble Rings</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Statement Rings</a></li>
+                                    <li><a href="#" class="dot">Chunky Rings</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Adjustable Rings</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </li>
@@ -306,13 +524,39 @@
                 <a class="nav-link text-dark" href="#"><span class="line">OTHER ACCESSORIES</span></a>
                 <div class="menu-block">
                     <div class="container">
-                        <ul class="menu-list">
-                            <li class="mx-4">Statement Earrings</li>
-                            <li class="mx-4">Charm Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                            <li class="mx-4">Natural Earrings</li>
-                        </ul>
+                        <div class="row">
+                            <div class=" col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Scarves</a></li>
+                                    <li><a href="#" class="dot">Light Scarves</a></li>
+                                    <li><a href="#" class="dot">Tie Scarves</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Purses & Totes</a></li>
+                                    <li><a href="#" class="dot">Backpack</a></li>
+                                    <li><a href="#" class="dot">Crossbody</a></li>
+                                    <li><a href="#" class="dot">Satchel</a></li>
+                                    <li><a href="#" class="dot">Totes</a></li>
+                                    <li><a href="#" class="dot">Wallets</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Hats & Hair Accessories</a></li>
+                                    <li><a href="#" class="dot">Hair Pins</a></li>
+                                    <li><a href="#" class="dot">Hair Ties</a></li>
+                                    <li><a href="#" class="dot">Hats</a></li>
+                                    <li><a href="#" class="dot">Headbands & Headwraps</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-sm">
+                                <ul class="menu-list">
+                                    <li><a href="#" class="dot">Bralettes</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </li>
@@ -321,66 +565,73 @@
             </li>
         </ul>
     </div>
-
+    <div class="input-group search-bar-sm rounded-0">
+        <input type="text" class="form-control rounded-0" placeholder="Search">
+        <div class="input-group-append">
+            <a href="#" class="input-group-text rounded-0">
+                <i class="fas fa-search"></i>
+            </a>
+        </div>
+    </div>
     @RenderBody()
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
-    <div id="footer" class="w-100 bg-footer">
+    <footer id="footer" class=" bg-footer py-5">
         <div class="container">
             <div class="row">
-                <div class="col-6 col-md-3 col-xl-2 bg-footer mt-5">
-                    <ul class="list-group list-group-flush text-white mt-5">
-                        <li class="list-group-item bg-footer border-0">SHOP</li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Home</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">new</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Earrings</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Necklaces</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Bracelets</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Rings</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Other Accessories</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Sale</span></li>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <ul class="footer-list">
+                        <li>SHOP</li>
+                        <li><a href="#" class="dot">Home</a></li>
+                        <li><a href="#" class="dot">new</a></li>
+                        <li><a href="#" class="dot">Earrings</a></li>
+                        <li><a href="#" class="dot">Necklaces</a></li>
+                        <li><a href="#" class="dot">Bracelets</a></li>
+                        <li><a href="#" class="dot">Rings</a></li>
+                        <li><a href="#" class="dot">Other Accessories</a></li>
+                        <li><a href="#" class="dot">Sale</a></li>
                     </ul>
                 </div>
-                <div class="col-6 col-md-3 col-xl-2 mt-5">
-                    <ul class="list-group list-group-flush bg-footer border-0 text-white mt-5">
-                        <li class="list-group-item bg-footer border-0 ">ABOUT US</li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">About us</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Style Blog</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Contact a Stylist</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Meet with a Stylist</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Visit Us</span></li>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <ul class="footer-list">
+                        <li>ABOUT US</li>
+                        <li><a href="#" class="dot">About us</a></li>
+                        <li><a href="#" class="dot">Style Blog</a></li>
+                        <li><a href="#" class="dot">Contact a Stylist</a></li>
+                        <li><a href="#" class="dot">Meet with a Stylist</a></li>
+                        <li><a href="#" class="dot">Visit Us</a></li>
                     </ul>
                 </div>
-                <div class="col-6 col-md-3 col-xl-2 mt-5">
-                    <ul class="list-group list-group-flush border-0 text-white mt-5">
-                        <li class="list-group-item bg-footer border-0">CUSTOMER SERVICE</li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Contact Us</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Shipping</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Returns Policy</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Privacy Policy</span></li>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <ul class="footer-list">
+                        <li>CUSTOMER SERVICE</li>
+                        <li><a href="#" class="dot">Contact Us</a></li>
+                        <li><a href="#" class="dot">Shipping</a></li>
+                        <li><a href="#" class="dot">Returns Policy</a></li>
+                        <li><a href="#" class="dot">Privacy Policy</a></li>
                     </ul>
                 </div>
-                <div class="col-6 col-md-3 col-xl-2 mt-5">
-                    <ul class="list-group list-group-flush bg-footer text-white mt-5">
-                        <li class="list-group-item bg-footer border-0">FURTHER INFO</li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Sitemap</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Affiliates</span></li>
-                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Wholesale Application</span></li>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <ul class="footer-list">
+                        <li>FURTHER INFO</li>
+                        <li><a href="#" class="dot">Sitemap</ahref="#"></li>
+                        <li><a href="#" class="dot">Affiliates</a></li>
+                        <li><a href="#" class="dot">Wholesale Application</a></li>
                     </ul>
                 </div>
-                <div class="col-12 col-md-6 col-xl-4 mt-5">
-                    <ul class="list-group list-group-flush bg-footer text-white mt-5">
-                        <li class="list-group-item bg-footer border-0">STAY CONNECTED</li>
-                        <li class="list-group-item bg-footer border-0">
-                            <i class="fab fa-instagram mr-4 bg-footer footericon icon"></i>
-                            <i class="fab fa-facebook-f mr-4 bg-footer footericon icon"></i>
-                            <i class="fab fa-pinterest mr-4 bg-footer footericon icon"></i>
-                            <i class="fab fa-twitter mr-4 bg-footer footericon icon"></i>
+                <div class="col-12 col-md-6 col-xl-4">
+                    <ul class="footer-list">
+                        <li>STAY CONNECTED</li>
+                        <li>
+                            <a href="https://www.instagram.com/lovodashop/" target="_blank"><i class="fab fa-instagram mr-4 bg-footer footericon icon"></i></a>
+                            <a href="https://www.facebook.com/LovodaShop/" target="_blank"><i class="fab fa-facebook-f mr-4 bg-footer footericon icon"></i></a>
+                            <a href="https://www.pinterest.com/lovodashop/" target="_blank"><i class="fab fa-pinterest mr-4 bg-footer footericon icon"></i></a>
+                            <a href="https://twitter.com/LovodaShop" target="_blank"><i class="fab fa-twitter mr-4 bg-footer footericon icon"></i></a>
                         </li>
-                        <li class="list-group-item bg-footer border-0">FEATURED ON</li>
-                        <li class="list-group-item bg-footer border-0">
+                        <li>FEATURED ON</li>
+                        <li>
                             <img src="~/Content/images/asseenonwhite.png" width="370" alt="Alternate Text" />
                         </li>
                     </ul>
@@ -388,64 +639,98 @@
 
             </div>
         </div>
-    </div>
-    <div class="bg-footer text-light py-4 text-center">
-        <div class="container">
-            <p class="footertext mb-5"><i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.<p>
-                <div class="row justify-content-center my-5">
-                    <a href="" class=" text-white mr-3 mt-2 text-white">
-                        <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
-                    </a>
-                    <a href="" class="text-white mr-3 mt-2 text-white">
-                        <img src="~/Content/images/visa-pay-logo.png" alt="Alternate Text" />
-                    </a>
-                    <a href="" class="text-white mr-3 mt-2 text-white">
-                        <img src="~/Content/images/master-card-logo.png" alt="Alternate Text" />
-                    </a>
-                    <a href="" class="text-white mr-3 mt-2 text-white">
-                        <img src="~/Content/images/american-express-logo.png" alt="Alternate Text" />
-                    </a>
-                    <a href="" class="text-white mr-3 mt-2 text-white">
-                        <img src="~/Content/images/discover-logo-of-pay-system.png" alt="Alternate Text" />
-                    </a>
-                </div>
+        <div class="bg-footer text-light py-4 text-center">
+            <div class="container">
+                <p class="footertext mb-5"><i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.<p>
+                    <div class="row justify-content-center my-5">
+                        <a href="" class=" text-white mr-3 mt-2 text-white">
+                            <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
+                        </a>
+                        <a href="" class="text-white mr-3 mt-2 text-white">
+                            <img src="~/Content/images/visa-pay-logo.png" alt="Alternate Text" />
+                        </a>
+                        <a href="" class="text-white mr-3 mt-2 text-white">
+                            <img src="~/Content/images/master-card-logo.png" alt="Alternate Text" />
+                        </a>
+                        <a href="" class="text-white mr-3 mt-2 text-white">
+                            <img src="~/Content/images/american-express-logo.png" alt="Alternate Text" />
+                        </a>
+                        <a href="" class="text-white mr-3 mt-2 text-white">
+                            <img src="~/Content/images/discover-logo-of-pay-system.png" alt="Alternate Text" />
+                        </a>
+                    </div>
+            </div>
         </div>
-    </div>
+    </footer>
+
 
     <div class="modal fade" id="loginModal" style="z-index:1000000000">
         <div class="modal-dialog">
-            <form class="modal-content animate" action="#" method="post">
-                <a type="button" class="close mt-3" data-dismiss="modal">&times;</a>
+            <div class="modal-content animate  rounded-0 m-0" >
+                <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
                 <div class="container mt-5">
                     <div class="row px-5">
                         <div class="col-8 mx-auto justify-content-center">
                             <h4><b>Sign In</b></h4>
                             <label for="uname"><b>Email Address<span class="text-danger">*</span></b></label>
-                            <input class="w-100" type="text" placeholder="Enter Email" name="uname" required>
+                            <input class="w-100" type="text" placeholder="Enter Email" name="uname" id="loginId" required>
                             <label for="psw"><b>Password<span class="text-danger">*</span></b></label>
-                            <input class="w-100" type="password" placeholder="Enter Password" name="psw" required>
-                            <button class="btn-outline-dark w-100 btn-block" type="submit">LOGIN</button>
-                            <button class="btn-outline-dark w-100 btn-block" type="submit"><a href="@Url.Action("MemberRegist", "FrontEnd")" class="band">REGISTER</a></button>
+                            <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
+                            <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
+                            <button class="btn-outline-dark w-100 btn-block"><a href="@Url.Action("MemberRegist", "FrontEnd")" class="band">REGISTER</a></button>
                             <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label>
+                            <label class="mt-1 pt-0" for="pswproblem" id="loginStatus"><b>Msg</b></label>
                         </div>
                     </div>
+                    
                 </div>
-             </form>
-            </div>
-                                </div>
+            </form>
+        </div>
+    </div>
 
-                                @RenderSection("viewJquery", required: false)
-                                @RenderSection("Endscripts", required: false)
+    @RenderSection("viewJquery", required: false)
+    @RenderSection("Endscripts", required: false)
 
-                                <script>
-                                    $(function () {
-                                        $("#btn_login").click(function () {
-                                            $('#loginModal').modal('show');
-                                        });
-                                    });
-                                </script>
+    <script>
+        $(function () {
+            $("#btn_login").click(function () {
+                $('#loginModal').modal('show');
+            });
+        });
+    </script>
 </body>
 </html>
 
+                $("#loginConfirm").click(function () {
 
+                    var uname = $("#loginId").val();
+                    var psw = $("#loginPsw").val();
+                    console.log('uname is', uname);
+                    console.log('psw is', psw);
 
+                    $.ajax({
+                        type: "POST",
+                        url: "/Members/Login",
+                        data: {uname,psw  },
+                        success: function (back) {
+                            console.log('back', back);
+                            if (back == "1") {
+                                $("#loginStatus").html("登入成功");
+                            }
+                            else if (back == "2") {
+                                $("#loginStatus").html("此帳號尚未註冊，請先註冊");
+                            }
+                            else {
+                                $("#loginStatus").html("密碼錯誤");
+                            }
+
+                        }
+
+                    });
+
+                });
+            })
+        </script>
+        @RenderSection("Endscripts", required: false)
+</body>
+</html>
