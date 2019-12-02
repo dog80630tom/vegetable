@@ -48,7 +48,12 @@ namespace vegetable.Controllers
 
         public ActionResult ProductIndex ()
         {
-            return View();
+            Product result = new Product();
+            using (ItemContext item = new ItemContext())
+            {
+                result = (from s in item.Products select s).FirstOrDefault();
+                return View(result);
+            }
         }
         public ActionResult MemberPageAddress()
         {
