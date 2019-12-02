@@ -29,6 +29,10 @@ namespace vegetable.Controllers
         {
             return View();
         }
+        public ActionResult MemberPageOrderDetail()
+        {
+            return View();
+        }
         public ActionResult MemberPageSetting()
         {
             return View();
@@ -55,6 +59,10 @@ namespace vegetable.Controllers
             return View();
         }
         public ActionResult Cart ()
+        {
+            return View();
+        }
+        public ActionResult MemberCart()
         {
             return View();
         }
