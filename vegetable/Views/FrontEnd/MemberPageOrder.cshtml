@@ -84,7 +84,7 @@
 
 
 
-     /*nav bar*/
+    /*nav bar*/
     #container_page_nav {
         background-color: #f7f8f9;
         padding: 20px 0 15px 15px;
@@ -125,6 +125,58 @@
         .breadcrumb-item.active a:hover {
             color: #b4b4b4;
         }
+
+    .order-header-item {
+        font-weight: 700;
+        min-height: 41px;
+        padding: 20px 0 20px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #000;
+        border-bottom: 3px solid #000;
+    }
+
+    tr.order-item {
+        height: 40px;
+        border-bottom:1px solid #e8e8e8;
+    }
+
+    .order-item-block div{
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .order-item-block a {
+        line-height: 1.5em;
+        color: #000;
+        cursor: pointer;
+    }
+
+    .actionBar {
+        display: inline-block;
+        clear: both;
+    }
+
+    .form-field {
+        margin: 0;
+        display: inline-block;
+    }
+
+    .form-select {
+        display: inline-block;
+        border: 1px solid #dedede;
+        cursor: pointer;
+        color: #454545;
+        padding: 7px 15px 7px 9px;
+        height: 38px;
+        font-size:11px;
+        width:150px;
+    }
+
+    .actionBar select option {
+        padding: 5px 10px;
+    }
 </style>
 
 
@@ -174,18 +226,83 @@
             </nav>
         </div>
     </div>
-
-
-
-    
-
-
-
     <main class="account account--fixed">
         <div class="account-body">
             <section class="account-content">
-                <div class="alert">
-
+                <div class="row">
+                    <div class="col-9"></div>
+                    <div class="col-3">
+                        <form class="actionBar">
+                            <fieldset class="form-fieldset actionBar-section">
+                                <div class="form-field row">
+                                    <label class="form-label col-3" for="sort">Find:</label>
+                                    <select class="form-select form-select--small col-9" name="sort" id="sort">
+                                        <option value="" selected="selected">Within Three Days</option>
+                                        <option value="">Within a Week</option>
+                                        <option value="">Within a Month</option>
+                                        <option value="">Within a Year</option>
+                                        <option value="">All</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <table class="w-100">
+                    <thead>
+                        <tr>
+                            <th class="order-header-item">OrderDate</th>
+                            <th class="order-header-item">TrackingNumber</th>
+                            <th class="order-header-item">Total</th>
+                            <th class="order-header-item">OrderDetail&Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="order-list">
+                        <tr class="order-item">
+                            <td class="order-item-block">
+                                <div>2019/11/30 14:30</div>
+                            </td>
+                            <td class="order-item-block">
+                                <div>201911301430054321</div>
+                            </td>
+                            <td class="order-item-block">
+                                <div>$289</div>
+                            </td>
+                            <td class="order-item-block">
+                                <div><a href="#">Order Status</a></div>
+                            </td>
+                        </tr>
+                        <tr class="order-item">
+                            <td class="order-item-block">
+                                <div>2019/11/30 14:30</div>
+                            </td>
+                            <td class="order-item-block">
+                                <div>201911301430054321</div>
+                            </td>
+                            <td class="order-item-block">
+                                <div>$289</div>
+                            </td>
+                            <td class="order-item-block">
+                                <div><a href="#">Shipping Status</a></div>
+                            </td>
+                        </tr>
+                        <tr class="order-item">
+                            <td class="order-item-block">
+                                <div>2019/11/30 14:30</div>
+                            </td>
+                            <td class="order-item-block">
+                                <div>201911301430054321</div>
+                            </td>
+                            <td class="order-item-block">
+                                <div>$289</div>
+                            </td>
+                            <td class="order-item-block">
+                                <div><a href="#">Order Status</a></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert invisible">
                     <p class="alertBox-column alertBox-message">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
                         <span style="padding: 15px 30px 3px ;font-weight:100;">You haven't placed any orders with us. When you do, their status will appear on this page.</span>
