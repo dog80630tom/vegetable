@@ -20,11 +20,11 @@ namespace vegetable
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                     "~/Scripts/umd/popper.js", "~/Scripts/bootstrap.js", "~/Scripts/jquery.nicescroll.js", "~/Scripts/jquery.scrollTo.min.js"));
+                     "~/Scripts/umd/popper.js", "~/Scripts/bootstrap.js", "~/Scripts/jquery.nicescroll.js", "~/Scripts/jquery.scrollTo.min.js", "~/Scripts/common-scripts.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                     "~/Content/bootstrap.css",
-                      "~/Content/font-awesome.css", "~/Content/style.css", "~/Content/style-responsive", "~/Content/jquery.gritter.css"
+                     "~/Content/bootstrap.min.css",
+                      "~/Content/fontawesome-all.css", "~/Content/style.css", "~/Content/style-responsive", "~/Content/jquery.gritter.css"
                    ));
 
 

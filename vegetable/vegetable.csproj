@@ -237,6 +237,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\Css\sb-admin-2.css" />
     <Content Include="Content\Css\sb-admin-2.min.css" />
+    <Content Include="Scripts\common-scripts.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -263,6 +264,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.nicescroll.js" />
+    <Content Include="Scripts\jquery.scrollTo.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
