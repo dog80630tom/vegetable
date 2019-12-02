@@ -114,10 +114,9 @@ namespace vegetable.Controllers
             var temp = item.Members.Any(x => x.MemberEmail == uname);
             if (temp)
             {
-                TempData["AccountNotExist"] = false;
-               var membership =(from m in item.Members where m.MemberEmail == uname select m).ToList();
-               var password = encryption(psw,membership[0].MemberName);
-                if (membership[0].MemberEmail==uname && password== membership[0].MemberPassword)
+                var membership = (from m in item.Members where m.MemberEmail == uname select m).ToList();
+                var password = encryption(psw, membership[0].MemberName);
+                if (membership[0].MemberEmail == uname && password == membership[0].MemberPassword)
                 {
                     Session["userName"] = membership[0].MemberName;
                     Session["isLogIn"] = "Y";
