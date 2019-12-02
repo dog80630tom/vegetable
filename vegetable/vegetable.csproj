@@ -418,6 +418,7 @@
     <Content Include="Views\FrontEnd\ForgotPassword.cshtml" />
     <Content Include="Views\FrontEnd\Cart.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
+    <Content Include="Views\FrontEnd\MemberCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -62,5 +62,9 @@ namespace vegetable.Controllers
         {
             return View();
         }
+        public ActionResult MemberCart()
+        {
+            return View();
+        }
     }
 }
