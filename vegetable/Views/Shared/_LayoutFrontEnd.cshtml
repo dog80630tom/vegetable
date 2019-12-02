@@ -455,8 +455,6 @@
 
                     var uname = $("#loginId").val();
                     var psw = $("#loginPsw").val();
-                    console.log('uname is', uname);
-                    console.log('psw is', psw);
 
                     $.ajax({
                         type: "POST",
@@ -466,6 +464,7 @@
                             console.log('back', back);
                             if (back == "1") {
                                 $("#loginStatus").html("登入成功");
+                                @Url.Action("")
                             }
                             else if (back == "2") {
                                 $("#loginStatus").html("此帳號尚未註冊，請先註冊");
