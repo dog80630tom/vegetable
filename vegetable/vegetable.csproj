@@ -266,6 +266,9 @@
     <Content Include="Content\images\discover-logo-of-pay-system.png" />
     <Content Include="Content\images\master-card-logo.png" />
     <Content Include="Content\images\paypal-logo.png" />
+    <Content Include="Content\images\Product\p1.jpg" />
+    <Content Include="Content\images\Product\p2.jpg" />
+    <Content Include="Content\images\Product\p3.jpg" />
     <Content Include="Content\images\visa-pay-logo.png" />
     <Content Include="Content\paypal-logo.png" />
     <Content Include="Content\regular.css" />
@@ -413,6 +416,7 @@
     <Content Include="Views\FrontEnd\MemberPageWishlist.cshtml" />
     <Content Include="Views\FrontEnd\LoginPage.cshtml" />
     <Content Include="Views\FrontEnd\ForgotPassword.cshtml" />
+    <Content Include="Views\FrontEnd\Cart.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
