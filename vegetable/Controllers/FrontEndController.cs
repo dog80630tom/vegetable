@@ -110,5 +110,11 @@ namespace vegetable.Controllers
         {
             return View();
         }
+
+        //貨運FAQ
+        public ActionResult Shipping ()
+        {
+            return View();
+        }
     }
 }
