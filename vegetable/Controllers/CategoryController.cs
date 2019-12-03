@@ -10,7 +10,7 @@ namespace vegetable.Controllers
 {
     public class CategoryController : Controller
     {
-        ItemContext item = new ItemContext();
+        MyDBContext item = new MyDBContext();
         // GET: Category
 
         public List<Category> initCategoryData()

@@ -13,7 +13,6 @@ namespace vegetable.Models
      public string CategoryName{get; set;}
      public string ProductDescription{get; set;}
      public int UnitsInStock{get; set;}
-    
      public decimal ProductPrice { get; set; }
 
     }

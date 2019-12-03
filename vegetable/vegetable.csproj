@@ -193,10 +193,16 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\SearchitemController.cs" />
     <Compile Include="Helper\MyHtmlHelper.cs" />
+    <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\AdminRespond.cs" />
+    <Compile Include="Models\CartDetail.cs" />
+    <Compile Include="Models\Customer_Question.cs" />
+    <Compile Include="Models\Customer_Review.cs" />
+    <Compile Include="Models\HomePageAD.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
-    <Compile Include="Models\ItemContext.cs" />
+    <Compile Include="Models\MyDBContext.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -205,6 +211,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\PicDetail.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ViewModels\ProducetDetil.cs" />
