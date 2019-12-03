@@ -75,7 +75,7 @@ namespace vegetable.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public void AddCart ([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetails cart)
+        public ActionResult AddCart ([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetails cart)
         {
             if (ModelState.IsValid)
             {
@@ -83,8 +83,10 @@ namespace vegetable.Controllers
                 {
                     item.Carts.Add(cart);
                     item.SaveChanges();
+                    return RedirectToAction("Cart");
                 }
             }
+            return View();
         }
         public ActionResult MemberPageAddress()
         {
@@ -106,6 +108,8 @@ namespace vegetable.Controllers
         {
             return View();
         }
+
+
         public ActionResult MemberCart()
         {
             return View();

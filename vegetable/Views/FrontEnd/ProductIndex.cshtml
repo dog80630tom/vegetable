@@ -440,7 +440,7 @@
                 @*產品ID*@
                 <input type="hidden" name="ProductID" value="@ViewBag.ProductID" />
                 @*Cart ID*@
-@*                <input type="hidden" name="CartID" value="@ViewBag.CartID" />*@
+                @*                <input type="hidden" name="CartID" value="@ViewBag.CartID" />*@
                 @* 數量 *@
                 <div>Quantity:</div>
                 @* 增加 *@
@@ -452,6 +452,7 @@
                 <button id="button#form-action-addToCart" type="submit" style="width:220px"
                         class="btn btn-outline-dark rounded-0">
                     ADD TO CART
+                    @*<a href="@Url.Action("Cart", "FrontEnd")"> ADD TO CART</a>*@
                 </button>
             </form>
         </div>
