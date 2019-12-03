@@ -196,6 +196,7 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\SearchitemController.cs" />
     <Compile Include="Helper\MyHtmlHelper.cs" />
+    <Compile Include="Models\CartDetails.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ErrorMessage.cs" />

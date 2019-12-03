@@ -14,6 +14,8 @@ namespace vegetable.Controllers
         }
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<CartDetails> Carts{get; set;}
+
         public System.Data.Entity.DbSet<vegetable.Models.ViewModels.ProducetDetil> ProducetDetils { get; set; }
         public System.Data.Entity.DbSet<PicDetail> PicDetails { get; set; }
         public System.Data.Entity.DbSet<Category>  Categories { get; set; }

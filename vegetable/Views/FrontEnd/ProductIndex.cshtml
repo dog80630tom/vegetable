@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@model vegetable.Models.Product
+@{
+    ViewBag.Title = @ViewBag.ProductName;
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
 
@@ -397,17 +398,18 @@
 <div class="container">
     @*產品大圖和購買相關功能*@
     <div class="row my-5">
+        @*產品大圖*@
         <div class="col-xl-4 order-xl-1 col-md-6 order-md-2 col-12 order-1">
             <figure class="figure">
                 <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" src="~/Content/images/Product/p1.jpg" alt="">
             </figure>
         </div>
 
-        @* 右半部 *@
+        @* 右半部  購買清單*@
         <div class="col-xl-8 order-xl-2 col-md-6 order-md-2 order-3">
-            <div class="productView-title">Tie and Knot Ring</div>
+            <div class="productView-title">@ViewBag.ProductName</div>
             <div class="productView-rating"></div>
-            <div class="productView-price">$16.00</div>
+            <div class="productView-price">$@ViewBag.ProductPrice </div>
             <span>
                 <i class="far fa-star"></i>
                 <i class="far fa-star"></i>
@@ -425,23 +427,33 @@
                 <span class="Product-info col-xl-9 col-md-5 col-5">Options available</span>
             </div>
             <div class="productView-rating"></div>
-            <div>Size: <span class="text-danger">*</span></div>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">6</button>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">7</button>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>
+            @*大小選擇 有時間再做*@
+            @*<div>Size: <span class="text-danger">*</span></div>
+                <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">6</button>
+                <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">7</button>
+                <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>*@
             <div class="productView-rating"></div>
-            @* 數量 *@
-            <div>Quantity:</div>
-            @* 增加 *@
-            <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
-            <input id="quantity" value="1" class="text-center" />
-            @* 減少 *@
-            <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
-            <div class="productView-rating"></div>
-            <button id="button#form-action-addToCart" type="button" style="width:220px"
-                    class="btn btn-outline-dark rounded-0">
-                ADD TO CART
-            </button>
+            @*購改清單*@
+            <form action="/FrontEnd/AddCart" method="post">
+                @*會員ID*@
+                <input type="hidden" name="MemberID" value="@ViewBag.MemberID" />
+                @*產品ID*@
+                <input type="hidden" name="ProductID" value="@ViewBag.ProductID" />
+                @*Cart ID*@
+@*                <input type="hidden" name="CartID" value="@ViewBag.CartID" />*@
+                @* 數量 *@
+                <div>Quantity:</div>
+                @* 增加 *@
+                <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+                <input id="quantity" name="Quantity" value="1" class="text-center" />
+                @* 減少 *@
+                <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+                <div class="productView-rating"></div>
+                <button id="button#form-action-addToCart" type="submit" style="width:220px"
+                        class="btn btn-outline-dark rounded-0">
+                    ADD TO CART
+                </button>
+            </form>
         </div>
         @*產品小圖和社群按鈕*@
         <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4">
