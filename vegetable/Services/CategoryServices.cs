@@ -10,7 +10,7 @@ namespace vegetable.Services
 {
     public class CategoryServices
     {
-        itemContext item = new itemContext();
+        ItemContext item = new ItemContext();
         public ErrorMessage EditCategory(Category category)
         {
             ErrorMessage error = new ErrorMessage();

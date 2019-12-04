@@ -12,7 +12,7 @@ namespace vegetable.Controllers
 {
     public class MembersController : Controller
     {
-        itemContext item = new itemContext();
+        ItemContext item = new ItemContext();
         // GET: Member
 
         public List<Member> initMemberData()
