@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using vegetable.Models;
 using vegetable.Models.ViewModels;
+using vegetable.Respository;
 using vegetable.Services;
 
 namespace vegetable.Controllers
@@ -18,34 +19,39 @@ namespace vegetable.Controllers
             List<ProducetDetil> data =new List<ProducetDetil>();
             try
             {
+                string sql = @"select *from Products p
+left join Categories c on p.CategoryID= c.CategoryID
+left join PicDetails pic on pic.ProductID=p.ProductID";
+                ConnRespository<ProducetDetil> Conn = new ConnRespository<ProducetDetil>(item);
+             data =  Conn.GetAll(new ProducetDetil(), sql).ToList();
                 //有join有viewmodel才要用隱含轉換
-                data = (from d in item.Products
-                            join c in item.Categories on d.CategoryID equals c.CategoryID
-                            join pic in item.PicDetails on d.ProductID equals pic.ProductID
+                //data = (from d in item.Products
+                //            join c in item.Categories on d.CategoryID equals c.CategoryID
+                //            join pic in item.PicDetails on d.ProductID equals pic.ProductID
                             
-                    select new
-                    {
-                        ProductID = d.ProductID,
-                        CategoryDescription = c.CategoryDescription,
-                        CategoryName = c.CategoryName,
-                        CategoryPic = c.CategoryPic,
-                        PicUrl = pic.PicUrl,
-                        ProductDescription = d.ProductDescription,
-                        ProductName = d.ProductName,
-                        UnitsInStock = d.UnitsInStock,
-                        ProductPrice=d.ProductPrice
-                    }).ToList().Select(x=>new ProducetDetil
-                    {
-                        ProductID = x.ProductID,
-                        CategoryDescription = x.CategoryDescription,
-                        CategoryName = x.CategoryName,
-                        CategoryPic = x.CategoryPic,
-                        PicUrl = x.PicUrl,
-                        ProductDescription = x.ProductDescription,
-                        ProductName = x.ProductName,
-                        UnitsInStock = x.UnitsInStock,
-                        ProductPrice=x.ProductPrice
-                    }).ToList();
+                //    select new
+                //    {
+                //        ProductID = d.ProductID,
+                //        CategoryDescription = c.CategoryDescription,
+                //        CategoryName = c.CategoryName,
+                //        CategoryPic = c.CategoryPic,
+                //        PicUrl = pic.PicUrl,
+                //        ProductDescription = d.ProductDescription,
+                //        ProductName = d.ProductName,
+                //        UnitsInStock = d.UnitsInStock,
+                //        ProductPrice=d.ProductPrice
+                //    }).ToList().Select(x=>new ProducetDetil
+                //    {
+                //        ProductID = x.ProductID,
+                //        CategoryDescription = x.CategoryDescription,
+                //        CategoryName = x.CategoryName,
+                //        CategoryPic = x.CategoryPic,
+                //        PicUrl = x.PicUrl,
+                //        ProductDescription = x.ProductDescription,
+                //        ProductName = x.ProductName,
+                //        UnitsInStock = x.UnitsInStock,
+                //        ProductPrice=x.ProductPrice
+                //    }).ToList();
             }
             catch (Exception ex) {
                 return null;
