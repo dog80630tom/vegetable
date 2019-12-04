@@ -187,7 +187,7 @@
                 </div>
                 <div class="col-6" style="margin-top:25px;">
                     <label>Email Address</label>
-                    @Html.TextBox("MemberEmail", Model.MemberEmail, new { @class = "form-input",id = "userEmail"})
+                    @Html.TextBox("MemberEmail", Model.MemberEmail, new { @class = "form-input", id = "userEmail" })
                 </div>
 
             </div>
@@ -196,18 +196,18 @@
 
                 <div class="col-6" style="margin-top:25px;">
                     <label>Password</label>
-                    <input class="form-input" id="pw">
+                    <input class="form-input" id="newpw">
                 </div>
                 <div class="col-6" style="margin-top:25px;">
                     <label>Confirm Password</label>
-                    <input class="form-input" id="confirmPw">
+                    <input class="form-input" id="confirmnewPw" onchange="checkpsw()">
                 </div>
             </div>
             <div class="row">
 
                 <div class="col-6" style="margin-top:25px;">
                     <label>Current Password</label>
-                    <input class="form-input">
+                    <input class="form-input" id="psw">
                 </div>
                 <div class="col-6" style="margin-top:20px;">
                     <label>Phone Number</label>
@@ -222,12 +222,23 @@
 
 </div>
 
+
+
 <script>
-        $(function () {
-            if ($("#pw").val() == $("#confirmPw").val() && $("#pw").val() != "" && $("#confirmPw").val() != "")
-            {
+    $(function () {
+        $("#UpdateMember").click(function () {
+            return canSubmit;
+        });
+         var canSubmit = false;
+        function checkpsw() {
+            console.log("檢查");
+        if ($("#newpw").val() != $("#confirmnewPw").val())
+        {
+        $("#pwStatus").html=("您輸入的新密碼不一致，請再次檢查")
+        }
+        else if ($("#pw").val()!="") {
                 var uname = $("#userEmail").val();
-                var psw = $("#confirmPw").val();
+                var psw = $("#psw").val();
                 $.ajax({
                     type: "POST",
                     url: "/Members/Login",
@@ -235,18 +246,17 @@
                     success: function (back) {
                         console.log('back', back);
                         if (back == "1") {
-                            location.href = "@Url.Action("MemberPageSetting", "Member")";
+                            $("#pwStatus").html("密碼正確");
+                            canSubmit = true;
                         }
                         else {
                             $("#pwStatus").html("密碼錯誤");
                         }
-
                     }
-
                 });
+        }
 
-                }
-                $("#pwStatus").html=("您輸入的密碼不一致，請再次輸入")
+    }
+    });
 
-        });
 </script>
