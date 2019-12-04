@@ -21,9 +21,13 @@
 
 
   
-    <div id="wrapper">
+    <div id="container" class="sidebar-close">
         @Html.Partial("_NavPartial")
-        @RenderBody()
+        <div id="main-content">
+            <div class="wrapper">
+                @RenderBody()
+            </div>
+        </div>
         <hr />
 
     </div>
