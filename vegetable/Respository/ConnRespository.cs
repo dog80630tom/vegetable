@@ -12,8 +12,8 @@ namespace vegetable.Respository
 {
     public class ConnRespository<T> where T:class
     {
-        private ItemContext _context ;
-        static string connstring = @"data source=vegetable.database.windows.net;initial catalog=vegetableDB;user id=sean200365;password=800824arcARC;MultipleActiveResultSets=True;App=EntityFramework";
+        private ItemContext _context=null ;
+        //static string connstring = @"data source=vegetable.database.windows.net;initial catalog=vegetableDB;user id=sean200365;password=800824arcARC;MultipleActiveResultSets=True;App=EntityFramework";
         public ConnRespository(ItemContext context)
         {
             if (context == null)
@@ -21,7 +21,7 @@ namespace vegetable.Respository
                 throw new ArgumentNullException();
 
             }
-            context =_context;
+            _context = context;
         }
 
         public void Create(T Enity)
@@ -34,10 +34,10 @@ namespace vegetable.Respository
             _context.Entry(Enity).State = EntityState.Deleted;
         }
 
-        public IEnumerable<T> GetAll(T Enity,string sql)
+        public IEnumerable<T> GetAll(string sql)
         {
            
-            using (SqlConnection conn= new SqlConnection(connstring)) {
+            using (SqlConnection conn= new SqlConnection(_context.Database.Connection.ConnectionString)) {
                 
                 var producets = conn.Query<T>(sql);
                 return producets;

@@ -10,21 +10,39 @@ namespace vegetable.Controllers
 {
     public class FrontEndController : Controller
     {
+        ItemContext Item = new ItemContext();
         // GET: FrontEnd
-        
+
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult ShowProducts()
+        [Route("product")]
+        [HttpGet]
+        public ActionResult ShowProducts(string SearchCondition)
         {
-            List<Product> result = new List<Product>();
-            using(ItemContext item = new ItemContext())
+
+
+            if (SearchCondition is null)
             {
-                result = (from s in item.Products select s ).ToList();
-                return View(result);
+                SearchCondition = "";
+
             }
             
+            var products = from p in Item.Products
+                           join c in Item.Categories
+                           on p.CategoryID equals c.CategoryID
+                           where p.ProductName.Contains(SearchCondition) ||c.CategoryName.Contains(SearchCondition)
+                           select p;
+
+            return View(products.ToList());
+            //List<Product> result = new List<Product>();
+            //using(ItemContext item = new ItemContext())
+            //{
+            //    result = (from s in item.Products select s ).ToList();
+            //    return View(result);
+            //}
+
         }
         public ActionResult MemberRegist()
         {

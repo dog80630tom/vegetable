@@ -20,18 +20,21 @@ namespace vegetable
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                     "~/Scripts/umd/popper.js", "~/Scripts/bootstrap.js", "~/Scripts/jquery.nicescroll.js", "~/Scripts/jquery.scrollTo.min.js", "~/Scripts/common-scripts.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/fontawesome-all.css",
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"
+                    "~/Content/fontawesome-all.css",
+                    "~/Content/bootstrap.css",
+                    "~/Content/site.css"
                    ));
 
             bundles.Add(new StyleBundle("~/Content/adminCss").Include(
-
-                      "~/Content/Css/sb-admin-2.min.css", "~/content/jquery.dataTables.min.css"));
-
+                    "~/content/jquery.dataTables.min.css",
+                    "~/Content/Css/style-responsive.css",
+                    "~/Content/Css/style.css",
+                    "~/Content/Css/table-responsive.css",
+                    "~/Content/Css/to-do.css",
+                    "~/Content/Css/zabuto_calendar.css"));
         }
     }
 }

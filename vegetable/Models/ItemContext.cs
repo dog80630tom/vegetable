@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using vegetable.Models;
+using vegetable.Models.ViewModels;
 
 namespace vegetable.Controllers
 {
@@ -13,14 +14,17 @@ namespace vegetable.Controllers
         {
         }
         public DbSet<Product> Products { get; set; }
-
-        public DbSet<CartDetails> Carts{get; set;}
-
-        public System.Data.Entity.DbSet<vegetable.Models.ViewModels.ProducetDetil> ProducetDetils { get; set; }
-        public System.Data.Entity.DbSet<PicDetail> PicDetails { get; set; }
-        public System.Data.Entity.DbSet<Category>  Categories { get; set; }
-        public System.Data.Entity.DbSet<Member> Members { get; set; }
-
-        //public System.Data.Entity.DbSet<vegetable.Models.Member> Members { get; set; }
+        public DbSet<ProducetDetil> ProducetDetils { get; set; }
+        public DbSet<PicDetail> PicDetails { get; set; }
+        public DbSet<Category>  Categories { get; set; }
+        public DbSet<Member> Members { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<Customer_Question> Customer_Questions { get; set; }
+        public DbSet<HomePageAD> HomePageADs { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<AdminRespond> AdminResponds { get; set; }
+        public DbSet<CartDetail> CartDetails { get; set; }
+        public DbSet<Customer_Review> Customer_Reviews { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
     }
 }

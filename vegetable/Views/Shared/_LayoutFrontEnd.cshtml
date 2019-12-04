@@ -27,7 +27,7 @@
         }
         .band:hover {
              text-decoration:none;
-              color:black;
+             color:black;
         }
         .navTop {
             line-height: 40px;
@@ -617,7 +617,7 @@
                 <div class="col-6 col-md-3 col-xl-2">
                     <ul class="footer-list">
                         <li>FURTHER INFO</li>
-                        <li><a href="#" class="dot">Sitemap</ahref="#"></li>
+                        <li><a href="#" class="dot">Sitemap</a></li>
                         <li><a href="#" class="dot">Affiliates</a></li>
                         <li><a href="#" class="dot">Wholesale Application</a></li>
                     </ul>
@@ -637,29 +637,29 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
         </div>
         <div class="bg-footer text-light py-4 text-center">
             <div class="container">
-                <p class="footertext mb-5"><i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.<p>
-                    <div class="row justify-content-center my-5">
-                        <a href="" class=" text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/visa-pay-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/master-card-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/american-express-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/discover-logo-of-pay-system.png" alt="Alternate Text" />
-                        </a>
-                    </div>
+                <p class="footertext mb-5"><i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.
+                </p>
+                <div class="row justify-content-center my-5">
+                    <a href="" class=" text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/visa-pay-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/master-card-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/american-express-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/discover-logo-of-pay-system.png" alt="Alternate Text" />
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
@@ -729,7 +729,7 @@
                     $.ajax({
                         type: "POST",
                         url: "/Members/Login",
-                        data: {uname,psw  },
+                        data: { uname, psw },
                         success: function (back) {
                             console.log('back', back);
                             if (back == "1") {
@@ -747,8 +747,11 @@
                     });
 
                 });
-            })
+            });
         </script>
         @RenderSection("Endscripts", required: false)
 </body>
 </html>
+
+       
+

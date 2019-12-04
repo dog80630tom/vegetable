@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,6 @@ namespace vegetable.Controllers
     public class BackstageController : Controller
     {
         ItemContext item = new ItemContext();
-       
         // GET: Backstage
         public List<ProducetDetil> initdetil() {
             List<ProducetDetil> data =new List<ProducetDetil>();
@@ -24,7 +24,7 @@ namespace vegetable.Controllers
 left join Categories c on p.CategoryID= c.CategoryID
 left join PicDetails pic on pic.ProductID=p.ProductID";
                 ConnRespository<ProducetDetil> Conn = new ConnRespository<ProducetDetil>(item);
-             data =  Conn.GetAll(new ProducetDetil(), sql).ToList();
+             data =  Conn.GetAll( sql).ToList();
                 //有join有viewmodel才要用隱含轉換
                 //data = (from d in item.Products
                 //            join c in item.Categories on d.CategoryID equals c.CategoryID
@@ -74,6 +74,22 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
             }
             ViewBag.ISuccess = "false";
             return View(initdata);
+        }
+        public ActionResult AdminIndex()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Getinitdata()
+        {
+            var initdata = initdetil();
+
+            ProductDetilListViewMdoel listViewMdoel = new ProductDetilListViewMdoel();
+            listViewMdoel.models = initdata;
+            var jsondata = JsonConvert.SerializeObject(listViewMdoel);
+            ViewBag.ISuccess = "false";
+            return Json(jsondata, JsonRequestBehavior.AllowGet);
         }
         //[HttpPost]
         //public ActionResult Form(string CategoryID, string ProductName, string CategoryName, string ProductDescription, int UnitsInStock, string PicUrl, string CategoryPic, string CategoryDescription,int ProductPrice)

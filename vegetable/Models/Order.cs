@@ -27,13 +27,4 @@ namespace vegetable.Models
         [Display(Name = "電話")]
         public string DeliverPhone { get; set; }
     }
-
-    public class OrderDetail
-    {
-        public int OrderID { get; set; }
-        public int ProductID { get; set; }
-        public int Quantity { get; set; }
-        public int UnitPrice { get; set; }
-        public int Discount { get; set; }
-    }
 }
