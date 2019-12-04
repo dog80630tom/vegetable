@@ -1,5 +1,10 @@
 ﻿
+@{
+    Layout = null;
+}
+
 <!DOCTYPE html>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,7 +14,7 @@
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/adminCss")
-    
+
     @Scripts.Render("~/bundles/modernizr")
 
 
@@ -18,15 +23,7 @@
     @RenderSection("Topscripts", required: false)
 </head>
 <body>
-    <div id="container" class="sidebar-close">
-        @Html.Partial("_NavPartial")
-        <div id="main-content">
-            <div class="wrapper">
-                @RenderBody()
-            </div>
-        </div>
-        <hr />
-
+    <div id="container" class="">
     </div>
 
 

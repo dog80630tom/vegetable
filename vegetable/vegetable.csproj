@@ -205,7 +205,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
-    <Compile Include="Models\ItemContext1.cs" />
+    <Compile Include="Models\ItemContext.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -238,6 +238,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\brands.css" />
     <Content Include="Content\brands.min.css" />
+    <Content Include="Content\Css\style-responsive.css" />
+    <Content Include="Content\Css\style.css" />
+    <Content Include="Content\Css\table-responsive.css" />
+    <Content Include="Content\Css\to-do.css" />
+    <Content Include="Content\Css\zabuto_calendar.css" />
     <Content Include="Content\fontawesome-all.css" />
     <Content Include="Content\fontawesome-all.min.css" />
     <Content Include="Content\fontawesome.css" />
@@ -301,8 +306,6 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\Css\sb-admin-2.css" />
-    <Content Include="Content\Css\sb-admin-2.min.css" />
     <Content Include="Scripts\common-scripts.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -437,6 +440,7 @@
     <Content Include="Views\FrontEnd\Cart.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
     <Content Include="Views\FrontEnd\MemberCart.cshtml" />
+    <Content Include="Views\Backstage\AdminIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

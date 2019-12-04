@@ -29,7 +29,12 @@ namespace vegetable
                    ));
 
             bundles.Add(new StyleBundle("~/Content/adminCss").Include(
-                    "~/Content/Css/sb-admin-2.min.css", "~/content/jquery.dataTables.min.css"));
+                    "~/content/jquery.dataTables.min.css",
+                    "~/Content/Css/style-responsive.css",
+                    "~/Content/Css/style.css",
+                    "~/Content/Css/table-responsive.css",
+                    "~/Content/Css/to-do.css",
+                    "~/Content/Css/zabuto_calendar.css"));
         }
     }
 }

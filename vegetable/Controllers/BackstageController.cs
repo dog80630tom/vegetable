@@ -75,6 +75,11 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
             ViewBag.ISuccess = "false";
             return View(initdata);
         }
+        public ActionResult AdminIndex()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Getinitdata()
         {
