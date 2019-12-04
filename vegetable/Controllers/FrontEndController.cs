@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using vegetable.Models;
 
 namespace vegetable.Controllers
 {
@@ -31,7 +35,15 @@ namespace vegetable.Controllers
         }
         public ActionResult MemberPageSetting()
         {
-            return View();
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+
+            if (rqstCookie.Value.Length > 0)
+            {
+                var bbb = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData=JsonConvert.DeserializeObject<Member>(bbb.UserData);
+                return View();
+            }
+            return RedirectToAction("LoginPage");
         }
 
         public ActionResult ProductIndex ()
@@ -40,7 +52,13 @@ namespace vegetable.Controllers
         }
         public ActionResult MemberPageAddress()
         {
-            return View();
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+
+            if (rqstCookie.Value.Length>0)
+            {
+                return View();
+            }
+            return RedirectToAction("LoginPage");
         }
         public ActionResult MemberPageWishlist()
         {
@@ -54,5 +72,7 @@ namespace vegetable.Controllers
         {
             return View();
         }
+
+
     }
 }

@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using vegetable.Models;
 using vegetable.Services;
 
@@ -88,6 +92,10 @@ namespace vegetable.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+        //以下為前台的會員功能
+        //會員新增功能
         [HttpPost]
         public ActionResult FrontCreate(Member Member)
         {
@@ -104,9 +112,9 @@ namespace vegetable.Controllers
             UTF8Encoding encode = new UTF8Encoding();
             encrypt = md5.ComputeHash(encode.GetBytes(password + name));
             return Convert.ToBase64String(encrypt);
-
         }
 
+        //會員登入功能
         [HttpPost]
         public string Login(string uname, string psw)
         {
@@ -118,8 +126,11 @@ namespace vegetable.Controllers
                 var password = encryption(psw, membership[0].MemberName);
                 if (membership[0].MemberEmail == uname && password == membership[0].MemberPassword)
                 {
-                    Session["userName"] = membership[0].MemberName;
-                    Session["isLogIn"] = "Y";
+                    //Session["userName"] = membership[0].MemberName;
+                    //Session["isLogIn"] = "Y";
+                    LoginProcess("Client", membership[0].MemberName, true, membership[0]);
+ 
+
                     return "1";
                 }
                 return "3";
@@ -127,6 +138,29 @@ namespace vegetable.Controllers
             }
             return "2";
         }
+
+
+
+        private void LoginProcess(string level, string Name, bool isRemeber,object user)
+        {
+            var now = DateTime.Now;
+            string roles = level;
+            var ticket = new FormsAuthenticationTicket(
+                version: 1,
+                name: Name, //這邊看個人，你想放使用者名稱也可以，自行更改
+                issueDate: now,//現在時間
+                expiration: DateTime.Now.AddDays(1),//Cookie有效時間=現在時間往後+30分鐘
+                isPersistent: isRemeber,//記住我 true or false
+                userData: JsonConvert.SerializeObject(user), //放會員資料
+                cookiePath: "/");
+
+            var encryptedTicket = FormsAuthentication.Encrypt(ticket); //把驗證的表單加密
+            var cookie = new HttpCookie("myaccount", encryptedTicket);
+            HttpContext.Response.Cookies.Add(cookie);
+
+        }
+
+
 
 
 
