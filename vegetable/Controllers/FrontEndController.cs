@@ -94,13 +94,13 @@ namespace vegetable.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult AddCart ([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetails cart)
+        public ActionResult AddCart ([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetail cart)
         {
             if (ModelState.IsValid)
             {
                 using (ItemContext item = new ItemContext())
                 {
-                    item.Carts.Add(cart);
+                    item.CartDetails.Add(cart);
                     item.SaveChanges();
                     return RedirectToAction("Cart");
                 }
