@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using vegetable.Models;
 
+
 namespace vegetable.Controllers
 {
     public class FrontEndController : Controller
@@ -39,9 +40,7 @@ namespace vegetable.Controllers
 
             if (rqstCookie.Value.Length > 0)
             {
-                var bbb = FormsAuthentication.Decrypt(rqstCookie.Value);
-                var memberData=JsonConvert.DeserializeObject<Member>(bbb.UserData);
-                return View();
+                return RedirectToAction("MemberPageSetting", "Members");
             }
             return RedirectToAction("LoginPage");
         }

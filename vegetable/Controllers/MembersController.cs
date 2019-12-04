@@ -87,7 +87,7 @@ namespace vegetable.Controllers
         public ActionResult Create(Member Member)
         {
             MemberServices services = new MemberServices();
-            Member.MemberPassword = encryption(Member.MemberPassword, Member.MemberName);
+            Member.MemberPassword = Encryption(Member.MemberPassword, Member.MemberName);
             services.CreateMember(Member);
             return RedirectToAction("Index");
         }
@@ -100,12 +100,12 @@ namespace vegetable.Controllers
         public ActionResult FrontCreate(Member Member)
         {
             MemberServices services = new MemberServices();
-            Member.MemberPassword = encryption(Member.MemberPassword, Member.MemberName);
+            Member.MemberPassword = Encryption(Member.MemberPassword, Member.MemberName);
             services.CreateMember(Member);
             return Redirect("/FrontEnd/MemberLogInModel");
         }
 
-        public string encryption(string password, string name)
+        public string Encryption(string password, string name)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
             byte[] encrypt;
@@ -123,7 +123,7 @@ namespace vegetable.Controllers
             if (temp)
             {
                 var membership = (from m in item.Members where m.MemberEmail == uname select m).ToList();
-                var password = encryption(psw, membership[0].MemberName);
+                var password = Encryption(psw, membership[0].MemberName);
                 if (membership[0].MemberEmail == uname && password == membership[0].MemberPassword)
                 {
                     //Session["userName"] = membership[0].MemberName;
@@ -138,8 +138,6 @@ namespace vegetable.Controllers
             }
             return "2";
         }
-
-
 
         private void LoginProcess(string level, string Name, bool isRemeber,object user)
         {
@@ -158,6 +156,31 @@ namespace vegetable.Controllers
             var cookie = new HttpCookie("myaccount", encryptedTicket);
             HttpContext.Response.Cookies.Add(cookie);
 
+        }
+
+        public ActionResult MemberPageSetting()
+        {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            return View(initMemberData().Find(x => x.MemberID == memberData.MemberID));
+        }
+
+        [HttpPost]
+        public ActionResult MemberPageSetting(Member Member)
+        {
+           
+                MemberServices services = new MemberServices();
+                HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                Member.MemberID = memberData.MemberID;
+                Member.MemberGender = memberData.MemberGender;
+                Member.MemberPassword = memberData.MemberPassword;
+
+                services.EditMember(Member);
+                return RedirectToAction("Index", "FrontEnd");
+           
         }
 
 
