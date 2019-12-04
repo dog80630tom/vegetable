@@ -10,7 +10,7 @@ namespace vegetable.Controllers
 {
     public class SearchitemController : Controller
     {
-        MyDBContext Item = new MyDBContext();
+        itemContext Item = new itemContext();
         private List<SearchViewModel> getSearch() {
             var product = from p in Item.Products select p;
             var Category = from c in Item.Categories select c;

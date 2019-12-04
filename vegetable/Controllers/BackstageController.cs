@@ -12,7 +12,7 @@ namespace vegetable.Controllers
 {
     public class BackstageController : Controller
     {
-        MyDBContext item = new MyDBContext();
+        itemContext item = new itemContext();
         // GET: Backstage
         public List<ProducetDetil> initdetil() {
             List<ProducetDetil> data =new List<ProducetDetil>();

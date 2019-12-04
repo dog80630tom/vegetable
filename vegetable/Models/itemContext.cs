@@ -8,9 +8,9 @@ using vegetable.Models.ViewModels;
 
 namespace vegetable.Controllers
 {
-    public class MyDBContext : DbContext
+    public class itemContext : DbContext
     {
-        public MyDBContext() : base("name=DefaultConnection")
+        public itemContext() : base("name=DefaultConnection")
         {
         }
         public DbSet<Product> Products { get; set; }

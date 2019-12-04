@@ -6,8 +6,10 @@ using System.Web;
 
 namespace vegetable.Models
 {
-    public partial class CartDetail
+    public class CartDetail
     {
+        [Key]
+        public int CartID { get; set; }
         public int MemberID { get; set; }
         public int ProductID { get; set; }
         public int Quantity { get; set; }

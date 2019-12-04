@@ -10,7 +10,7 @@ namespace vegetable.Services
 {
     public class CategoryServices
     {
-        MyDBContext item = new MyDBContext();
+        itemContext item = new itemContext();
         public ErrorMessage EditCategory(Category category)
         {
             ErrorMessage error = new ErrorMessage();

@@ -12,7 +12,7 @@ namespace vegetable.Helper
     {
        
         public static MvcHtmlString Dropdownlist(this HtmlHelper htmlHelper,string name,string ActionName) {
-            MyDBContext _context = new MyDBContext();
+            itemContext _context = new itemContext();
             var Dropdown = new TagBuilder("select");
             Dropdown.Attributes.Add("name", "CategoryName");
             Dropdown.Attributes.Add("id", "selectitem");

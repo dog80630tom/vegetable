@@ -18,7 +18,7 @@ namespace vegetable.Controllers
         public ActionResult ShowProducts()
         {
             List<Product> result = new List<Product>();
-            using(MyDBContext item = new MyDBContext())
+            using(itemContext item = new itemContext())
             {
                 result = (from s in item.Products select s ).ToList();
                 return View(result);
@@ -49,7 +49,7 @@ namespace vegetable.Controllers
         public ActionResult ProductIndex ()
         {
             Product result = new Product();
-            using (MyDBContext item = new MyDBContext())
+            using (itemContext item = new itemContext())
             {
                 result = (from s in item.Products select s).FirstOrDefault();
                 return View(result);

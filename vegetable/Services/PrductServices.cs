@@ -11,8 +11,8 @@ namespace vegetable.Services
 {
     public class PrductServices
     {
-        MyDBContext item = new MyDBContext();
-        MyDBContext item2 = new MyDBContext();
+        itemContext item = new itemContext();
+        itemContext item2 = new itemContext();
         //public Product GetProduct( string ProductName, String CategoryName, string ProductDescription, int UnitsInStock,int ProductPrice)
         //{
         //    Product product = new Product() {  CategoryName = ProductName, ProductDescription = CategoryName, ProductName = ProductName, UnitsInStock = UnitsInStock, ProductPrice= ProductPrice };

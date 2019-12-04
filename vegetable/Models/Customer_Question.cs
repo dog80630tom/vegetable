@@ -13,7 +13,7 @@ namespace vegetable.Models
         //{
         //    this.AdminResponds = new HashSet<AdminRespond>();
         //}
-    
+        [Key]
         public int CQ_ID { get; set; }
         public int ProductID { get; set; }
         public string CQ_Question { get; set; }

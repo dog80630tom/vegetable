@@ -10,7 +10,7 @@ namespace vegetable.Services
 {
     public class MemberServices
     {
-        MyDBContext item = new MyDBContext();
+        itemContext item = new itemContext();
         public ErrorMessage EditMember(Member Member)
         {
             ErrorMessage error = new ErrorMessage();

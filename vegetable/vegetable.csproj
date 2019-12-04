@@ -202,7 +202,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
-    <Compile Include="Models\MyDBContext.cs" />
+    <Compile Include="Models\itemContext.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -427,7 +427,6 @@
     <Content Include="Views\FrontEnd\Cart.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
     <Content Include="Views\FrontEnd\MemberCart.cshtml" />
-    <Content Include="Views\FrontEnd\ShowProducts - 複製.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
