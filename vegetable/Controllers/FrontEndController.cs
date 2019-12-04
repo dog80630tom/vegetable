@@ -67,6 +67,7 @@ namespace vegetable.Controllers
                 //預設為1
                 ViewBag.CartID = 1;
                 ViewBag.ProductID = id;
+                ViewBag.ProductDescription = product.ProductDescription;
                 ViewBag.ProductName = product.ProductName;
                 ViewBag.ProductPrice = product.ProductPrice;
                 return View();
