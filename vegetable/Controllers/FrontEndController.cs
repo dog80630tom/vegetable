@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using vegetable.Models;
@@ -70,8 +71,46 @@ namespace vegetable.Controllers
             return View();
         }
 
-        public ActionResult ProductIndex ()
+        public ActionResult ProductIndex (int? id)
         {
+            //沒有傳入id
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            using (ItemContext item = new ItemContext())
+            {
+                Product product = item.Products.Find(id);
+                //傳入的id找不到商品
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+                //先預設Id = 1 之後要改
+                ViewBag.MemberID = 1;
+                //預設為1
+                ViewBag.CartID = 1;
+                ViewBag.ProductID = id;
+                ViewBag.ProductDescription = product.ProductDescription;
+                ViewBag.ProductName = product.ProductName;
+                ViewBag.ProductPrice = product.ProductPrice;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult AddCart ([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetail cart)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ItemContext item = new ItemContext())
+                {
+                    item.CartDetails.Add(cart);
+                    item.SaveChanges();
+                    return RedirectToAction("Cart");
+                }
+            }
             return View();
         }
         public ActionResult MemberPageAddress()
@@ -94,7 +133,15 @@ namespace vegetable.Controllers
         {
             return View();
         }
+
+
         public ActionResult MemberCart()
+        {
+            return View();
+        }
+
+        //貨運FAQ
+        public ActionResult Shipping ()
         {
             return View();
         }
