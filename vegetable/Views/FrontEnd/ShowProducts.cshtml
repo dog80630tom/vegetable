@@ -2,7 +2,8 @@
 @{
     ViewBag.Title = "ShowProducts";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
-}<style>
+}
+<style>
     body {
         letter-spacing: 0.02em;
     }
@@ -515,6 +516,10 @@
     .center {
         text-align: center;
     }
+
+    .pagination-link:hover {
+        cursor:pointer;
+    }
 </style>
 
 <script>
@@ -645,12 +650,12 @@
                                     <div class="form-field">
                                         <label class="form-label" for="sort">Sort By:</label>
                                         <select class="form-select form-select--small" name="sort" id="sort">
-                                            <option value="featured">Featured Items</option>
-                                            <option value="newest" selected="">Newest Items</option>
-                                            <option value="bestselling">Best Selling</option>
+                                            <!--<option value="featured">Featured Items</option>
+    <option value="newest" selected="">Newest Items</option>
+    <option value="bestselling">Best Selling</option>-->
                                             <option value="alphaasc">A to Z</option>
                                             <option value="alphadesc">Z to A</option>
-                                            <option value="avgcustomerreview">By Review</option>
+                                            <!--<option value="avgcustomerreview">By Review</option>-->
                                             <option value="priceasc">Price: Ascending</option>
                                             <option value="pricedesc">Price: Descending</option>
                                         </select>
@@ -687,10 +692,10 @@
                                                     <div class="prod-price"><span class="price">@data.ProductPrice</span></div>
                                                     <div class="prod-summary list-view">
                                                         <p>
-                                                           @data.ProductDescription
+                                                            @data.ProductDescription
                                                         </p>
                                                     </div>
-                                               
+
                                                     <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
                                                     <a href="#" class="btnWL list-view">
                                                         <i class="far fa-heart"></i><span>Add to Wish list</span>
@@ -698,9 +703,8 @@
                                                 </figcaption>
                                             </figure>
                                         </div>
-
                                         <hr class="list-view" />
-                                     }
+                                    }
                                 </div>
                             </div>
                         </form>
@@ -714,20 +718,15 @@
                                         <span>Previous</span>
                                     </a>
                                 </div>
+                               
                                 <ul class="pagination-list mx-auto">
-                                    <li class="pagination-item pagination-item--current">
-                                        <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=1"
-                                           data-faceted-search-facet="">1</a>
-                                    </li>
-                                    <li class="pagination-item">
-                                        <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=2"
-                                           data-faceted-search-facet="">2</a>
-                                    </li>
-                                    <li class="pagination-item">
-                                        <a class="pagination-link" href="/y-necklace-lariat/?sort=newest&amp;page=3"
-                                           data-faceted-search-facet="">3</a>
-                                    </li>
-
+                                    @for (var i = 1; i <= @ViewBag.pages; i++)
+                                    {
+                                        <li class="pagination-item pagination-item--current">
+                                            <a class="pagination-link" href="#"
+                                               data-faceted-search-facet="">@i</a>
+                                        </li>
+                                    }
                                 </ul>
                                 <div class="pagination-item pagination-item--next mr-0 col-1">
                                     <a class="pagination-link"
@@ -748,8 +747,12 @@
 </div>
 
 @section viewJquery{
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+
         $(function () {
+            
+            //顯示方法
             $(".list-view").hide();
             $("#grid-view").click(function () {
                 $(".list-view").hide();
