@@ -17,26 +17,11 @@
 
                 <input type="text" asp-for=Seachstring id="Seachstring" name="Seachstring" /><input type="submit" class="btn btn-success" id="Search" />
             }
-        <div id="PartialContainer">
-            @for (int i = 0; i < Model.Count(); i++)
-            {
-            <a href="@Url.Action("Detail","Searchitem", new { Id=Model[i].ProductID })">
+            <table id="PartialContainer">
+                <thead>
 
-                <div class="card">
-                    <div class="card-header">
-                        @Html.HiddenFor(model => model[i].ProductID, new { Id = "ProductID" })
-                        @Html.DisplayTextFor(model => model[i].ProductName)
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">@Html.DisplayTextFor(model => model[i].ProductDescription)</p>
-
-                    </div>
-                </div>
-            </a>
-                }
-
-        </div>
+                </thead>
+            </table>
         </div>
     </div>
 </div>
@@ -44,7 +29,28 @@
 {
     <script>
         $(function () {
-     
+            var col = [{ data: "aaData",title:"產品ID" }]
+            $.ajax({
+                type: "POST",
+                url: "/Searchitem/Search",
+
+                dataType: "json",
+                success: function (response) {
+
+                    var data = JSON.parse(response);
+                    console.log(data.aaData)
+                    console.log(data);
+                    $('#PartialContainer').DataTable({
+
+                        data: data,
+                        columns:col
+                    });
+                }
+            });
+
         });
+
+
+            
     </script>
 }
