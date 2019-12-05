@@ -264,6 +264,7 @@
     <Content Include="Content\images\4-9.jpg" />
     <Content Include="Content\images\american-express-logo.png" />
     <Content Include="Content\images\asseenonwhite.png" />
+    <Content Include="Content\images\close-button.png" />
     <Content Include="Content\images\discover-logo-of-pay-system.png" />
     <Content Include="Content\images\master-card-logo.png" />
     <Content Include="Content\images\paypal-logo.png" />
@@ -465,6 +466,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties content_4bootstrap_1css_1map__JsonSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
