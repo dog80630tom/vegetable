@@ -504,9 +504,9 @@
                         @*quick-search Search-bar-md*@
                         <div class="container-fluid search-bar-md-warp">
                             <div class="input-group search-bar-md">
-                                <input type="text" class="form-control rounded-0" placeholder="Search">
+                                <input id="search" type="text" class="form-control rounded-0" placeholder="Search">
                                 <div class="input-group-append">
-                                    <a href="#" class="input-group-text rounded-0 search-bar-icon">
+                                    <a href="#" id="searchBTN" class="input-group-text rounded-0 search-bar-icon">
                                         <i class="fas fa-search"></i>
                                     </a>
                                 </div>
@@ -1017,8 +1017,6 @@
             $('.closebtn').click(closeNav);
 
 
-
-
             $("#btn_login").click(function () {
                 $('#loginModal').modal('show');
             });
@@ -1052,6 +1050,26 @@
             });
 
         });
+        $(".searchBTN").click(function () {
+            console.log("23234");
+                    var condition = $("#search").val();
+                    window.location.href = "/frontend/ShowProducts?query="+condition;
+                    //var SearchCondition  = {
+                    //    "page": 1,
+                    //    "Condition":condition
+                    //}
+
+                    //$.ajax({
+                    //    type: "POST",
+                    //    url: "/frontend/ShowProducts",
+                    //    data: { :SearchCondition },
+                    //    success: function () {
+                            
+
+                    //    }
+
+                    //});
+                });               
     </script>
     @RenderSection("Endscripts", required: false)
 </body>

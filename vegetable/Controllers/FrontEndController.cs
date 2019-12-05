@@ -8,6 +8,7 @@ using vegetable.Models;
 
 namespace vegetable.Controllers
 {
+    [RoutePrefix("frontend")]
     public class FrontEndController : Controller
     {
         ItemContext Item = new ItemContext();
@@ -17,34 +18,33 @@ namespace vegetable.Controllers
         {
             return View();
         }
-        [Route("product")]
+
         [HttpGet]
-        public ActionResult ShowProducts(string SearchCondition)
+        public ActionResult ShowProducts(string query)
         {
-            if (SearchCondition is null)
+
+
+            if (query is null)
             {
-                SearchCondition = "";
-            }
-            else
-            {
-                SearchCondition = SearchCondition.ToLower();
+                query = "";
+
             }
 
             var products = from p in Item.Products
                            join c in Item.Categories
                            on p.CategoryID equals c.CategoryID
-                           where p.ProductName.ToLower().Contains(SearchCondition) || c.CategoryName.ToLower().Contains(SearchCondition)
+                           where p.ProductName.Contains(query) || c.CategoryName.Contains(query)
                            select p;
-
-            var pageshowitems = 12.0;
-            ViewBag.pageshowitems = pageshowitems;
-            ViewBag.pages = Math.Ceiling(products.Count() / pageshowitems);
-
-
-
+            var ffff = products.Count();
             return View(products.ToList());
+            //List<Product> result = new List<Product>();
+            //using(ItemContext item = new ItemContext())
+            //{
+            //    result = (from s in item.Products select s ).ToList();
+            //    return View(result);
+            //}
+
         }
-     
         public ActionResult MemberRegist()
         {
             return View();
@@ -66,7 +66,7 @@ namespace vegetable.Controllers
             return View();
         }
 
-        public ActionResult ProductIndex (int? id)
+        public ActionResult ProductIndex(int? id)
         {
             //沒有傳入id
             if (id == null)
@@ -92,22 +92,6 @@ namespace vegetable.Controllers
                 return View();
             }
         }
-
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult AddCart ([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetail cart)
-        {
-            if (ModelState.IsValid)
-            {
-                using (ItemContext item = new ItemContext())
-                {
-                    item.CartDetails.Add(cart);
-                    item.SaveChanges();
-                    return RedirectToAction("Cart");
-                }
-            }
-            return View();
-        }
         public ActionResult MemberPageAddress()
         {
             return View();
@@ -124,19 +108,11 @@ namespace vegetable.Controllers
         {
             return View();
         }
-        public ActionResult Cart ()
+        public ActionResult Cart()
         {
             return View();
         }
-
-
         public ActionResult MemberCart()
-        {
-            return View();
-        }
-
-        //貨運FAQ
-        public ActionResult Shipping ()
         {
             return View();
         }
