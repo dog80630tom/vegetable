@@ -29,11 +29,14 @@ namespace vegetable.Controllers
                 query = "";
 
             }
-
+            else
+            {
+                query = query.ToLower();
+            }
             var products = from p in Item.Products
                            join c in Item.Categories
                            on p.CategoryID equals c.CategoryID
-                           where p.ProductName.Contains(query) || c.CategoryName.Contains(query)
+                           where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
                            select p;
             var ffff = products.Count();
             return View(products.ToList());
@@ -114,6 +117,21 @@ namespace vegetable.Controllers
         }
         public ActionResult MemberCart()
         {
+            return View();
+        }
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult AddCart([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetail cart)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ItemContext item = new ItemContext())
+                {
+                    item.CartDetails.Add(cart);
+                    item.SaveChanges();
+                    return RedirectToAction("Cart");
+                }
+            }
             return View();
         }
     }
