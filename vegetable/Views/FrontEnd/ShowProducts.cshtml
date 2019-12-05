@@ -1,4 +1,4 @@
-﻿@model List<vegetable.Models.Product>
+﻿ @model List<vegetable.Models.Product>
 @{
     ViewBag.Title = "ShowProducts";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -674,9 +674,9 @@
                                             <figure class="card-figure viewchange">
 
                                                 <div class="prod-image viewchange">
-                                                    <a href="#">
-                                                        <img class="card-image viewchange"
-                                                             src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                                                    <a href="Earrings/@data.ProductID">
+                                                        <img class="card-image viewchange" id="@data.ProductName"
+                                                             src="~/Assets/ProductPics/@data.ProductName/1.jpg">
                                                     </a>
                                                     <div class="actions">
                                                         <a href="#" class="btnWL grid-view">
@@ -689,7 +689,7 @@
 
                                                 <figcaption class="prod-desc viewchange center">
                                                     <p class="prod-name"><a href="#">@data.ProductName</a></p>
-                                                    <div class="prod-price"><span class="price">@data.ProductPrice</span></div>
+                                                    <div class="prod-price"><span class="price">$@data.ProductPrice</span></div>
                                                     <div class="prod-summary list-view">
                                                         <p>
                                                             @data.ProductDescription
@@ -749,61 +749,64 @@
 @section viewJquery{
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+        $( function () {
+            $( ".list-view" ).hide();
+            $( "#grid-view" ).click( function () {
+                $( ".list-view" ).hide();
+                $( ".grid-view" ).show();
+                $( "#grid-view" ).addClass( "current-view" );
+                $( "#list-view" ).removeClass( "current-view" );
+                $( ".prod-item.viewchange" ).removeClass( "col-12 d-inline-block imghchange" ).addClass( "col-4" );
+                $( ".card-figure.viewchange" ).removeClass( "row" );
+                $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
+                $( ".card-image.viewchange" ).removeClass( "h-100" );
+                $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
 
-        $(function () {
-            
-            //顯示方法
-            $(".list-view").hide();
-            $("#grid-view").click(function () {
-                $(".list-view").hide();
-                $(".grid-view").show();
-                $("#grid-view").addClass("current-view");
-                $("#list-view").removeClass("current-view");
-                $(".prod-item.viewchange").removeClass("col-12 d-inline-block imghchange").addClass("col-4");
-                $(".card-figure.viewchange").removeClass("row");
-                $(".prod-image.viewchange").removeClass("col-3 px-0 imghchange");
-                $(".card-image.viewchange").removeClass("h-100");
-                $(".prod-desc.viewchange").removeClass("col-9 mt-2").addClass("center");;
+            } );
+            $( "#list-view" ).click( function () {
+                $( ".grid-view" ).hide();
+                $( ".list-view" ).show();
+                $( "#grid-view" ).removeClass( "current-view" );
+                $( "#list-view" ).addClass( "current-view" );
+                $( ".prod-item.viewchange" ).removeClass( "col-4" ).addClass( "col-12 d-inline-block imghchange" );
+                $( ".card-figure.viewchange" ).addClass( "row" );
+                $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
+                $( ".card-image.viewchange" ).addClass( "h-100" );
+                $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
 
-            });
-            $("#list-view").click(function () {
-                $(".grid-view").hide();
-                $(".list-view").show();
-                $("#grid-view").removeClass("current-view");
-                $("#list-view").addClass("current-view");
-                $(".prod-item.viewchange").removeClass("col-4").addClass("col-12 d-inline-block imghchange");
-                $(".card-figure.viewchange").addClass("row");
-                $(".prod-image.viewchange").addClass("col-3 px-0 imghchange");
-                $(".card-image.viewchange").addClass("h-100");
-                $(".prod-desc.viewchange").addClass("col-9 mt-2").removeClass("center");;
+            } );
 
-            });
-
-            $(".card-figure").hover(function () {
-                $(this).find(".btnWL").addClass("showdown");
-                $(this).find(".btnQV").addClass("hoverin");
-                $(this).find(".btnATC").addClass("hoverin");
+            $( ".card-figure" ).hover( function () {
+                $( this ).find( ".btnWL" ).addClass( "showdown" );
+                $( this ).find( ".btnQV" ).addClass( "hoverin" );
+                $( this ).find( ".btnATC" ).addClass( "hoverin" );
             }, function () {
-                $(this).find(".btnWL").removeClass("showdown");
-                $(this).find(".btnQV").removeClass("hoverin");
-                $(this).find(".btnATC").removeClass("hoverin");
-            });
+                $( this ).find( ".btnWL" ).removeClass( "showdown" );
+                $( this ).find( ".btnQV" ).removeClass( "hoverin" );
+                $( this ).find( ".btnATC" ).removeClass( "hoverin" );
+            } );
 
-            $(".card-image").hover(function () {
-                $(this).attr("style", "opacity:0.5");
-                $(this).attr("src", "https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24309/020400079-4__16018.1562615109.jpg?c=2");
-            }, function () {
-                $(this).attr("style", "opacity:0.5");
-                $(this).attr("src", "https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2");
-            });
+            //$( ".card-image" ).hover( function () {
+            //    var productName = $( this ).attr( "id" );
+            //    $( this ).attr( "style", "opacity:0.5" );
+            //    var aaa = encodeURI( `~/Assets/ProductPics/Plaid Button Earrings.jpg` );
+            //    $( this ).attr( "src", decodeURI(aaa) );
+                
+            //    //$( this ).attr( "src", `~/Assets/ProductPics/${productName}/2.jpg` );
+            //}, function () {
+            //    var productName = $( this ).attr( "id" );
+            //    $( this ).attr( "style", "opacity:0.5" );
+            //    $( this ).attr( "src", `~/Assets/ProductPics/${productName}/1.jpg` );
+            //    console.log( 'src 1 is', `~/Assets/ProductPics/${productName}/1.jpg` );
+            //} );
 
-            $(".btnWL").click(function () {
-                $(this).find("i").removeClass("far fa-heart");
-                $(this).find("i").addClass("fas fa-heart");
-            });
+            $( ".btnWL" ).click( function () {
+                $( this ).find( "i" ).removeClass( "far fa-heart" );
+                $( this ).find( "i" ).addClass( "fas fa-heart" );
+            } );
 
 
-        });
+        } );
 
 
 
