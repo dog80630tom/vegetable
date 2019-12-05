@@ -12,7 +12,7 @@ using vegetable.Services;
 
 namespace vegetable.Controllers
 {
-    public class BackstageController : Controller
+    public class ProductController : Controller
     {
         ItemContext item = new ItemContext();
         // GET: Backstage

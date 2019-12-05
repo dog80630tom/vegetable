@@ -190,7 +190,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FrontEndController.cs" />
-    <Compile Include="Controllers\BackstageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
@@ -226,6 +226,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Respository\ConnRespository.cs" />
     <Compile Include="Respository\ICRUD.cs" />
+    <Compile Include="Respository\MemberResp\Encryption.cs" />
+    <Compile Include="Respository\MemberResp\initMember.cs" />
     <Compile Include="Services\CategoryServices.cs" />
     <Compile Include="Services\MemberServices.cs" />
     <Compile Include="Services\PrductServices.cs" />
@@ -468,7 +470,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Backstage\Index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -503,8 +505,8 @@
     <Content Include="Views\FrontEnd\Index - 複製.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
     <Content Include="Views\FrontEnd\ProductIndex.cshtml" />
-    <Content Include="Views\Backstage\Form.cshtml" />
-    <Content Include="Views\Backstage\Edit.cshtml" />
+    <Content Include="Views\Product\Form.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Searchitem\item.cshtml" />
     <Content Include="Views\Shared\_SearchPartialView.cshtml" />
@@ -520,11 +522,10 @@
     <Content Include="Views\FrontEnd\MemberPageWishlist.cshtml" />
     <Content Include="Views\FrontEnd\LoginPage.cshtml" />
     <Content Include="Views\FrontEnd\ForgotPassword.cshtml" />
-    <Content Include="Views\Members\MemberPageSetting.cshtml" />
     <Content Include="Views\FrontEnd\Cart.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
     <Content Include="Views\FrontEnd\MemberCart.cshtml" />
-    <Content Include="Views\Backstage\AdminIndex.cshtml" />
+    <Content Include="Views\Product\AdminIndex.cshtml" />
     <Content Include="Views\FrontEnd\ShowProducts - 複製.cshtml" />
     <Content Include="Views\FrontEnd\Shipping.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
