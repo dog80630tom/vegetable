@@ -176,7 +176,7 @@ namespace vegetable.Controllers
                 var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
                 Member.MemberID = memberData.MemberID;
                 Member.MemberGender = memberData.MemberGender;
-                Member.MemberPassword = memberData.MemberPassword;
+        
 
                 services.EditMember(Member);
                 return RedirectToAction("Index", "FrontEnd");
