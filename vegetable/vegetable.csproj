@@ -520,6 +520,7 @@
     <Content Include="Views\FrontEnd\MemberPageWishlist.cshtml" />
     <Content Include="Views\FrontEnd\LoginPage.cshtml" />
     <Content Include="Views\FrontEnd\ForgotPassword.cshtml" />
+    <Content Include="Views\Members\MemberPageSetting.cshtml" />
     <Content Include="Views\FrontEnd\Cart.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
     <Content Include="Views\FrontEnd\MemberCart.cshtml" />

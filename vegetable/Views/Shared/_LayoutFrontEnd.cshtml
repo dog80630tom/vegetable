@@ -32,6 +32,15 @@
         .navTop {
             line-height: 40px;
         }
+
+        .footericon {
+            font-size: 26px;
+        }
+
+        .footertext {
+            font-weight: 400;
+        }
+
         .title {
             font-family: 'Merriweather', serif;
             font-size: 55pt;
@@ -67,10 +76,16 @@
             transition: 0.5s;
         }
 
-        .main-nav .nav-item:hover .nav-link .line {
-            transition: 0.5s;
-            border-bottom: 2px solid black;
-        }
+            .main-nav .nav-item .nav-link .line {
+                border-bottom: 2px solid white;
+                display: block;
+                transition: 0.5s;
+            }
+
+            .main-nav .nav-item:hover .nav-link .line {
+                transition: 0.5s;
+                border-bottom: 2px solid black;
+            }
 
         .menu-block {
             background-color: rgba(250,250,250,.95);
@@ -939,29 +954,33 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="bg-footer text-light py-4 text-center">
-                <div class="container">
-                    <p class="footertext mb-5">
-                        <i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.
-                    </p>
-                    <div class="row justify-content-center my-5">
-                        <a href="" class=" text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/visa-pay-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/master-card-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/american-express-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/discover-logo-of-pay-system.png" alt="Alternate Text" />
-                        </a>
-                    </div>
+            </li>
+            <li class="nav-item  mx-1 pb-3">
+                <a class="nav-link text-dark" href="#"><span class="line">SALE</span></a>
+            </li>
+        </ul>
+    </div>
+
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+    <div id="footer" class="w-100 bg-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 col-xl-2 bg-footer mt-5">
+                    <ul class="list-group list-group-flush text-white mt-5">
+                        <li class="list-group-item bg-footer border-0">SHOP</li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Home</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">new</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Earrings</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Necklaces</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Bracelets</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Rings</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Other Accessories</span></li>
+                        <li class="list-group-item bg-footer border-0 footertext"><span class="dot">Sale</span></li>
+                    </ul>
                 </div>
             </div>
         </footer>
@@ -1010,12 +1029,35 @@
              $('#main').css('margin-left','0px');
         }
 
+                $("#loginConfirm").click(function () {
 
         $(function () {
+            $("#loginConfirm").click(function () {
 
             $('#btn-slide').click(openNav);
             $('.closebtn').click(closeNav);
+                var uname = $("#loginId").val();
+                var psw = $("#loginPsw").val();
+                console.log('uname is', uname);
+                console.log('psw is', psw);
 
+                $.ajax({
+                    type: "POST",
+                    url: "/Members/Login",
+                    data: { uname, psw },
+                    success: function (back) {
+                        console.log('back', back);
+                        if (back == "1") {
+                            $("#loginStatus").html("登入成功");
+                            location.href = "@Url.Action("MemberPageAddress", "FrontEnd")";
+                          
+                        }
+                        else if (back == "2") {
+                            $("#loginStatus").html("此帳號尚未註冊，請先註冊");
+                        }
+                        else {
+                            $("#loginStatus").html("密碼錯誤");
+                        }
 
             $("#btn_login").click(function () {
                 $('#loginModal').modal('show');
@@ -1023,6 +1065,7 @@
             $("#gotoRegist").click(function () {
                 location.href = "/FrontEnd/MemberRegist"
             });
+                    }
 
             var uname = $("#loginId").val();
             var psw = $("#loginPsw").val();
@@ -1069,9 +1112,11 @@
                     //    }
 
                     //});
-                });               
+                });
+
+            });
+        });
     </script>
     @RenderSection("Endscripts", required: false)
 </body>
 </html>
-
