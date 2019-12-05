@@ -64,7 +64,7 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
         {
             return View();
         }
-        public ActionResult Form()
+        public ActionResult ProductList()
         {
             var initdata = initdetil();
             if (initdata == null)

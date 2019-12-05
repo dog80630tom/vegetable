@@ -1,4 +1,48 @@
-﻿<header class="header black-bg">
+﻿<style>
+    .header {
+        background-color:indianred;
+    }
+
+    #sidebar {
+        background-color:#fff;
+        font-weight:700;
+    }
+
+    ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
+        background-color: indianred;
+        color: #fff;
+    }
+
+    ul.sidebar-menu li a {
+        color: crimson;
+    }
+
+    .nicescroll-rails {
+        background-color: antiquewhite !important;
+    }
+
+    .nicescroll-rails div {
+        background-color: indianred !important;
+    }
+
+    ul.top-menu > li > .logout {
+        color: crimson;
+        font-weight:700;
+        font-size: 15px;
+        border: 2px solid #fff !important;
+        background: mistyrose;
+    }
+
+    ul.top-menu > li > .logout:hover {
+        color: #fff !important;
+        font-weight:700;
+        font-size: 15px;
+        border: 2px solid #fff !important;
+        background: none;
+    }
+
+</style>
+<header class="header text-white">
     <div class="sidebar-toggle-box">
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
     </div>
@@ -202,12 +246,6 @@
         <ul class="sidebar-menu" id="nav-accordion" style="display: block;">
             <p class="centered"><a href="profile.html"><img  class="img-circle" width="80"></a></p>
             <h5 class="centered">Sam Soffes</h5>
-            <li class="mt">
-                <a class="active" href="index.html">
-                    <i class="fa fa-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
             <li class="sub-menu dcjq-parent-li">
                 <a href="javascript:;" class="dcjq-parent">
                     <i class="fa fa-desktop"></i>

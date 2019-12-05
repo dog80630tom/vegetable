@@ -502,7 +502,7 @@
     <Content Include="Views\FrontEnd\Index - 複製.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
     <Content Include="Views\FrontEnd\ProductIndex.cshtml" />
-    <Content Include="Views\Backstage\Form.cshtml" />
+    <Content Include="Views\Backstage\ProductList.cshtml" />
     <Content Include="Views\Backstage\Edit.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Searchitem\item.cshtml" />

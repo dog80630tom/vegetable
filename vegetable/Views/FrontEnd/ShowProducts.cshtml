@@ -747,8 +747,9 @@
 </div>
 
 @section viewJquery{
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+        var page = 1;
+
         $( function () {
             $( ".list-view" ).hide();
             $( "#grid-view" ).click( function () {
@@ -804,6 +805,21 @@
                 $( this ).find( "i" ).removeClass( "far fa-heart" );
                 $( this ).find( "i" ).addClass( "fas fa-heart" );
             } );
+
+
+                                //var SearchCondition  = {
+                    //    "page": 1,
+                    //    "Condition":condition
+                    //}
+
+                    //$.ajax({
+                    //    type: "POST",
+                    //    url: "/frontend/ShowProducts",
+                    //    data: { :SearchCondition },
+                    //    success: function () {
+                            
+
+                    //    }
 
 
         } );

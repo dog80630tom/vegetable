@@ -18,30 +18,34 @@ namespace vegetable.Controllers
             return View();
         }
         [Route("product")]
-        [HttpGet]
-        public ActionResult ShowProducts(string SearchCondition)
+        [HttpPost]
+        public ActionResult ShowProducts(SearchCondition SearchCondition)
         {
-            if (SearchCondition is null)
+            if (SearchCondition.Page is null)
             {
-                SearchCondition = "";
+                SearchCondition.Page = 1;
+            }
+
+            if (SearchCondition.Condition is null)
+            {
+                SearchCondition.Condition = "";
             }
             else
             {
-                SearchCondition = SearchCondition.ToLower();
+                SearchCondition.Condition = SearchCondition.Condition.ToLower();
             }
 
-            var products = from p in Item.Products
+            var allproducts = from p in Item.Products
                            join c in Item.Categories
                            on p.CategoryID equals c.CategoryID
-                           where p.ProductName.ToLower().Contains(SearchCondition) || c.CategoryName.ToLower().Contains(SearchCondition)
+                           where p.ProductName.ToLower().Contains(SearchCondition.Condition) || c.CategoryName.ToLower().Contains(SearchCondition.Condition)
                            select p;
 
             var pageshowitems = 12.0;
             ViewBag.pageshowitems = pageshowitems;
-            ViewBag.pages = Math.Ceiling(products.Count() / pageshowitems);
+            ViewBag.pages = Math.Ceiling(allproducts.Count() / pageshowitems);
 
-
-
+            var products = allproducts;
             return View(products.ToList());
         }
      
