@@ -66,8 +66,8 @@ namespace vegetable.Controllers
                 SearchCondition.Condition = SearchCondition.Condition.ToLower();
             }
 
-            var allproducts = from p in Item.Products
-                           join c in Item.Categories
+            var allproducts = from p in item.Products
+                           join c in item.Categories
                            on p.CategoryID equals c.CategoryID
                            where p.ProductName.ToLower().Contains(SearchCondition.Condition) || c.CategoryName.ToLower().Contains(SearchCondition.Condition)
                            select p;
