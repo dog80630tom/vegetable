@@ -6,10 +6,10 @@ namespace vegetable
     public class BundleConfig
     {
         // 如需統合的詳細資訊，請瀏覽 https://go.microsoft.com/fwlink/?LinkId=301862
-        public static void RegisterBundles(BundleCollection bundles)
+        public static void RegisterBundles (BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js", "~/Scripts/jquery.dataTables.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -29,7 +29,12 @@ namespace vegetable
                    ));
 
             bundles.Add(new StyleBundle("~/Content/adminCss").Include(
-                    "~/Content/Css/sb-admin-2.min.css", "~/content/jquery.dataTables.min.css"));
+                    "~/content/jquery.dataTables.min.css",
+                    "~/Content/Css/style-responsive.css",
+                    "~/Content/Css/style.css",
+                    "~/Content/Css/table-responsive.css",
+                    "~/Content/Css/to-do.css",
+                    "~/Content/Css/zabuto_calendar.css"));
         }
     }
 }

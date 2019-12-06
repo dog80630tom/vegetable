@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <title>後台管理者頁面</title>
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/adminCss")
@@ -15,12 +15,9 @@
 
 
     @RenderSection("TopCss", required: false)
-     @RenderSection("Topscripts", required: false)
+    @RenderSection("Topscripts", required: false)
 </head>
 <body>
-
-
-  
     <div id="container" class="sidebar-close">
         @Html.Partial("_NavPartial")
         <div id="main-content">
