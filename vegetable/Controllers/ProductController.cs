@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -121,7 +121,7 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
             }
         }
         [HttpPost]
-        public ActionResult Form(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
+        public ActionResult ProductList(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
         {
             PrductServices services = new PrductServices();
             try
