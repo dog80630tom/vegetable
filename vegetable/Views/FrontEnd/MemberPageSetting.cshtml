@@ -1,4 +1,4 @@
-﻿@model vegetable.Models.Member
+@model vegetable.Models.Member
 
 @{
     ViewBag.Title = "MemberPageSetting";
@@ -138,7 +138,7 @@
             <li class="breadcrumb-item">
                 <a href="@Url.Action("MemberPageOrder", "FrontEnd")">Member</a>
             </li>
-            <li class="breadcrumb-item">
+            <li class="breadcrumb-item current">
                 <a href="@Url.Action("MemberPageSetting", "FrontEnd")"> Setting</a>
             </li>
 
@@ -161,6 +161,9 @@
                     </li>
                     <li class="navBar-item is-active">
                         <a class="navBar-action" href="/FrontEnd/MemberPageAddress">Addresses</a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action" href="/FrontEnd/MemberCart">Cart</a>
                     </li>
                     <li class="navBar-item is-active">
                         <a class="navBar-action" href="/FrontEnd/MemberPageWishlist">Wish List </a>

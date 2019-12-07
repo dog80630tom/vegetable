@@ -25,16 +25,15 @@ namespace vegetable.Controllers
         {
             return View();
         }
+        
+        
 
         [HttpGet]
         public ActionResult ShowProducts(string query)
         {
-
-
             if (query is null)
             {
                 query = "";
-
             }
             else
             {
@@ -45,8 +44,33 @@ namespace vegetable.Controllers
                            on p.CategoryID equals c.CategoryID
                            where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
                            select p;
-            var ffff = products.Count();
+                           
             return View(products.ToList());
+        }
+        
+        [Route("product")]
+        [HttpPost]
+        public ActionResult ShowProducts(SearchCondition SearchCondition)
+        {
+            if (SearchCondition.Page is null)
+            {
+                SearchCondition.Page = 1;
+            }
+
+            if (SearchCondition.Condition is null)
+            {
+                SearchCondition.Condition = "";
+            }
+            else
+            {
+                SearchCondition.Condition = SearchCondition.Condition.ToLower();
+            }
+
+            var allproducts = from p in item.Products
+                           join c in item.Categories
+                           on p.CategoryID equals c.CategoryID
+                           where p.ProductName.ToLower().Contains(SearchCondition.Condition) || c.CategoryName.ToLower().Contains(SearchCondition.Condition)
+                           select p;
             //List<Product> result = new List<Product>();
             //using(ItemContext item = new ItemContext())
             //{
@@ -54,6 +78,12 @@ namespace vegetable.Controllers
             //    return View(result);
             //}
 
+            var pageshowitems = 12.0;
+            ViewBag.pageshowitems = pageshowitems;
+            ViewBag.pages = Math.Ceiling(allproducts.Count() / pageshowitems);
+
+            var products = allproducts;
+            return View(products.ToList());
         }
         public ActionResult MemberRegist()
         {
