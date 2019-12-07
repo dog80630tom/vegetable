@@ -9,7 +9,7 @@ namespace vegetable
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js", "~/Scripts/jquery.dataTables.min.js"));
+                        "~/Scripts/jquery-{version}.js", "~/Scripts/jquery.dataTables.min.js", "~/Scripts/dataTables.min.js","~/Scripts/Chart.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -24,7 +24,7 @@ namespace vegetable
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/bootstrap.min.css",
-                      "~/Content/fontawesome-all.css", "~/Content/style.css", "~/Content/style-responsive", "~/Content/jquery.gritter.css"
+                      "~/Content/fontawesome-all.css", "~/Content/style.css", "~/Content/style-responsive", "~/Content/jquery.gritter.css","~/Scripts/datatables.min.css"
                    ));
 
 
