@@ -1,24 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace vegetable.Models
+namespace vegetable.Models.ViewModels
 {
-    public class CartDetails
+    public class CartViewModel
     {
-        [Key]
-        public int CartID
-        {
-            get; set;
-        }
-        public int MemberID
+        public string ProductName
         {
             get; set;
         }
 
-        public int ProductID
+        public decimal ProductPrice
         {
             get; set;
         }

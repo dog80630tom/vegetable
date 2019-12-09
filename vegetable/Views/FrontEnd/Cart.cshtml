@@ -1,4 +1,5 @@
-﻿
+﻿@model  IEnumerable<vegetable.Models.ViewModels.CartViewModel>
+
 @{
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -107,18 +108,11 @@
         color: #fff;
     }
 
-    .btn-checkout,
-    .btn-checkout:hover {
-        border-color: #000 !important;
-        background: #000 !important;
-    }
-
-
-
-
-
-
-
+        .btn-checkout,
+        .btn-checkout:hover {
+            border-color: #000 !important;
+            background: #000 !important;
+        }
 </style>
 
 <div id="container_page_nav">
@@ -149,28 +143,29 @@
         <div class="col-2 text-right"> TOTAL</div>
     </div>
     @*訂單*@
-    @Html.Partial("_CartPartial")
-    @Html.Partial("_CartPartial")
-
+    @foreach (var cart in Model)
+    {
+        @Html.Partial("_CartPartial", cart);
+    }
 
     @* 訂單細節 *@
     <div class="row mb-5">
         <div class="offset-6 col-6 p-0">
             <div class="row">
                 <div class="col-6 text-left cart-label border-bottom-grey">Subtotal:</div>
-                <div class="col-6 text-right cart-label border-bottom-grey">$32.00</div>
+                <div id="Subtotal" class="col-6 text-right cart-label border-bottom-grey">$32.00</div>
             </div>
             @*<div class="row">
-                <div class="col-6 text-left cart-label border-bottom-grey">Shipping:</div>
-                <div class="col-6 text-right cart-label border-bottom-grey">Address</div>
-            </div>*@
+                    <div class="col-6 text-left cart-label border-bottom-grey">Shipping:</div>
+                    <div class="col-6 text-right cart-label border-bottom-grey">Address</div>
+                </div>*@
             <div class="row">
                 <div class="col-6 text-left cart-label border-bottom-grey">Discount:</div>
-                <div class="col-6 text-right cart-label border-bottom-grey">-$9.60</div>
+                <div id="Discount" class="col-6 text-right cart-label border-bottom-grey">$0</div>
             </div>
             <div class="row">
                 <div class="col-6 text-left cart-label border-bottom-grey">Grand total:</div>
-                <div class="col-6 text-right cart-label border-bottom-grey">$22.40</div>
+                <div id="GrandTotal" class="col-6 text-right cart-label border-bottom-grey">$22.40</div>
             </div>
             <div class="row mt-3">
                 <div class="col-12 p-0">
@@ -180,3 +175,42 @@
         </div>
     </div>
 </div>
+
+@section viewJquery{
+    <script>
+        $( function () {
+            GetSubTotal();
+        } );
+
+        function GetSubTotal() {
+            let sum = 0;
+            //把所有subTotal 價格收集起來
+            $( '.unitTotal' ).each( function () {
+                //this == .unitTotal中目前正在處理的單一項
+                let unitToal = $( this ).text();
+                sum += parseInt( RemoveDollarSign( unitToal ) );
+            } );
+            GetGrandTotal( sum );
+            $( '#Subtotal' ).text( Output( sum ) );
+        }
+
+        //計算最終金額
+        function GetGrandTotal( sum ) {
+            let discount = parseInt( RemoveDollarSign( $( '#Discount' ).text() ) );
+            let grandTotal = sum - discount;
+            $( '#GrandTotal' ).text( Output( grandTotal ) );
+        }
+
+        //替換所有價格的$ sign
+        function RemoveDollarSign( str ) {
+            result = str.replace( '$', '' );
+            console.log( result );
+            return result;
+        }
+
+        //加上$ sign和小數點
+        function Output( money ) {
+            return '$' + money + '.00'
+        }
+    </script>
+}

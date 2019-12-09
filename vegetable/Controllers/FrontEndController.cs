@@ -5,6 +5,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using vegetable.Models;
+using vegetable.Models.ViewModels;
+using vegetable.Respository;
 
 namespace vegetable.Controllers
 {
@@ -13,13 +15,13 @@ namespace vegetable.Controllers
         ItemContext Item = new ItemContext();
         // GET: FrontEnd
 
-        public ActionResult Index()
+        public ActionResult Index ()
         {
             return View();
         }
         [Route("product")]
         [HttpGet]
-        public ActionResult ShowProducts(string SearchCondition)
+        public ActionResult ShowProducts (string SearchCondition)
         {
 
 
@@ -28,11 +30,11 @@ namespace vegetable.Controllers
                 SearchCondition = "";
 
             }
-            
+
             var products = from p in Item.Products
                            join c in Item.Categories
                            on p.CategoryID equals c.CategoryID
-                           where p.ProductName.Contains(SearchCondition) ||c.CategoryName.Contains(SearchCondition)
+                           where p.ProductName.Contains(SearchCondition) || c.CategoryName.Contains(SearchCondition)
                            select p;
 
             return View(products.ToList());
@@ -44,23 +46,23 @@ namespace vegetable.Controllers
             //}
 
         }
-        public ActionResult MemberRegist()
+        public ActionResult MemberRegist ()
         {
             return View();
         }
-        public ActionResult MemberLogInModel()
+        public ActionResult MemberLogInModel ()
         {
             return View();
         }
-        public ActionResult MemberPageOrder()
+        public ActionResult MemberPageOrder ()
         {
             return View();
         }
-        public ActionResult MemberPageOrderDetail()
+        public ActionResult MemberPageOrderDetail ()
         {
             return View();
         }
-        public ActionResult MemberPageSetting()
+        public ActionResult MemberPageSetting ()
         {
             return View();
         }
@@ -92,9 +94,12 @@ namespace vegetable.Controllers
             }
         }
 
-        [HttpPost]
+        
+       [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult AddCart ([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetail cart)
+        //改成ajax之前的寫法
+        //public ActionResult AddCart ([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetail cart)
+        public ActionResult AddCart (CartDetail cart)
         {
             if (ModelState.IsValid)
             {
@@ -102,34 +107,42 @@ namespace vegetable.Controllers
                 {
                     item.CartDetails.Add(cart);
                     item.SaveChanges();
+                    //無法到檢視??
                     return RedirectToAction("Cart");
                 }
             }
             return View();
         }
-        public ActionResult MemberPageAddress()
+
+
+        public ActionResult MemberPageAddress ()
         {
             return View();
         }
-        public ActionResult MemberPageWishlist()
+        public ActionResult MemberPageWishlist ()
         {
             return View();
         }
-        public ActionResult LoginPage()
+        public ActionResult LoginPage ()
         {
             return View();
         }
-        public ActionResult ForgotPassword()
+        public ActionResult ForgotPassword ()
         {
             return View();
         }
+
+        CartRepository CartRepository = new CartRepository();
         public ActionResult Cart ()
         {
-            return View();
+            //預設為會員1
+            int memberId = 1;
+            IEnumerable<CartViewModel> cartVM = CartRepository.GetAllCart(memberId); 
+            return View(cartVM);
         }
 
 
-        public ActionResult MemberCart()
+        public ActionResult MemberCart ()
         {
             return View();
         }
