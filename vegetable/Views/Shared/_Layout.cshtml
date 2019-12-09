@@ -9,18 +9,17 @@
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/adminCss")
-    
+
     @Scripts.Render("~/bundles/modernizr")
-
-
-
+   
     @RenderSection("TopCss", required: false)
     @RenderSection("Topscripts", required: false)
 </head>
 <body>
 
-
   
+       
+    
     <div id="container" class="sidebar-close">
         @Html.Partial("_NavPartial")
         <div id="main-content">
@@ -35,6 +34,7 @@
 
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrapjs")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @RenderSection("EndCss", required: false)

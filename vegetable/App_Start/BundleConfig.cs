@@ -18,15 +18,19 @@ namespace vegetable
             // 準備好可進行生產時，請使用 https://modernizr.com 的建置工具，只挑選您需要的測試。
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
+                     "~/Scripts/umd/popper.js","~/Scripts/jstree.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                     "~/Scripts/umd/popper.js", "~/Scripts/bootstrap.js", "~/Scripts/jquery.nicescroll.js", "~/Scripts/jquery.scrollTo.min.js", "~/Scripts/common-scripts.js"));
-
+                    "~/Scripts/bootstrap.js"));
+            
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                     "~/Content/bootstrap.min.css",
-                      "~/Content/fontawesome-all.css", "~/Content/style.css", "~/Content/style-responsive", "~/Content/jquery.gritter.css"
+                     "~/Content/bootstrap.min.css"
                    ));
-
+            bundles.Add(new StyleBundle("~/Content/adminCss").Include(
+               
+                   "~/Content/fontawesome-all.css", "~/Content/style.css", "~/Content/style-responsive", "~/Content/jquery.gritter.css"
+                ));
 
         }
     }
