@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<div class="container" style="padding-top:50px">
+    <div class="row">
+        <
+        <div class="col-md-5 shadow p-3 mb-5 bg-white rounded">
+            <div class="col-md-12" style="padding-top:50px; padding-bottom:20px"><h3>報表資料</h3></div>
+
+            <a class='btn btn-success text-white' onclick='Create();'>新增圖表</a>
+            <table id="datatable" width="100%" height="100%" class="table table-striped table-bordered table-hover">
+                <thead class="">
+                    <tr>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-md-5 shadow p-3 mb-5 bg-white rounded"><canvas width="100%" height="100%" id="mychart"></canvas></div>
+    </div>
+</div>
+
+
+@section Endscripts
+{
+    <script>
+        var reportlist = [];
+        $.ajax({
+            type: "POST",
+            url: "/Report/GetReportData",
+
+            dataType: "json",
+            success: function (response) {
+                var data = JSON.parse(response);
+                console.log(data);
+                $("#datatable").DataTable({
+                    data: data,
+                    select: {
+                        style: 'multi',
+                        action: function () {
+                            var count = $("#datatable").rows({ selected: true }).data();
+                            console.log(count);
+
+                        }
+                    },
+                    columns: [
+                        { data: "ProductID", title: "產品序號" }, { data: "Quantity", title: "購買數量" }, { data: "ProductPrice", title: "價格" }]
+
+                });
+                $("#datatable tbody").on('click', 'tr', function (e) {
+
+
+                    console.log();
+                    if (!$(this).hasClass('selected')) {
+                        $.each($("#datatable").DataTable().rows(this).data(), function () {
+
+                            reportlist.push((this['ProductPrice'])*(this['Quantity']));
+
+                        });
+                    }
+                    else {
+                        reportlist.splice(jQuery.inArray(reportlist, reportlist), 1);
+                    }
+                });
+                console.log(reportlist);
+            }
+        });
+
+        var Create = function () {
+            var ctx = $("#mychart");
+            var chart = new Chart(ctx,{
+                type: 'pie',
+                data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: ['red','orange','yellow','green','blue','Purple','#ffce56'],
+                  
+                    data: reportlist,
+                    fill: false,
+                }]
+            },
+                options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Grid Line Settings'
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            drawBorder: false,
+                            color: ['pink', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'purple']
+                        },
+                        ticks: {
+                            min: 0,
+                            max: 100,
+                            stepSize: 10
+                        }
+                    }]
+                }
+            }
+        }
+
+
+                )
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+}
