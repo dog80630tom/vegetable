@@ -245,7 +245,7 @@
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\common-scripts.js" />
-    <Content Include="Scripts\datatables.min.css" />
+    <Content Include="Content\datatables.min.css" />
     <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\dataTables.select.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
