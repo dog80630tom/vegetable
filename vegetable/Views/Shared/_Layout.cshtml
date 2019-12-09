@@ -5,25 +5,110 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <title>後台管理者頁面</title>
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/adminCss")
     
     @Scripts.Render("~/bundles/modernizr")
 
+    <style>
+        body {
+            background:#fffafa;
+            font-family: Comic Sans MS,arial,"Microsoft JhengHei","微軟正黑體",sans-serif;
+        }
 
+        .btn-mytype {
+            font-weight:600;
+            border-radius:20px;
+            letter-spacing:0.1em;
+            color:white!important ;
+            padding:3px 10px;
+            margin:2px;
+        }
+
+        .btn-mycreatetype {
+            background-color:#ffc107;
+            border:2px solid #ffc107;
+        }
+
+        .btn-mycreatetype:hover {
+            color:#ffc107 !important;
+            background-color:#fff;
+            border:2px solid #ffc107;
+            letter-spacing:0.1em;
+        }
+
+        .btn-myedittype {
+            background-color:#00d975;
+            border:2px solid #00d975;
+        }
+
+        .btn-myedittype:hover {
+            color:#00d975 !important;
+            background-color:#fff;
+            border:2px solid #00d975;
+            letter-spacing:0.1em;
+        }
+
+        .btn-mydeletetype {
+            background-color:#c15ff5;
+            border:2px solid #c15ff5;
+        }
+
+        .btn-mydeletetype:hover {
+            color:#c15ff5 !important;
+            background-color:#fff;
+            border:2px solid #c15ff5;
+            letter-spacing:0.1em;
+        }
+
+        .table {
+            width:unset !important;
+        }
+
+        table.dataTable thead {
+            border: 2px solid #dee2e6;
+        }
+
+        .table.dataTable {
+            border-collapse:collapse;
+            border: 3px solid #dee2e6;
+        }
+
+        .dataTables_filter input {
+            border-style:solid;
+            border: 2px solid #dee2e6;
+        }
+
+        .dataTables_length select {
+            border: 2px solid #dee2e6;
+        }
+
+        .table.dataTable.no-footer {
+            border-bottom:unset;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color:#fffdfd;
+        }
+
+        .table-striped tbody tr:hover {
+            background-color:#faffff
+        }
+    </style>
 
     @RenderSection("TopCss", required: false)
     @RenderSection("Topscripts", required: false)
 </head>
 <body>
-
-
-  
-    <div id="wrapper">
+    <div id="container" class="sidebar-close">
         @Html.Partial("_NavPartial")
-        @RenderBody()
+        <div id="main-content">
+            <div class="wrapper">
+                @RenderBody()
+            </div>
+        </div>
         <hr />
 
     </div>

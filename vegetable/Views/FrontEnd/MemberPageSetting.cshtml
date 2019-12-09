@@ -1,4 +1,5 @@
-﻿
+@model vegetable.Models.Member
+
 @{
     ViewBag.Title = "MemberPageSetting";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -137,7 +138,7 @@
             <li class="breadcrumb-item">
                 <a href="@Url.Action("MemberPageOrder", "FrontEnd")">Member</a>
             </li>
-            <li class="breadcrumb-item">
+            <li class="breadcrumb-item current">
                 <a href="@Url.Action("MemberPageSetting", "FrontEnd")"> Setting</a>
             </li>
 
@@ -145,7 +146,6 @@
         <!-- 要塞目錄資料及連結資料   結尾-->
     </div>
 </div>
-
 
 
 
@@ -163,6 +163,9 @@
                         <a class="navBar-action" href="/FrontEnd/MemberPageAddress">Addresses</a>
                     </li>
                     <li class="navBar-item is-active">
+                        <a class="navBar-action" href="/FrontEnd/MemberCart">Cart</a>
+                    </li>
+                    <li class="navBar-item is-active">
                         <a class="navBar-action" href="/FrontEnd/MemberPageWishlist">Wish List </a>
                     </li>
                     <li class="navBar-item is-active">
@@ -174,55 +177,99 @@
         </div>
     </div>
 
+    @using (Html.BeginForm("MemberPageSetting", "Members", "Post"))
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-6" style="margin-top:25px;">
+                    <label>Last Name</label>
+                    @Html.TextBox("MemberName",Model.MemberName, new { @class = "form-input" })
 
 
+                </div>
+                <div class="col-6" style="margin-top:25px;">
+                    <label>Email Address</label>
+                    @Html.TextBox("MemberEmail", Model.MemberEmail, new { @class = "form-input", id = "userEmail" })
+                </div>
 
-
-
-
-    <div class="container">
-        <div class="row">
-            <div class="col-6" style="margin-top:25px;">
-                <label>First Name</label>
-                <input class="form-input">
             </div>
-            <div class="col-6" style="margin-top:25px;">
-                <label>Last Name</label>
-                <input class="form-input">
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-6" style="margin-top:25px;">
-                <label>Email Address</label>
-                <input class="form-input">
-            </div>
-            <div class="col-6" style="margin-top:25px;">
-                <label>Password</label>
-                <input class="form-input">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6" style="margin-top:25px;">
-                <label>Confirm Password</label>
-                <input class="form-input">
-            </div>
-            <div class="col-6" style="margin-top:25px;">
-                <label>Current Password</label>
-                <input class="form-input">
-            </div>
-        </div>
-        <div class="row">
+            <div class="row">
 
-            <div class="col-6" style="margin-top:20px;">
-                <label>Phone Number</label>
-                <input class="form-input">
+                <div class="col-6" style="margin-top:25px;">
+                    <label>Password</label>
+                    @Html.TextBox("MemberPassword", "", new { @class = "form-input", id = "newpw", onchange = "checkpsw()" })
+                </div>
+                <div class="col-6" style="margin-top:25px;">
+                    <label>Confirm Password</label>
+                    @Html.TextBox("MemberPassword", "", new { @class = "form-input", id = "confirmnewPw", onchange = "checkpsw()" })
+                </div>
             </div>
-            <div class="col-6" style="margin-top:20px;">
+            <div class="row">
 
+                <div class="col-6" style="margin-top:25px;">
+                    <label>Current Password</label>
+                    <input class="form-input" id="psw">
+                </div>
+                <div class="col-6" style="margin-top:25px;">
+                    <label>Phone Number</label>
+                    @Html.TextBox("MemberPhone", Model.MemberPhone, new { @class = "form-input" })
+                </div>
+            </div>
+            <div class="row" style="padding:15px">
+                <label class="mt-1 my-auto" id="pwStat" style="color:red">test</label>
+                <input type="submit" class="btn btn-outline-dark rounded-0 ml-auto" style="margin-top:25px" value="Update Details" id="UpdateMember">
             </div>
         </div>
+    }
 
-        <input type="submit" class="btn btn-outline-dark rounded-0" style="margin-top:25px" value="Update Details">
-    </div>
 </div>
+
+
+@section Endscripts
+    {
+    <script>
+        var canSubmit = false;
+        var confirmPsw = false;
+        $(function () {
+            $("#UpdateMember").click(function () {
+                 var uname = $("#userEmail").val();
+                    var psw = $("#psw").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/FontEnd/Login",
+                        data: { uname, psw },
+                        success: function (back) {
+                            console.log('back', back);
+                            if (back == "1") {
+                                $("#pwStat").html("密碼正確");
+                                canSubmit = true;
+                            }
+                            else {
+                                $("#pwStat").html("密碼錯誤");
+                            }
+                        }
+                    });
+                return canSubmit;
+            });
+
+
+        });
+         function checkpsw() {
+                console.log("檢查");
+             if ($("#newpw").val() != $("#confirmnewPw").val()) {
+                 $("#pwStat").html("您輸入的新密碼不一致，請再次檢查");
+             }
+             else
+             {
+                  $("#pwStat").html("您輸入的新密碼一致");
+                 confirmPsw = true;
+             }
+
+        }
+
+
+
+    </script>
+}
+
