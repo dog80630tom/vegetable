@@ -421,12 +421,17 @@
             <div class="productView-rating"></div>
             @*大小選擇 有時間再做*@
             @*<div>Size: <span class="text-danger">*</span></div>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">6</button>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">7</button>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>*@
+                <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">6</button>
+                <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">7</button>
+                <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>*@
             <div class="productView-rating"></div>
 
             @*購買相關*@
+            @* 
+                ID之後要隱藏!!!!
+                ID之後要隱藏!!!!
+                ID之後要隱藏!!!!
+                *@
             @*會員ID*@
             <input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />
             @*產品ID*@
@@ -785,9 +790,10 @@
             $.ajax( {
                 type: "POST",
                 url: "/FrontEnd/AddCart",
-                data: { MemberID: memberId, ProductID: productId, Quantity: quantity},
+                data: { MemberID: memberId, ProductID: productId, Quantity: quantity },
                 dataType: "text",
                 success: function ( response ) {
+                    console.log( '成功加入購物車' );
                 }
             } );
         }

@@ -7,6 +7,10 @@ namespace vegetable.Models.ViewModels
 {
     public class CartViewModel
     {
+        public int CartId
+        {
+            get; set;
+        }
         public string ProductName
         {
             get; set;

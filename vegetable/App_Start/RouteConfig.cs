@@ -9,7 +9,7 @@ namespace vegetable
 {
     public class RouteConfig
     {
-        public static void RegisterRoutes(RouteCollection routes)
+        public static void RegisterRoutes (RouteCollection routes)
         {
             //show product 
             routes.MapRoute(
@@ -35,18 +35,39 @@ namespace vegetable
                }
            );
 
+            //購物車
+            routes.MapRoute(
+               name: "Cart",
+               url: "Cart",
+               defaults: new
+               {
+                   controller = "FrontEnd",
+                   action = "Cart"
+               }
+            );
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
                name: "HomePage",
                url: "{controller}/{action}/{id}",
-               defaults: new { controller = "FrontEnd", action = "Index", id = UrlParameter.Optional }
+               defaults: new
+               {
+                   controller = "FrontEnd",
+                   action = "Index",
+                   id = UrlParameter.Optional
+               }
            );
 
-            
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new
+                {
+                    controller = "Home",
+                    action = "Index",
+                    id = UrlParameter.Optional
+                }
             );
         }
     }

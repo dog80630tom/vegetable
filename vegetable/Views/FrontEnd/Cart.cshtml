@@ -180,6 +180,7 @@
     <script>
         $( function () {
             GetSubTotal();
+            $( '.deleteCart' ).click( DeleteCart );
         } );
 
         function GetSubTotal() {
@@ -204,13 +205,39 @@
         //替換所有價格的$ sign
         function RemoveDollarSign( str ) {
             result = str.replace( '$', '' );
-            console.log( result );
             return result;
         }
 
         //加上$ sign和小數點
         function Output( money ) {
             return '$' + money + '.00'
+        }
+
+        //刪除Cart
+        function DeleteCart() {
+            let cartId = $( this ).attr( 'id' );
+            $.ajax( {
+                type: "POST",
+                url: "/Frontend/DeleteCart ",
+                data: { cartId: cartId },
+                dataType: "text",
+                success: function () {
+                    RefreshCart();
+                }
+            } );
+        }
+
+        //刷新cart畫面
+        function RefreshCart() {
+            $.ajax( {
+                type: "POST",
+                url: "/Frontend/GoBackToCart",
+                dataType: 'json',
+                crossDomain: true,
+                success: function ( data ) {
+                    window.location.href = data;
+                }
+            } );
         }
     </script>
 }

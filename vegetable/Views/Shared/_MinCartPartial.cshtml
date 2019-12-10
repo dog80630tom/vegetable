@@ -1,0 +1,18 @@
+﻿@model  vegetable.Models.ViewModels.CartViewModel
+
+<div class="row mt-3">
+    @* 圖片 *@
+    <div class="col-3">
+        <img class="min-cart-card" src="/Assets/ProductPics/@Model.ProductName/1.jpg" alt="@Model.ProductName" />
+    </div>
+    @* 數量 名稱 *@
+    <div class="col-7">
+        <span>@Model.Quantity</span>
+        <span>x</span>
+        <span>@Model.ProductName</span>
+    </div>
+    @* 價格 *@
+    <div class="col-2">
+        <span>$</span><span class="unitTotal">@Model.ProductPrice</span>
+    </div>
+</div>

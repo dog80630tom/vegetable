@@ -94,8 +94,8 @@ namespace vegetable.Controllers
             }
         }
 
-        
-       [HttpPost]
+
+        [HttpPost]
         //[ValidateAntiForgeryToken]
         //改成ajax之前的寫法
         //public ActionResult AddCart ([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetail cart)
@@ -137,8 +137,20 @@ namespace vegetable.Controllers
         {
             //預設為會員1
             int memberId = 1;
-            IEnumerable<CartViewModel> cartVM = CartRepository.GetAllCart(memberId); 
-            return View(cartVM);
+            IEnumerable<CartViewModel> cartVM = CartRepository.GetAllCart(memberId);
+
+            return View("Cart", cartVM);
+        }
+
+        public void DeleteCart (int cartId)
+        {
+            CartRepository.DeleteCart(cartId);
+        }
+
+        [HttpPost]
+        public ActionResult GoBackToCart ()
+        {
+            return Json(Url.Action("Cart"));
         }
 
 
@@ -151,6 +163,16 @@ namespace vegetable.Controllers
         public ActionResult Shipping ()
         {
             return View();
+        }
+
+        //結帳頁
+        public ActionResult Checkout ()
+        {
+            //預設為會員1
+            int memberId = 1;
+            IEnumerable<CartViewModel> cartVM = CartRepository.GetAllCart(memberId);
+
+            return View("Checkout", cartVM);
         }
     }
 }
