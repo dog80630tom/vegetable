@@ -789,7 +789,8 @@
 
             $.ajax( {
                 type: "POST",
-                url: "/FrontEnd/AddCart",
+                //先確認目前的訂單狀況 再接AddCart的action
+                url: "/FrontEnd/CheckOrder",
                 data: { MemberID: memberId, ProductID: productId, Quantity: quantity },
                 dataType: "text",
                 success: function ( response ) {
