@@ -143,6 +143,7 @@ namespace vegetable.Controllers
         {
             return View();
         }
+
         public ActionResult LoginPage()
         {
             return View();
@@ -209,14 +210,14 @@ namespace vegetable.Controllers
             }
             return "2";
         }
-
+        //會員登入功能
         private void LoginProcess(string level, string Name, bool isRemeber, object user)
         {
             var now = DateTime.Now;
             string roles = level;
             var ticket = new FormsAuthenticationTicket(
                 version: 1,
-                name: Name, //這邊看個人，你想放使用者名稱也可以，自行更改
+                name: Name, 
                 issueDate: now,//現在時間
                 expiration: DateTime.Now.AddDays(1),//Cookie有效時間=現在時間往後+30分鐘
                 isPersistent: isRemeber,//記住我 true or false
@@ -228,7 +229,7 @@ namespace vegetable.Controllers
             HttpContext.Response.Cookies.Add(cookie);
 
         }
-
+        //會員資料修改功能
         public ActionResult MemberPageSetting()
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
@@ -243,7 +244,7 @@ namespace vegetable.Controllers
            
         }
 
-
+        //會員資料修改功能
         [HttpPost]
         public ActionResult MemberPageSetting(Member Member)
         {
