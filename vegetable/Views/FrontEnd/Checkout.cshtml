@@ -1,8 +1,9 @@
-﻿@model  IEnumerable<vegetable.Models.ViewModels.CartViewModel>
+﻿@model  IEnumerable<vegetable.Models.ViewModels.OrderDetailViewModel>
 
 @{
     ViewBag.Title = "Checkout";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
+    var orderID = Model.ToList().FirstOrDefault(x => x.OrderID >0).OrderID;
 }
 
 <style>
@@ -44,18 +45,26 @@
                 <h2 class="d-inline mx-3 ">1</h2><h2 class="d-inline">Receiver</h2>
             </div>
             <div class="col-12 mt-3">
-                <input class="w-100 " type="text" name="Receiver" value="" />
+                <input id="Receiver" class="w-100 " type="text" name="Receiver" value="" />
             </div>
             @* 地址 *@
             <div class="col-12 p-0 border-bottom-black mt-5">
                 <h2 class="d-inline mx-3">2</h2><h2 class="d-inline">Address</h2>
             </div>
             <div class="col-12 mt-3">
-                <input class="w-100" type="text" name="Address" value="" />
+                <input id="Address" class="w-100 " type="text" name="Address" value="" />
             </div>
+            @* 電話 *@
+            <div class="col-12 p-0 border-bottom-black mt-5">
+                <h2 class="d-inline mx-3">3</h2><h2 class="d-inline">Phone</h2>
+            </div>
+            <div class="col-12 mt-3">
+                <input id="Phone" class="w-100 " type="text" name="Phone" value="" />
+            </div>
+
             @* 確認 *@
             <div class="col-12" ">
-                <button class="btn btn-confirm rounded-0 text-white mw-100 w-100">CONFIRM </button>
+                <button id="Checkout" class="btn btn-confirm rounded-0 text-white mw-100 w-100">CONFIRM </button>
             </div>
         </div>
         @* 右邊 購買商品 *@
@@ -104,18 +113,23 @@
 </div>
 
 @section viewJquery{
+    //格式化日期js
+    <script src="~/Scripts/xdate.js"></script>
     <script>
         $( function () {
             GetSubTotal();
+            $( '#Checkout' ).click( Checkout );
         } );
 
         function GetSubTotal() {
             let sum = 0;
             //把所有subTotal 價格收集起來
-            $( '.unitTotal' ).each( function () {
+            $( '.unitTotal' ).each( function (index) {
                 //this == .unitTotal中目前正在處理的單一項
                 let unitToal = $( this ).text();
-                sum += parseInt( RemoveDollarSign( unitToal ) );
+                //取出購物車中每項商品的數量
+                let quantity = $( '.quantity' ).text();
+                sum += parseInt( RemoveDollarSign( unitToal ) ) * quantity[index];
             } );
             GetGrandTotal( sum );
             $( '#Subtotal' ).text( Output( sum ) );
@@ -149,6 +163,29 @@
                 dataType: "text",
                 success: function () {
                     RefreshCart();
+                }
+            } );
+        }
+
+        //結帳
+        function Checkout() {
+            let orderID = @orderID;
+            let receiver = $( '#Receiver' ).val();
+            let address = $( '#Address' ).val();
+            let phone = $( '#Phone' ).val();
+
+            $.ajax( {
+                type: "POST",
+                url: "/FrontEnd/AddCheckout",
+                data: {
+                    OrderID: orderID, DeliverName: receiver,
+                    DeliverAddress: address, DeliverPhone: phone,
+                    //引用XDate 格式方法
+                    OrderDate: new XDate().toString( "i" )
+                },
+                dataType: "text",
+                success: function ( response ) {
+                    alert('成功下訂')
                 }
             } );
         }

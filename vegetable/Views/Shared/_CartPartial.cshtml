@@ -1,4 +1,4 @@
-﻿@model  vegetable.Models.ViewModels.CartViewModel
+﻿@model  vegetable.Models.ViewModels.OrderDetailViewModel
 @{
     var total = (Model.Quantity) * (Model.ProductPrice);
 }
@@ -39,7 +39,7 @@
         <div class="row p-0">
             @*數量 * 價格*@
             <div class="unitTotal ml-auto">$@total</div>
-            <button id="@Model.CartId"  class=" btn btn-red ml-2 deleteCart"><i class="fas fa-times text-center rounded-0"></i></button>
+            <button id="@Model.OrderDetailsID"  class=" btn btn-red ml-2 deleteCart"><i class="fas fa-times text-center rounded-0"></i></button>
         </div>
     </div>
 </div>

@@ -124,9 +124,9 @@ namespace vegetable.Controllers
                         // 如果DeliverName == null 表示未結帳
                         // 此會員若有未結帳的訂單 理論上 只會有1筆
                         // 判斷此會員的所有訂單是否都已結帳
-                        bool hasNotCheckoutOrders = orders.All(x => x.DeliverName != null);
+                        bool allOrdersAreCheckout = orders.All(x => x.DeliverName != null);
                         //都已經結帳 產生一筆新訂單
-                        if (hasNotCheckoutOrders)
+                        if (allOrdersAreCheckout)
                         {
                             Order newOrder = NewOrder(item, cart);
                             AddCart(newOrder, cart, item);
@@ -148,6 +148,8 @@ namespace vegetable.Controllers
         public Order NewOrder(ItemContext item, OrderDetail cart) {
             Order newOrder = new Order();
             newOrder.MemberID = cart.MemberID;
+            //datetime格式最小的日期
+            newOrder.OrderDate = new DateTime(1753, 01, 01, 00, 00, 00);
             item.Orders.Add(newOrder);
             item.SaveChanges();
             return newOrder;
@@ -179,19 +181,19 @@ namespace vegetable.Controllers
             return View();
         }
 
-        CartRepository CartRepository = new CartRepository();
+        OrderDetailRepository orderDetail = new OrderDetailRepository();
         public ActionResult Cart ()
         {
             //預設為會員1
             int memberId = 1;
-            IEnumerable<CartViewModel> cartVM = CartRepository.GetAllCart(memberId);
+            IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberId);
 
             return View("Cart", cartVM);
         }
 
         public void DeleteCart (int cartId)
         {
-            CartRepository.DeleteCart(cartId);
+            orderDetail.DeleteCart(cartId);
         }
 
         [HttpPost]
@@ -212,14 +214,33 @@ namespace vegetable.Controllers
             return View();
         }
 
-        //結帳頁
+        //到結帳頁
         public ActionResult Checkout ()
         {
             //預設為會員1
             int memberId = 1;
-            IEnumerable<CartViewModel> cartVM = CartRepository.GetAllCart(memberId);
+            IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberId);
 
             return View("Checkout", cartVM);
+        }
+
+        public CheckoutRepository CheckoutRepository;
+        public void AddCheckout (OrderDetailViewModel orderVM)
+        {
+            if (CheckoutRepository == null)
+            {
+                CheckoutRepository = new CheckoutRepository();
+            }
+
+            Order order = new Order()
+            {
+                OrderID = orderVM.OrderID,
+                OrderDate = orderVM.OrderDate,
+                DeliverAddress = orderVM.DeliverAddress,
+                DeliverPhone = orderVM.DeliverPhone,
+                DeliverName = orderVM.DeliverName
+            };
+            CheckoutRepository.Update(order);
         }
     }
 }
