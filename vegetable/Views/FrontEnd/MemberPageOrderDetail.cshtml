@@ -1,0 +1,370 @@
+﻿
+@{
+    ViewBag.Title = "MemberPageOrderDetail";
+    Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
+}
+
+<style>
+    nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
+        background: #fff;
+        position: relative;
+        text-decoration: none !important;
+    }
+
+
+
+    nav.navBar--sub ul.navBar-section li.navBar-item a {
+        font-size: 13px;
+        font-weight: 700;
+        display: block;
+        display: table-cell;
+        padding: 15px 30px 3px;
+        transition: background .3s ease 0s;
+        vertical-align: middle;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: #000;
+        border: 1px solid #e5e5e5;
+        background: #f7f8f9;
+        text-decoration: none !important;
+        float: left;
+        height: 51.6px;
+    }
+
+    .navBar-section {
+        list-style-type: none;
+    }
+
+
+    .btn.btn-checkout, .btn.btn-checkout:hover {
+        border-color: #000;
+        background: #000;
+    }
+
+    .btn.btn-checkout {
+        max-width: 270px;
+        padding-top: 10px;
+        color: #fff;
+    }
+
+    .form-input, .form-select {
+        border-style: solid;
+        border-width: 1px;
+        font-family: inherit;
+        margin: 0;
+        font-size: 1rem;
+        width: 100%;
+        height: 42px;
+        padding: 0px;
+        transition: border-color .1s ease-out;
+        background-color: #fff;
+        border-color: #dcdcdc;
+        color: #454545;
+        max-width: none;
+    }
+
+    .page-heading {
+        font-size: 24px;
+    }
+
+    .alert {
+        padding: 10px 30px 1px 25px;
+        margin-top: 40px;
+        margin-bottom: 160px;
+        border-radius: 1px;
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+        color: #31708f;
+    }
+
+    ul {
+        padding-left: 0px;
+    }
+
+
+
+
+    /*nav bar*/
+    #container_page_nav {
+        background-color: #f7f8f9;
+        padding: 20px 0 15px 15px;
+        margin-top: 15px;
+        margin-bottom: 36px;
+    }
+
+    .breadcrumb {
+        background-color: #f7f8f9;
+        padding: 0;
+        margin: 0;
+    }
+
+    .breadcrumb-item {
+        display: inline-block;
+        padding-right: 10px;
+    }
+
+        .breadcrumb-item::before {
+            content: ">" !important;
+            color: #b4b4b4 !important;
+            margin: 0 12px 0 3px;
+        }
+
+        .breadcrumb-item:first-child::before {
+            display: none;
+        }
+
+        .breadcrumb-item a {
+            color: #b4b4b4;
+        }
+
+            .breadcrumb-item a:hover {
+                color: #000;
+                /*border-bottom: 1px solid #000;*/
+            }
+
+        .breadcrumb-item.active a:hover {
+            color: #b4b4b4;
+        }
+
+    .order-detail-heading {
+        margin-top:0;
+        margin-bottom:0;
+        display: inline-block;
+        padding: 20px 15px 8px;
+        font-size: 12px;
+        font-weight: 700;
+        text-align: left;
+        text-transform: capitalize;
+    }
+    .order-detail label{
+        margin:10px;
+        width:150px;
+    }
+    .order-detail span{
+        display:inline-block;
+        margin:10px;
+        width:150px;
+    }
+    .order-detail.row{
+        margin:0;
+    }
+
+    .product-detail.row, .product-detail .row{
+        margin:0;
+    }
+
+    /*cart header*/
+    #cart-header {
+        font-weight: 700;
+        min-height: 41px;
+        padding: 10px 0 12px;
+        letter-spacing: .15em;
+        text-transform: uppercase;
+        color: #000;
+        border-bottom: 3px solid #000;
+    }
+
+    .btn-size {
+        border: 1px solid #dedede;
+    }
+
+    #quantity {
+        width: 68px;
+        height: 42px;
+    }
+
+    .btn-red {
+        outline: 1px solid red;
+        color: red;
+    }
+
+    /*產品圖片*/
+    #productImg {
+        display: inline-block;
+        /*height: auto;*/
+        max-width: 75%;
+    }
+
+    /*訂單明細標籤*/
+    .cart-label {
+        font-size: 14px;
+        float: left;
+        padding: 24px 0;
+        color: #000;
+        border-bottom: solid 1px;
+    }
+
+    /*灰色底線*/
+    .border-bottom-grey {
+        border-bottom: 1px solid #dedede;
+    }
+
+    /*結帳按鈕*/
+    .btn-checkout {
+        padding-top: 10px;
+        color: #fff;
+    }
+
+    .btn-checkout,
+    .btn-checkout:hover {
+        border-color: #000 !important;
+        background: #000 !important;
+    }
+
+
+</style>
+
+
+<div id="container_page_nav">
+    <div class="container">
+        <!-- 要塞目錄資料及連結資料   開頭-->
+        <!-- 動態綁定有a標籤href及text屬性 -->
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Index", "FrontEnd")">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("MemberPageOrder", "FrontEnd")">Member</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("MemberPageOrder", "FrontEnd")"> Order</a>
+            </li>
+            <li class="breadcrumb-item current">
+                <a href="@Url.Action("MemberPageOrderDetail", "FrontEnd")"> Order</a>
+            </li>
+
+        </ul>
+        <!-- 要塞目錄資料及連結資料   結尾-->
+    </div>
+</div>
+
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h1 class="page-heading" style="font-weight:600;">Orders</h1>
+
+            <nav class="navBar navBar--sub navBar--account">
+                <ul class="navBar-section">
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action" href="/FrontEnd/MemberPageOrder">Orders</a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action" href="/FrontEnd/MemberPageAddress">Addresses</a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action" href="/FrontEnd/MemberPageWishlist">Wish List </a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action" href="/FrontEnd/MemberCart">Cart</a>
+                    </li>
+                    <li class="navBar-item is-active">
+                        <a class="navBar-action" href="/FrontEnd/MemberPageSetting">Account Settings</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <h1 class="order-detail-heading">OrderDetail</h1>
+    </div>
+    <hr size:8px align="center" width="100%">
+    <div class="order-detail-content">
+        <div class="order-detail row">
+            <div class="col-6">
+                <label class="text-right">OrderDate:</label><span>2019/11/30 14:30</span><br/>
+                <label class="text-right">TrackingNumber:</label><span>201911301430054321</span><br/>
+                <label class="text-right">Total:</label><span>$289</span><br/>
+            </div>
+        </div>
+        <div class="product-detail row">
+            <div class="col-12 row" id="cart-header">
+                <div class="col-5"> ITEMS </div>
+                <div class="col-2 text-center"> PRICE </div>
+                <div class="col-3 text-center"> QUANTITY</div>
+                <div class="col-2 text-right"> TOTAL</div>
+            </div>
+            @* 購物車內容 *@
+            <div class="row my-3">
+                <div class="col-5 p-0">
+                    <div class="row">
+                        @* 圖片 *@
+                        <div class="col-5">
+                            <img id="productImg" src="~/Content/images/Product/p1.jpg" alt="Product img" />
+                        </div>
+                        @* 名稱 大小 *@
+                        <div class="col-7">
+                            <div>Tie and Knot Ring</div>
+                            <div class="mt-3">Size: 6</div>
+                        </div>
+                    </div>
+                </div>
+                @* 價格 *@
+                <div class="col-2 text-center mt-3"> $16.00 </div>
+                @* 數量 *@
+                <div class="col-3 text-center  mt-3"> 1 </div>
+                <div class="col-2 text-right mt-3"> $16.00 </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-5 p-0">
+                    <div class="row">
+                        @* 圖片 *@
+                        <div class="col-5">
+                            <img id="productImg" src="~/Content/images/Product/p1.jpg" alt="Product img" />
+                        </div>
+                        @* 名稱 大小 *@
+                        <div class="col-7">
+                            <div>Tie and Knot Ring</div>
+                            <div class="mt-3">Size: 6</div>
+                        </div>
+                    </div>
+                </div>
+                @* 價格 *@
+                <div class="col-2 text-center mt-3"> $16.00 </div>
+                @* 數量 *@
+                <div class="col-3 text-center  mt-3"> 1 </div>
+                <div class="col-2 text-right mt-3"> $16.00 </div>
+            </div>
+            @* 訂單細節 *@
+            <div class="col-12 row mb-5">
+                <div class="offset-6 col-6 p-0">
+                    <div class="row">
+                        <div class="col-6 text-left cart-label border-bottom-grey">Subtotal:</div>
+                        <div class="col-6 text-right cart-label border-bottom-grey">$32.00</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-left cart-label border-bottom-grey">Shipping:</div>
+                        <div class="col-6 text-right cart-label border-bottom-grey">Address</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-left cart-label border-bottom-grey">Discount:</div>
+                        <div class="col-6 text-right cart-label border-bottom-grey">-$9.60</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-left cart-label border-bottom-grey">Grand total:</div>
+                        <div class="col-6 text-right cart-label border-bottom-grey">$22.40</div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12 p-0">
+                            <button class="btn btn-checkout rounded-0 mw-100 w-100">PROCEED TO CHECKOUT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+           
+        </div>
+    </div>
+    <div class="alert invisible">
+        <p class="alertBox-column alertBox-message">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
+            <span style="padding: 15px 30px 3px ;font-weight:100;">You haven't placed any orders with us. When you do, their status will appear on this page.</span>
+        </p>
+    </div>
+</div>
+

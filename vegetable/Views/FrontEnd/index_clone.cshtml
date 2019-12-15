@@ -1,0 +1,352 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
+}
+    <style>
+        .jumbColor {
+            background: #fff8ee;
+        }
+        .font {
+            font-weight:900;
+        }
+        .btn-outline-dark {
+         color: #343a40;
+         border-color: #343a40;
+         border: 3px solid;
+         background:white;
+        }
+        .img-row{
+            padding:0 15%;
+        }
+        figure{
+            max-height:100%;
+            overflow:hidden;
+        }
+        .currentImg:hover{
+            opacity: .4;
+        }
+        .maskImg:hover{
+            opacity: .4;
+            background: #241d1c;
+            z-index:99;
+        }
+        .zoomin{
+            margin-bottom:0;
+        }
+        .zoomin:hover{
+            transform: scale(1.1);
+            transition: all 0.5s linear;
+        }
+        #carouselExampleControls .arrow-right-top,
+        #carouselExampleControls .arrow-left-top {
+              width:1%;
+           font-size:36px;
+           opacity:0;
+           color:black;
+        }
+         #carouselExampleInterval .arrow-right,
+         #carouselExampleInterval .arrow-left {
+           width:1%;
+           font-size:36px;
+           opacity:0;
+           color:black;
+        }
+          .arrow-right-top {
+            margin-right:8%;
+        }
+         .arrow-left-top {
+            margin-left:8%;
+        }
+
+        .arrow-right {
+            margin-right:-5%;
+        }
+         .arrow-left {
+            margin-left:-5%;
+        }
+        #carouselExampleControls:hover .arrow-right-top,
+        #carouselExampleControls:hover .arrow-left-top {
+              transition:2s;
+                 opacity:1;
+        }
+         #carouselExampleInterval:hover .arrow-right,
+         #carouselExampleInterval:hover .arrow-left {   
+                 transition:2s;
+                 opacity:1;
+            }
+.hovereffect {
+  width: 100%;
+  height: 100%;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: default;
+}
+
+.hovereffect .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.hovereffect:hover .overlay {
+  background-color: rgba(170,170,170,0.4);
+}
+
+.hovereffect h2, .hovereffect img {
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.hovereffect img {
+  display: block;
+  position: relative;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.hovereffect:hover img {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.hovereffect h2 {
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  font-size: 17px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hovereffect a.info {
+  display: inline-block;
+  text-decoration: none;
+  padding: 7px 14px;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #fff;
+  margin: 50px 0 0 0;
+  background-color: transparent;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  font-weight: normal;
+  height: 85%;
+  width: 85%;
+  position: absolute;
+  top: -20%;
+  left: 8%;
+  padding: 70px;
+}
+
+.hovereffect:hover a.info {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  background-color: rgba(0,0,0,0.4);
+}
+
+
+
+    </style>
+<div class="container-fluid">
+    <div id="carouselExampleControls" class="carousel slide img-row"  data-interval="false">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row justify-content-center ">
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-1.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-2.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-3.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-4.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row justify-content-center">
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-5.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-6.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-7.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <figure class="mx-0">
+                            <img src="~/Content/images/1-8.jpg" class="figure-img img-fluid currentImg">
+                        </figure>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <span class="carousel-control-prev arrow-left-top" href="#carouselExampleControls" role="button" data-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+            <span class="sr-only">Previous</span>
+        </span>
+        <span class="carousel-control-next arrow-right-top" href="#carouselExampleControls" role="button" data-slide="next">
+            <i class="fas fa-chevron-right"></i>
+            <span class="sr-only">Next</span>
+        </span>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row justify-content-center img-row">
+        <div class="col-12 col-md-6">
+            <figure class="mx-0">
+                <img src="~/Content/images/2-1.jpg" class="figure-img img-fluid w-100 zoomin currentImg">
+            </figure>
+        </div>
+        <div class="col-12 col-md-6">
+            <figure class="mx-0">
+                <img src="~/Content/images/2-2.jpg" class="figure-img img-fluid w-100 zoomin currentImg">
+            </figure>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-xs-10 mb-3 mx-4">
+            <a href="#"><img src="~/Content/images/3-1.jpg" alt="Alternate Text" class="figure-img img-fluid" /></a>
+        </div>
+    </div>
+</div>
+<div class="container-fluid jumbColor mt-3 img-row">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 text-center mt-5">
+            <h2 class="footertext"><i class="fab fa-instagram mr-2 font"></i>#LOVODA</h2>
+            <P>ON INSTAGRAM</P>
+            <P>Tag us on Instagram or use our hashtag</P>
+            <P>to show us how you style Lovoda!</P>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div id="carouselExampleInterval" class="carousel slide" data-interval="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row my-5">
+                        <div class="col">
+                            <figure class="figure">
+                                <div class="maskImg">
+                                    <img src="~/Content/images/4-1.jpg" class="figure-img img-fluid ">
+                                </div>       
+                                
+                            </figure>
+                        </div>
+                        <div class="col">
+                            <figure class="figure">
+                                <img src="~/Content/images/4-2.jpg" class="figure-img img-fluid maskImg">
+                            </figure>
+                        </div>
+                        <div class="col">
+                            <figure class="figure">
+                                <img src="~/Content/images/4-9.jpg" class="figure-img img-fluid maskImg">
+                            </figure>
+                        </div>
+                        <div class="col">
+                            <figure class="figure">
+                                <img src="~/Content/images/4-4.jpg" class="figure-img img-fluid maskImg">
+                            </figure>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row my-5">
+                        <div class="col">
+                            <figure class="figure">
+                                <img src="~/Content/images/4-5.jpg" class="figure-img img-fluid  maskImg">
+                            </figure>
+                        </div>
+                        <div class="col">
+                            <figure class="figure">
+                                <img src="~/Content/images/4-6.jpg" class="figure-img img-fluid maskImg">
+                            </figure>
+                        </div>
+                        <div class="col">
+                            <figure class="figure">
+                                <img src="~/Content/images/4-7.jpg" class="figure-img img-fluid maskImg">
+                            </figure>
+                        </div>
+                        <div class="col">
+                            <figure class="figure">
+                                <img src="~/Content/images/4-8.jpg" class="figure-img img-fluid maskImg">
+                                <div class="overlay">
+                                    <h2>Hover effect 5</h2>
+                                    <a class="info" href="#">link here</a>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="carousel-control-prev arrow-left" href="#carouselExampleInterval" role="button" data-slide="prev">
+                <i class="fas fa-chevron-left"></i>
+                <span class="sr-only">Previous</span>
+            </span>
+            <span class="carousel-control-next arrow-right" href="#carouselExampleInterval" role="button" data-slide="next">
+                <i class="fas fa-chevron-right"></i>
+                <span class="sr-only">Next</span>
+            </span>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-12 mb-5 col-lg-3">
+            <button type="button" class="btn btn-outline-dark rounded-0 btn-block font my-5">VIEW GALLERY</button>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="hovereffect">
+                <img class="img-responsive" src="http://placehold.it/350x250" alt="">
+                <div class="overlay">
+                    <h2>Hover effect 5</h2>
+                    <a class="info" href="#">link here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+

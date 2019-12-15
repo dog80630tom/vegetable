@@ -6,10 +6,10 @@ namespace vegetable
     public class BundleConfig
     {
         // 如需統合的詳細資訊，請瀏覽 https://go.microsoft.com/fwlink/?LinkId=301862
-        public static void RegisterBundles(BundleCollection bundles)
+        public static void RegisterBundles (BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js", "~/Scripts/jquery.dataTables.min.js","~/Scripts/Chart.js","~/Scripts/dataTables.select.min.js"));
+                        "~/Scripts/jquery-{version}.js", "~/Scripts/jquery.dataTables.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -18,20 +18,23 @@ namespace vegetable
             // 準備好可進行生產時，請使用 https://modernizr.com 的建置工具，只挑選您需要的測試。
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-            bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
-                     "~/Scripts/umd/popper.js","~/Scripts/jstree.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                    "~/Scripts/bootstrap.js"));
-            
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                     "~/Content/bootstrap.min.css"
-                   ));
-            bundles.Add(new StyleBundle("~/Content/adminCss").Include(
-               
-                   "~/Content/fontawesome-all.css", "~/Content/style.css", "~/Content/style-responsive", "~/Content/jquery.gritter.css","~/Content/datatables.min.css"
-                ));
+                     "~/Scripts/umd/popper.js", "~/Scripts/bootstrap.js", "~/Scripts/jquery.nicescroll.js", "~/Scripts/jquery.scrollTo.min.js", "~/Scripts/common-scripts.js"));
 
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                    "~/Content/fontawesome-all.css",
+                    "~/Content/bootstrap.css",
+                    "~/Content/site.css"
+                   ));
+
+            bundles.Add(new StyleBundle("~/Content/adminCss").Include(
+                    "~/content/jquery.dataTables.min.css",
+                    "~/Content/Css/style-responsive.css",
+                    "~/Content/Css/style.css",
+                    "~/Content/Css/table-responsive.css",
+                    "~/Content/Css/to-do.css",
+                    "~/Content/Css/zabuto_calendar.css"));
         }
     }
 }
