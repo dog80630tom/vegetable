@@ -186,13 +186,48 @@ namespace vegetable.Controllers
             return Redirect("/FrontEnd/Index");
         }
 
+        public ActionResult GoogleLogin() {
+            var code = Request.QueryString["code"];
+            if (string.IsNullOrEmpty(code))
+                return Content("沒有收到 Code");
 
+            var token = Utility.GetTokenFromCode(code,
+                 "145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com",
+                 "At2kDe1L5weKB4Xf7dpf6rmx",
+                 "https://localhost:44394/FrontEnd/GoogleLogin");
+
+            var UserInfoResult = Utility.GetUserInfo(token.access_token);
+            // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
+
+            int i = 0;
+            var email = UserInfoResult.email;
+            var name = UserInfoResult.name;
+            var password2 = UserInfoResult.id;
+            if (!item.Members.Any(x => x.MemberEmail == email))
+            {
+                Member member = new Member();
+                MemberServices services = new MemberServices();
+                member.MemberPassword = Encryption.EncryptionMethod(password2, email);
+                member.MemberName = name;
+                member.MemberEmail = email;
+                member.MemberGender = "Google";
+                member.MemberPhone = "google";
+                
+                services.CreateMember(member);
+             
+            }
+            var membership = (from m in item.Members where m.MemberEmail == email select m).FirstOrDefault();
+            var password = Encryption.EncryptionMethod(password2, membership.MemberName);
+            LoginProcess("Client", membership.MemberName, true, membership);
+            return RedirectToAction("MemberPageAddress", "FrontEnd");
+        }
 
         //會員登入功能
         [HttpPost]
         public string Login(string uname, string psw)
         {
-
+            //get code from queryString
+           
             //var initdata = initMemberData();
             var temp = item.Members.Any(x => x.MemberEmail == uname);
             if (temp)
