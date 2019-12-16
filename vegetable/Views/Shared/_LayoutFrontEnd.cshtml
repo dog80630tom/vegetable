@@ -526,7 +526,7 @@
                         <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
                     </li>
                     <li class="nav-item active">
-                        @if (Request.RequestContext.HttpContext.User.Identity.IsAuthenticated)
+                        @if (Request.Cookies["myaccount"]!=null)
                         {
                             <a href="@Url.Action("Product", "BackEnd")" class="nav-link text-dark mx-3 navTop">前往後台</a>
                             <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
@@ -1031,6 +1031,8 @@
                                 <button class="btn-outline-dark w-100 btn-block" id="gotoRegist">REGISTER</button>
                                 <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
                                 <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
+                                <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&https://localhost:44394&redirect_uri=https://localhost:44394/FrontEnd/GoogleLogin&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="btn btn-success">google 登入</a>
+
                             </div>
                         </div>
 
