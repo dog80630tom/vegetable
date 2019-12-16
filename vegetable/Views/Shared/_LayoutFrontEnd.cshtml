@@ -1082,14 +1082,14 @@
                 success: function (back) {
                     console.log('back', back);
                     if (back == "1") {
-                        $("#loginStatus").html("登入成功");
-                        location.href = "/FrontEnd/MemberPageAddress"
+                        $("#loginStatus").html("sign in suceesfully");
+                        location.href = "/FrontEnd/MemberPageOrder"
                     }
                     else if (back == "2") {
-                        $("#loginStatus").html("此帳號尚未註冊，請先註冊");
+                        $("#loginStatus").html("This account doesn't exist.");
                     }
                     else {
-                        $("#loginStatus").html("密碼錯誤");
+                        $("#loginStatus").html("Your password is incorrect. Please try again.");
                     }
 
                 }

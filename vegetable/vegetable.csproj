@@ -199,13 +199,13 @@
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\AdminRespond.cs" />
     <Compile Include="Models\CartDetail.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer_Question.cs" />
     <Compile Include="Models\Customer_Review.cs" />
     <Compile Include="Models\HomePageAD.cs" />
     <Compile Include="Models\CartDetails.cs" />
     <Compile Include="Models\ShowProductViewModels.cs" />
     <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
     <Compile Include="Models\ItemContext.cs" />
     <Compile Include="Controllers\ManageController.cs" />
