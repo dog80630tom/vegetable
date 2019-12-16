@@ -31,11 +31,21 @@ namespace vegetable.Controllers
 
             }
 
+            //var products = from p in Item.Products
+            //               join c in Item.Categories
+            //               on p.CategoryID equals c.CategoryID
+            //               where p.ProductName.Contains(SearchCondition) || c.CategoryName.Contains(SearchCondition)
+            //               select p;
+
             var products = from p in Item.Products
                            join c in Item.Categories
                            on p.CategoryID equals c.CategoryID
                            where p.ProductName.Contains(SearchCondition) || c.CategoryName.Contains(SearchCondition)
-                           select p;
+                           select new ProductViewModel
+                           {
+                               ProductID = p.ProductID, ProductName = p.ProductName, CategoryName = c.CategoryName,
+                               ProductDescription = p.ProductDescription, ProductPrice = p.ProductPrice
+                           };
 
             return View(products.ToList());
             //List<Product> result = new List<Product>();
@@ -77,6 +87,7 @@ namespace vegetable.Controllers
             using (ItemContext item = new ItemContext())
             {
                 Product product = item.Products.Find(id);
+                Category category = item.Categories.Find(product.CategoryID);
                 //傳入的id找不到商品
                 if (product == null)
                 {
@@ -90,6 +101,7 @@ namespace vegetable.Controllers
                 ViewBag.ProductDescription = product.ProductDescription;
                 ViewBag.ProductName = product.ProductName;
                 ViewBag.ProductPrice = product.ProductPrice;
+                ViewBag.CategoryName = category.CategoryName;
                 return View();
             }
         }

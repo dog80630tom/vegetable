@@ -1,6 +1,6 @@
-﻿ @model List<vegetable.Models.Product>
+﻿ @model List<vegetable.Models.ViewModels.ProductViewModel>
 @{
-    ViewBag.Title = "ShowProducts";
+    ViewBag.Title = "Products";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
 <style>
@@ -670,9 +670,9 @@
                                             <figure class="card-figure viewchange">
 
                                                 <div class="prod-image viewchange">
-                                                    <a href="Earrings/@data.ProductID">
+                                                    <a href="@data.CategoryName/@data.ProductID">
                                                         <img class="card-image viewchange" id="@data.ProductName"
-                                                             src="~/Assets/ProductPics/@data.ProductName/1.jpg">
+                                                             src="~/Assets/ProductPics/@data.CategoryName/@data.ProductName/1.jpg">
                                                     </a>
                                                     <div class="actions">
                                                         <a href="#" class="btnWL grid-view">

@@ -401,7 +401,7 @@
         @*產品大圖*@
         <div class="col-xl-4 order-xl-1 col-md-6 order-md-2 col-12 order-1">
             <figure class="figure">
-                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" src="~/Assets/ProductPics/@ViewBag.ProductName/1.jpg" alt="">
+                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/1.jpg" alt="">
             </figure>
         </div>
 
@@ -450,16 +450,16 @@
         <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4">
             <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
                 <a class="mr-3 " href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/1.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/1.jpg" alt="Tie and Knot Ring" />
                 </a>
                 <a class="mr-3" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/2.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/2.jpg" alt="Tie and Knot Ring" />
                 </a>
                 <a class="mr-3" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/3.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/3.jpg" alt="Tie and Knot Ring" />
                 </a>
                 <a class="" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/4.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/4.jpg" alt="Tie and Knot Ring" />
                 </a>
             </div>
         </div>
@@ -794,7 +794,7 @@
                 data: { MemberID: memberId, ProductID: productId, Quantity: quantity },
                 dataType: "text",
                 success: function ( response ) {
-                    console.log( '成功加入購物車' );
+                    alert( '成功加入購物車' );
                 }
             } );
         }

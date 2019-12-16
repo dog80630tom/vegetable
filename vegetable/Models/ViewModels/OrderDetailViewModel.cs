@@ -50,5 +50,10 @@ namespace vegetable.Models.ViewModels
         {
             get; set;
         }
+
+        public string CategoryName
+        {
+            get; set;
+        }
     }
 }

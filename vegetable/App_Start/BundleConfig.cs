@@ -22,10 +22,10 @@ namespace vegetable
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                      "~/Scripts/umd/popper.js", "~/Scripts/bootstrap.js", "~/Scripts/jquery.nicescroll.js", "~/Scripts/jquery.scrollTo.min.js", "~/Scripts/common-scripts.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/vegetable").Include(
                     "~/Content/fontawesome-all.css",
                     "~/Content/bootstrap.css",
-                    "~/Content/site.css"
+                    "~/Content/Site.css"
                    ));
 
             bundles.Add(new StyleBundle("~/Content/adminCss").Include(
