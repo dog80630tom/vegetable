@@ -1,0 +1,32 @@
+﻿@model IEnumerable<vegetable.Models.ViewModels.SearchViewModel>
+
+@{
+    ViewBag.Title = "item";
+
+}
+
+<h2>item</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+
+            @using (Html.BeginForm("Search", "Searchitem"))
+            {
+            @Html.DisplayText("Seachstring")
+
+            <input type="text" asp-for=Seachstring id="Seachstring" name="Seachstring" /><input type="submit" class="btn btn-success" id="Search" />
+            }
+            
+
+        </div>
+    </div>
+</div>
+@section Endscripts
+{
+    <script>
+        $(function () {
+      
+
+        });
+    </script>
+}
