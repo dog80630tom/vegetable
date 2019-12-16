@@ -25,16 +25,15 @@ namespace vegetable.Controllers
         {
             return View();
         }
+        
+        
 
         [HttpGet]
         public ActionResult ShowProducts(string query)
         {
-
-
             if (query is null)
             {
                 query = "";
-
             }
             else
             {
@@ -45,8 +44,33 @@ namespace vegetable.Controllers
                            on p.CategoryID equals c.CategoryID
                            where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
                            select p;
-            var ffff = products.Count();
+                           
             return View(products.ToList());
+        }
+        
+        [Route("product")]
+        [HttpPost]
+        public ActionResult ShowProducts(SearchCondition SearchCondition)
+        {
+            if (SearchCondition.Page is null)
+            {
+                SearchCondition.Page = 1;
+            }
+
+            if (SearchCondition.Condition is null)
+            {
+                SearchCondition.Condition = "";
+            }
+            else
+            {
+                SearchCondition.Condition = SearchCondition.Condition.ToLower();
+            }
+
+            var allproducts = from p in item.Products
+                           join c in item.Categories
+                           on p.CategoryID equals c.CategoryID
+                           where p.ProductName.ToLower().Contains(SearchCondition.Condition) || c.CategoryName.ToLower().Contains(SearchCondition.Condition)
+                           select p;
             //List<Product> result = new List<Product>();
             //using(ItemContext item = new ItemContext())
             //{
@@ -54,6 +78,12 @@ namespace vegetable.Controllers
             //    return View(result);
             //}
 
+            var pageshowitems = 12.0;
+            ViewBag.pageshowitems = pageshowitems;
+            ViewBag.pages = Math.Ceiling(allproducts.Count() / pageshowitems);
+
+            var products = allproducts;
+            return View(products.ToList());
         }
         public ActionResult MemberRegist()
         {
@@ -113,6 +143,7 @@ namespace vegetable.Controllers
         {
             return View();
         }
+
         public ActionResult LoginPage()
         {
             return View();
@@ -155,13 +186,47 @@ namespace vegetable.Controllers
             return Redirect("/FrontEnd/Index");
         }
 
+        public ActionResult GoogleLogin() {
+            var code = Request.QueryString["code"];
+            if (string.IsNullOrEmpty(code))
+                return Content("沒有收到 Code");
 
+            var token = Utility.GetTokenFromCode(code,
+                 "145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com",
+                 "At2kDe1L5weKB4Xf7dpf6rmx",
+                 "https://localhost:44394/FrontEnd/GoogleLogin");
+
+            var UserInfoResult = Utility.GetUserInfo(token.access_token);
+            // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
+
+            var email = UserInfoResult.email;
+            var name = UserInfoResult.name;
+            var password2 = UserInfoResult.id;
+            if (!item.Members.Any(x => x.MemberEmail == email))
+            {
+                Member member = new Member();
+                MemberServices services = new MemberServices();
+                member.MemberPassword = Encryption.EncryptionMethod(password2, email);
+                member.MemberName = name;
+                member.MemberEmail = email;
+                member.MemberGender = "Google";
+                member.MemberPhone = "google";
+                
+                services.CreateMember(member);
+             
+            }
+            var membership = (from m in item.Members where m.MemberEmail == email select m).FirstOrDefault();
+            var password = Encryption.EncryptionMethod(password2, membership.MemberName);
+            LoginProcess("Client", membership.MemberName, true, membership);
+            return RedirectToAction("MemberPageAddress", "FrontEnd");
+        }
 
         //會員登入功能
         [HttpPost]
         public string Login(string uname, string psw)
         {
-
+            //get code from queryString
+           
             //var initdata = initMemberData();
             var temp = item.Members.Any(x => x.MemberEmail == uname);
             if (temp)
@@ -179,14 +244,14 @@ namespace vegetable.Controllers
             }
             return "2";
         }
-
+        //會員登入功能
         private void LoginProcess(string level, string Name, bool isRemeber, object user)
         {
             var now = DateTime.Now;
             string roles = level;
             var ticket = new FormsAuthenticationTicket(
                 version: 1,
-                name: Name, //這邊看個人，你想放使用者名稱也可以，自行更改
+                name: Name, 
                 issueDate: now,//現在時間
                 expiration: DateTime.Now.AddDays(1),//Cookie有效時間=現在時間往後+30分鐘
                 isPersistent: isRemeber,//記住我 true or false
@@ -198,7 +263,7 @@ namespace vegetable.Controllers
             HttpContext.Response.Cookies.Add(cookie);
 
         }
-
+        //會員資料修改功能
         public ActionResult MemberPageSetting()
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
@@ -213,7 +278,7 @@ namespace vegetable.Controllers
            
         }
 
-
+        //會員資料修改功能
         [HttpPost]
         public ActionResult MemberPageSetting(Member Member)
         {
