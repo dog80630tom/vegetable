@@ -525,21 +525,39 @@
                     <li class="nav-item active border-right  p-0">
                         <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
                     </li>
-                    <li class="nav-item active">
-                        @if (Request.Cookies["myaccount"]!=null)
+
+                    @if (Request.Cookies["myaccount"] != null)
+                    {
+                        if ((string)TempData["roles"] == "Client")
                         {
-                            <a href="@Url.Action("Product", "BackEnd")" class="nav-link text-dark mx-3 navTop">前往後台</a>
-                            <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
+                            <li class="nav-item active">
+                                <a class="nav-link text-dark mx-3 navTop">@TempData["username"].ToString()</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
+                            </li>
                         }
                         else
                         {
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Product", "BackEnd")" class="nav-link text-dark mx-3 navTop">前往後台</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="nav-item active">
                             @*<a href="@Url.Action("Login", "FrontEnd")" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>*@
                             <a id="btn_login" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>
-                        }
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark  mx-3 navTop" href="@Url.Action("MemberRegist","FrontEnd")"><span class="dot">REGISTER</span></a>
-                    </li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark  mx-3 navTop" href="@Url.Action("MemberRegist","FrontEnd")"><span class="dot">REGISTER</span></a>
+                        </li>
+                    }
+
                 </ul>
                 @*<a class="nav-link text-dark  mx-3 navTop" href="">US ONLY - FREE SHIPPING OVER $50 & FREE RETURNS SHOP NOW</a>*@
                 <ul class="navbar-nav p-0 text-center">
@@ -1074,30 +1092,30 @@
             });
 
             $("#loginConfirm").click(function () {
-              var uname = $("#loginId").val();
-            var psw = $("#loginPsw").val();
+                var uname = $("#loginId").val();
+                var psw = $("#loginPsw").val();
 
-            $.ajax({
-                type: "POST",
-                url: "/FrontEnd/Login",
-                data: { uname, psw },
-                success: function (back) {
-                    console.log('back', back);
-                    if (back == "1") {
-                        $("#loginStatus").html("登入成功");
-                        location.href = "/FrontEnd/MemberPageAddress"
-                    }
-                    else if (back == "2") {
-                        $("#loginStatus").html("此帳號尚未註冊，請先註冊");
-                    }
-                    else {
-                        $("#loginStatus").html("密碼錯誤");
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/Login",
+                    data: { uname, psw },
+                    success: function (back) {
+                        console.log('back', back);
+                        if (back == "1") {
+                            $("#loginStatus").html("登入成功");
+                            location.href = "/FrontEnd/MemberPageAddress"
+                        }
+                        else if (back == "2") {
+                            $("#loginStatus").html("此帳號尚未註冊，請先註冊");
+                        }
+                        else {
+                            $("#loginStatus").html("密碼錯誤");
+                        }
+
                     }
 
-                }
-
+                });
             });
-            });  
 
         });
         $("#searchBTN").click(function () {

@@ -132,12 +132,25 @@ namespace vegetable.Controllers
         public ActionResult MemberPageAddress()
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+           
 
             if (rqstCookie.Value.Length>0)
             {
                 return View();
             }
             return RedirectToAction("LoginPage");
+        }
+        public ActionResult MemberPageAddresschange()
+        {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            TempData["username"] = memberData.MemberName;
+            if (rqstCookie.Value.Length < 0)
+            {
+                return View("LoginPage");
+            }
+            return RedirectToAction("Index");
         }
         public ActionResult MemberPageWishlist()
         {
@@ -146,8 +159,10 @@ namespace vegetable.Controllers
 
         public ActionResult LoginPage()
         {
+         
             return View();
         }
+     
         public ActionResult ForgotPassword()
         {
             return View();
@@ -218,8 +233,9 @@ namespace vegetable.Controllers
             }
             var membership = (from m in item.Members where m.MemberEmail == email select m).FirstOrDefault();
             var password = Encryption.EncryptionMethod(password2, membership.MemberName);
-            LoginProcess("Client", membership.MemberName, true, membership);
-            return RedirectToAction("MemberPageAddress", "FrontEnd");
+            LoginProcessmdfity("Client", membership.MemberName, true, membership);
+         
+            return RedirectToAction("MemberPageAddresschange");
         }
 
         //會員登入功能
@@ -263,6 +279,24 @@ namespace vegetable.Controllers
             var cookie = new HttpCookie("myaccount", encryptedTicket);
             HttpContext.Response.Cookies.Add(cookie);
 
+        }
+        private void LoginProcessmdfity(string level, string Name, bool isRemeber, object user)
+        {
+            var now = DateTime.Now;
+            string roles = level;
+            var ticket = new FormsAuthenticationTicket(
+                version: 1,
+                name: Name,
+                issueDate: now,//現在時間
+                expiration: DateTime.Now.AddDays(1),//Cookie有效時間=現在時間往後+30分鐘
+                isPersistent: isRemeber,//記住我 true or false
+                userData: JsonConvert.SerializeObject(user), //放會員資料
+                cookiePath: "/");
+
+            var encryptedTicket = FormsAuthentication.Encrypt(ticket); //把驗證的表單加密
+            var cookie = new HttpCookie("myaccount", encryptedTicket);
+            HttpContext.Response.Cookies.Add(cookie);
+            TempData["roles"] = roles;
         }
         //會員資料修改功能
         public ActionResult MemberPageSetting()
