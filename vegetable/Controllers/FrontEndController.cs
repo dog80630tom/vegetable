@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -200,7 +201,43 @@ namespace vegetable.Controllers
             services.CreateMember(Member);
             return Redirect("/FrontEnd/Index");
         }
+        public ActionResult LineLogin()
+        {
+            var code = Request.QueryString["code"];
+            if (string.IsNullOrEmpty(code))
+                return Content("沒有收到 Code");
 
+            var token =isRock.LineLoginV21.Utility.GetTokenFromCode(code,
+                 "1653659088",
+                 "27d426186987ed6e5d69cb7601129805",
+                 "https://localhost:44394/frontend/LineLogin");
+
+            var UserInfoResult = isRock.LineLoginV21.Utility.GetUserProfile(token.access_token);
+            // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
+
+            int i = 0;
+            var email = UserInfoResult.statusMessage;
+            var name = UserInfoResult.displayName;
+            var password2 = UserInfoResult.userId;
+            if (!item.Members.Any(x => x.MemberEmail == email))
+            {
+                Member member = new Member();
+                MemberServices services = new MemberServices();
+                member.MemberPassword = Encryption.EncryptionMethod(password2, email);
+                member.MemberName = name;
+                member.MemberEmail = email;
+                member.MemberGender = "Google";
+                member.MemberPhone = "google";
+
+                services.CreateMember(member);
+
+            }
+            var membership = (from m in item.Members where m.MemberEmail == email select m).FirstOrDefault();
+            var password = Encryption.EncryptionMethod(password2, membership.MemberName);
+            LoginProcessmdfity("Client", membership.MemberName, true, membership);
+
+            return RedirectToAction("MemberPageAddresschange");
+        }
         public ActionResult GoogleLogin() {
             var code = Request.QueryString["code"];
             if (string.IsNullOrEmpty(code))

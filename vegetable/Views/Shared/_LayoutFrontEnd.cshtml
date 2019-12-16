@@ -1050,7 +1050,7 @@
                                 <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
                                 <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
                                 <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&https://localhost:44394&redirect_uri=https://localhost:44394/FrontEnd/GoogleLogin&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="btn btn-success">google 登入</a>
-
+                                <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1653659088&redirect_uri=https://localhost:44394/frontend/LineLogin&scope=openid%20profile&state=abcde" class="btn btn-dark">fb登入</a>
                             </div>
                         </div>
 
@@ -1064,6 +1064,8 @@
     @RenderSection("viewJquery", required: false)
 
     <script>
+     
+
         function openNav() {
             // document.getElementById("mySidenav").style.width = "300px";
             $('#mySidenav').css('margin-left', '0px');

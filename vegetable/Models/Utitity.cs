@@ -1,12 +1,13 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
 
-namespace vegetable.Models
-{
+namespace vegetable.Models { 
+
     public class Utility
     {
         public class GetTokenFromCodeResult
@@ -30,7 +31,38 @@ namespace vegetable.Models
             public string locale { get; set; }
 
         }
+        public static GetTokenFromCodeResult GetTokenFromCodefb(string code, string ClientId, string ClientSecret, string redirect_uri)
+        {
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.Encoding = System.Text.Encoding.UTF8;
+                wc.Headers.Clear();
+                //wc.Headers.Add("Content-Type", "application/json");
 
+                var data = new System.Collections.Specialized.NameValueCollection();
+                data["grant_type"] = "authorization_code";
+                data["code"] = code;
+                data["redirect_uri"] = redirect_uri;
+                data["client_id"] = ClientId;
+                data["client_secret"] = ClientSecret;
+                //post
+                byte[] bResult = wc.UploadValues("https://graph.facebook.com/v2.10/oauth/access_token", data);
+                //get result
+                string JSON = System.Text.Encoding.UTF8.GetString(bResult);
+                //parsing JSON
+                var GetTokenFromCodeResult = Newtonsoft.Json.JsonConvert.DeserializeObject<GetTokenFromCodeResult>(JSON);
+                return GetTokenFromCodeResult;
+            }
+            catch (WebException ex)
+            {
+                using (var reader = new System.IO.StreamReader(ex.Response.GetResponseStream()))
+                {
+                    var responseText = reader.ReadToEnd();
+                    throw new Exception("GetTokenFromCode: " + responseText, ex);
+                }
+            }
+        }
         public static GetTokenFromCodeResult GetTokenFromCode(string code, string ClientId, string ClientSecret, string redirect_uri)
         {
             try
@@ -63,7 +95,32 @@ namespace vegetable.Models
                 }
             }
         }
+        public static UserInfoResult GetUserInfofb(string token)
+        {
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.Encoding = System.Text.Encoding.UTF8;
+                wc.Headers.Clear();
+                wc.Headers.Add("Authorization", "Bearer  " + token);
 
+                //get
+                string JSON = wc.DownloadString("https://graph.facebook.com/me?access_token");
+
+                //parsing JSON
+                var Result = Newtonsoft.Json.JsonConvert.DeserializeObject<UserInfoResult>(JSON);
+
+                return Result;
+            }
+            catch (WebException ex)
+            {
+                using (var reader = new System.IO.StreamReader(ex.Response.GetResponseStream()))
+                {
+                    var responseText = reader.ReadToEnd();
+                    throw new Exception("GetUserInfo: " + responseText, ex);
+                }
+            }
+        }
         public static UserInfoResult GetUserInfo(string token)
         {
             try
