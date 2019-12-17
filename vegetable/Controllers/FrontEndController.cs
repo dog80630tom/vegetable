@@ -24,6 +24,7 @@ namespace vegetable.Controllers
 
         public ActionResult Index()
         {
+            HttpContext.Response.Cookies.Clear();
             return View();
         }
         
@@ -176,6 +177,18 @@ namespace vegetable.Controllers
         {
             return View();
         }
+        public ActionResult Logout() {
+
+            FormsAuthentication.SignOut();
+            Session.RemoveAll();
+            HttpCookie cookie1 = new HttpCookie("myaccount", "");
+            cookie1.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie1);
+            TempData["username"] = null;
+            TempData["roles"] = null;
+            return Redirect("Index");
+        }
+
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public ActionResult AddCart([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetail cart)
@@ -226,8 +239,8 @@ namespace vegetable.Controllers
                 member.MemberPassword = Encryption.EncryptionMethod(password2, email);
                 member.MemberName = name;
                 member.MemberEmail = email;
-                member.MemberGender = "Google";
-                member.MemberPhone = "google";
+                member.MemberGender = "Line";
+                member.MemberPhone = "Line";
 
                 services.CreateMember(member);
 

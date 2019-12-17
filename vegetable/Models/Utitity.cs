@@ -63,6 +63,38 @@ namespace vegetable.Models {
                 }
             }
         }
+        public static GetTokenFromCodeResult GetTokenFromCodeLine(string code, string ClientId, string ClientSecret, string redirect_uri)
+        {
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.Encoding = System.Text.Encoding.UTF8;
+                wc.Headers.Clear();
+                //wc.Headers.Add("Content-Type", "application/json");
+
+                var data = new System.Collections.Specialized.NameValueCollection();
+                data["grant_type"] = "authorization_code";
+                data["code"] = code;
+                data["redirect_uri"] = redirect_uri;
+                data["client_id"] = ClientId;
+                data["client_secret"] = ClientSecret;
+                //post
+                byte[] bResult = wc.UploadValues("https://api.line.me/oauth2/v2.1/token", data);
+                //get result
+                string JSON = System.Text.Encoding.UTF8.GetString(bResult);
+                //parsing JSON
+                var GetTokenFromCodeResult = Newtonsoft.Json.JsonConvert.DeserializeObject<GetTokenFromCodeResult>(JSON);
+                return GetTokenFromCodeResult;
+            }
+            catch (WebException ex)
+            {
+                using (var reader = new System.IO.StreamReader(ex.Response.GetResponseStream()))
+                {
+                    var responseText = reader.ReadToEnd();
+                    throw new Exception("GetTokenFromCode: " + responseText, ex);
+                }
+            }
+        }
         public static GetTokenFromCodeResult GetTokenFromCode(string code, string ClientId, string ClientSecret, string redirect_uri)
         {
             try
@@ -109,6 +141,32 @@ namespace vegetable.Models {
 
                 //parsing JSON
                 var Result = Newtonsoft.Json.JsonConvert.DeserializeObject<UserInfoResult>(JSON);
+
+                return Result;
+            }
+            catch (WebException ex)
+            {
+                using (var reader = new System.IO.StreamReader(ex.Response.GetResponseStream()))
+                {
+                    var responseText = reader.ReadToEnd();
+                    throw new Exception("GetUserInfo: " + responseText, ex);
+                }
+            }
+        }
+        public static Line GetUserInfoLine(string token)
+        {
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.Encoding = System.Text.Encoding.UTF8;
+                wc.Headers.Clear();
+                wc.Headers.Add("Authorization", "Bearer " + token);
+
+                //get
+                string JSON = wc.DownloadString("https://api.line.me/v2/profile");
+
+                //parsing JSON
+                var Result = Newtonsoft.Json.JsonConvert.DeserializeObject<Line>(JSON);
 
                 return Result;
             }
