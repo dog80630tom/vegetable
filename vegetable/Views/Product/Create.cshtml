@@ -1,0 +1,74 @@
+﻿@model IEnumerable<vegetable.Models.ViewModels.ProducetDetil>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Create", "Product", "Post"))
+{
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </th>
+
+        <th></th>
+    </tr>
+  
+    <tr>
+        <td>
+            @Html.TextBox("ProductID")
+        </td>
+        <td>
+            @Html.TextBox("ProductName")
+        </td>
+        <td>
+            @Html.TextBox("ProductPrice")
+        </td>
+        <td>
+            @Html.TextBox("ProductDescription")
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PicUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitsInStock)
+        </th>
+        
+
+    </tr>
+    <tr>
+        <td>
+            @Html.TextBox("CategoryName")
+        </td>
+        <td>
+            @Html.TextBox("PicUrl")
+        </td>
+        <td>
+            @Html.TextBox("UnitsInStock")
+        </td>
+    </tr>
+</table>
+    <input type="submit" value="Save" class="btn btn-default" />
+}
