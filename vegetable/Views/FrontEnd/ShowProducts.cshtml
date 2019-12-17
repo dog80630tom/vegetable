@@ -1,12 +1,10 @@
-﻿ @model List<vegetable.Models.Product>
+﻿@model List<vegetable.Models.Product>
 @{
     ViewBag.Title = "ShowProducts";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
 <style>
-    body {
-        letter-spacing: 0.02em;
-    }*/
 
     a,
     a:hover,
@@ -475,11 +473,11 @@
             color: #000;
         }
 
-    .pagination-item--current a {
+    .selectedpage a {
         border-bottom: 1px dotted #000;
     }
 
-        .pagination-item--current a:hover {
+        .selectedpage a:hover {
             cursor: none;
         }
 
@@ -518,14 +516,11 @@
     }
 
     .pagination-link:hover {
-        cursor:pointer;
+        cursor: pointer;
     }
 </style>
 
-<script>
-</script>
-
-<div class="show-all">
+<div id="app" class="show-all">
     <div class="container_page">
         <div id="container_page_nav">
             <div class="container">
@@ -601,7 +596,6 @@
                                        href="https://lovoda.com/y-necklace-lariat/?price_min=31&amp;price_max=35&amp;sort=newest"
                                        alt="$31.00 - $35.00" title="$31.00 - $35.00">$31.00 - $35.00</a>
                                 </li>
-
                             </ul>
                         </div>
 
@@ -645,93 +639,78 @@
                                     </a>
                                 </div>
                             </div>
-                            <form class="actionBar" method="get" data-sort-by="">
+                            <form class="actionBar">
                                 <fieldset class="form-fieldset actionBar-section">
                                     <div class="form-field">
                                         <label class="form-label" for="sort">Sort By:</label>
-                                        <select class="form-select form-select--small" name="sort" id="sort">
-                                            <!--<option value="featured">Featured Items</option>
-    <option value="newest" selected="">Newest Items</option>
-    <option value="bestselling">Best Selling</option>-->
+                                        <select v-model="selected" class="form-select form-select--small" name="sort" id="sort">
                                             <option value="alphaasc">A to Z</option>
                                             <option value="alphadesc">Z to A</option>
-                                            <!--<option value="avgcustomerreview">By Review</option>-->
                                             <option value="priceasc">Price: Ascending</option>
                                             <option value="pricedesc">Price: Descending</option>
                                         </select>
+                                        <label class="form-label">{{selected}}</label>
                                     </div>
                                 </fieldset>
-
                             </form>
                         </div>
 
                         <form action="/compare" method="POST">
                             <div class="module-wrapper">
                                 <div class="productBlockContainer row">
-                                    @foreach (var data in Model)
-                                    {
-                                        <div class="prod-item viewchange col-4">
-                                            <figure class="card-figure viewchange">
-
-                                                <div class="prod-image viewchange">
-                                                    <a href="Earrings/@data.ProductID">
-                                                        <img class="card-image viewchange" id="@data.ProductName"
-                                                             src="~/Assets/ProductPics/@data.ProductName/1.jpg">
+                                    <div class="prod-item viewchange col-4" v-for="data in products.slice(beginitem,enditem)">
+                                        <figure class="card-figure viewchange">
+                                            <div class="prod-image viewchange">
+                                                <a :href=`Earrings/${data.ProductID}`>
+                                                    <img class="card-image viewchange" :id=`${data.ProductName}`
+                                                         :src=`/Assets/ProductPics/${data.ProductName}/1.jpg`>
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view">
+                                                        <i class="far fa-heart"></i>
                                                     </a>
-                                                    <div class="actions">
-                                                        <a href="#" class="btnWL grid-view">
-                                                            <i class="far fa-heart"></i>
-                                                        </a>
-                                                        <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                                                        <a href="#" class="btnQV quickview">Quick view</a>
-                                                    </div>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">{{data.ProductName}}</a></p>
+                                                <div class="prod-price"><span class="price">{{data.ProductPrice}}</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        {{data.ProductDescription}}
+                                                    </p>
                                                 </div>
 
-                                                <figcaption class="prod-desc viewchange center">
-                                                    <p class="prod-name"><a href="#">@data.ProductName</a></p>
-                                                    <div class="prod-price"><span class="price">$@data.ProductPrice</span></div>
-                                                    <div class="prod-summary list-view">
-                                                        <p>
-                                                            @data.ProductDescription
-                                                        </p>
-                                                    </div>
-
-                                                    <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
-                                                    <a href="#" class="btnWL list-view">
-                                                        <i class="far fa-heart"></i><span>Add to Wish list</span>
-                                                    </a>
-                                                </figcaption>
-                                            </figure>
-                                        </div>
-                                        <hr class="list-view" />
-                                    }
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
                                 </div>
                             </div>
                         </form>
 
+
                         <div class="product-pagination bottom">
                             <div class="pagination row">
-                                <div class="pagination-item pagination-item--previous ml-0 col-1">
-                                    <a class="pagination-link"
-                                       href="https://lovoda.com/y-necklace-lariat/?sort=newest&amp;page=1"
-                                       data-faceted-search-facet="">
+                                <div class="pagination-item pagination-item--previous ml-0 col-1" v-if="preshow">
+                                    <a class="pagination-link" v-on:click='pagepreclick()'>
                                         <span>Previous</span>
                                     </a>
                                 </div>
-                               
+
                                 <ul class="pagination-list mx-auto">
-                                    @for (var i = 1; i <= @ViewBag.pages; i++)
-                                    {
-                                        <li class="pagination-item pagination-item--current">
-                                            <a class="pagination-link" href="#"
-                                               data-faceted-search-facet="">@i</a>
-                                        </li>
-                                    }
+                                    <li class="pagination-item" v-bind:class="{'selectedpage':item==curpage}" v-for='item in sum'>
+                                        <a class="pagination-link" v-on:click='pageclick(item)'>{{item}}</a>
+                                    </li>
                                 </ul>
-                                <div class="pagination-item pagination-item--next mr-0 col-1">
-                                    <a class="pagination-link"
-                                       href="https://lovoda.com/y-necklace-lariat/?sort=newest&amp;page=2"
-                                       data-faceted-search-facet="">
+                                <div class="pagination-item pagination-item--next mr-0 col-1" v-if="nextshow">
+                                    <a class="pagination-link" v-on:click='pagenextclick()'>
                                         <span>Next</span>
                                     </a>
                                 </div>
@@ -748,9 +727,8 @@
 
 @section viewJquery{
     <script>
-        var page = 1;
+        $(function () {
 
-        $( function () {
             $( ".list-view" ).hide();
             $( "#grid-view" ).click( function () {
                 $( ".list-view" ).hide();
@@ -763,7 +741,7 @@
                 $( ".card-image.viewchange" ).removeClass( "h-100" );
                 $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
 
-            } );
+            });
             $( "#list-view" ).click( function () {
                 $( ".grid-view" ).hide();
                 $( ".list-view" ).show();
@@ -787,49 +765,68 @@
                 $( this ).find( ".btnATC" ).removeClass( "hoverin" );
             } );
 
-            //$( ".card-image" ).hover( function () {
-            //    var productName = $( this ).attr( "id" );
-            //    $( this ).attr( "style", "opacity:0.5" );
-            //    var aaa = encodeURI( `~/Assets/ProductPics/Plaid Button Earrings.jpg` );
-            //    $( this ).attr( "src", decodeURI(aaa) );
-                
-            //    //$( this ).attr( "src", `~/Assets/ProductPics/${productName}/2.jpg` );
-            //}, function () {
-            //    var productName = $( this ).attr( "id" );
-            //    $( this ).attr( "style", "opacity:0.5" );
-            //    $( this ).attr( "src", `~/Assets/ProductPics/${productName}/1.jpg` );
-            //    console.log( 'src 1 is', `~/Assets/ProductPics/${productName}/1.jpg` );
-            //} );
-
-            $( ".btnWL" ).click( function () {
-                $( this ).find( "i" ).removeClass( "far fa-heart" );
-                $( this ).find( "i" ).addClass( "fas fa-heart" );
-            } );
-
-
-                                //var SearchCondition  = {
-                    //    "page": 1,
-                    //    "Condition":condition
-                    //}
-
-                    //$.ajax({
-                    //    type: "POST",
-                    //    url: "/frontend/ShowProducts",
-                    //    data: { :SearchCondition },
-                    //    success: function () {
-                            
-
-                    //    }
-
-
-        } );
 
 
 
+            //$(".pagination-link").click(function () {
+            //    console.log(this);
+
+            //});
+
+            var totalproducts = [@Html.Raw(ViewBag.products)];
+            var totalpages = @ViewBag.pages;
+
+            console.log(totalproducts);
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    products: totalproducts,
+                    sum: totalpages,
+                    curpage: '1',
+                    selected: 'alphaasc'
+                },
+                methods: {
+                    pageclick(item) {
+                        app.curpage = item;
+                    },
+                    pagepreclick() {
+                        app.curpage--;
+                    },
+                    pagenextclick() {
+                        app.curpage++;
+                    }
+                },
+                computed: {
+
+                    beginitem() {
+                        return (this.curpage - 1) * 12;
+                    },
+
+                    enditem() {
+                         return (this.curpage) * 12;
+                    },
+
+                    preshow() {
+                        if (this.curpage == 1) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
+                    nextshow() {
+                        if (this.curpage == totalpages) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    }
+                }
+            })
+
+        });
     </script>
 }
 
-
-}
 
 
