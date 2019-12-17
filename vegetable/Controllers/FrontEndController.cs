@@ -264,7 +264,6 @@ namespace vegetable.Controllers
             var UserInfoResult = Utility.GetUserInfo(token.access_token);
             // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
 
-            int i = 0;
             var email = UserInfoResult.email;
             var name = UserInfoResult.name;
             var password2 = UserInfoResult.id;
