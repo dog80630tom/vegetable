@@ -50,13 +50,129 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="LineBot, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LineBotSDK.2.0.7\lib\net45\LineBot.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Core.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authorization, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authorization.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authorization.Policy, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authorization.Policy.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.Policy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Core.2.2.5\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.ResponseCaching.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.ResponseCaching.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Routing.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Routing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Routing.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Routing.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.DotNet.PlatformAbstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DotNet.PlatformAbstractions.2.1.0\lib\net45\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.2.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyModel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyModel.2.1.0\lib\net451\Microsoft.Extensions.DependencyModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Hosting.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.2.2.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -107,9 +223,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -120,8 +233,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Formatting">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -189,24 +302,25 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\FrontEndController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\FrontEndController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SearchitemController.cs" />
     <Compile Include="Helper\MyHtmlHelper.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\AdminRespond.cs" />
     <Compile Include="Models\CartDetail.cs" />
-    <Compile Include="Models\Customer_Question.cs" />
-    <Compile Include="Models\Customer_Review.cs" />
-    <Compile Include="Models\HomePageAD.cs" />
     <Compile Include="Models\CartDetails.cs" />
     <Compile Include="Models\ProductLIst.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Customer_Question.cs" />
+    <Compile Include="Models\Customer_Review.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
+    <Compile Include="Models\HomePageAD.cs" />
     <Compile Include="Models\ItemContext.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -214,14 +328,20 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Line.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\PicDetail.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ShowProductViewModels.cs" />
+    <Compile Include="Models\TokeData.cs" />
+    <Compile Include="Models\Utitity.cs" />
     <Compile Include="Models\ViewModels\JsonViewModel.cs" />
     <Compile Include="Models\ViewModels\ProducetDetil.cs" />
     <Compile Include="Models\ViewModels\ProductDetilListViewMdoel.cs" />
+    <Compile Include="Models\ViewModels\ReportViewModel.cs" />
     <Compile Include="Models\ViewModels\SearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Respository\ConnRespository.cs" />
@@ -234,154 +354,19 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\ProductPics\Candy Stone Earring Set %2814K%29\1.jpg" />
-    <Content Include="Assets\ProductPics\Candy Stone Earring Set %2814K%29\2.jpg" />
-    <Content Include="Assets\ProductPics\Candy Stone Earring Set %2814K%29\3.jpg" />
-    <Content Include="Assets\ProductPics\Candy Stone Earring Set %2814K%29\4.jpg" />
-    <Content Include="Assets\ProductPics\Crystal Flowers Earring Set %2814K%29\1.jpg" />
-    <Content Include="Assets\ProductPics\Crystal Flowers Earring Set %2814K%29\2.jpg" />
-    <Content Include="Assets\ProductPics\Crystal Flowers Earring Set %2814K%29\3.jpg" />
-    <Content Include="Assets\ProductPics\Crystal Flowers Earring Set %2814K%29\4.jpg" />
-    <Content Include="Assets\ProductPics\Double the Gold Ear Cuff %2814K%29\1.jpg" />
-    <Content Include="Assets\ProductPics\Double the Gold Ear Cuff %2814K%29\2.jpg" />
-    <Content Include="Assets\ProductPics\Double the Gold Ear Cuff %2814K%29\3.jpg" />
-    <Content Include="Assets\ProductPics\Double the Gold Ear Cuff %2814K%29\4.jpg" />
-    <Content Include="Assets\ProductPics\Dynasty Dangle Hook Earrings %2814K%29\1.jpg" />
-    <Content Include="Assets\ProductPics\Dynasty Dangle Hook Earrings %2814K%29\2.jpg" />
-    <Content Include="Assets\ProductPics\Dynasty Dangle Hook Earrings %2814K%29\3.jpg" />
-    <Content Include="Assets\ProductPics\Dynasty Dangle Hook Earrings %2814K%29\4.jpg" />
-    <Content Include="Assets\ProductPics\Glamour Ring Earring Set %2814K%29\1.jpg" />
-    <Content Include="Assets\ProductPics\Glamour Ring Earring Set %2814K%29\2.jpg" />
-    <Content Include="Assets\ProductPics\Glamour Ring Earring Set %2814K%29\3.jpg" />
-    <Content Include="Assets\ProductPics\Glamour Ring Earring Set %2814K%29\4.jpg" />
-    <Content Include="Assets\ProductPics\Golden Ear Cuff %2814K%29\1.jpg" />
-    <Content Include="Assets\ProductPics\Golden Ear Cuff %2814K%29\2.jpg" />
-    <Content Include="Assets\ProductPics\Golden Ear Cuff %2814K%29\3.jpg" />
-    <Content Include="Assets\ProductPics\Golden Ear Cuff %2814K%29\4.jpg" />
-    <Content Include="Assets\ProductPics\Marble Moon Drop Earrings %2814K%29\1.jpg" />
-    <Content Include="Assets\ProductPics\Marble Moon Drop Earrings %2814K%29\2.jpg" />
-    <Content Include="Assets\ProductPics\Marble Moon Drop Earrings %2814K%29\3.jpg" />
-    <Content Include="Assets\ProductPics\Marble Moon Drop Earrings %2814K%29\4.jpg" />
-    <Content Include="Assets\ProductPics\Mini Halo Studs\1.jpg" />
-    <Content Include="Assets\ProductPics\Mini Halo Studs\2.jpg" />
-    <Content Include="Assets\ProductPics\Mini Halo Studs\3.jpg" />
-    <Content Include="Assets\ProductPics\Mini Halo Studs\4.jpg" />
-    <Content Include="Assets\ProductPics\Mod Two Tone Dangle Earrings\1.jpg" />
-    <Content Include="Assets\ProductPics\Mod Two Tone Dangle Earrings\2.jpg" />
-    <Content Include="Assets\ProductPics\Mod Two Tone Dangle Earrings\3.jpg" />
-    <Content Include="Assets\ProductPics\Mod Two Tone Dangle Earrings\4.jpg" />
-    <Content Include="Assets\ProductPics\Night Dreamer Hoop Earrings %2814K%29\1.jpg" />
-    <Content Include="Assets\ProductPics\Night Dreamer Hoop Earrings %2814K%29\2.jpg" />
-    <Content Include="Assets\ProductPics\Night Dreamer Hoop Earrings %2814K%29\3.jpg" />
-    <Content Include="Assets\ProductPics\Night Dreamer Hoop Earrings %2814K%29\4.jpg" />
-    <Content Include="Assets\ProductPics\On a Curve Stud Earrings %2814K%29 - Orange\1.jpg" />
-    <Content Include="Assets\ProductPics\On a Curve Stud Earrings %2814K%29 - Orange\2.jpg" />
-    <Content Include="Assets\ProductPics\On a Curve Stud Earrings %2814K%29 - Orange\3.jpg" />
-    <Content Include="Assets\ProductPics\On a Curve Stud Earrings %2814K%29 - Orange\4.jpg" />
-    <Content Include="Assets\ProductPics\Plaid Button Earrings\1.jpg" />
-    <Content Include="Assets\ProductPics\Plaid Button Earrings\2.jpg" />
-    <Content Include="Assets\ProductPics\Plaid Button Earrings\3.jpg" />
-    <Content Include="Assets\ProductPics\Plaid Button Earrings\4.jpg" />
-    <Content Include="Assets\ProductPics\Rays Of Light Hoops\1.jpg" />
-    <Content Include="Assets\ProductPics\Rays Of Light Hoops\2.jpg" />
-    <Content Include="Assets\ProductPics\Rays Of Light Hoops\3.jpg" />
-    <Content Include="Assets\ProductPics\Rays Of Light Hoops\4.jpg" />
-    <Content Include="Assets\ProductPics\ReadMe.txt" />
-    <Content Include="Assets\ProductPics\Rose Gold Mini Needle Drop Earrings %2814K%29\1.jpg" />
-    <Content Include="Assets\ProductPics\Rose Gold Mini Needle Drop Earrings %2814K%29\2.jpg" />
-    <Content Include="Assets\ProductPics\Rose Gold Mini Needle Drop Earrings %2814K%29\3.jpg" />
-    <Content Include="Assets\ProductPics\Rose Gold Mini Needle Drop Earrings %2814K%29\4.jpg" />
-    <Content Include="Assets\ProductPics\Simple Stone Earring Set %2814K%29\1.jpg" />
-    <Content Include="Assets\ProductPics\Simple Stone Earring Set %2814K%29\2.jpg" />
-    <Content Include="Assets\ProductPics\Simple Stone Earring Set %2814K%29\3.jpg" />
-    <Content Include="Assets\ProductPics\Simple Stone Earring Set %2814K%29\4.jpg" />
-    <Content Include="Assets\ProductPics\Slanted Wide Hoops\1.jpg" />
-    <Content Include="Assets\ProductPics\Slanted Wide Hoops\2.jpg" />
-    <Content Include="Assets\ProductPics\Slanted Wide Hoops\3.jpg" />
-    <Content Include="Assets\ProductPics\Slanted Wide Hoops\4.jpg" />
-    <Content Include="Assets\ProductPics\Thick Mini Hoop Earrings - Mustard Yellow\1.jpg" />
-    <Content Include="Assets\ProductPics\Thick Mini Hoop Earrings - Mustard Yellow\2.jpg" />
-    <Content Include="Assets\ProductPics\Thick Mini Hoop Earrings - Mustard Yellow\3.jpg" />
-    <Content Include="Assets\ProductPics\Thick Mini Hoop Earrings - Mustard Yellow\4.jpg" />
-    <Content Include="Assets\ProductPics\Triple the Gold Ear Cuff %2814K%29\1.jpg" />
-    <Content Include="Assets\ProductPics\Triple the Gold Ear Cuff %2814K%29\2.jpg" />
-    <Content Include="Assets\ProductPics\Triple the Gold Ear Cuff %2814K%29\3.jpg" />
-    <Content Include="Assets\ProductPics\Triple the Gold Ear Cuff %2814K%29\4.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Chart.css" />
+    <Content Include="Content\Chart.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fontawesome.css" />
     <Content Include="Content\fontawesome.min.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Content\brands.css" />
-    <Content Include="Content\brands.min.css" />
-    <Content Include="Content\Css\style-responsive.css" />
-    <Content Include="Content\Css\style.css" />
-    <Content Include="Content\Css\table-responsive.css" />
-    <Content Include="Content\Css\to-do.css" />
-    <Content Include="Content\Css\zabuto_calendar.css" />
-    <Content Include="Content\fontawesome-all.css" />
-    <Content Include="Content\fontawesome-all.min.css" />
-    <Content Include="Content\fontawesome.css" />
-    <Content Include="Content\fontawesome.min.css" />
-    <Content Include="Content\images\1-1.jpg" />
-    <Content Include="Content\images\1-10.jpg" />
-    <Content Include="Content\images\1-11.jpg" />
-    <Content Include="Content\images\1-12.jpg" />
-    <Content Include="Content\images\1-13.jpg" />
-    <Content Include="Content\images\1-14.jpg" />
-    <Content Include="Content\images\1-15.jpg" />
-    <Content Include="Content\images\1-16.jpg" />
-    <Content Include="Content\images\1-17.jpg" />
-    <Content Include="Content\images\1-18.jpg" />
-    <Content Include="Content\images\1-19.jpg" />
-    <Content Include="Content\images\1-2.jpg" />
-    <Content Include="Content\images\1-20.jpg" />
-    <Content Include="Content\images\1-3.jpg" />
-    <Content Include="Content\images\1-4.jpg" />
-    <Content Include="Content\images\1-5.jpg" />
-    <Content Include="Content\images\1-6.jpg" />
-    <Content Include="Content\images\1-7.jpg" />
-    <Content Include="Content\images\1-8.jpg" />
-    <Content Include="Content\images\1-9.jpg" />
-    <Content Include="Content\images\1.jpg" />
-    <Content Include="Content\images\2-1.jpg" />
-    <Content Include="Content\images\2-2.jpg" />
-    <Content Include="Content\images\3-1.jpg" />
-    <Content Include="Content\images\4-10.jpg" />
-    <Content Include="Content\images\4-1.jpg" />
-    <Content Include="Content\images\4-2.jpg" />
-    <Content Include="Content\images\4-3.jpg" />
-    <Content Include="Content\images\4-4.jpg" />
-    <Content Include="Content\images\4-5.jpg" />
-    <Content Include="Content\images\4-6.jpg" />
-    <Content Include="Content\images\4-7.jpg" />
-    <Content Include="Content\images\4-8.jpg" />
-    <Content Include="Content\images\4-9.jpg" />
-    <Content Include="Content\images\american-express-logo.png" />
-    <Content Include="Content\images\asseenonwhite.png" />
-    <Content Include="Content\images\close-button.png" />
-    <Content Include="Content\images\discover-logo-of-pay-system.png" />
-    <Content Include="Content\images\master-card-logo.png" />
-    <Content Include="Content\images\paypal-logo.png" />
-    <Content Include="Content\images\Product\p1.jpg" />
-    <Content Include="Content\images\Product\p2.jpg" />
-    <Content Include="Content\images\Product\p3.jpg" />
-    <Content Include="Content\images\visa-pay-logo.png" />
-    <Content Include="Content\paypal-logo.png" />
-    <Content Include="Content\regular.css" />
-    <Content Include="Content\regular.min.css" />
-    <Content Include="Content\solid.css" />
-    <Content Include="Content\solid.min.css" />
-    <Content Include="Content\svg-with-js.css" />
-    <Content Include="Content\svg-with-js.min.css" />
-    <Content Include="Content\v4-shims.css" />
-    <Content Include="Content\v4-shims.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -389,7 +374,14 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\Css\sb-admin-2.css" />
+    <Content Include="Content\Css\sb-admin-2.min.css" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\common-scripts.js" />
+    <Content Include="Content\datatables.min.css" />
+    <Content Include="Scripts\datatables.min.js" />
+    <Content Include="Scripts\dataTables.select.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -408,8 +400,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Assets\ProductPics\picbook.csv" />
-    <Content Include="Assets\ProductPics\productbook.csv" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -472,7 +463,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Backstage\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -482,55 +473,43 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="webfonts\fa-brands-400.svg" />
-    <Content Include="webfonts\fa-regular-400.svg" />
-    <Content Include="webfonts\fa-solid-900.svg" />
-    <Content Include="webfonts\fa-solid-900.woff2" />
-    <Content Include="webfonts\fa-solid-900.woff" />
-    <Content Include="webfonts\fa-solid-900.ttf" />
-    <Content Include="webfonts\fa-solid-900.eot" />
-    <Content Include="webfonts\fa-regular-400.woff2" />
-    <Content Include="webfonts\fa-regular-400.woff" />
-    <Content Include="webfonts\fa-regular-400.ttf" />
-    <Content Include="webfonts\fa-regular-400.eot" />
-    <Content Include="webfonts\fa-brands-400.woff2" />
-    <Content Include="webfonts\fa-brands-400.woff" />
-    <Content Include="webfonts\fa-brands-400.ttf" />
-    <Content Include="webfonts\fa-brands-400.eot" />
-    <Content Include="Views\FrontEnd\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutFrontEnd.cshtml" />
-    <Content Include="Views\FrontEnd\index_clone.cshtml" />
-    <Content Include="Views\FrontEnd\MemberLogInModel.cshtml" />
-    <Content Include="Views\FrontEnd\ShowProducts.cshtml" />
-    <Content Include="Views\FrontEnd\MemberPageOrder.cshtml" />
-    <Content Include="Views\FrontEnd\MemberRegist.cshtml" />
-    <Content Include="Views\FrontEnd\Index - 複製.cshtml" />
-    <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
-    <Content Include="Views\FrontEnd\ProductIndex.cshtml" />
-    <Content Include="Views\Product\ProductList.cshtml" />
-    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Backstage\Form.cshtml" />
+    <Content Include="Views\Backstage\Edit.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Searchitem\item.cshtml" />
     <Content Include="Views\Shared\_SearchPartialView.cshtml" />
     <Content Include="Views\Searchitem\Search.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\FrontEnd\Cart.cshtml" />
+    <Content Include="Views\FrontEnd\ForgotPassword.cshtml" />
+    <Content Include="Views\FrontEnd\Index - 複製.cshtml" />
+    <Content Include="Views\FrontEnd\Index.cshtml" />
+    <Content Include="Views\FrontEnd\index_clone.cshtml" />
+    <Content Include="Views\FrontEnd\LoginPage.cshtml" />
+    <Content Include="Views\FrontEnd\MemberCart.cshtml" />
+    <Content Include="Views\FrontEnd\MemberLogInModel.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageAddress.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageOrder.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageWishlist.cshtml" />
+    <Content Include="Views\FrontEnd\MemberRegist.cshtml" />
+    <Content Include="Views\FrontEnd\ProductIndex.cshtml" />
+    <Content Include="Views\FrontEnd\Shipping.cshtml" />
+    <Content Include="Views\FrontEnd\ShowProducts.cshtml" />
     <Content Include="Views\Members\Create.cshtml" />
     <Content Include="Views\Members\Delete.cshtml" />
     <Content Include="Views\Members\Edit.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
-    <Content Include="Views\FrontEnd\MemberPageAddress.cshtml" />
-    <Content Include="Views\FrontEnd\MemberPageWishlist.cshtml" />
-    <Content Include="Views\FrontEnd\LoginPage.cshtml" />
-    <Content Include="Views\FrontEnd\ForgotPassword.cshtml" />
-    <Content Include="Views\FrontEnd\Cart.cshtml" />
-    <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
-    <Content Include="Views\FrontEnd\MemberCart.cshtml" />
     <Content Include="Views\Product\AdminIndex.cshtml" />
-    <Content Include="Views\FrontEnd\ShowProducts - 複製.cshtml" />
-    <Content Include="Views\FrontEnd\Shipping.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutFrontEnd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -547,6 +526,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -575,7 +557,6 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4bootstrap_1css_1map__JsonSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

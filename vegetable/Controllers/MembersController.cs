@@ -1,12 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿
+using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Security.Cryptography;
-using System.Security.Principal;
+using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Text;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using vegetable.Models;
@@ -73,12 +74,23 @@ namespace vegetable.Controllers
 
         public ActionResult Create()
         {
+          
+         
             return View(new List<Member>());
         }
 
+
+        
         [HttpPost]
         public ActionResult Create(Member Member)
         {
+            var code = Request.QueryString["code"];
+            
+            //Response.Write("<br/> code: " + code);
+
+            //get token from code
+           
+
             MemberServices services = new MemberServices();
             Member.MemberPassword = Encryption.EncryptionMethod(Member.MemberPassword, Member.MemberName);
             services.CreateMember(Member);
