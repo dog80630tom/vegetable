@@ -45,10 +45,10 @@ namespace vegetable.Controllers
             }
 
             var allproducts = from p in item.Products
-                               join c in item.Categories
-                               on p.CategoryID equals c.CategoryID
-                               where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
-                               select p;
+                              join c in item.Categories
+                              on p.CategoryID equals c.CategoryID
+                              where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
+                              select p;
 
             var pageshowitems = 12.0;
             ViewBag.pages = Math.Ceiling(allproducts.Count() / pageshowitems);
@@ -110,9 +110,9 @@ namespace vegetable.Controllers
         public ActionResult MemberPageAddress()
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
-           
 
-            if (rqstCookie.Value.Length>0)
+
+            if (rqstCookie.Value.Length > 0)
             {
                 return View();
             }
@@ -130,17 +130,45 @@ namespace vegetable.Controllers
             }
             return RedirectToAction("Index");
         }
+
+
         public ActionResult MemberPageWishlist()
         {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+          
+            var wishproducts = from p in item.Products
+                              join w in item.WishLists
+                              on p.ProductID equals w.ProductID
+                              where memberData.MemberID ==w.MemberID
+                              select p;
+
+            return View(wishproducts.ToList());
+        }
+
+
+        [HttpPost]
+        public ActionResult AddWish([Bind(Include = "MemberID,ProductID")] WishList wish)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ItemContext item = new ItemContext())
+                {
+                    item.WishLists.Add(wish);
+                    item.SaveChanges();
+                    return RedirectToAction("MemberPageWishlist");
+                }
+            }
             return View();
         }
 
         public ActionResult LoginPage()
         {
-         
+
             return View();
         }
-     
+
         public ActionResult ForgotPassword()
         {
             return View();
@@ -164,6 +192,8 @@ namespace vegetable.Controllers
             TempData["roles"] = null;
             return Redirect("Index");
         }
+
+        
 
         [HttpPost]
         //[ValidateAntiForgeryToken]

@@ -329,33 +329,34 @@
 
 
     <div class="productBlockContainer row">
+        @foreach (var data in Model)
+        {
         <div class="prod-item col-3">
             <figure class="card-figure">
-                <div class="prod-image">
-                    <a href="#">
-                        <img class="card-image"
-                             src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+
+                <div class="prod-image ">
+                    <a href="Earrings/@data.ProductID">
+                        <img class="card-image" id="@data.ProductName"
+                             src="~/Assets/ProductPics/@data.ProductName/1.jpg">
                     </a>
                     <div class="actions">
-                        
-                        <a href="#" class="btn btn-outline-dark rounded-0 btnATC">
-                            <i class="fa fa-heart-o"></i>Add to
-                            Cart
+                        <a href="#" class="btnWL grid-view">
+                            <i class="far fa-heart"></i>
                         </a>
+                        <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
                         <a href="#" class="btnQV quickview">Quick view</a>
                     </div>
                 </div>
-                <figcaption class="prod-desc">
-                    <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                    <div class="prod-price text-center"><span class="price">$24.00</span></div>
 
+                <figcaption class="prod-desc center">
+                    <p class="prod-name"><a href="#">@data.ProductName</a></p>
+                    <div class="prod-price"><span class="price">$@data.ProductPrice</span></div>
+                   
                 </figcaption>
             </figure>
-            <div class="form-actions">
-                <input type="submit" value="Remove Item" class="btn btn-outline-dark rounded-0 btnATC" data-wishlist-delete="">
-            </div>
         </div>
-           
+        }
+
         <div class="col-1"></div>
     </div>
 
