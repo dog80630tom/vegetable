@@ -203,7 +203,7 @@
     <Compile Include="Models\Customer_Review.cs" />
     <Compile Include="Models\HomePageAD.cs" />
     <Compile Include="Models\CartDetails.cs" />
-    <Compile Include="Models\ShowProductViewModels.cs" />
+    <Compile Include="Models\ProductLIst.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
@@ -433,6 +433,8 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\vue.js" />
+    <Content Include="Scripts\vue.min.js" />
     <Content Include="Views\Searchitem\Detail.cshtml" />
     <Content Include="Views\Shared\_CreatePartialView.cshtml" />
     <Content Include="Views\Shared\_NavPartial.cshtml" />

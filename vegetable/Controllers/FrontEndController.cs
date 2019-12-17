@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Web.Security;
 using vegetable.Models;
 using vegetable.Respository.MemberResp;
 using vegetable.Services;
+using Member = vegetable.Models.Member;
 
 namespace vegetable.Controllers
 {
@@ -25,9 +27,9 @@ namespace vegetable.Controllers
         {
             return View();
         }
-        
-        
 
+        
+        [Route("product")]
         [HttpGet]
         public ActionResult ShowProducts(string query)
         {
@@ -39,52 +41,26 @@ namespace vegetable.Controllers
             {
                 query = query.ToLower();
             }
-            var products = from p in item.Products
-                           join c in item.Categories
-                           on p.CategoryID equals c.CategoryID
-                           where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
-                           select p;
-                           
-            return View(products.ToList());
-        }
-        
-        [Route("product")]
-        [HttpPost]
-        public ActionResult ShowProducts(SearchCondition SearchCondition)
-        {
-            if (SearchCondition.Page is null)
-            {
-                SearchCondition.Page = 1;
-            }
-
-            if (SearchCondition.Condition is null)
-            {
-                SearchCondition.Condition = "";
-            }
-            else
-            {
-                SearchCondition.Condition = SearchCondition.Condition.ToLower();
-            }
 
             var allproducts = from p in item.Products
-                           join c in item.Categories
-                           on p.CategoryID equals c.CategoryID
-                           where p.ProductName.ToLower().Contains(SearchCondition.Condition) || c.CategoryName.ToLower().Contains(SearchCondition.Condition)
-                           select p;
-            //List<Product> result = new List<Product>();
-            //using(ItemContext item = new ItemContext())
-            //{
-            //    result = (from s in item.Products select s ).ToList();
-            //    return View(result);
-            //}
+                               join c in item.Categories
+                               on p.CategoryID equals c.CategoryID
+                               where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
+                               select p;
 
             var pageshowitems = 12.0;
-            ViewBag.pageshowitems = pageshowitems;
             ViewBag.pages = Math.Ceiling(allproducts.Count() / pageshowitems);
+            var JSONTO = allproducts.ToList();
+            foreach (Product p in JSONTO)
+            {
+                //ViewBag.products += "{ProductID:'" + p.ProductID + "',CategoryID:'" + p.CategoryID + "',ProductName:'" + p.ProductName + "',ProductDescription:'" + p.ProductDescription + "',UnitsInStock:'" + p.UnitsInStock + "',ProductPrice:'" + p.ProductPrice + "'},";
+                ViewBag.products += "{ProductID:'" + p.ProductID + "',CategoryID:'" + p.CategoryID + "',ProductName:'" + p.ProductName + "',UnitsInStock:'" + p.UnitsInStock + "',ProductPrice:'" + p.ProductPrice + "'},";
+            }
+            ViewBag.products = ViewBag.products.TrimEnd(',');
 
-            var products = allproducts;
-            return View(products.ToList());
+            return View();
         }
+
         public ActionResult MemberRegist()
         {
             return View();
