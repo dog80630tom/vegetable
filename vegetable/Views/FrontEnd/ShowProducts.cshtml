@@ -729,50 +729,6 @@
     <script>
         $(function () {
 
-            $( ".list-view" ).hide();
-            $( "#grid-view" ).click( function () {
-                $( ".list-view" ).hide();
-                $( ".grid-view" ).show();
-                $( "#grid-view" ).addClass( "current-view" );
-                $( "#list-view" ).removeClass( "current-view" );
-                $( ".prod-item.viewchange" ).removeClass( "col-12 d-inline-block imghchange" ).addClass( "col-4" );
-                $( ".card-figure.viewchange" ).removeClass( "row" );
-                $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
-                $( ".card-image.viewchange" ).removeClass( "h-100" );
-                $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
-
-            });
-            $( "#list-view" ).click( function () {
-                $( ".grid-view" ).hide();
-                $( ".list-view" ).show();
-                $( "#grid-view" ).removeClass( "current-view" );
-                $( "#list-view" ).addClass( "current-view" );
-                $( ".prod-item.viewchange" ).removeClass( "col-4" ).addClass( "col-12 d-inline-block imghchange" );
-                $( ".card-figure.viewchange" ).addClass( "row" );
-                $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
-                $( ".card-image.viewchange" ).addClass( "h-100" );
-                $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
-
-            } );
-
-            $( ".card-figure" ).hover( function () {
-                $( this ).find( ".btnWL" ).addClass( "showdown" );
-                $( this ).find( ".btnQV" ).addClass( "hoverin" );
-                $( this ).find( ".btnATC" ).addClass( "hoverin" );
-            }, function () {
-                $( this ).find( ".btnWL" ).removeClass( "showdown" );
-                $( this ).find( ".btnQV" ).removeClass( "hoverin" );
-                $( this ).find( ".btnATC" ).removeClass( "hoverin" );
-            } );
-
-
-
-
-            //$(".pagination-link").click(function () {
-            //    console.log(this);
-
-            //});
-
             var totalproducts = [@Html.Raw(ViewBag.products)];
             var totalpages = @ViewBag.pages;
 
@@ -823,6 +779,43 @@
                     }
                 }
             })
+
+            $( ".list-view" ).hide();
+            $( "#grid-view" ).click( function () {
+                $( ".list-view" ).hide();
+                $( ".grid-view" ).show();
+                $( "#grid-view" ).addClass( "current-view" );
+                $( "#list-view" ).removeClass( "current-view" );
+                $( ".prod-item.viewchange" ).removeClass( "col-12 d-inline-block imghchange" ).addClass( "col-4" );
+                $( ".card-figure.viewchange" ).removeClass( "row" );
+                $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
+                $( ".card-image.viewchange" ).removeClass( "h-100" );
+                $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
+
+            });
+            $( "#list-view" ).click( function () {
+                $( ".grid-view" ).hide();
+                $( ".list-view" ).show();
+                $( "#grid-view" ).removeClass( "current-view" );
+                $( "#list-view" ).addClass( "current-view" );
+                $( ".prod-item.viewchange" ).removeClass( "col-4" ).addClass( "col-12 d-inline-block imghchange" );
+                $( ".card-figure.viewchange" ).addClass( "row" );
+                $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
+                $( ".card-image.viewchange" ).addClass( "h-100" );
+                $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
+
+            } );
+
+            $( ".card-figure" ).hover( function () {
+                $( this ).find( ".btnWL" ).addClass( "showdown" );
+                $( this ).find( ".btnQV" ).addClass( "hoverin" );
+                $( this ).find( ".btnATC" ).addClass( "hoverin" );
+            }, function () {
+                $( this ).find( ".btnWL" ).removeClass( "showdown" );
+                $( this ).find( ".btnQV" ).removeClass( "hoverin" );
+                $( this ).find( ".btnATC" ).removeClass( "hoverin" );
+            } );
+            
 
         });
     </script>
