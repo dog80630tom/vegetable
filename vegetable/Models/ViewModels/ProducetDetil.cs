@@ -21,10 +21,7 @@ namespace vegetable.Models.ViewModels
         public int UnitsInStock { get; set; }
         [Display(Name = "圖片路徑")]
         public string PicUrl { get; set; }
-        [Display(Name = "類別圖片路徑")]
-        public string CategoryPic { get; set; }
-        [Display(Name = "類別描述")]
-        public string CategoryDescription { get; set; }
+
         [Display(Name = "產品價格")]
         public decimal ProductPrice { get; set; }
     }

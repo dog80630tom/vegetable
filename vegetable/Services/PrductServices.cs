@@ -36,12 +36,10 @@ namespace vegetable.Services
                 try
                 {
                     
-                    item.Categories.Add(category);
-                    item.SaveChanges();
-                    product.CategoryID = item.Categories.FirstOrDefault(x=>x.CategoryPic==category.CategoryPic).CategoryID;
+               
                     item.Products.Add(product);
                     item.SaveChanges();
-                    var data2 = (from d in item.Products where d.CategoryID == product.CategoryID select d).FirstOrDefault().ProductID;
+                    var data2 = product.ProductID;
                     pic.ProductID = data2;
                     item.PicDetails.Add(pic);
                     item.SaveChanges();

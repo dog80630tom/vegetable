@@ -34,6 +34,7 @@ namespace vegetable.Respository
             _context.Entry(Enity).State = EntityState.Deleted;
         }
 
+        //連接daper的指令
         public IEnumerable<T> GetAll(string sql)
         {
            

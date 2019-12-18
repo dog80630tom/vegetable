@@ -124,7 +124,7 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
         public ActionResult ProductList(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
         {
             PrductServices services = new PrductServices();
-            try
+            /*try
             {
                 if (file.ContentLength > 0)
                 {
@@ -139,7 +139,7 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
             {
                 ViewBag.Message = "File upload failed!!";
                 
-            }
+            }*/
             var result=services.addProduct(product, category, picDetail);
             if (result.IsSuccess)
             {
@@ -152,6 +152,21 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
                 return View(initdetil());
             }
         }
+
+
+        public ActionResult Create()
+        {
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Create(Product product, PicDetail pic)
+        {
+            return View();
+        }
+
         public ActionResult Edit(int? id)
         {
 
