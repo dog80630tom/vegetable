@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js"></script>
 <style>
 
     a,
@@ -644,12 +645,11 @@
                                     <div class="form-field">
                                         <label class="form-label" for="sort">Sort By:</label>
                                         <select v-model="selected" class="form-select form-select--small" name="sort" id="sort">
-                                            <option value="alphaasc">A to Z</option>
-                                            <option value="alphadesc">Z to A</option>
+                                            <option value="nameasc">A to Z</option>
+                                            <option value="namedesc">Z to A</option>
                                             <option value="priceasc">Price: Ascending</option>
                                             <option value="pricedesc">Price: Descending</option>
                                         </select>
-                                        <label class="form-label">{{selected}}</label>
                                     </div>
                                 </fieldset>
                             </form>
@@ -727,7 +727,85 @@
 
 @section viewJquery{
     <script>
+
         $(function () {
+
+            var totalproducts = [@Html.Raw(ViewBag.products)];
+            var totalpages = @ViewBag.pages;
+
+            console.log(totalproducts);
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    allproducts: totalproducts,
+                    sum: totalpages,
+                    curpage: '1',
+                    selectedvalue:'' 
+                },
+                methods: {
+                    pageclick(item) {
+                        app.curpage = item;
+                    },
+                    pagepreclick() {
+                        app.curpage--;
+                    },
+                    pagenextclick() {
+                        app.curpage++;
+                    },
+                },
+
+                computed: {
+                  
+                    orderby() {
+                        switch (this.selectedvalue) {
+                            case 'nameasc':
+                                return ['ProductName'], ['asc'];
+                            case 'namedesc':
+                                return ['ProductName'], ['desc'];
+                            case 'priceasc':
+                                return ['ProductPrice'], ['asc'];
+                            case 'pricedesc':
+                                return ['ProductPrice'], ['desc'];
+                            default:
+                                return ['ProductID'], ['asc'];
+                        } 
+                    },
+
+                    products() {
+                        return _.orderBy(this.allproducts, this.orderby);
+                    },
+
+                    beginitem() {
+                        return (this.curpage - 1) * 12;
+                    },
+
+                    enditem() {
+                         return (this.curpage) * 12;
+                    },
+
+                    preshow() {
+                        if (this.curpage == 1) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
+
+                    nextshow() {
+                        if (this.curpage == totalpages) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
+
+                    //orderbyproducts() {
+                    //    return _.orderBy(this.products, 'ProductID').slice(beginitem,enditem); 
+                    //}
+                }
+            })
+        
 
             $( ".list-view" ).hide();
             $( "#grid-view" ).click( function () {
@@ -765,64 +843,13 @@
                 $( this ).find( ".btnATC" ).removeClass( "hoverin" );
             } );
 
-
-
-
-            //$(".pagination-link").click(function () {
-            //    console.log(this);
-
-            //});
-
-            var totalproducts = [@Html.Raw(ViewBag.products)];
-            var totalpages = @ViewBag.pages;
-
-            console.log(totalproducts);
-
-            var app = new Vue({
-                el: '#app',
-                data: {
-                    products: totalproducts,
-                    sum: totalpages,
-                    curpage: '1',
-                    selected: 'alphaasc'
-                },
-                methods: {
-                    pageclick(item) {
-                        app.curpage = item;
-                    },
-                    pagepreclick() {
-                        app.curpage--;
-                    },
-                    pagenextclick() {
-                        app.curpage++;
-                    }
-                },
-                computed: {
-
-                    beginitem() {
-                        return (this.curpage - 1) * 12;
-                    },
-
-                    enditem() {
-                         return (this.curpage) * 12;
-                    },
-
-                    preshow() {
-                        if (this.curpage == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    },
-                    nextshow() {
-                        if (this.curpage == totalpages) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                }
-            })
+            $(".card-image").hover(function () {
+                $(this).attr("style", "opacity:0.5");
+                $(this).attr("src", $(this).attr("src").replace('1.jpg','2.jpg'));
+            }, function () {
+                $(this).attr("style", "opacity:0.5");
+                $(this).attr("src", $(this).attr("src").replace('2.jpg','1.jpg'));
+            });
 
         });
     </script>
