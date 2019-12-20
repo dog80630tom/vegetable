@@ -14,7 +14,7 @@ namespace vegetable.Controllers
         {
         }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProducetDetil> ProducetDetils { get; set; }
+        public DbSet<ProducetDetail> ProducetDetils { get; set; }
         public DbSet<PicDetail> PicDetails { get; set; }
         public DbSet<Category>  Categories { get; set; }
         public DbSet<Member> Members { get; set; }

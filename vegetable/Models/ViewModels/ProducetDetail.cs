@@ -6,7 +6,7 @@ using System.Web;
 
 namespace vegetable.Models.ViewModels
 {
-    public class ProducetDetil
+    public class ProducetDetail
     {
         [Key]
         public int ProductID { get; set; }

@@ -28,15 +28,13 @@ namespace vegetable.Services
         //    Category Category = new Category() {  CategoryDescription=CategoryDescription, CategoryName=CategoryName, CategoryPic=CategoryPic };
         //    return Category;
         //}
-        public ErrorMessage addProduct(Product product,Category category,PicDetail pic) {
+        public ErrorMessage addProduct(Product product,PicDetail pic) {
             ErrorMessage error = new ErrorMessage();
             error.IsSuccess = true;
             using (var data = item.Database.BeginTransaction())
             {
                 try
-                {
-                    
-               
+                {                            
                     item.Products.Add(product);
                     item.SaveChanges();
                     var data2 = product.ProductID;

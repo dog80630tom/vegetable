@@ -16,14 +16,14 @@ namespace vegetable.Controllers
     {
         ItemContext item = new ItemContext();
         // GET: Backstage
-        public List<ProducetDetil> initdetil() {
-            List<ProducetDetil> data =new List<ProducetDetil>();
+        public List<ProducetDetail> initdetil() {
+            List<ProducetDetail> data =new List<ProducetDetail>();
             try
             {
                 string sql = @"select *from Products p
 left join Categories c on p.CategoryID= c.CategoryID
 left join PicDetails pic on pic.ProductID=p.ProductID";
-                ConnRespository<ProducetDetil> Conn = new ConnRespository<ProducetDetil>(item);
+                ConnRespository<ProducetDetail> Conn = new ConnRespository<ProducetDetail>(item);
              data =  Conn.GetAll( sql).ToList();
                 //有join有viewmodel才要用隱含轉換
                 //data = (from d in item.Products
@@ -41,7 +41,7 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
                 //        ProductName = d.ProductName,
                 //        UnitsInStock = d.UnitsInStock,
                 //        ProductPrice=d.ProductPrice
-                //    }).ToList().Select(x=>new ProducetDetil
+                //    }).ToList().Select(x=>new ProducetDetail
                 //    {
                 //        ProductID = x.ProductID,
                 //        CategoryDescription = x.CategoryDescription,
@@ -70,7 +70,7 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
             if (initdata == null)
             {
 
-                return View(new List<ProducetDetil>());
+                return View(new List<ProducetDetail>());
             }
             ViewBag.ISuccess = "false";
             return View(initdata);
@@ -80,6 +80,8 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
             return View();
         }
 
+
+        //商品的初始資料
         [HttpPost]
         public ActionResult Getinitdata()
         {
@@ -102,6 +104,8 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
 
         //    return View(initdetil());
         //}
+
+        //local圖片上傳方法
         [HttpPost]
         public void UploadFile()
         {

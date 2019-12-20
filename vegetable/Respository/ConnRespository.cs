@@ -57,7 +57,7 @@ namespace vegetable.Respository
             _context.Entry(Enity).State = EntityState.Modified;
         }
 
-        public static implicit operator ConnRespository<T>(ConnRespository<ProducetDetil> v)
+        public static implicit operator ConnRespository<T>(ConnRespository<ProducetDetail> v)
         {
             throw new NotImplementedException();
         }
