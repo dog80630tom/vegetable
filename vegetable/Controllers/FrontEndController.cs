@@ -136,32 +136,74 @@ namespace vegetable.Controllers
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
-            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
-          
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);         
             var wishproducts = from p in item.Products
                               join w in item.WishLists
                               on p.ProductID equals w.ProductID
                               where memberData.MemberID ==w.MemberID
                               select p;
-
             return View(wishproducts.ToList());
         }
-
-
         [HttpPost]
-        public ActionResult AddWish([Bind(Include = "MemberID,ProductID")] WishList wish)
+        public bool AddWish([Bind(Include = "MemberID,ProductID")] WishList wish)
         {
+            bool isSuccess = false; 
             if (ModelState.IsValid)
             {
                 using (ItemContext item = new ItemContext())
                 {
+                    HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+                    var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                    var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);                    
+                    wish.MemberID = memberData.MemberID;                    
                     item.WishLists.Add(wish);
-                    item.SaveChanges();
-                    return RedirectToAction("MemberPageWishlist");
+                    try
+                    {
+                        item.SaveChanges();
+                        isSuccess = true;
+                    }
+                    catch (Exception ex) 
+                    {
+                        throw;
+                    }
+                }
+            }          
+            return isSuccess ;
+        }
+        [HttpDelete]
+        public bool DeleteWish([Bind(Include = "MemberID,ProductID")] WishList wish)
+        {
+            bool isSuccess = false;
+            if (ModelState.IsValid)
+            {
+                using (ItemContext item = new ItemContext())
+                {
+                    HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+                    var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                    var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                    wish.MemberID = memberData.MemberID;
+                    
+                    item.WishLists.Remove(wish);
+                    try
+                    {
+                        item.SaveChanges();
+                        isSuccess = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw;
+                    }
                 }
             }
-            return View();
+            return isSuccess;
         }
+        //public void DeleteWish(int ProductID)
+        //{
+        //    WishList temps = item.WishLists.Find(ProductID);
+        //    item.WishLists.Remove(temps);
+            
+        //    item.SaveChanges();
+        //}
 
         public ActionResult LoginPage()
         {

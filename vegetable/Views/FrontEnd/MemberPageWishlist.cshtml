@@ -336,7 +336,7 @@
 
                 <div class="prod-image ">
                     <a href="Earrings/@data.ProductID">
-                        <img class="card-image" id="@data.ProductName"
+                        <img class="card-image"
                              src="~/Assets/ProductPics/@data.ProductName/1.jpg">
                     </a>
                     <div class="actions">
@@ -351,9 +351,12 @@
                 <figcaption class="prod-desc center">
                     <p class="prod-name"><a href="#">@data.ProductName</a></p>
                     <div class="prod-price"><span class="price">$@data.ProductPrice</span></div>
-                   
+
                 </figcaption>
+                <button class="btn btn-outline-dark rounded-0 btnATC DeleteWish" id="DeleteWish">Delete</button>
             </figure>
+            <br/>
+            
         </div>
         }
 
@@ -380,19 +383,62 @@
 
         $(".card-image").hover(function () {
             $(this).attr("style", "opacity:0.5");
-            $(this).attr("src", "https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24309/020400079-4__16018.1562615109.jpg?c=2");
+            $(this).attr("src", $(this).attr("src").replace('1.jpg','2.jpg'));
         }, function () {
             $(this).attr("style", "opacity:0.5");
-            $(this).attr("src", "https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2");
+            $(this).attr("src", $(this).attr("src").replace('2.jpg','1.jpg'));
         });
 
         $(".btnWL").click(function () {
             $(this).find("i").removeClass("far fa-heart");
             $(this).find("i").addClass("fas fa-heart");
-        });
-
-
-    });
+        });       
+    }); 
+    //$("#DeleteWish").click(function (e) {
+    //    console.log("123");
+    //            e.preventDefault();
+    //            var id = $(this).parent().parent().parent().attr("id");
+                                
+    //            $.ajax({
+            
+    //            type: "POST",
+    //            url: "/FrontEnd/DeleteWish",
+    //            data: {
+    //                //MemberID:MemberID,
+    //                //MemberID:0,
+    //                ProductID:id
+    //            },
+    //            dataType: "text",
+    //                success: function (response) {
+    //                    if (response) {
+    //                        alert('Delete wishlist')
+    //                    }
+                    
+    //            }
+    //        } );
+    //        }
+    $(".DeleteWish").click(function (e) {
+        console.log("1231561");
+                e.preventDefault();
+                    //var id = $(this).parent().parent().parent().attr("id");
+                    var id = $(this).attr("id");
+                                
+                $.ajax({
+            
+                type: "DELETE",
+                url: "/FrontEnd/DeleteWish",
+                data: {
+                    //MemberID:MemberID,
+                    MemberID:0,
+                    ProductID:id
+                },
+                dataType: "text",
+                    success: function () {
+                        Response.redirect("/FrontEnd/MemberPageWishlist")
+                    
+                }
+            } );
+            });
 
 </script>}
 

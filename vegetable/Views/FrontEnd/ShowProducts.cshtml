@@ -1,9 +1,10 @@
 ﻿@model List<vegetable.Models.Product>
+
 @{
     ViewBag.Title = "ShowProducts";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
 <style>
 
     a,
@@ -659,14 +660,14 @@
                             <div class="module-wrapper">
                                 <div class="productBlockContainer row">
                                     <div class="prod-item viewchange col-4" v-for="data in products.slice(beginitem,enditem)">
-                                        <figure class="card-figure viewchange">
+                                        <figure class="card-figure viewchange" :id=`${data.ProductID}`>
                                             <div class="prod-image viewchange">
                                                 <a :href=`Earrings/${data.ProductID}`>
                                                     <img class="card-image viewchange" :id=`${data.ProductName}`
                                                          :src=`/Assets/ProductPics/${data.ProductName}/1.jpg`>
                                                 </a>
                                                 <div class="actions">
-                                                    <a href="#" class="btnWL grid-view">
+                                                    <a href="#" class="btnWL grid-view" :value=`${data.ProductID}`>
                                                         <i class="far fa-heart"></i>
                                                     </a>
                                                     <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
@@ -729,50 +730,6 @@
     <script>
         $(function () {
 
-            $( ".list-view" ).hide();
-            $( "#grid-view" ).click( function () {
-                $( ".list-view" ).hide();
-                $( ".grid-view" ).show();
-                $( "#grid-view" ).addClass( "current-view" );
-                $( "#list-view" ).removeClass( "current-view" );
-                $( ".prod-item.viewchange" ).removeClass( "col-12 d-inline-block imghchange" ).addClass( "col-4" );
-                $( ".card-figure.viewchange" ).removeClass( "row" );
-                $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
-                $( ".card-image.viewchange" ).removeClass( "h-100" );
-                $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
-
-            });
-            $( "#list-view" ).click( function () {
-                $( ".grid-view" ).hide();
-                $( ".list-view" ).show();
-                $( "#grid-view" ).removeClass( "current-view" );
-                $( "#list-view" ).addClass( "current-view" );
-                $( ".prod-item.viewchange" ).removeClass( "col-4" ).addClass( "col-12 d-inline-block imghchange" );
-                $( ".card-figure.viewchange" ).addClass( "row" );
-                $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
-                $( ".card-image.viewchange" ).addClass( "h-100" );
-                $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
-
-            } );
-
-            $( ".card-figure" ).hover( function () {
-                $( this ).find( ".btnWL" ).addClass( "showdown" );
-                $( this ).find( ".btnQV" ).addClass( "hoverin" );
-                $( this ).find( ".btnATC" ).addClass( "hoverin" );
-            }, function () {
-                $( this ).find( ".btnWL" ).removeClass( "showdown" );
-                $( this ).find( ".btnQV" ).removeClass( "hoverin" );
-                $( this ).find( ".btnATC" ).removeClass( "hoverin" );
-            } );
-
-
-
-
-            //$(".pagination-link").click(function () {
-            //    console.log(this);
-
-            //});
-
             var totalproducts = [@Html.Raw(ViewBag.products)];
             var totalpages = @ViewBag.pages;
 
@@ -824,9 +781,82 @@
                 }
             })
 
+            $( ".list-view" ).hide();
+            $( "#grid-view" ).click( function () {
+                $( ".list-view" ).hide();
+                $( ".grid-view" ).show();
+                $( "#grid-view" ).addClass( "current-view" );
+                $( "#list-view" ).removeClass( "current-view" );
+                $( ".prod-item.viewchange" ).removeClass( "col-12 d-inline-block imghchange" ).addClass( "col-4" );
+                $( ".card-figure.viewchange" ).removeClass( "row" );
+                $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
+                $( ".card-image.viewchange" ).removeClass( "h-100" );
+                $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
+
+            });
+            $( "#list-view" ).click( function () {
+                $( ".grid-view" ).hide();
+                $( ".list-view" ).show();
+                $( "#grid-view" ).removeClass( "current-view" );
+                $( "#list-view" ).addClass( "current-view" );
+                $( ".prod-item.viewchange" ).removeClass( "col-4" ).addClass( "col-12 d-inline-block imghchange" );
+                $( ".card-figure.viewchange" ).addClass( "row" );
+                $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
+                $( ".card-image.viewchange" ).addClass( "h-100" );
+                $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
+
+            } );
+
+            $( ".card-figure" ).hover( function () {
+                $( this ).find( ".btnWL" ).addClass( "showdown" );
+                $( this ).find( ".btnQV" ).addClass( "hoverin" );
+                $( this ).find( ".btnATC" ).addClass( "hoverin" );
+            }, function () {
+                $( this ).find( ".btnWL" ).removeClass( "showdown" );
+                $( this ).find( ".btnQV" ).removeClass( "hoverin" );
+                $( this ).find( ".btnATC" ).removeClass( "hoverin" );
+            } );
+
+            $(".card-image").hover(function () {
+                $(this).attr("style", "opacity:0.5");
+                $(this).attr("src", $(this).attr("src").replace('1.jpg','2.jpg'));
+            }, function () {
+                $(this).attr("style", "opacity:0.5");
+                $(this).attr("src", $(this).attr("src").replace('2.jpg','1.jpg'));
+            });
+
+            $(".btnWL").click(function (e) {
+                e.preventDefault();
+                var id = $(this).parent().parent().parent().attr("id");
+                                
+                $.ajax({
+            
+                type: "POST",
+                url: "/FrontEnd/AddWish",
+                data: {
+                    //MemberID:MemberID,
+                    MemberID:0,
+                    ProductID:id
+                },
+                dataType: "text",
+                    success: function (response) {
+                        if (response) {
+                            alert('Add to wishlist')
+                        }
+                    
+                }
+            } );
+            });
+
+
         });
+
+
+
     </script>
 }
+
+
 
 
 
