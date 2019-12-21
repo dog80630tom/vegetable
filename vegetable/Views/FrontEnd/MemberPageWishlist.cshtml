@@ -1,4 +1,4 @@
-﻿
+﻿@model List<vegetable.Models.Product>
 @{
     ViewBag.Title = "MemberPage";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -86,33 +86,34 @@
         padding-bottom: 80px;
         border-top: 1px solid #eaeaea;
     }
-            .productBlockContainer {
-            margin: 0 -15px;
-            display: flex;
-            /*flex-wrap:wrap;*/
-        }
 
-        .prod-item {
-            margin-bottom: 27px;
-            width: 33.33%;
-            float: left;
-        }
+    .productBlockContainer {
+        margin: 0 -15px;
+        display: flex;
+        /*flex-wrap:wrap;*/
+    }
 
-        .card-figure {
-            padding: 0;
-            position: relative;
-            margin-top: 0;
-        }
+    .prod-item {
+        margin-bottom: 27px;
+        width: 33.33%;
+        float: left;
+    }
 
-        .prod-item .prod-image {
-            position: relative;
-            margin-bottom: 21px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+    .card-figure {
+        padding: 0;
+        position: relative;
+        margin-top: 0;
+    }
 
-        .prod-item .prod-image>a {
+    .prod-item .prod-image {
+        position: relative;
+        margin-bottom: 21px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+        .prod-item .prod-image > a {
             display: inline-flex;
             justify-content: center;
             align-items: center;
@@ -120,48 +121,48 @@
             width: 100%;
         }
 
-        .card-image {
-            width: 270px;
-            height: 405px;
-            max-width: 100%;
-        }
+    .card-image {
+        width: 270px;
+        height: 405px;
+        max-width: 100%;
+    }
 
-        .prod-item .prod-image>a img.lazyloaded {
-            width: 100% !important;
-        }
+    .prod-item .prod-image > a img.lazyloaded {
+        width: 100% !important;
+    }
 
-        .card-image {
-            border: 0;
-            display: inline-block;
-        }
+    .card-image {
+        border: 0;
+        display: inline-block;
+    }
 
-        .actions>.btnQV,
-        .actions>a.btnWL,
-        .actions>a.btnATC {
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease 0s;
-            position: absolute;
-        }
+    .actions > .btnQV,
+    .actions > a.btnWL,
+    .actions > a.btnATC {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease 0s;
+        position: absolute;
+    }
 
-        .actions>a.btnWL {
-            top: -20px;
-            right: 13px;
-            display: inline-block;
-            width: 30px;
-            padding: 5px;
-            font-size: 16px;
-            text-align: center;
-        }
+    .actions > a.btnWL {
+        top: -20px;
+        right: 13px;
+        display: inline-block;
+        width: 30px;
+        padding: 5px;
+        font-size: 16px;
+        text-align: center;
+    }
 
-        .actions>a.btnWL:hover {
+        .actions > a.btnWL:hover {
             border-bottom: none;
         }
 
-        .btnWL {
-            font-weight: 400;
-            color: #000;
-        }
+    .btnWL {
+        font-weight: 400;
+        color: #000;
+    }
 
         .btnWL:hover {
             cursor: pointer;
@@ -170,67 +171,67 @@
         }
 
 
-        .actions>a.btnATC {
-            width: 100%;
-            bottom: 10px;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-weight: 700;
-        }
+    .actions > a.btnATC {
+        width: 100%;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-weight: 700;
+    }
 
-        .actions>.btnQV {
-            right: 0px;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 0px;
-            width: 106px;
-            height: 33px;
-            margin: 0 auto;
-            color: #000;
-            border: 2px solid #000;
-            background-color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Poppins, Arial, Helvetica, sans-serif;
-            font-weight: 700;
-        }
+    .actions > .btnQV {
+        right: 0px;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0px;
+        width: 106px;
+        height: 33px;
+        margin: 0 auto;
+        color: #000;
+        border: 2px solid #000;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Poppins, Arial, Helvetica, sans-serif;
+        font-weight: 700;
+    }
 
-        .actions>.btnQV:hover {
+        .actions > .btnQV:hover {
             border: 1px solid #000;
         }
 
-        .productBlockContainer.row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
+    .productBlockContainer.row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 
-        .prod-name a {
-            font-weight: 400;
-            color: #000;
-        }
+    .prod-name a {
+        font-weight: 400;
+        color: #000;
+    }
 
         .prod-name a:hover {
             color: #000;
         }
 
-        .prod-summary {
-            font-weight: 400;
-            line-height: 1.5rem;
-        }
+    .prod-summary {
+        font-weight: 400;
+        line-height: 1.5rem;
+    }
 
-        .hoverin {
-            opacity: 1 !important;
-            visibility: visible !important;
-        }
+    .hoverin {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
 
-        .showdown {
-            opacity: 1 !important;
-            visibility: visible !important;
-            top: 15px !important;
-        }
-         /*nav bar*/
+    .showdown {
+        opacity: 1 !important;
+        visibility: visible !important;
+        top: 15px !important;
+    }
+    /*nav bar*/
     #container_page_nav {
         background-color: #f7f8f9;
         padding: 20px 0 15px 15px;
@@ -323,7 +324,7 @@
             </nav>
         </div>
     </div>
-    
+
     <br />
     <br />
 
@@ -331,33 +332,33 @@
     <div class="productBlockContainer row">
         @foreach (var data in Model)
         {
-        <div class="prod-item col-3">
-            <figure class="card-figure">
+            <div class="prod-item col-3">
+                <figure class="card-figure" id="@data.ProductID">
 
-                <div class="prod-image ">
-                    <a href="Earrings/@data.ProductID">
-                        <img class="card-image"
-                             src="~/Assets/ProductPics/@data.ProductName/1.jpg">
-                    </a>
-                    <div class="actions">
-                        <a href="#" class="btnWL grid-view">
-                            <i class="far fa-heart"></i>
+                    <div class="prod-image ">
+                        <a href="Earrings/@data.ProductID">
+                            <img class="card-image"
+                                 src="~/Assets/ProductPics/@data.ProductName/1.jpg">
                         </a>
-                        <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                        <a href="#" class="btnQV quickview">Quick view</a>
+                        <div class="actions">
+                            <a href="#" class="btnWL grid-view">
+                                <i class="far fa-heart"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                            <a href="#" class="btnQV quickview">Quick view</a>
+                        </div>
                     </div>
-                </div>
 
-                <figcaption class="prod-desc center">
-                    <p class="prod-name"><a href="#">@data.ProductName</a></p>
-                    <div class="prod-price"><span class="price">$@data.ProductPrice</span></div>
+                    <figcaption class="prod-desc center">
+                        <p class="prod-name"><a href="#">@data.ProductName</a></p>
+                        <div class="prod-price"><span class="price">$@data.ProductPrice</span></div>
 
-                </figcaption>
-                <button class="btn btn-outline-dark rounded-0 btnATC DeleteWish" id="DeleteWish">Delete</button>
-            </figure>
-            <br/>
-            
-        </div>
+                    </figcaption>
+                    <button class="btn btn-outline-dark rounded-0 btnATC deleteWish">Delete</button>
+                </figure>
+                <br />
+
+            </div>
         }
 
         <div class="col-1"></div>
@@ -365,80 +366,85 @@
 
 
 
-    
+
 </div>
 
-@section viewJquery{<script>
-    $(function () {
+@section viewJquery{
+    <script>
+        $(function () {
 
-        $(".card-figure").hover(function () {
-            $(this).find(".btnWL").addClass("showdown");
-            $(this).find(".btnQV").addClass("hoverin");
-            $(this).find(".btnATC").addClass("hoverin");
-        }, function () {
-            $(this).find(".btnWL").removeClass("showdown");
-            $(this).find(".btnQV").removeClass("hoverin");
-            $(this).find(".btnATC").removeClass("hoverin");
-        });
-
-        $(".card-image").hover(function () {
-            $(this).attr("style", "opacity:0.5");
-            $(this).attr("src", $(this).attr("src").replace('1.jpg','2.jpg'));
-        }, function () {
-            $(this).attr("style", "opacity:0.5");
-            $(this).attr("src", $(this).attr("src").replace('2.jpg','1.jpg'));
-        });
-
-        $(".btnWL").click(function () {
-            $(this).find("i").removeClass("far fa-heart");
-            $(this).find("i").addClass("fas fa-heart");
-        });       
-    }); 
-    //$("#DeleteWish").click(function (e) {
-    //    console.log("123");
-    //            e.preventDefault();
-    //            var id = $(this).parent().parent().parent().attr("id");
-                                
-    //            $.ajax({
-            
-    //            type: "POST",
-    //            url: "/FrontEnd/DeleteWish",
-    //            data: {
-    //                //MemberID:MemberID,
-    //                //MemberID:0,
-    //                ProductID:id
-    //            },
-    //            dataType: "text",
-    //                success: function (response) {
-    //                    if (response) {
-    //                        alert('Delete wishlist')
-    //                    }
-                    
-    //            }
-    //        } );
-    //        }
-    $(".DeleteWish").click(function (e) {
-        console.log("1231561");
-                e.preventDefault();
-                    //var id = $(this).parent().parent().parent().attr("id");
-                    var id = $(this).attr("id");
-                                
-                $.ajax({
-            
-                type: "DELETE",
-                url: "/FrontEnd/DeleteWish",
-                data: {
-                    //MemberID:MemberID,
-                    MemberID:0,
-                    ProductID:id
-                },
-                dataType: "text",
-                    success: function () {
-                        Response.redirect("/FrontEnd/MemberPageWishlist")
-                    
-                }
-            } );
+            $(".card-figure").hover(function () {
+                $(this).find(".btnWL").addClass("showdown");
+                $(this).find(".btnQV").addClass("hoverin");
+                $(this).find(".btnATC").addClass("hoverin");
+            }, function () {
+                $(this).find(".btnWL").removeClass("showdown");
+                $(this).find(".btnQV").removeClass("hoverin");
+                $(this).find(".btnATC").removeClass("hoverin");
             });
 
-</script>}
+            $(".card-image").hover(function () {
+                $(this).attr("style", "opacity:0.5");
+                $(this).attr("src", $(this).attr("src").replace('1.jpg', '2.jpg'));
+            }, function () {
+                $(this).attr("style", "opacity:0.5");
+                $(this).attr("src", $(this).attr("src").replace('2.jpg', '1.jpg'));
+            });
+
+            $(".btnWL").click(function () {
+                $(this).find("i").removeClass("far fa-heart");
+                $(this).find("i").addClass("fas fa-heart");
+            });
+
+            $(".deleteWish").click(function (e) {
+
+                e.preventDefault();
+                //var id = $(this).parent().parent().parent().attr("id");
+                var id = $(this).parent().attr("id");
+                console.log($(this));
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/FrontEnd/DeleteWish",
+                    data: {
+                        //MemberID:MemberID,
+                        MemberID: 0,
+                        ProductID: id
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        //if (response) {
+                        //    alert('Delete wishlist')
+                        //}
+                    }
+                });
+            });
+        });
+        //$("#DeleteWish").click(function (e) {
+        //    console.log("123");
+        //            e.preventDefault();
+        //            var id = $(this).parent().parent().parent().attr("id");
+
+        //            $.ajax({
+
+        //            type: "POST",
+        //            url: "/FrontEnd/DeleteWish",
+        //            data: {
+        //                //MemberID:MemberID,
+        //                //MemberID:0,
+        //                ProductID:id
+        //            },
+        //            dataType: "text",
+        //                success: function (response) {
+        //                    if (response) {
+        //                        alert('Delete wishlist')
+        //                    }
+
+        //            }
+        //        } );
+        //        }
+
+    </script>
+}
 
