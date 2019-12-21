@@ -1,6 +1,9 @@
 ﻿@model  vegetable.Models.ViewModels.OrderDetailViewModel
 @{
     var total = (Model.Quantity) * (Model.ProductPrice);
+    var quantityAdd = "quantityAdd" + Model.OrderID;
+    var quantityReduce = "quantityReduce" + Model.OrderID;
+    var quantity = "quantity" + Model.OrderID;
 }
 
 @* 購物車內容 *@
@@ -29,16 +32,17 @@
     @* 數量 *@
     <div class="col-3 text-center">
         @* 增加 *@
-        <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+        <button id=@quantityAdd type="button" class="btn btn-outline-dark rounded-0 btn-size" onclick="AddOrReduce(this)"><i class="fas fa-chevron-up"></i></button>
         @* 顯示數量 *@
-        <input value="@Model.Quantity" class="text-center w-25" />
+        <input id=@quantity value="@Model.Quantity" class="text-center w-25" />
         @* 減少 *@
-        <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+        <button id=@quantityReduce type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2" onclick="AddOrReduce(this)"><i class="fas fa-chevron-down"></i></button>
     </div>
     <div class="col-2 text-right mt-3">
         <div class="row p-0">
             @*數量 * 價格*@
             <div class="unitTotal ml-auto">$@total</div>
+            @*刪除*@
             <button id="@Model.OrderDetailsID"  class=" btn btn-red ml-2 deleteCart"><i class="fas fa-times text-center rounded-0"></i></button>
         </div>
     </div>

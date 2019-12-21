@@ -108,9 +108,6 @@ namespace vegetable.Controllers
 
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //改成ajax之前的寫法
-        //public ActionResult AddCart ([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetail cart)
         public void CheckOrder (OrderDetail cart)
         {
             if (ModelState.IsValid)
@@ -232,6 +229,7 @@ namespace vegetable.Controllers
             //預設為會員1
             int memberId = 1;
             IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberId);
+            string str = System.Web.Configuration.WebConfigurationManager.ConnectionStrings ["DefaultConnection"].ConnectionString;
 
             return View("Checkout", cartVM);
         }

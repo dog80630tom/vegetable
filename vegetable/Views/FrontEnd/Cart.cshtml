@@ -213,6 +213,47 @@
             return '$' + money + '.00'
         }
 
+        //修改購物車數量
+        //增加或減少
+        function AddOrReduce(btn) {
+            let btnID = $( btn ).attr( 'id' ).toString();
+            let recorder = JudgeButton( btnID );
+            let val = $( '#quantity' + recorder.orderID ).val();
+            val = parseInt( val );
+            if ( recorder.type == 'add' ) {
+                val = ++val;
+            } else {
+                val = --val;
+                if ( val < 0 ) {
+                    val = 0;
+                }
+            }
+            val = val.toString();
+            $( '#quantity' + recorder.orderID ).val( val );
+        }
+
+        //判斷傳進來的btn是增加或刪除，和購物車ID
+        function JudgeButton( btnID ) {
+            //傳進來的ID可能是 quantityAddXX or quantityReduceXX
+            //XX == 購物車ID
+            let isAdd = btnID.includes( 'Add' );
+            let recorder;
+            if ( isAdd ) {
+                recorder = {
+                    type: 'add',
+                    orderID : btnID.replace( 'quantityAdd', '' )
+                }
+            } else {
+                recorder = {
+                    type: 'reduce',
+                    orderID : btnID.replace( 'quantityReduce', '' )
+                }
+            }
+            return recorder;
+        }
+
+
+
         //刪除Cart
         function DeleteCart() {
             let cartId = $( this ).attr( 'id' );
@@ -235,6 +276,7 @@
                 dataType: 'json',
                 crossDomain: true,
                 success: function ( data ) {
+                    console.log( data );
                     window.location.href = data;
                 }
             } );

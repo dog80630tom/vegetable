@@ -10,7 +10,7 @@ namespace vegetable.Respository
 {
     public class CheckoutRepository
     {
-        string connectionStr = "data source = vegetable.database.windows.net; initial catalog = vegetableDB; user id = sean200365; password=800824arcARC;MultipleActiveResultSets=True;App=EntityFramework";
+        string connectionStr = System.Web.Configuration.WebConfigurationManager.ConnectionStrings ["DefaultConnection"].ConnectionString;
         public void Update(Order order)
         {
             using (SqlConnection conn = new SqlConnection(connectionStr))

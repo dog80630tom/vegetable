@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Checkout";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
-    var orderID = Model.ToList().FirstOrDefault(x => x.OrderID >0).OrderID;
+    var orderID = Model.ToList().FirstOrDefault(x => x.OrderID > 0).OrderID;
 }
 
 <style>
@@ -45,25 +45,25 @@
                 <h2 class="d-inline mx-3 ">1</h2><h2 class="d-inline">Receiver</h2>
             </div>
             <div class="col-12 mt-3">
-                <input id="Receiver" class="w-100 " type="text" name="Receiver" value="" required="required"/>
+                <input id="Receiver" class="w-100 " type="text" name="Receiver" value="" required="required" />
             </div>
             @* 地址 *@
             <div class="col-12 p-0 border-bottom-black mt-5">
                 <h2 class="d-inline mx-3">2</h2><h2 class="d-inline">Address</h2>
             </div>
             <div class="col-12 mt-3">
-                <input id="Address" class="w-100 " type="text" name="Address" value="" required="required"/>
+                <input id="Address" class="w-100 " type="text" name="Address" value="" required="required" />
             </div>
             @* 電話 *@
             <div class="col-12 p-0 border-bottom-black mt-5">
                 <h2 class="d-inline mx-3">3</h2><h2 class="d-inline">Phone</h2>
             </div>
             <div class="col-12 mt-3">
-                <input id="Phone" class="w-100 " type="text" name="Phone" value="" required="required"/>
+                <input id="Phone" class="w-100 " type="text" name="Phone" value="" required="required" />
             </div>
 
             @* 確認 *@
-            <div class="col-12" >
+            <div class="col-12">
                 <button id="Checkout" class="btn btn-confirm rounded-0 text-white mw-100 w-100">CONFIRM </button>
             </div>
         </div>
@@ -72,7 +72,7 @@
             <div class="col-12 order-summary text-white p-3">
                 <div class="row px-4">
                     <h4 class="">Order Summary</h4>
-                    <a href="@Url.Action("Cart", "FrontEnd")" 
+                    <a href="@Url.Action("Cart", "FrontEnd")"
                        class="ml-auto my-auto text-decoration-none text-white">EDIT CART</a>
                 </div>
             </div>
