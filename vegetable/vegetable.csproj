@@ -225,6 +225,7 @@
     <Compile Include="Models\ViewModels\SearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Respository\CheckoutRepository.cs" />
+    <Compile Include="Respository\DapperRepository.cs" />
     <Compile Include="Respository\OrderDetailRepository.cs" />
     <Compile Include="Respository\ConnRespository.cs" />
     <Compile Include="Respository\ICRUD.cs" />

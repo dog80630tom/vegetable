@@ -181,6 +181,7 @@
         $( function () {
             GetSubTotal();
             $( '.deleteCart' ).click( DeleteCart );
+            $( '.quntity' ).change( QuantityInputChange );
         } );
 
         function GetSubTotal() {
@@ -224,12 +225,13 @@
                 val = ++val;
             } else {
                 val = --val;
-                if ( val < 0 ) {
-                    val = 0;
+                if ( val < 1 ) {
+                    val = 1;
                 }
             }
             val = val.toString();
             $( '#quantity' + recorder.orderID ).val( val );
+            UpdateCart(recorder.orderID, val);
         }
 
         //判斷傳進來的btn是增加或刪除，和購物車ID
@@ -252,7 +254,24 @@
             return recorder;
         }
 
+        function QuantityInputChange() {
+             let id = $( this ).attr( 'id' ).replace( 'quantity', '' );
+            let quantity = $( this ).val();
+            UpdateCart( id, quantity );
+        }
 
+        //修改產品數量
+        function UpdateCart(id, quantity) {
+            $.ajax( {
+                type: "POST",
+                url: "/Frontend/UpdateCart",
+                data: { cartId: id, quantity: quantity },
+                dataType: "text",
+                success: function ( response ) {
+                    window.location.href = "Cart"
+                }
+            } );
+        }
 
         //刪除Cart
         function DeleteCart() {
@@ -276,7 +295,6 @@
                 dataType: 'json',
                 crossDomain: true,
                 success: function ( data ) {
-                    console.log( data );
                     window.location.href = data;
                 }
             } );

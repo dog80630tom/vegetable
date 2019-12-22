@@ -11,7 +11,7 @@ namespace vegetable.Respository
 {
     public class OrderDetailRepository
     {
-        string connectionStr = "data source = vegetable.database.windows.net; initial catalog = vegetableDB; user id = sean200365; password=800824arcARC;MultipleActiveResultSets=True;App=EntityFramework";
+        string connectionStr = ConfigurationManager.ConnectionStrings ["DefaultConnection"].ConnectionString;
         public IEnumerable<OrderDetailViewModel> GetAllCart (int memberId)
         {
             using (SqlConnection conn = new SqlConnection(connectionStr))
@@ -46,6 +46,17 @@ namespace vegetable.Respository
                 };
                 conn.Execute(sql, datas);
             }
+        }
+
+        public void UpdateCart (int cartId, int quantity)
+        {
+            string sql = "UPDATE OrderDetails SET Quantity= @Quantity WHERE OrderDetailsID=@OrderDetailsID";
+            var datas = new
+            {
+                OrderDetailsID = cartId,
+                Quantity = quantity
+            };
+            DapperRepository.ExcuteDapper(sql, datas);
         }
 
     }

@@ -253,5 +253,10 @@ namespace vegetable.Controllers
             CheckoutRepository.Update(order);
         }
 
+        public void UpdateCart (int cartId, int quantity)
+        {
+            orderDetail.UpdateCart(cartId, quantity);
+        }
+
     }
 }
