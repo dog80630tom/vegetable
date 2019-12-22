@@ -1,4 +1,5 @@
 ﻿@model List<vegetable.Models.Product>
+
 @{
     ViewBag.Title = "ShowProducts";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -638,14 +639,14 @@
                             <div class="module-wrapper">
                                 <div class="productBlockContainer row">
                                     <div class="prod-item viewchange col-4" v-for="data in products.slice(beginitem,enditem)">
-                                        <figure class="card-figure viewchange">
+                                        <figure class="card-figure viewchange" :id=`${data.ProductID}`>
                                             <div class="prod-image viewchange">
                                                 <a :href=`Earrings/${data.ProductID}`>
                                                     <img class="card-image viewchange" :id=`${data.ProductName}`
                                                          :src=`/Assets/ProductPics/${data.ProductName}/1.jpg`>
                                                 </a>
                                                 <div class="actions">
-                                                    <a href="#" class="btnWL grid-view">
+                                                    <a href="#" class="btnWL grid-view" :value=`${data.ProductID}`>
                                                         <i class="far fa-heart"></i>
                                                     </a>
                                                     <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
@@ -844,8 +845,13 @@
             });
 
         });
+
+
+
     </script>
 }
+
+
 
 
 
