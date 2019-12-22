@@ -1,3 +1,6 @@
+using Imgur.API.Authentication.Impl;
+using Imgur.API.Endpoints.Impl;
+using Imgur.API.Models;
 using Newtonsoft.Json;
 
 using System;
@@ -104,9 +107,9 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
         //    return View(initdetil());
         //}
         [HttpPost]
-        public void UploadFile()
+        public ActionResult UploadFile()
         {
-
+            var path = "";
             if (Request.Files.AllKeys.Any())
             {
                 //## 讀取指定的上傳檔案ID
@@ -115,12 +118,38 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
                 //## 真實有檔案，進行上傳
                 if (httpPostedFile != null && httpPostedFile.ContentLength != 0)
                 {
-                     string _FileName = Path.GetFileName(httpPostedFile.FileName);  
-                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);  
-                    httpPostedFile.SaveAs(_path); 
+                    string _FileName = Path.GetFileName(httpPostedFile.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);
+                    httpPostedFile.SaveAs(_path);
+                    path = _path;
                 }
             }
+            return Json(path, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public ActionResult UploadFile2Cloud(string updatedata,string form)
+        {
+           
+
+                var client = new ImgurClient("f4698b7dc49d5f0", "109e94774eab1e47496e875b4e55bc6b6e59140f");
+                var endpoint = new ImageEndpoint(client);
+                IImage image;
+                //取得圖片檔案FileStream
+                using (var fs = new FileStream(form, FileMode.Open))
+                {
+                    image = endpoint.UploadImageStreamAsync(fs).GetAwaiter().GetResult();
+                }
+                var link = JsonConvert.SerializeObject(image.Link);
+                link = link.Replace("\"", "");
+            
+            return Json(link, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult getupdate() {
+
+            return View();
+        }
+
+
         [HttpPost]
         public ActionResult ProductList(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
         {
