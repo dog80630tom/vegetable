@@ -26,5 +26,6 @@ namespace vegetable.Controllers
         public DbSet<CartDetail> CartDetails { get; set; }
         public DbSet<Customer_Review> Customer_Reviews { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
     }
 }
