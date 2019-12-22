@@ -198,10 +198,10 @@
     <Compile Include="Helper\MyHtmlHelper.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\AdminRespond.cs" />
+    <Compile Include="Models\CartDetail.cs" />
     <Compile Include="Models\Customer_Question.cs" />
     <Compile Include="Models\Customer_Review.cs" />
     <Compile Include="Models\HomePageAD.cs" />
-    <Compile Include="Models\CartDetail.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
@@ -778,6 +778,22 @@
     <Content Include="Views\Category\Create.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\FrontEnd\Cart.cshtml" />
+    <Content Include="Views\FrontEnd\ForgotPassword.cshtml" />
+    <Content Include="Views\FrontEnd\Index - �ƻs.cshtml" />
+    <Content Include="Views\FrontEnd\index_clone.cshtml" />
+    <Content Include="Views\FrontEnd\LoginPage.cshtml" />
+    <Content Include="Views\FrontEnd\MemberCart.cshtml" />
+    <Content Include="Views\FrontEnd\MemberLogInModel.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageAddress.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageOrder.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
+    <Content Include="Views\FrontEnd\MemberPageWishlist.cshtml" />
+    <Content Include="Views\FrontEnd\MemberRegist.cshtml" />
+    <Content Include="Views\FrontEnd\ProductIndex.cshtml" />
+    <Content Include="Views\FrontEnd\Shipping.cshtml" />
+    <Content Include="Views\FrontEnd\ShowProducts.cshtml" />
     <Content Include="Views\Members\Create.cshtml" />
     <Content Include="Views\Members\Delete.cshtml" />
     <Content Include="Views\Members\Edit.cshtml" />
@@ -843,7 +859,7 @@
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
+      <ErrorText>���M�װѦҳo���q���W�үʤ֪� NuGet �M��C�бҥ� NuGet �M���٭�A�H�U���ӮM��C�p�ݸԲӸ�T�A�аѾ\ http://go.microsoft.com/fwlink/?LinkID=322105�C�ʤ֪��ɮ׬O {0}�C</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
