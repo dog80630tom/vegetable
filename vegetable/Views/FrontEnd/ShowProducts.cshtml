@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <style>
 
     a,
@@ -571,30 +573,8 @@
                         <div class="sidebarBlock" id="sideShopByPrice">
                             <h6 class="side-module-heading"><span>Shop by Price</span></h6>
                             <ul>
-                                <li>
-                                    <a class=""
-                                       href="https://lovoda.com/y-necklace-lariat/?price_min=0&amp;price_max=19&amp;sort=newest"
-                                       alt="$0.00 - $19.00" title="$0.00 - $19.00">$0.00 - $19.00</a>
-                                </li>
-                                <li>
-                                    <a class=""
-                                       href="https://lovoda.com/y-necklace-lariat/?price_min=19&amp;price_max=23&amp;sort=newest"
-                                       alt="$19.00 - $23.00" title="$19.00 - $23.00">$19.00 - $23.00</a>
-                                </li>
-                                <li>
-                                    <a class=""
-                                       href="https://lovoda.com/y-necklace-lariat/?price_min=23&amp;price_max=27&amp;sort=newest"
-                                       alt="$23.00 - $27.00" title="$23.00 - $27.00">$23.00 - $27.00</a>
-                                </li>
-                                <li>
-                                    <a class=""
-                                       href="https://lovoda.com/y-necklace-lariat/?price_min=27&amp;price_max=31&amp;sort=newest"
-                                       alt="$27.00 - $31.00" title="$27.00 - $31.00">$27.00 - $31.00</a>
-                                </li>
-                                <li>
-                                    <a class=""
-                                       href="https://lovoda.com/y-necklace-lariat/?price_min=31&amp;price_max=35&amp;sort=newest"
-                                       alt="$31.00 - $35.00" title="$31.00 - $35.00">$31.00 - $35.00</a>
+                                <li v-for="interval in intervals" v-on:click="pricefilter(interval.low,interval.height)">
+                                    <a alt=interval title=interval>${{interval.low}}.00 - ${{interval.height}}.00</a>
                                 </li>
                             </ul>
                         </div>
@@ -643,13 +623,12 @@
                                 <fieldset class="form-fieldset actionBar-section">
                                     <div class="form-field">
                                         <label class="form-label" for="sort">Sort By:</label>
-                                        <select v-model="selected" class="form-select form-select--small" name="sort" id="sort">
-                                            <option value="alphaasc">A to Z</option>
-                                            <option value="alphadesc">Z to A</option>
+                                        <select v-model="selectedvalue" class="form-select form-select--small" name="sort" id="sort">
+                                            <option value="nameasc">A to Z</option>
+                                            <option value="namedesc">Z to A</option>
                                             <option value="priceasc">Price: Ascending</option>
                                             <option value="pricedesc">Price: Descending</option>
                                         </select>
-                                        <label class="form-label">{{selected}}</label>
                                     </div>
                                 </fieldset>
                             </form>
@@ -676,7 +655,7 @@
 
                                             <figcaption class="prod-desc viewchange center">
                                                 <p class="prod-name"><a href="#">{{data.ProductName}}</a></p>
-                                                <div class="prod-price"><span class="price">{{data.ProductPrice}}</span></div>
+                                                <div class="prod-price"><span class="price">${{data.ProductPrice}}.00</span></div>
                                                 <div class="prod-summary list-view">
                                                     <p>
                                                         {{data.ProductDescription}}
@@ -727,22 +706,24 @@
 
 @section viewJquery{
     <script>
+
         $(function () {
-
+            var pageshowitems = 12.0;
             var totalproducts = [@Html.Raw(ViewBag.products)];
-            var totalpages = @ViewBag.pages;
-
+            var priceinterval = [{low:0,height:19},{low:19.,height:23},{low:23,height:27},{low:27,height:31},{low:31,height:35}];
             console.log(totalproducts);
-
             var app = new Vue({
                 el: '#app',
                 data: {
-                    products: totalproducts,
-                    sum: totalpages,
+                    allproducts: totalproducts,
                     curpage: '1',
-                    selected: 'alphaasc'
+                    selectedvalue: '',
+                    intervals:priceinterval,
+                    products: _.orderBy(totalproducts, ['ProductID'], ['asc']),
+                    filterproducts: '',
                 },
                 methods: {
+                    //分頁按下動作
                     pageclick(item) {
                         app.curpage = item;
                     },
@@ -751,18 +732,55 @@
                     },
                     pagenextclick() {
                         app.curpage++;
-                    }
+                    },
+                    //設定價格區間
+                    pricefilter(low, height) {
+                        var filterproducts = $.grep(app.allproducts, function (item, index){
+                            return item.ProductPrice > low && item.ProductPrice <= height;
+                        });
+                        app.products = filterproducts;
+                    },
                 },
-                computed: {
 
+                watch: {
+                    //排序設定(用select改變來更改products，需要用到監控)
+                    selectedvalue() {
+                        var item = '';
+                        switch (this.selectedvalue) {
+                            case 'nameasc':
+                                console.log('a');
+                                item = _.orderBy(this.allproducts, ['ProductName'], ['asc']);
+                                break;
+                            case 'namedesc':
+                                console.log('b');
+                                item = _.orderBy(this.allproducts, ['ProductName'], ['desc']);
+                                break;
+                            case 'priceasc':
+                                console.log('c');
+                                item = _.orderBy(this.allproducts, ['ProductPrice'], ['asc']);
+                                break;
+                            case 'pricedesc':
+                                console.log('d');
+                                item = _.orderBy(this.allproducts, ['ProductPrice'], ['desc']);
+                                break;
+                        }
+                        app.allproducts = item;
+                        app.products = item;
+                    },
+                },
+
+                computed: {
+                    //各頁產品的顯示index
                     beginitem() {
                         return (this.curpage - 1) * 12;
                     },
-
                     enditem() {
                          return (this.curpage) * 12;
                     },
-
+                    //分頁列顯示設定
+                    sum() {
+                        return Math.ceil(this.products.length / pageshowitems);
+                    },
                     preshow() {
                         if (this.curpage == 1) {
                             return false;
@@ -771,14 +789,15 @@
                         }
                     },
                     nextshow() {
-                        if (this.curpage == totalpages) {
+                        if (this.curpage == this.sum) {
                             return false;
                         } else {
                             return true;
                         }
-                    }
-                }
+                    },
+                },
             })
+        
 
             $( ".list-view" ).hide();
             $( "#grid-view" ).click( function () {
@@ -815,7 +834,14 @@
                 $( this ).find( ".btnQV" ).removeClass( "hoverin" );
                 $( this ).find( ".btnATC" ).removeClass( "hoverin" );
             } );
-            
+
+            $(".card-image").hover(function () {
+                $(this).attr("style", "opacity:0.5");
+                $(this).attr("src", $(this).attr("src").replace('1.jpg','2.jpg'));
+            }, function () {
+                $(this).attr("style", "opacity:0.5");
+                $(this).attr("src", $(this).attr("src").replace('2.jpg','1.jpg'));
+            });
 
         });
     </script>

@@ -50,13 +50,11 @@ namespace vegetable.Controllers
                                where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
                                select p;
 
-            var pageshowitems = 12.0;
-            ViewBag.pages = Math.Ceiling(allproducts.Count() / pageshowitems);
             var JSONTO = allproducts.ToList();
             foreach (Product p in JSONTO)
             {
                 //用viewbag丟json格式到view
-                ViewBag.products += "{ProductID:'" + p.ProductID + "',CategoryID:'" + p.CategoryID + "',ProductName:'" + p.ProductName + "',UnitsInStock:'" + p.UnitsInStock + "',ProductPrice:'" + p.ProductPrice + "'},";
+                ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + "},";
             }
             ViewBag.products = ViewBag.products.TrimEnd(',');
 
