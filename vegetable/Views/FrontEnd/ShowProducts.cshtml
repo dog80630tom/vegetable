@@ -706,149 +706,167 @@
 </div>
 
 @section viewJquery{
-    <script>
+<script>
 
-        $(function () {
-            var pageshowitems = 12.0;
-            var totalproducts = [@Html.Raw(ViewBag.products)];
-            var priceinterval = [{low:0,height:19},{low:19.,height:23},{low:23,height:27},{low:27,height:31},{low:31,height:35}];
-            console.log(totalproducts);
-            var app = new Vue({
-                el: '#app',
-                data: {
-                    allproducts: totalproducts,
-                    curpage: '1',
-                    selectedvalue: '',
-                    intervals:priceinterval,
-                    products: _.orderBy(totalproducts, ['ProductID'], ['asc']),
-                    filterproducts: '',
+    $(function () {
+        var pageshowitems = 12.0;
+        var totalproducts = [@Html.Raw(ViewBag.products)];
+        var priceinterval = [{low:0,height:19},{low:19.,height:23},{low:23,height:27},{low:27,height:31},{low:31,height:35}];
+        console.log(totalproducts);
+        var app = new Vue({
+            el: '#app',
+            data: {
+                allproducts: totalproducts,
+                curpage: '1',
+                selectedvalue: '',
+                intervals:priceinterval,
+                products: _.orderBy(totalproducts, ['ProductID'], ['asc']),
+                filterproducts: '',
+            },
+            methods: {
+                //分頁按下動作
+                pageclick(item) {
+                    app.curpage = item;
                 },
-                methods: {
-                    //分頁按下動作
-                    pageclick(item) {
-                        app.curpage = item;
-                    },
-                    pagepreclick() {
-                        app.curpage--;
-                    },
-                    pagenextclick() {
-                        app.curpage++;
-                    },
-                    //設定價格區間
-                    pricefilter(low, height) {
-                        var filterproducts = $.grep(app.allproducts, function (item, index){
-                            return item.ProductPrice > low && item.ProductPrice <= height;
-                        });
-                        app.products = filterproducts;
-                    },
+                pagepreclick() {
+                    app.curpage--;
                 },
+                pagenextclick() {
+                    app.curpage++;
+                },
+                //設定價格區間
+                pricefilter(low, height) {
+                    var filterproducts = $.grep(app.allproducts, function (item, index){
+                        return item.ProductPrice > low && item.ProductPrice <= height;
+                    });
+                    app.products = filterproducts;
+                },
+            },
 
-                watch: {
-                    //排序設定(用select改變來更改products，需要用到監控)
-                    selectedvalue() {
-                        var item = '';
-                        switch (this.selectedvalue) {
-                            case 'nameasc':
-                                console.log('a');
-                                item = _.orderBy(this.allproducts, ['ProductName'], ['asc']);
-                                break;
-                            case 'namedesc':
-                                console.log('b');
-                                item = _.orderBy(this.allproducts, ['ProductName'], ['desc']);
-                                break;
-                            case 'priceasc':
-                                console.log('c');
-                                item = _.orderBy(this.allproducts, ['ProductPrice'], ['asc']);
-                                break;
-                            case 'pricedesc':
-                                console.log('d');
-                                item = _.orderBy(this.allproducts, ['ProductPrice'], ['desc']);
-                                break;
-                        }
-                        app.allproducts = item;
-                        app.products = item;
-                    },
+            watch: {
+                //排序設定(用select改變來更改products，需要用到監控)
+                selectedvalue() {
+                    var item = '';
+                    switch (this.selectedvalue) {
+                        case 'nameasc':
+                            console.log('a');
+                            item = _.orderBy(this.allproducts, ['ProductName'], ['asc']);
+                            break;
+                        case 'namedesc':
+                            console.log('b');
+                            item = _.orderBy(this.allproducts, ['ProductName'], ['desc']);
+                            break;
+                        case 'priceasc':
+                            console.log('c');
+                            item = _.orderBy(this.allproducts, ['ProductPrice'], ['asc']);
+                            break;
+                        case 'pricedesc':
+                            console.log('d');
+                            item = _.orderBy(this.allproducts, ['ProductPrice'], ['desc']);
+                            break;
+                    }
+                    app.allproducts = item;
+                    app.products = item;
                 },
+            },
 
-                computed: {
-                    //各頁產品的顯示index
-                    beginitem() {
-                        return (this.curpage - 1) * 12;
-                    },
-                    enditem() {
-                         return (this.curpage) * 12;
-                    },
-                    //分頁列顯示設定
-                    sum() {
-                        return Math.ceil(this.products.length / pageshowitems);
-                    },
-                    preshow() {
-                        if (this.curpage == 1) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    },
-                    nextshow() {
-                        if (this.curpage == this.sum) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    },
+            computed: {
+                //各頁產品的顯示index
+                beginitem() {
+                    return (this.curpage - 1) * 12;
                 },
-            })
+                enditem() {
+                        return (this.curpage) * 12;
+                },
+                //分頁列顯示設定
+                sum() {
+                    return Math.ceil(this.products.length / pageshowitems);
+                },
+                preshow() {
+                    if (this.curpage == 1) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                },
+                nextshow() {
+                    if (this.curpage == this.sum) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                },
+            },
+        })
         
 
+        $( ".list-view" ).hide();
+        $( "#grid-view" ).click( function () {
             $( ".list-view" ).hide();
-            $( "#grid-view" ).click( function () {
-                $( ".list-view" ).hide();
-                $( ".grid-view" ).show();
-                $( "#grid-view" ).addClass( "current-view" );
-                $( "#list-view" ).removeClass( "current-view" );
-                $( ".prod-item.viewchange" ).removeClass( "col-12 d-inline-block imghchange" ).addClass( "col-4" );
-                $( ".card-figure.viewchange" ).removeClass( "row" );
-                $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
-                $( ".card-image.viewchange" ).removeClass( "h-100" );
-                $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
+            $( ".grid-view" ).show();
+            $( "#grid-view" ).addClass( "current-view" );
+            $( "#list-view" ).removeClass( "current-view" );
+            $( ".prod-item.viewchange" ).removeClass( "col-12 d-inline-block imghchange" ).addClass( "col-4" );
+            $( ".card-figure.viewchange" ).removeClass( "row" );
+            $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
+            $( ".card-image.viewchange" ).removeClass( "h-100" );
+            $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
 
-            });
-            $( "#list-view" ).click( function () {
-                $( ".grid-view" ).hide();
-                $( ".list-view" ).show();
-                $( "#grid-view" ).removeClass( "current-view" );
-                $( "#list-view" ).addClass( "current-view" );
-                $( ".prod-item.viewchange" ).removeClass( "col-4" ).addClass( "col-12 d-inline-block imghchange" );
-                $( ".card-figure.viewchange" ).addClass( "row" );
-                $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
-                $( ".card-image.viewchange" ).addClass( "h-100" );
-                $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
+        });
+        $( "#list-view" ).click( function () {
+            $( ".grid-view" ).hide();
+            $( ".list-view" ).show();
+            $( "#grid-view" ).removeClass( "current-view" );
+            $( "#list-view" ).addClass( "current-view" );
+            $( ".prod-item.viewchange" ).removeClass( "col-4" ).addClass( "col-12 d-inline-block imghchange" );
+            $( ".card-figure.viewchange" ).addClass( "row" );
+            $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
+            $( ".card-image.viewchange" ).addClass( "h-100" );
+            $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
 
-            } );
+        } );
 
-            $( ".card-figure" ).hover( function () {
-                $( this ).find( ".btnWL" ).addClass( "showdown" );
-                $( this ).find( ".btnQV" ).addClass( "hoverin" );
-                $( this ).find( ".btnATC" ).addClass( "hoverin" );
-            }, function () {
-                $( this ).find( ".btnWL" ).removeClass( "showdown" );
-                $( this ).find( ".btnQV" ).removeClass( "hoverin" );
-                $( this ).find( ".btnATC" ).removeClass( "hoverin" );
-            } );
+        $( ".card-figure" ).hover( function () {
+            $( this ).find( ".btnWL" ).addClass( "showdown" );
+            $( this ).find( ".btnQV" ).addClass( "hoverin" );
+            $( this ).find( ".btnATC" ).addClass( "hoverin" );
+        }, function () {
+            $( this ).find( ".btnWL" ).removeClass( "showdown" );
+            $( this ).find( ".btnQV" ).removeClass( "hoverin" );
+            $( this ).find( ".btnATC" ).removeClass( "hoverin" );
+        } );
 
-            $(".card-image").hover(function () {
-                $(this).attr("style", "opacity:0.5");
-                $(this).attr("src", $(this).attr("src").replace('1.jpg','2.jpg'));
-            }, function () {
-                $(this).attr("style", "opacity:0.5");
-                $(this).attr("src", $(this).attr("src").replace('2.jpg','1.jpg'));
+        $(".card-image").hover(function () {
+            $(this).attr("style", "opacity:0.5");
+            $(this).attr("src", $(this).attr("src").replace('1.jpg','2.jpg'));
+        }, function () {
+            $(this).attr("style", "opacity:0.5");
+            $(this).attr("src", $(this).attr("src").replace('2.jpg','1.jpg'));
+        });
+
+        $(".btnWL").click(function (e) {
+            e.preventDefault();
+            var id = $(this).parents("figure").attr("id");
+                                
+            $.ajax({
+                type: "POST",
+                url: "/FrontEnd/AddWish",
+                data: {
+                    //MemberID:MemberID,
+                    MemberID:0,
+                    ProductID:id
+                },
+                dataType: "text",
+                success: function (response) {
+                    if (response) {
+                        alert('Add to wishlist');
+                    }
+                }   
             });
 
         });
-
-
-
-    </script>
+    });
+</script>
 }
 
 

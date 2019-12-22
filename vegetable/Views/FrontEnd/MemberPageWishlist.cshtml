@@ -400,7 +400,7 @@
 
                 e.preventDefault();
                 //var id = $(this).parent().parent().parent().attr("id");
-                var id = $(this).parent().attr("id");
+                var id = $(this).parents("figure").attr("id");
                 console.log($(this));
 
                 $.ajax({
@@ -421,29 +421,7 @@
                 });
             });
         });
-        //$("#DeleteWish").click(function (e) {
-        //    console.log("123");
-        //            e.preventDefault();
-        //            var id = $(this).parent().parent().parent().attr("id");
-
-        //            $.ajax({
-
-        //            type: "POST",
-        //            url: "/FrontEnd/DeleteWish",
-        //            data: {
-        //                //MemberID:MemberID,
-        //                //MemberID:0,
-        //                ProductID:id
-        //            },
-        //            dataType: "text",
-        //                success: function (response) {
-        //                    if (response) {
-        //                        alert('Delete wishlist')
-        //                    }
-
-        //            }
-        //        } );
-        //        }
+        
 
     </script>
 }
