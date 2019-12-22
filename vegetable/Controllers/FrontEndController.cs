@@ -11,6 +11,8 @@ using vegetable.Models;
 using vegetable.Respository.MemberResp;
 using vegetable.Services;
 using Member = vegetable.Models.Member;
+using vegetable.Models.ViewModels;
+using vegetable.Respository;
 
 namespace vegetable.Controllers
 {
@@ -22,7 +24,7 @@ namespace vegetable.Controllers
         Encryption Encryption = new Encryption();
         // GET: FrontEnd
 
-        public ActionResult Index()
+        public ActionResult Index ()
         {
             HttpContext.Response.Cookies.Clear();
             return View();
@@ -65,15 +67,15 @@ namespace vegetable.Controllers
         {
             return View();
         }
-        public ActionResult MemberLogInModel()
+        public ActionResult MemberLogInModel ()
         {
             return View();
         }
-        public ActionResult MemberPageOrder()
+        public ActionResult MemberPageOrder ()
         {
             return View();
         }
-        public ActionResult MemberPageOrderDetail()
+        public ActionResult MemberPageOrderDetail ()
         {
             return View();
         }
@@ -89,6 +91,7 @@ namespace vegetable.Controllers
             using (ItemContext item = new ItemContext())
             {
                 Product product = item.Products.Find(id);
+                Category category = item.Categories.Find(product.CategoryID);
                 //傳入的id找不到商品
                 if (product == null)
                 {
@@ -102,6 +105,7 @@ namespace vegetable.Controllers
                 ViewBag.ProductDescription = product.ProductDescription;
                 ViewBag.ProductName = product.ProductName;
                 ViewBag.ProductPrice = product.ProductPrice;
+                ViewBag.CategoryName = category.CategoryName;
                 return View();
             }
         }

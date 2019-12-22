@@ -401,15 +401,15 @@
         @*產品大圖*@
         <div class="col-xl-4 order-xl-1 col-md-6 order-md-2 col-12 order-1">
             <figure class="figure">
-                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" src="~/Assets/ProductPics/@ViewBag.ProductName/1.jpg" alt="">
+                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/1.jpg" alt="">
             </figure>
         </div>
 
         @* 右半部  購買清單*@
         <div class="col-xl-8 order-xl-2 col-md-6 order-md-2 order-3">
-            <div class="productView-title">@ViewBag.ProductName</div>
+            <div id="ProductName" class="productView-title">@ViewBag.ProductName</div>
             <div class="productView-rating"></div>
-            <div class="productView-price">$@ViewBag.ProductPrice </div>
+            <div id="ProductPrice " class="productView-price">$@ViewBag.ProductPrice </div>
             <span>
                 <i class="far fa-star"></i>
                 <i class="far fa-star"></i>
@@ -421,47 +421,45 @@
             <div class="productView-rating"></div>
             @*大小選擇 有時間再做*@
             @*<div>Size: <span class="text-danger">*</span></div>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">6</button>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">7</button>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>*@
+                <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">6</button>
+                <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">7</button>
+                <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>*@
             <div class="productView-rating"></div>
-            @*購改清單*@
-            <form action="/FrontEnd/AddCart" method="post">
-                @*會員ID*@
-                <input type="hidden" name="MemberID" value="@ViewBag.MemberID" />
-                @*產品ID*@
-                <input type="hidden" name="ProductID" value="@ViewBag.ProductID" />
-                @*Cart ID*@
-                @*                <input type="hidden" name="CartID" value="@ViewBag.CartID" />*@
-                @* 數量 *@
-                <div>Quantity:</div>
-                @* 增加 *@
-                <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
-                <input id="quantity" name="Quantity" value="1" class="text-center" />
-                @* 減少 *@
-                <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
-                <div class="productView-rating"></div>
-                <button id="button#form-action-addToCart" type="submit" style="width:220px"
-                        class="btn btn-outline-dark rounded-0">
-                    ADD TO CART
-                    @*<a href="@Url.Action("Cart", "FrontEnd")"> ADD TO CART</a>*@
-                </button>
-            </form>
+
+            @*購買相關*@
+            @* 
+                ID之後要隱藏!!!!
+                ID之後要隱藏!!!!
+                ID之後要隱藏!!!!
+                *@
+            @*會員ID*@
+            <input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />
+            @*產品ID*@
+            <input id="ProductID" type="hidden" name="ProductID" value="@ViewBag.ProductID" />
+            @* 數量 *@
+            <div>Quantity:</div>
+            @* 增加 *@
+            <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+            <input id="quantity" name="Quantity" value="1" class="text-center" />
+            @* 減少 *@
+            <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+            <div class="productView-rating"></div>
+            <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
         </div>
         @*產品小圖和社群按鈕*@
         <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4">
-            <div class="col-xl-4 col-md-5 productView-thumbnail">
+            <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
                 <a class="mr-3 " href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/1.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/1.jpg" alt="Tie and Knot Ring" />
                 </a>
                 <a class="mr-3" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/2.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/2.jpg" alt="Tie and Knot Ring" />
                 </a>
                 <a class="mr-3" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/3.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/3.jpg" alt="Tie and Knot Ring" />
                 </a>
                 <a class="" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/4.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/4.jpg" alt="Tie and Knot Ring" />
                 </a>
             </div>
         </div>
@@ -783,5 +781,22 @@
             }
         }
 
+        //新增購物車 ajax
+        function AddCart() {
+            let productId = $( '#ProductID' ).val();
+            let memberId = $( '#MemberID' ).val();
+            let quantity = $( '#quantity' ).val();
+
+            $.ajax( {
+                type: "POST",
+                //先確認目前的訂單狀況 再接AddCart的action
+                url: "/FrontEnd/CheckOrder",
+                data: { MemberID: memberId, ProductID: productId, Quantity: quantity },
+                dataType: "text",
+                success: function ( response ) {
+                    alert( '成功加入購物車' );
+                }
+            } );
+        }
     </script>
 }
