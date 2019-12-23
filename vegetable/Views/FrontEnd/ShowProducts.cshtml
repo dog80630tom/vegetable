@@ -1,12 +1,13 @@
-﻿ @model List<vegetable.Models.Product>
+﻿@model List<vegetable.Models.Product>
+
 @{
     ViewBag.Title = "ShowProducts";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <style>
-    body {
-        letter-spacing: 0.02em;
-    }*/
 
     a,
     a:hover,
@@ -475,11 +476,11 @@
             color: #000;
         }
 
-    .pagination-item--current a {
+    .selectedpage a {
         border-bottom: 1px dotted #000;
     }
 
-        .pagination-item--current a:hover {
+        .selectedpage a:hover {
             cursor: none;
         }
 
@@ -518,14 +519,11 @@
     }
 
     .pagination-link:hover {
-        cursor:pointer;
+        cursor: pointer;
     }
 </style>
 
-<script>
-</script>
-
-<div class="show-all">
+<div id="app" class="show-all">
     <div class="container_page">
         <div id="container_page_nav">
             <div class="container">
@@ -576,32 +574,9 @@
                         <div class="sidebarBlock" id="sideShopByPrice">
                             <h6 class="side-module-heading"><span>Shop by Price</span></h6>
                             <ul>
-                                <li>
-                                    <a class=""
-                                       href="https://lovoda.com/y-necklace-lariat/?price_min=0&amp;price_max=19&amp;sort=newest"
-                                       alt="$0.00 - $19.00" title="$0.00 - $19.00">$0.00 - $19.00</a>
+                                <li v-for="interval in intervals" v-on:click="pricefilter(interval.low,interval.height)">
+                                    <a alt=interval title=interval>${{interval.low}}.00 - ${{interval.height}}.00</a>
                                 </li>
-                                <li>
-                                    <a class=""
-                                       href="https://lovoda.com/y-necklace-lariat/?price_min=19&amp;price_max=23&amp;sort=newest"
-                                       alt="$19.00 - $23.00" title="$19.00 - $23.00">$19.00 - $23.00</a>
-                                </li>
-                                <li>
-                                    <a class=""
-                                       href="https://lovoda.com/y-necklace-lariat/?price_min=23&amp;price_max=27&amp;sort=newest"
-                                       alt="$23.00 - $27.00" title="$23.00 - $27.00">$23.00 - $27.00</a>
-                                </li>
-                                <li>
-                                    <a class=""
-                                       href="https://lovoda.com/y-necklace-lariat/?price_min=27&amp;price_max=31&amp;sort=newest"
-                                       alt="$27.00 - $31.00" title="$27.00 - $31.00">$27.00 - $31.00</a>
-                                </li>
-                                <li>
-                                    <a class=""
-                                       href="https://lovoda.com/y-necklace-lariat/?price_min=31&amp;price_max=35&amp;sort=newest"
-                                       alt="$31.00 - $35.00" title="$31.00 - $35.00">$31.00 - $35.00</a>
-                                </li>
-
                             </ul>
                         </div>
 
@@ -645,93 +620,77 @@
                                     </a>
                                 </div>
                             </div>
-                            <form class="actionBar" method="get" data-sort-by="">
+                            <form class="actionBar">
                                 <fieldset class="form-fieldset actionBar-section">
                                     <div class="form-field">
                                         <label class="form-label" for="sort">Sort By:</label>
-                                        <select class="form-select form-select--small" name="sort" id="sort">
-                                            <!--<option value="featured">Featured Items</option>
-    <option value="newest" selected="">Newest Items</option>
-    <option value="bestselling">Best Selling</option>-->
-                                            <option value="alphaasc">A to Z</option>
-                                            <option value="alphadesc">Z to A</option>
-                                            <!--<option value="avgcustomerreview">By Review</option>-->
+                                        <select v-model="selectedvalue" class="form-select form-select--small" name="sort" id="sort">
+                                            <option value="nameasc">A to Z</option>
+                                            <option value="namedesc">Z to A</option>
                                             <option value="priceasc">Price: Ascending</option>
                                             <option value="pricedesc">Price: Descending</option>
                                         </select>
                                     </div>
                                 </fieldset>
-
                             </form>
                         </div>
 
                         <form action="/compare" method="POST">
                             <div class="module-wrapper">
                                 <div class="productBlockContainer row">
-                                    @foreach (var data in Model)
-                                    {
-                                        <div class="prod-item viewchange col-4">
-                                            <figure class="card-figure viewchange">
-
-                                                <div class="prod-image viewchange">
-                                                    <a href="Earrings/@data.ProductID">
-                                                        <img class="card-image viewchange" id="@data.ProductName"
-                                                             src="~/Assets/ProductPics/@data.ProductName/1.jpg">
+                                    <div class="prod-item viewchange col-4" v-for="data in products.slice(beginitem,enditem)">
+                                        <figure class="card-figure viewchange" :id=`${data.ProductID}`>
+                                            <div class="prod-image viewchange">
+                                                <a :href=`Earrings/${data.ProductID}`>
+                                                    <img class="card-image viewchange" :id=`${data.ProductName}`
+                                                         :src=`/Assets/ProductPics/${data.ProductName}/1.jpg`>
+                                                </a>
+                                                <div class="actions">
+                                                    <a href="#" class="btnWL grid-view" :value=`${data.ProductID}`>
+                                                        <i class="far fa-heart"></i>
                                                     </a>
-                                                    <div class="actions">
-                                                        <a href="#" class="btnWL grid-view">
-                                                            <i class="far fa-heart"></i>
-                                                        </a>
-                                                        <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                                                        <a href="#" class="btnQV quickview">Quick view</a>
-                                                    </div>
+                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                </div>
+                                            </div>
+
+                                            <figcaption class="prod-desc viewchange center">
+                                                <p class="prod-name"><a href="#">{{data.ProductName}}</a></p>
+                                                <div class="prod-price"><span class="price">${{data.ProductPrice}}.00</span></div>
+                                                <div class="prod-summary list-view">
+                                                    <p>
+                                                        {{data.ProductDescription}}
+                                                    </p>
                                                 </div>
 
-                                                <figcaption class="prod-desc viewchange center">
-                                                    <p class="prod-name"><a href="#">@data.ProductName</a></p>
-                                                    <div class="prod-price"><span class="price">$@data.ProductPrice</span></div>
-                                                    <div class="prod-summary list-view">
-                                                        <p>
-                                                            @data.ProductDescription
-                                                        </p>
-                                                    </div>
-
-                                                    <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
-                                                    <a href="#" class="btnWL list-view">
-                                                        <i class="far fa-heart"></i><span>Add to Wish list</span>
-                                                    </a>
-                                                </figcaption>
-                                            </figure>
-                                        </div>
-                                        <hr class="list-view" />
-                                    }
+                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                <a href="#" class="btnWL list-view">
+                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                </a>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <hr class="list-view" />
                                 </div>
                             </div>
                         </form>
 
+
                         <div class="product-pagination bottom">
                             <div class="pagination row">
-                                <div class="pagination-item pagination-item--previous ml-0 col-1">
-                                    <a class="pagination-link"
-                                       href="https://lovoda.com/y-necklace-lariat/?sort=newest&amp;page=1"
-                                       data-faceted-search-facet="">
+                                <div class="pagination-item pagination-item--previous ml-0 col-1" v-if="preshow">
+                                    <a class="pagination-link" v-on:click='pagepreclick()'>
                                         <span>Previous</span>
                                     </a>
                                 </div>
-                               
+
                                 <ul class="pagination-list mx-auto">
-                                    @for (var i = 1; i <= @ViewBag.pages; i++)
-                                    {
-                                        <li class="pagination-item pagination-item--current">
-                                            <a class="pagination-link" href="#"
-                                               data-faceted-search-facet="">@i</a>
-                                        </li>
-                                    }
+                                    <li class="pagination-item" v-bind:class="{'selectedpage':item==curpage}" v-for='item in sum'>
+                                        <a class="pagination-link" v-on:click='pageclick(item)'>{{item}}</a>
+                                    </li>
                                 </ul>
-                                <div class="pagination-item pagination-item--next mr-0 col-1">
-                                    <a class="pagination-link"
-                                       href="https://lovoda.com/y-necklace-lariat/?sort=newest&amp;page=2"
-                                       data-faceted-search-facet="">
+                                <div class="pagination-item pagination-item--next mr-0 col-1" v-if="nextshow">
+                                    <a class="pagination-link" v-on:click='pagenextclick()'>
                                         <span>Next</span>
                                     </a>
                                 </div>
@@ -747,89 +706,170 @@
 </div>
 
 @section viewJquery{
-    <script>
-        var page = 1;
+<script>
 
-        $( function () {
+    $(function () {
+        var pageshowitems = 12.0;
+        var totalproducts = [@Html.Raw(ViewBag.products)];
+        var priceinterval = [{low:0,height:19},{low:19.,height:23},{low:23,height:27},{low:27,height:31},{low:31,height:35}];
+        console.log(totalproducts);
+        var app = new Vue({
+            el: '#app',
+            data: {
+                allproducts: totalproducts,
+                curpage: '1',
+                selectedvalue: '',
+                intervals:priceinterval,
+                products: _.orderBy(totalproducts, ['ProductID'], ['asc']),
+                filterproducts: '',
+            },
+            methods: {
+                //分頁按下動作
+                pageclick(item) {
+                    app.curpage = item;
+                },
+                pagepreclick() {
+                    app.curpage--;
+                },
+                pagenextclick() {
+                    app.curpage++;
+                },
+                //設定價格區間
+                pricefilter(low, height) {
+                    var filterproducts = $.grep(app.allproducts, function (item, index){
+                        return item.ProductPrice > low && item.ProductPrice <= height;
+                    });
+                    app.products = filterproducts;
+                },
+            },
+
+            watch: {
+                //排序設定(用select改變來更改products，需要用到監控)
+                selectedvalue() {
+                    var item = '';
+                    switch (this.selectedvalue) {
+                        case 'nameasc':
+                            console.log('a');
+                            item = _.orderBy(this.allproducts, ['ProductName'], ['asc']);
+                            break;
+                        case 'namedesc':
+                            console.log('b');
+                            item = _.orderBy(this.allproducts, ['ProductName'], ['desc']);
+                            break;
+                        case 'priceasc':
+                            console.log('c');
+                            item = _.orderBy(this.allproducts, ['ProductPrice'], ['asc']);
+                            break;
+                        case 'pricedesc':
+                            console.log('d');
+                            item = _.orderBy(this.allproducts, ['ProductPrice'], ['desc']);
+                            break;
+                    }
+                    app.allproducts = item;
+                    app.products = item;
+                },
+            },
+
+            computed: {
+                //各頁產品的顯示index
+                beginitem() {
+                    return (this.curpage - 1) * 12;
+                },
+                enditem() {
+                        return (this.curpage) * 12;
+                },
+                //分頁列顯示設定
+                sum() {
+                    return Math.ceil(this.products.length / pageshowitems);
+                },
+                preshow() {
+                    if (this.curpage == 1) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                },
+                nextshow() {
+                    if (this.curpage == this.sum) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                },
+            },
+        })
+        
+
+        $( ".list-view" ).hide();
+        $( "#grid-view" ).click( function () {
             $( ".list-view" ).hide();
-            $( "#grid-view" ).click( function () {
-                $( ".list-view" ).hide();
-                $( ".grid-view" ).show();
-                $( "#grid-view" ).addClass( "current-view" );
-                $( "#list-view" ).removeClass( "current-view" );
-                $( ".prod-item.viewchange" ).removeClass( "col-12 d-inline-block imghchange" ).addClass( "col-4" );
-                $( ".card-figure.viewchange" ).removeClass( "row" );
-                $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
-                $( ".card-image.viewchange" ).removeClass( "h-100" );
-                $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
+            $( ".grid-view" ).show();
+            $( "#grid-view" ).addClass( "current-view" );
+            $( "#list-view" ).removeClass( "current-view" );
+            $( ".prod-item.viewchange" ).removeClass( "col-12 d-inline-block imghchange" ).addClass( "col-4" );
+            $( ".card-figure.viewchange" ).removeClass( "row" );
+            $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
+            $( ".card-image.viewchange" ).removeClass( "h-100" );
+            $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
 
-            } );
-            $( "#list-view" ).click( function () {
-                $( ".grid-view" ).hide();
-                $( ".list-view" ).show();
-                $( "#grid-view" ).removeClass( "current-view" );
-                $( "#list-view" ).addClass( "current-view" );
-                $( ".prod-item.viewchange" ).removeClass( "col-4" ).addClass( "col-12 d-inline-block imghchange" );
-                $( ".card-figure.viewchange" ).addClass( "row" );
-                $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
-                $( ".card-image.viewchange" ).addClass( "h-100" );
-                $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
-
-            } );
-
-            $( ".card-figure" ).hover( function () {
-                $( this ).find( ".btnWL" ).addClass( "showdown" );
-                $( this ).find( ".btnQV" ).addClass( "hoverin" );
-                $( this ).find( ".btnATC" ).addClass( "hoverin" );
-            }, function () {
-                $( this ).find( ".btnWL" ).removeClass( "showdown" );
-                $( this ).find( ".btnQV" ).removeClass( "hoverin" );
-                $( this ).find( ".btnATC" ).removeClass( "hoverin" );
-            } );
-
-            //$( ".card-image" ).hover( function () {
-            //    var productName = $( this ).attr( "id" );
-            //    $( this ).attr( "style", "opacity:0.5" );
-            //    var aaa = encodeURI( `~/Assets/ProductPics/Plaid Button Earrings.jpg` );
-            //    $( this ).attr( "src", decodeURI(aaa) );
-                
-            //    //$( this ).attr( "src", `~/Assets/ProductPics/${productName}/2.jpg` );
-            //}, function () {
-            //    var productName = $( this ).attr( "id" );
-            //    $( this ).attr( "style", "opacity:0.5" );
-            //    $( this ).attr( "src", `~/Assets/ProductPics/${productName}/1.jpg` );
-            //    console.log( 'src 1 is', `~/Assets/ProductPics/${productName}/1.jpg` );
-            //} );
-
-            $( ".btnWL" ).click( function () {
-                $( this ).find( "i" ).removeClass( "far fa-heart" );
-                $( this ).find( "i" ).addClass( "fas fa-heart" );
-            } );
-
-
-                                //var SearchCondition  = {
-                    //    "page": 1,
-                    //    "Condition":condition
-                    //}
-
-                    //$.ajax({
-                    //    type: "POST",
-                    //    url: "/frontend/ShowProducts",
-                    //    data: { :SearchCondition },
-                    //    success: function () {
-                            
-
-                    //    }
-
+        });
+        $( "#list-view" ).click( function () {
+            $( ".grid-view" ).hide();
+            $( ".list-view" ).show();
+            $( "#grid-view" ).removeClass( "current-view" );
+            $( "#list-view" ).addClass( "current-view" );
+            $( ".prod-item.viewchange" ).removeClass( "col-4" ).addClass( "col-12 d-inline-block imghchange" );
+            $( ".card-figure.viewchange" ).addClass( "row" );
+            $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
+            $( ".card-image.viewchange" ).addClass( "h-100" );
+            $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
 
         } );
 
+        $( ".card-figure" ).hover( function () {
+            $( this ).find( ".btnWL" ).addClass( "showdown" );
+            $( this ).find( ".btnQV" ).addClass( "hoverin" );
+            $( this ).find( ".btnATC" ).addClass( "hoverin" );
+        }, function () {
+            $( this ).find( ".btnWL" ).removeClass( "showdown" );
+            $( this ).find( ".btnQV" ).removeClass( "hoverin" );
+            $( this ).find( ".btnATC" ).removeClass( "hoverin" );
+        } );
 
+        $(".card-image").hover(function () {
+            $(this).attr("style", "opacity:0.5");
+            $(this).attr("src", $(this).attr("src").replace('1.jpg','2.jpg'));
+        }, function () {
+            $(this).attr("style", "opacity:0.5");
+            $(this).attr("src", $(this).attr("src").replace('2.jpg','1.jpg'));
+        });
 
-    </script>
+        $(".btnWL").click(function (e) {
+            e.preventDefault();
+            var id = $(this).parents("figure").attr("id");
+                                
+            $.ajax({
+                type: "POST",
+                url: "/FrontEnd/AddWish",
+                data: {
+                    //MemberID:MemberID,
+                    MemberID:0,
+                    ProductID:id
+                },
+                dataType: "text",
+                success: function (response) {
+                    if (response) {
+                        alert('Add to wishlist');
+                    }
+                }   
+            });
+
+        });
+    });
+</script>
 }
 
 
-}
+
 
 

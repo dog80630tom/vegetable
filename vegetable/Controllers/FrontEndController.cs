@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +10,7 @@ using System.Web.Security;
 using vegetable.Models;
 using vegetable.Respository.MemberResp;
 using vegetable.Services;
+using Member = vegetable.Models.Member;
 
 namespace vegetable.Controllers
 {
@@ -23,6 +24,7 @@ namespace vegetable.Controllers
 
         public ActionResult Index()
         {
+            HttpContext.Response.Cookies.Clear();
             return View();
         }
         
@@ -31,6 +33,8 @@ namespace vegetable.Controllers
         [HttpGet]
         public ActionResult ShowProducts(string query)
         {
+            //若沒有搜尋字串則顯示全部
+            //尚未做找不到的功能
             if (query is null)
             {
                 query = "";
@@ -39,52 +43,24 @@ namespace vegetable.Controllers
             {
                 query = query.ToLower();
             }
-            var products = from p in item.Products
-                           join c in item.Categories
-                           on p.CategoryID equals c.CategoryID
-                           where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
-                           select p;
-                           
-            return View(products.ToList());
-        }
-        
-        [Route("product")]
-        [HttpPost]
-        public ActionResult ShowProducts(SearchCondition SearchCondition)
-        {
-            if (SearchCondition.Page is null)
-            {
-                SearchCondition.Page = 1;
-            }
-
-            if (SearchCondition.Condition is null)
-            {
-                SearchCondition.Condition = "";
-            }
-            else
-            {
-                SearchCondition.Condition = SearchCondition.Condition.ToLower();
-            }
 
             var allproducts = from p in item.Products
-                           join c in item.Categories
-                           on p.CategoryID equals c.CategoryID
-                           where p.ProductName.ToLower().Contains(SearchCondition.Condition) || c.CategoryName.ToLower().Contains(SearchCondition.Condition)
-                           select p;
-            //List<Product> result = new List<Product>();
-            //using(ItemContext item = new ItemContext())
-            //{
-            //    result = (from s in item.Products select s ).ToList();
-            //    return View(result);
-            //}
+                              join c in item.Categories
+                              on p.CategoryID equals c.CategoryID
+                              where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
+                              select p;
 
-            var pageshowitems = 12.0;
-            ViewBag.pageshowitems = pageshowitems;
-            ViewBag.pages = Math.Ceiling(allproducts.Count() / pageshowitems);
+            var JSONTO = allproducts.ToList();
+            foreach (Product p in JSONTO)
+            {
+                //用viewbag丟json格式到view
+                ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + "},";
+            }
+            ViewBag.products = ViewBag.products.TrimEnd(',');
 
-            var products = allproducts;
-            return View(products.ToList());
+            return View();
         }
+
         public ActionResult MemberRegist()
         {
             return View();
@@ -133,21 +109,103 @@ namespace vegetable.Controllers
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
 
-            if (rqstCookie.Value.Length>0)
+
+            if (rqstCookie.Value.Length > 0)
             {
                 return View();
             }
             return RedirectToAction("LoginPage");
         }
+        public ActionResult MemberPageAddresschange()
+        {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            TempData["username"] = memberData.MemberName;
+            if (rqstCookie.Value.Length < 0)
+            {
+                return View("LoginPage");
+            }
+            return RedirectToAction("Index");
+        }
+
+
         public ActionResult MemberPageWishlist()
         {
-            return View();
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);         
+            var wishproducts = from p in item.Products
+                              join w in item.WishLists
+                              on p.ProductID equals w.ProductID
+                              where memberData.MemberID ==w.MemberID
+                              select p;
+            return View(wishproducts.ToList());
+        }
+        [HttpPost]
+        public bool AddWish([Bind(Include = "MemberID,ProductID")] WishList wish)
+        {
+            bool isSuccess = false; 
+            if (ModelState.IsValid)
+            {
+                using (ItemContext item = new ItemContext())
+                {
+                    HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+                    var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                    var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);                    
+                    wish.MemberID = memberData.MemberID;                    
+                    item.WishLists.Add(wish);
+                    try
+                    {
+                        item.SaveChanges();
+                        isSuccess = true;
+                    }
+                    catch (Exception ex) 
+                    {
+                        throw;
+                    }
+                }
+            }          
+            return isSuccess ;
+        }
+
+        [HttpPost]
+        public ActionResult DeleteWish([Bind(Include = "MemberID,ProductID")] WishList wish)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ItemContext item = new ItemContext())
+                {
+                    HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+                    var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                    var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                    wish.MemberID = memberData.MemberID;
+                    var temp = item.WishLists.SingleOrDefault(x => x.ProductID == wish.ProductID && x.MemberID == wish.MemberID);
+
+                    item.WishLists.Remove(temp);
+                    try
+                    {
+                        item.SaveChanges();
+                        //return View();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw;
+                    }
+                }
+            }
+            return RedirectToAction("MemberPageWishlist", new WishList());
+            //return View("MemberPageWishlist");
+            //return Response.Redirect(Request.FilePath);
+            //return RedirectToAction("ShowProducts");
         }
 
         public ActionResult LoginPage()
         {
+
             return View();
         }
+
         public ActionResult ForgotPassword()
         {
             return View();
@@ -160,6 +218,20 @@ namespace vegetable.Controllers
         {
             return View();
         }
+        public ActionResult Logout() {
+
+            FormsAuthentication.SignOut();
+            Session.RemoveAll();
+            HttpCookie cookie1 = new HttpCookie("myaccount", "");
+            cookie1.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie1);
+            TempData["username"] = null;
+            TempData["roles"] = null;
+            return Redirect("Index");
+        }
+
+        
+
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public ActionResult AddCart([Bind(Include = "CartID,MemberID,ProductID,Quantity")] CartDetail cart)
@@ -185,7 +257,43 @@ namespace vegetable.Controllers
             services.CreateMember(Member);
             return Redirect("/FrontEnd/Index");
         }
+        public ActionResult LineLogin()
+        {
+            var code = Request.QueryString["code"];
+            if (string.IsNullOrEmpty(code))
+                return Content("沒有收到 Code");
 
+            var token =isRock.LineLoginV21.Utility.GetTokenFromCode(code,
+                 "1653659088",
+                 "27d426186987ed6e5d69cb7601129805",
+                 "https://localhost:44394/frontend/LineLogin");
+
+            var UserInfoResult = isRock.LineLoginV21.Utility.GetUserProfile(token.access_token);
+            // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
+
+            int i = 0;
+            var email = UserInfoResult.statusMessage;
+            var name = UserInfoResult.displayName;
+            var password2 = UserInfoResult.userId;
+            if (!item.Members.Any(x => x.MemberEmail == email))
+            {
+                Member member = new Member();
+                MemberServices services = new MemberServices();
+                member.MemberPassword = Encryption.EncryptionMethod(password2, email);
+                member.MemberName = name;
+                member.MemberEmail = email;
+                member.MemberGender = "Line";
+                member.MemberPhone = "Line";
+
+                services.CreateMember(member);
+
+            }
+            var membership = (from m in item.Members where m.MemberEmail == email select m).FirstOrDefault();
+            var password = Encryption.EncryptionMethod(password2, membership.MemberName);
+            LoginProcessmdfity("Client", membership.MemberName, true, membership);
+
+            return RedirectToAction("MemberPageAddresschange");
+        }
         public ActionResult GoogleLogin() {
             var code = Request.QueryString["code"];
             if (string.IsNullOrEmpty(code))
@@ -217,8 +325,9 @@ namespace vegetable.Controllers
             }
             var membership = (from m in item.Members where m.MemberEmail == email select m).FirstOrDefault();
             var password = Encryption.EncryptionMethod(password2, membership.MemberName);
-            LoginProcess("Client", membership.MemberName, true, membership);
-            return RedirectToAction("MemberPageAddress", "FrontEnd");
+            LoginProcessmdfity("Client", membership.MemberName, true, membership);
+         
+            return RedirectToAction("MemberPageAddresschange");
         }
 
         //會員登入功能
@@ -262,6 +371,24 @@ namespace vegetable.Controllers
             var cookie = new HttpCookie("myaccount", encryptedTicket);
             HttpContext.Response.Cookies.Add(cookie);
 
+        }
+        private void LoginProcessmdfity(string level, string Name, bool isRemeber, object user)
+        {
+            var now = DateTime.Now;
+            string roles = level;
+            var ticket = new FormsAuthenticationTicket(
+                version: 1,
+                name: Name,
+                issueDate: now,//現在時間
+                expiration: DateTime.Now.AddDays(1),//Cookie有效時間=現在時間往後+30分鐘
+                isPersistent: isRemeber,//記住我 true or false
+                userData: JsonConvert.SerializeObject(user), //放會員資料
+                cookiePath: "/");
+
+            var encryptedTicket = FormsAuthentication.Encrypt(ticket); //把驗證的表單加密
+            var cookie = new HttpCookie("myaccount", encryptedTicket);
+            HttpContext.Response.Cookies.Add(cookie);
+            TempData["roles"] = roles;
         }
         //會員資料修改功能
         public ActionResult MemberPageSetting()
