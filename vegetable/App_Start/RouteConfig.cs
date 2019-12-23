@@ -14,12 +14,12 @@ namespace vegetable
             //show product 
             routes.MapRoute(
               name: "ShowProducts",
-              url: "Products/{SearchCondition}",
+              url: "Products/{query}",
               defaults: new
               {
                   controller = "FrontEnd",
                   action = "ShowProducts",
-                  SearchCondition = UrlParameter.Optional
+                  query = UrlParameter.Optional
               }
           );
 
