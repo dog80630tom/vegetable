@@ -47,7 +47,7 @@ namespace vegetable
                }
            );
 
-            //耳環
+            //項鍊
             routes.MapRoute(
                name: "Necklaces",
                url: "Products/Necklaces/{id}",
@@ -67,6 +67,17 @@ namespace vegetable
                {
                    controller = "FrontEnd",
                    action = "Cart"
+               }
+            );
+
+            //結帳頁
+            routes.MapRoute(
+               name: "Checkout",
+               url: "Checkout",
+               defaults: new
+               {
+                   controller = "FrontEnd",
+                   action = "Checkout"
                }
             );
 

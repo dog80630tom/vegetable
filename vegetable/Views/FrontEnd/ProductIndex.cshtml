@@ -433,7 +433,7 @@
                 ID之後要隱藏!!!!
                 *@
             @*會員ID*@
-            <input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />
+            @*<input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />*@
             @*產品ID*@
             <input id="ProductID" type="hidden" name="ProductID" value="@ViewBag.ProductID" />
             @* 數量 *@
@@ -784,14 +784,14 @@
         //新增購物車 ajax
         function AddCart() {
             let productId = $( '#ProductID' ).val();
-            let memberId = $( '#MemberID' ).val();
+            //let memberId = $( '#MemberID' ).val();
             let quantity = $( '#quantity' ).val();
 
             $.ajax( {
                 type: "POST",
                 //先確認目前的訂單狀況 再接AddCart的action
                 url: "/FrontEnd/CheckOrder",
-                data: { MemberID: memberId, ProductID: productId, Quantity: quantity },
+                data: { /*MemberID: memberId,*/ ProductID: productId, Quantity: quantity },
                 dataType: "text",
                 success: function ( response ) {
                     alert( '成功加入購物車' );
