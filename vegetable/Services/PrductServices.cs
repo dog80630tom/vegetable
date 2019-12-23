@@ -28,7 +28,8 @@ namespace vegetable.Services
         //    Category Category = new Category() {  CategoryDescription=CategoryDescription, CategoryName=CategoryName, CategoryPic=CategoryPic };
         //    return Category;
         //}
-        public ErrorMessage addProduct(Product product,PicDetail pic) {
+        public ErrorMessage addProduct(Product product,PicDetail pic)
+        {
             ErrorMessage error = new ErrorMessage();
             error.IsSuccess = true;
             using (var data = item.Database.BeginTransaction())
@@ -37,8 +38,7 @@ namespace vegetable.Services
                 {                            
                     item.Products.Add(product);
                     item.SaveChanges();
-                    var data2 = product.ProductID;
-                    pic.ProductID = data2;
+                    pic.ProductID = product.ProductID;                   
                     item.PicDetails.Add(pic);
                     item.SaveChanges();
                     data.Commit();
@@ -54,14 +54,14 @@ namespace vegetable.Services
             }
             return error;
         }
-        public ErrorMessage EditProduct( Product product, Category category, PicDetail pic) {
+
+        public ErrorMessage EditProduct(Product product, PicDetail pic)
+        {
             ErrorMessage error = new ErrorMessage();
             error.IsSuccess = true;
             try
             {
-               
                 item.Entry(product).State = EntityState.Modified;
-                item.Entry(category).State = EntityState.Modified;
                 item.Entry(pic).State = EntityState.Modified;
                 item.SaveChanges();
             }
@@ -73,7 +73,8 @@ namespace vegetable.Services
             }
             return error;
         }
-        public ErrorMessage DeleteProduct(IQueryable<Product> a, IQueryable<PicDetail> picDetail, IQueryable<Category> category)
+       
+        public ErrorMessage DeleteProduct(IQueryable<Product> a, IQueryable<PicDetail> picDetail)
         {
             ErrorMessage error = new ErrorMessage();
 
@@ -82,16 +83,11 @@ namespace vegetable.Services
                 error.IsSuccess = true;
                 try
                 {
-                   
+                 
                     item.Entry(picDetail.FirstOrDefault()).State = EntityState.Deleted;
                     item.SaveChanges();
 
-                    category.Load();
                     item.Entry(a.FirstOrDefault()).State = EntityState.Deleted;
-                    item.SaveChanges();
-
-
-                    item.Entry(category.FirstOrDefault()).State = EntityState.Deleted;
                     item.SaveChanges();
 
                     data.Commit();

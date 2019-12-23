@@ -223,7 +223,10 @@
     <Compile Include="Models\ShowProductViewModels.cs" />
     <Compile Include="Models\TokeData.cs" />
     <Compile Include="Models\Utitity.cs" />
+    <Compile Include="Models\ViewModels\JsonURL.cs" />
     <Compile Include="Models\ViewModels\JsonViewModel.cs" />
+    <Compile Include="Models\ViewModels\JsonProductDetail .cs" />
+    <Compile Include="Models\ViewModels\NewProductDetail.cs" />
     <Compile Include="Models\ViewModels\ProducetDetail.cs" />
     <Compile Include="Models\ViewModels\ProductDetilListViewMdoel.cs" />
     <Compile Include="Models\ViewModels\ReportViewModel.cs" />
@@ -396,6 +399,7 @@
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\NewProduct\Index.cshtml" />
     <Content Include="Views\NewProduct\Create.cshtml" />
+    <Content Include="Views\NewProduct\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
