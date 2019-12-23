@@ -104,7 +104,9 @@ namespace vegetable.Controllers
         {
             PrductServices services = new PrductServices();
             Product p = ChangeIt(product);
+
             p.ProductID = product.ProductID;
+
             JsonURL u = new JsonURL();
             u.Url1 = product.PicUrl1;
             u.Url2 = product.PicUrl2;
@@ -145,6 +147,7 @@ namespace vegetable.Controllers
             p.ProductDescription = product.ProductDescription;
             p.UnitsInStock = product.UnitsInStock;
             p.CategoryID = product.CategoryId;
+
             p.ProductID = 0;
 
             return p;
