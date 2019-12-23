@@ -211,10 +211,6 @@ namespace vegetable.Controllers
         {
             return View();
         }
-        public ActionResult Cart()
-        {
-            return View();
-        }
         public ActionResult MemberCart()
         {
             return View();
@@ -422,6 +418,127 @@ namespace vegetable.Controllers
             services.EditMember(Member);
             return RedirectToAction("Index", "FrontEnd");
 
+        }
+
+        [HttpPost]
+        public void CheckOrder (OrderDetail cart)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ItemContext item = new ItemContext())
+                {
+                    // 確認這個memberID 在資料庫目前有多少orders
+                    // orders 可能是 null || 一筆 || 多筆
+                    var orders = from o in item.Orders
+                                 where o.MemberID == cart.MemberID
+                                 select o;
+
+                    // if true 此會員目前沒下過任何訂單
+                    if (orders.ToList().Count() == 0)
+                    {
+                        //如果orders沒資料, 創建一筆order, 並寫入資料庫
+                        Order newOrder = NewOrder(item, cart);
+                        AddCart(newOrder, cart, item);
+                    }
+                    // if true 此會員已有訂單 但不確定是否結帳
+                    else if (orders.ToList().Count() != 0)
+                    {
+                        // 如果DeliverName == null 表示未結帳
+                        // 此會員若有未結帳的訂單 理論上 只會有1筆
+                        // 判斷此會員的所有訂單是否都已結帳
+                        bool allOrdersAreCheckout = orders.All(x => x.DeliverName != null);
+                        //都已經結帳 產生一筆新訂單
+                        if (allOrdersAreCheckout)
+                        {
+                            Order newOrder = NewOrder(item, cart);
+                            AddCart(newOrder, cart, item);
+                        }
+                        //有尚未結帳的訂單, 新增的購物車可以繼續寫入
+                        else
+                        {
+                            //理論上未結帳訂單最多一筆
+                            var notCheckoutOrder = orders.Where(x => x.DeliverName == null).FirstOrDefault();
+                            cart.OrderID = notCheckoutOrder.OrderID;
+                            AddCart(notCheckoutOrder, cart, item);
+                        }
+                    }
+                }
+            }
+        }
+
+        //創建一筆新order
+        public Order NewOrder (ItemContext item, OrderDetail cart)
+        {
+            Order newOrder = new Order();
+            newOrder.MemberID = cart.MemberID;
+            //datetime格式最小的日期
+            newOrder.OrderDate = new DateTime(1753, 01, 01, 00, 00, 00);
+            item.Orders.Add(newOrder);
+            item.SaveChanges();
+            return newOrder;
+        }
+
+        public void AddCart (Order order, OrderDetail cart, ItemContext item)
+        {
+            cart.OrderID = order.OrderID;
+            item.OrderDetails.Add(cart);
+            item.SaveChanges();
+        }
+
+        OrderDetailRepository orderDetail = new OrderDetailRepository();
+        public ActionResult Cart ()
+        {
+            //預設為會員1
+            int memberId = 1;
+            IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberId);
+
+            return View("Cart", cartVM);
+        }
+
+        public void DeleteCart (int cartId)
+        {
+            orderDetail.DeleteCart(cartId);
+        }
+
+        [HttpPost]
+        public ActionResult GoBackToCart ()
+        {
+            return Json(Url.Action("Cart"));
+        }
+
+        //到結帳頁
+        public ActionResult Checkout ()
+        {
+            //預設為會員1
+            int memberId = 1;
+            IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberId);
+            string str = System.Web.Configuration.WebConfigurationManager.ConnectionStrings ["DefaultConnection"].ConnectionString;
+
+            return View("Checkout", cartVM);
+        }
+
+        public CheckoutRepository CheckoutRepository;
+        public void AddCheckout (OrderDetailViewModel orderVM)
+        {
+            if (CheckoutRepository == null)
+            {
+                CheckoutRepository = new CheckoutRepository();
+            }
+
+            Order order = new Order()
+            {
+                OrderID = orderVM.OrderID,
+                OrderDate = orderVM.OrderDate,
+                DeliverAddress = orderVM.DeliverAddress,
+                DeliverPhone = orderVM.DeliverPhone,
+                DeliverName = orderVM.DeliverName
+            };
+            CheckoutRepository.Update(order);
+        }
+
+        public void UpdateCart (int cartId, int quantity)
+        {
+            orderDetail.UpdateCart(cartId, quantity);
         }
     }
 }
