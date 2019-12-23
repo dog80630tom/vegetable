@@ -401,10 +401,7 @@
                 e.preventDefault();
                 //var id = $(this).parent().parent().parent().attr("id");
                 var id = $(this).parents("figure").attr("id");
-                console.log($(this));
-
                 $.ajax({
-
                     type: "POST",
                     url: "/FrontEnd/DeleteWish",
                     data: {
@@ -414,12 +411,14 @@
                     },
                     dataType: "text",
                     success: function (response) {
-                        //if (response) {
-                        //    alert('Delete wishlist')
-                        //}
+                        if (response) {
+                            alert('Delete wishlist')  
+                            $(`#${id}`).parent().remove();
+                        }
                     }
-                });
+                });               
             });
+            $(this).remove(".card-figure");
         });
         
 
