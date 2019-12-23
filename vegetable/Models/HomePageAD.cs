@@ -13,6 +13,5 @@ namespace vegetable.Models
         public Nullable<int> ProductID { get; set; }
         public Nullable<int> CategoryADID { get; set; }
         public string EventPic { get; set; }
-
     }
 }

@@ -27,9 +27,9 @@ namespace vegetable.Controllers
             HttpContext.Response.Cookies.Clear();
             return View();
         }
-        
-        
 
+        //產品顯示功能
+        [Route("product")]
         [HttpGet]
         public ActionResult ShowProducts(string query)
         {
