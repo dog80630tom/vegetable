@@ -28,6 +28,5 @@ namespace vegetable.Controllers
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
         public System.Data.Entity.DbSet<vegetable.Models.ViewModels.NewProductDetail> NewProductDetails { get; set; }
-        public DbSet<WishList> WishLists { get; set; }
     }
 }
