@@ -1,7 +1,7 @@
 ﻿@model List<vegetable.Models.Product>
 
 @{
-    ViewBag.Title = "ShowProducts";
+    ViewBag.Title = "Products";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
@@ -647,7 +647,7 @@
                                                 </a>
                                                 <div class="actions">
                                                     <a href="#" class="btnWL grid-view" :value=`${data.ProductID}`>
-                                                        <i class="far fa-heart"></i>
+                                                        <i class="fas fa-heart" :style=`${data.IsRed}`></i>
                                                     </a>
                                                     <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
                                                     <a href="#" class="btnQV quickview">Quick view</a>
@@ -658,9 +658,9 @@
                                                 <p class="prod-name"><a href="#">{{data.ProductName}}</a></p>
                                                 <div class="prod-price"><span class="price">${{data.ProductPrice}}.00</span></div>
                                                 <div class="prod-summary list-view">
-                                                    <p>
+                                                    @*<p>
                                                         {{data.ProductDescription}}
-                                                    </p>
+                                                    </p>*@
                                                 </div>
 
                                                 <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
@@ -711,8 +711,7 @@
     $(function () {
         var pageshowitems = 12.0;
         var totalproducts = [@Html.Raw(ViewBag.products)];
-        var priceinterval = [{low:0,height:19},{low:19.,height:23},{low:23,height:27},{low:27,height:31},{low:31,height:35}];
-        console.log(totalproducts);
+        var priceinterval = [{ low: 0, height: 19 }, { low: 19., height: 23 }, { low: 23, height: 27 }, { low: 27, height: 31 }, { low: 31, height: 35 }];
         var app = new Vue({
             el: '#app',
             data: {
@@ -722,6 +721,7 @@
                 intervals:priceinterval,
                 products: _.orderBy(totalproducts, ['ProductID'], ['asc']),
                 filterproducts: '',
+                isRed:false
             },
             methods: {
                 //分頁按下動作
@@ -843,27 +843,50 @@
             $(this).attr("style", "opacity:0.5");
             $(this).attr("src", $(this).attr("src").replace('2.jpg','1.jpg'));
         });
-
+        
         $(".btnWL").click(function (e) {
             e.preventDefault();
-            var id = $(this).parents("figure").attr("id");
-                                
-            $.ajax({
-                type: "POST",
-                url: "/FrontEnd/AddWish",
-                data: {
-                    //MemberID:MemberID,
-                    MemberID:0,
-                    ProductID:id
-                },
-                dataType: "text",
-                success: function (response) {
-                    if (response) {
-                        alert('Add to wishlist');
+            var item = $(this);
+            var id = item.parents("figure").attr("id");
+            var isRed = item.find("i").attr("style") == null ? false : true;
+            //if ($(this).find("i").attr("style") == null) {
+            //    var isRed = false;
+            //} else {
+            //    var isRed = true;
+            //}
+            if (isRed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/DeleteWish",
+                    data: {
+                        MemberID: 0,
+                        ProductID: id
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        if (response) {
+                            alert('Delete wishlist');
+                            item.find("i").removeAttr("style")
+                        }
                     }
-                }   
-            });
-
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/AddWish",
+                    data: {
+                        MemberID:0,
+                        ProductID:id
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        if (response) {
+                            alert('Add to wishlist');
+                            item.find("i").attr("style", "color:red");
+                        }
+                    }   
+                });
+            }
         });
     });
 </script>

@@ -1,4 +1,5 @@
-﻿
+﻿@model  IEnumerable<vegetable.Models.ViewModels.OrderDetailViewModel>
+
 @{
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -107,18 +108,11 @@
         color: #fff;
     }
 
-    .btn-checkout,
-    .btn-checkout:hover {
-        border-color: #000 !important;
-        background: #000 !important;
-    }
-
-
-
-
-
-
-
+        .btn-checkout,
+        .btn-checkout:hover {
+            border-color: #000 !important;
+            background: #000 !important;
+        }
 </style>
 
 <div id="container_page_nav">
@@ -149,34 +143,161 @@
         <div class="col-2 text-right"> TOTAL</div>
     </div>
     @*訂單*@
-    @Html.Partial("_CartPartial")
-    @Html.Partial("_CartPartial")
-
+    @foreach (var cart in Model)
+    {
+        @Html.Partial("_CartPartial", cart);
+    }
 
     @* 訂單細節 *@
     <div class="row mb-5">
         <div class="offset-6 col-6 p-0">
             <div class="row">
                 <div class="col-6 text-left cart-label border-bottom-grey">Subtotal:</div>
-                <div class="col-6 text-right cart-label border-bottom-grey">$32.00</div>
+                <div id="Subtotal" class="col-6 text-right cart-label border-bottom-grey">$32.00</div>
             </div>
             @*<div class="row">
-                <div class="col-6 text-left cart-label border-bottom-grey">Shipping:</div>
-                <div class="col-6 text-right cart-label border-bottom-grey">Address</div>
-            </div>*@
+                    <div class="col-6 text-left cart-label border-bottom-grey">Shipping:</div>
+                    <div class="col-6 text-right cart-label border-bottom-grey">Address</div>
+                </div>*@
             <div class="row">
                 <div class="col-6 text-left cart-label border-bottom-grey">Discount:</div>
-                <div class="col-6 text-right cart-label border-bottom-grey">-$9.60</div>
+                <div id="Discount" class="col-6 text-right cart-label border-bottom-grey">$0</div>
             </div>
             <div class="row">
                 <div class="col-6 text-left cart-label border-bottom-grey">Grand total:</div>
-                <div class="col-6 text-right cart-label border-bottom-grey">$22.40</div>
+                <div id="GrandTotal" class="col-6 text-right cart-label border-bottom-grey">$22.40</div>
             </div>
             <div class="row mt-3">
                 <div class="col-12 p-0">
-                    <button class="btn btn-checkout rounded-0 mw-100 w-100">PROCEED TO CHECKOUT</button>
+                    <a href="Checkout" class="btn btn-checkout rounded-0 mw-100 w-100">PROCEED TO CHECKOUT</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section viewJquery{
+    <script>
+        $( function () {
+            GetSubTotal();
+            $( '.deleteCart' ).click( DeleteCart );
+            $( '.quntity' ).change( QuantityInputChange );
+        } );
+
+        function GetSubTotal() {
+            let sum = 0;
+            //把所有subTotal 價格收集起來
+            $( '.unitTotal' ).each( function () {
+                //this == .unitTotal中目前正在處理的單一項
+                let unitToal = $( this ).text();
+                sum += parseInt( RemoveDollarSign( unitToal ) );
+            } );
+            GetGrandTotal( sum );
+            $( '#Subtotal' ).text( Output( sum ) );
+        }
+
+        //計算最終金額
+        function GetGrandTotal( sum ) {
+            let discount = parseInt( RemoveDollarSign( $( '#Discount' ).text() ) );
+            let grandTotal = sum - discount;
+            $( '#GrandTotal' ).text( Output( grandTotal ) );
+        }
+
+        //替換所有價格的$ sign
+        function RemoveDollarSign( str ) {
+            result = str.replace( '$', '' );
+            return result;
+        }
+
+        //加上$ sign和小數點
+        function Output( money ) {
+            return '$' + money + '.00'
+        }
+
+        //修改購物車數量
+        //增加或減少
+        function AddOrReduce(btn) {
+            let btnID = $( btn ).attr( 'id' ).toString();
+            let recorder = JudgeButton( btnID );
+            let val = $( '#quantity' + recorder.orderID ).val();
+            val = parseInt( val );
+            if ( recorder.type == 'add' ) {
+                val = ++val;
+            } else {
+                val = --val;
+                if ( val < 1 ) {
+                    val = 1;
+                }
+            }
+            val = val.toString();
+            $( '#quantity' + recorder.orderID ).val( val );
+            UpdateCart(recorder.orderID, val);
+        }
+
+        //判斷傳進來的btn是增加或刪除，和購物車ID
+        function JudgeButton( btnID ) {
+            //傳進來的ID可能是 quantityAddXX or quantityReduceXX
+            //XX == 購物車ID
+            let isAdd = btnID.includes( 'Add' );
+            let recorder;
+            if ( isAdd ) {
+                recorder = {
+                    type: 'add',
+                    orderID : btnID.replace( 'quantityAdd', '' )
+                }
+            } else {
+                recorder = {
+                    type: 'reduce',
+                    orderID : btnID.replace( 'quantityReduce', '' )
+                }
+            }
+            return recorder;
+        }
+
+        function QuantityInputChange() {
+             let id = $( this ).attr( 'id' ).replace( 'quantity', '' );
+            let quantity = $( this ).val();
+            UpdateCart( id, quantity );
+        }
+
+        //修改產品數量
+        function UpdateCart(id, quantity) {
+            $.ajax( {
+                type: "POST",
+                url: "/Frontend/UpdateCart",
+                data: { cartId: id, quantity: quantity },
+                dataType: "text",
+                success: function ( response ) {
+                    window.location.href = "Cart"
+                }
+            } );
+        }
+
+        //刪除Cart
+        function DeleteCart() {
+            let cartId = $( this ).attr( 'id' );
+            $.ajax( {
+                type: "POST",
+                url: "/Frontend/DeleteCart ",
+                data: { cartId: cartId },
+                dataType: "text",
+                success: function () {
+                    RefreshCart();
+                }
+            } );
+        }
+
+        //刷新cart畫面
+        function RefreshCart() {
+            $.ajax( {
+                type: "POST",
+                url: "/Frontend/GoBackToCart",
+                dataType: 'json',
+                crossDomain: true,
+                success: function ( data ) {
+                    window.location.href = data;
+                }
+            } );
+        }
+    </script>
+}
