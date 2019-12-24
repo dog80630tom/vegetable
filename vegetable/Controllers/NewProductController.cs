@@ -82,10 +82,10 @@ namespace vegetable.Controllers
 
         public ActionResult Edit(int? id)
         {
-            TempData["ProductID"] = id;
+            TempData ["ProductID"] = id;
             var product = initdetail().Find(x => x.ProductID == id);
             JsonProductDetail p=new JsonProductDetail ();
-            p.ProductID = product.ProductID;
+            p.ProductID = product.ProductID; 
             p.ProductName = product.ProductName;
             p.ProductPrice = product.ProductPrice;
             p.ProductDescription = product.ProductDescription;
