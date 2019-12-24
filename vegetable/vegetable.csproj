@@ -317,7 +317,6 @@
     <Compile Include="Models\Customer_Question.cs" />
     <Compile Include="Models\Customer_Review.cs" />
     <Compile Include="Models\HomePageAD.cs" />
-    <Compile Include="Models\CartDetails.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\ProductLIst.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
@@ -336,6 +335,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\TokeData.cs" />
     <Compile Include="Models\Utitity.cs" />
+    <Compile Include="Models\ViewModels\OrderDetailViewModel.cs" />
     <Compile Include="Models\ViewModels\JsonViewModel.cs" />
     <Compile Include="Models\ViewModels\ProducetDetil.cs" />
     <Compile Include="Models\ViewModels\ProductDetilListViewMdoel.cs" />
@@ -343,6 +343,9 @@
     <Compile Include="Models\ViewModels\SearchViewModel.cs" />
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Respository\CheckoutRepository.cs" />
+    <Compile Include="Respository\DapperRepository.cs" />
+    <Compile Include="Respository\OrderDetailRepository.cs" />
     <Compile Include="Respository\ConnRespository.cs" />
     <Compile Include="Respository\ICRUD.cs" />
     <Compile Include="Respository\MemberResp\Encryption.cs" />
@@ -501,6 +504,7 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
+    <Content Include="Scripts\xdate.js" />
     <Content Include="Views\Searchitem\Detail.cshtml" />
     <Content Include="Views\Shared\_CreatePartialView.cshtml" />
     <Content Include="Views\Shared\_NavPartial.cshtml" />
@@ -585,6 +589,8 @@
     <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutFrontEnd.cshtml" />
+    <Content Include="Views\FrontEnd\Checkout.cshtml" />
+    <Content Include="Views\Shared\_MinCartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -635,7 +641,7 @@
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
+      <ErrorText>���M�װѦҳo���q���W�үʤ֪� NuGet �M��C�бҥ� NuGet �M���٭�A�H�U���ӮM��C�p�ݸԲӸ�T�A�аѾ\ http://go.microsoft.com/fwlink/?LinkID=322105�C�ʤ֪��ɮ׬O {0}�C</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
