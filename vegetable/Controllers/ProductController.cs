@@ -144,7 +144,7 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
                 ViewBag.Message = "File upload failed!!";
                 
             }*/
-            var result=services.addProduct(product, category, picDetail);
+            var result=services.addProduct(product, picDetail);
             if (result.IsSuccess)
             {
                 return View(initdetil());
