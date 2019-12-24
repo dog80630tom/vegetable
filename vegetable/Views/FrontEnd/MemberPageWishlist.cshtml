@@ -342,7 +342,7 @@
                         </a>
                         <div class="actions">
                             <a href="#" class="btnWL grid-view">
-                                <i class="far fa-heart"></i>
+                                <i class="far fa-heart" style="color:red"></i>
                             </a>
                             <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
                             <a href="#" class="btnQV quickview">Quick view</a>
@@ -389,14 +389,8 @@
             }, function () {
                 $(this).attr("style", "opacity:0.5");
                 $(this).attr("src", $(this).attr("src").replace('2.jpg', '1.jpg'));
-            });
-
-            $(".btnWL").click(function () {
-                $(this).find("i").removeClass("far fa-heart");
-                $(this).find("i").addClass("fas fa-heart");
-            });
-
-            $(".deleteWish").click(function (e) {
+            });            
+            $(".deleteWish,.btnWL").click(function (e) {
 
                 e.preventDefault();
                 //var id = $(this).parent().parent().parent().attr("id");
@@ -414,6 +408,7 @@
                         if (response) {
                             alert('Delete wishlist')  
                             $(`#${id}`).parent().remove();
+                            $(this).find("i").addClass("fas fa-heart");
                         }
                     }
                 });               

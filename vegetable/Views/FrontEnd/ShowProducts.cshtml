@@ -843,29 +843,55 @@
             $(this).attr("style", "opacity:0.5");
             $(this).attr("src", $(this).attr("src").replace('2.jpg','1.jpg'));
         });
-
+        
         $(".btnWL").click(function (e) {
-            e.preventDefault();
-            var id = $(this).parents("figure").attr("id");
-                                
-            $.ajax({
-                type: "POST",
-                url: "/FrontEnd/AddWish",
-                data: {
-                    //MemberID:MemberID,
-                    MemberID:0,
-                    ProductID:id
-                },
-                dataType: "text",
-                success: function (response) {
-                    if (response) {
-                        alert('Add to wishlist');
+                    e.preventDefault();
+                    var item = $(this);
+                    var id = item.parents("figure").attr("id");
+                    var isRed = item.find("i").attr("style") == null ? false : true;
+                    //if ($(this).find("i").attr("style") == null) {
+                    //    var isRed = false;
+                    //} else {
+                    //    var isRed = true;
+                    //}
+                    if (isRed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/FrontEnd/DeleteWish",
+                            data: {
+                                //MemberID:MemberID,
+                                MemberID: 0,
+                                ProductID: id
+                            },
+                            dataType: "text",
+                            success: function (response) {
+                                if (response) {
+                                    console.log("a");
+                                    item.find("i").removeAttr("style")
+                                }
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: "/FrontEnd/AddWish",
+                            data: {
+                                //MemberID:MemberID,
+                                MemberID:0,
+                                ProductID:id
+                            },
+                            dataType: "text",
+                            success: function (response) {
+                                if (response) {
+                                    alert('Add to wishlist');
+                                    item.find("i").attr("style", "color:red");
+                                }
+                            }   
+                        });
                     }
-                }   
+            
+                });
             });
-
-        });
-    });
 </script>
 }
 
