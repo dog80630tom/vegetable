@@ -105,7 +105,7 @@ namespace vegetable.Controllers
                 }
                 else
                 {
-                    ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                    ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                 }
             }
             ViewBag.products = ViewBag.products.TrimEnd(',');
