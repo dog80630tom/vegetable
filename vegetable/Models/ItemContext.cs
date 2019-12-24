@@ -14,7 +14,7 @@ namespace vegetable.Controllers
         {
         }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProducetDetil> ProducetDetils { get; set; }
+        public DbSet<ProducetDetail> ProducetDetils { get; set; }
         public DbSet<PicDetail> PicDetails { get; set; }
         public DbSet<Category>  Categories { get; set; }
         public DbSet<Member> Members { get; set; }
@@ -27,5 +27,7 @@ namespace vegetable.Controllers
         public DbSet<Customer_Review> Customer_Reviews { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<WishList> WishLists { get; set; }
+
+        public System.Data.Entity.DbSet<vegetable.Models.ViewModels.NewProductDetail> NewProductDetails { get; set; }
     }
 }

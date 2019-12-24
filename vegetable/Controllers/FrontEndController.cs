@@ -35,6 +35,20 @@ namespace vegetable.Controllers
         [HttpGet]
         public ActionResult ShowProducts (string query)
         {
+            List<int> wishproducts = new List<int>();
+            //先抓取是否登入
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            if (rqstCookie != null)
+            {
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                wishproducts = (from p in item.Products
+                                join w in item.WishLists
+                                on p.ProductID equals w.ProductID
+                                where memberData.MemberID == w.MemberID
+                                select p.ProductID).ToList();
+            }
+            
             //若沒有搜尋字串則顯示全部
             //尚未做找不到的功能
             if (query is null)
@@ -56,10 +70,45 @@ namespace vegetable.Controllers
             foreach (Product p in JSONTO)
             {
                 //用viewbag丟json格式到view
-                ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + "},";
+                //判斷會員登入
+                //if (rqstCookie != null)
+                //{
+                //    foreach (int id in wishproducts)
+                //    {
+                //        if (p.ProductID == id)
+                //        {
+                //            ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductDescription:'" + p.ProductDescription + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
+                //        }
+                //        else
+                //        {
+                //            ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductDescription:'" + p.ProductDescription + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                //        }
+                //    }
+                //} else
+                //{
+                //    ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductDescription:'" + p.ProductDescription + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                //}
+                //沒有description
+                if (rqstCookie != null)
+                {
+                    foreach (int id in wishproducts)
+                    {
+                        if (p.ProductID == id)
+                        {
+                            ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
+                        }
+                        else
+                        {
+                            ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                        }
+                    }
+                }
+                else
+                {
+                    ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                }
             }
             ViewBag.products = ViewBag.products.TrimEnd(',');
-
             return View();
         }
 
@@ -190,6 +239,7 @@ namespace vegetable.Controllers
                     try
                     {
                         item.SaveChanges();
+                        //return View();
                     }
                     catch (Exception ex)
                     {
@@ -197,8 +247,14 @@ namespace vegetable.Controllers
                     }
                 }
             }
+            return RedirectToAction("MemberPageWishlist", new WishList());
+            //return View("MemberPageWishlist");
             //return Response.Redirect(Request.FilePath);
-            return RedirectToAction("MemberPageWishlist");
+            //return RedirectToAction("ShowProducts");
+        }
+        public ActionResult ProductModal()
+        {
+            return View();
         }
 
         public ActionResult LoginPage ()

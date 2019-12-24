@@ -702,7 +702,52 @@
                 $( this ).find( ".btnWL" ).removeClass( "showdown" );
                 $( this ).find( ".btnQV" ).removeClass( "hoverin" );
                 $( this ).find( ".btnATC" ).removeClass( "hoverin" );
-            } )
+            })
+            //加入wishlist
+            $(".btnWL").click(function (e) {
+            e.preventDefault();
+            var item = $(this);
+            var id = item.parents("figure").attr("id");
+            var isRed = item.find("i").attr("style") == null ? false : true;
+            //if ($(this).find("i").attr("style") == null) {
+            //    var isRed = false;
+            //} else {
+            //    var isRed = true;
+            //}
+            if (isRed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/DeleteWish",
+                    data: {
+                        MemberID: 0,
+                        ProductID: id
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        if (response) {
+                            alert('Delete wishlist');
+                            item.find("i").removeAttr("style")
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/AddWish",
+                    data: {
+                        MemberID:0,
+                        ProductID:id
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        if (response) {
+                            alert('Add to wishlist');
+                            item.find("i").attr("style", "color:red");
+                        }
+                    }   
+                });
+            }
+        });
         } );
 
         function GetBtnId( btn ) {
