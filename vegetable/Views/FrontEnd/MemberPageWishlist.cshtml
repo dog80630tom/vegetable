@@ -1,4 +1,4 @@
-﻿@model List<vegetable.Models.Product>
+@model List<vegetable.Models.Product>
 @{
     ViewBag.Title = "MemberPage";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -389,17 +389,14 @@
             }, function () {
                 $(this).attr("style", "opacity:0.5");
                 $(this).attr("src", $(this).attr("src").replace('2.jpg', '1.jpg'));
-            });
+            });            
 
             $(".deleteWish,.btnWL").click(function (e) {
 
                 e.preventDefault();
                 //var id = $(this).parent().parent().parent().attr("id");
                 var id = $(this).parents("figure").attr("id");
-                console.log($(this));
-
                 $.ajax({
-
                     type: "POST",
                     url: "/FrontEnd/DeleteWish",
                     data: {
@@ -409,13 +406,13 @@
                     dataType: "text",
                     success: function (response) {
                         if (response) {
-                        //    alert('Delete wishlist')
-                           
+                            alert('Delete wishlist')  
                             $(`#${id}`).parent().remove();
                         }
                     }
-                });
+                });               
             });
+            $(this).remove(".card-figure");
         });
         
 
