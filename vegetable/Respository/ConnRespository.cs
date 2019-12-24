@@ -40,8 +40,8 @@ namespace vegetable.Respository
            
             using (SqlConnection conn= new SqlConnection(_context.Database.Connection.ConnectionString)) {
                 
-                var producets = conn.Query<T>(sql);
-                return producets;
+                var products = conn.Query<T>(sql);
+                return products;
             }
             
         }

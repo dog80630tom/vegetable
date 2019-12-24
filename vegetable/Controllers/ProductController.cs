@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -125,37 +126,37 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
             }
         }
         [HttpPost]
-        public ActionResult ProductList(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
-        {
-            PrductServices services = new PrductServices();
-            /*try
-            {
-                if (file.ContentLength > 0)
-                {
-                    string _FileName = Path.GetFileName(file.FileName);
-                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);
-                    file.SaveAs(_path);
-                }
-                ViewBag.Message = "File Uploaded Successfully!!";
-                
-            }
-            catch
-            {
-                ViewBag.Message = "File upload failed!!";
-                
-            }*/
-            var result=services.addProduct(product, picDetail);
-            if (result.IsSuccess)
-            {
-                return View(initdetil());
-            }
-            else
-            {
-                ViewBag.ISuccess = "true";
-                ViewBag.ErrorMessage = result.Message;
-                return View(initdetil());
-            }
-        }
+        /* public ActionResult ProductList(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
+         {
+             PrductServices services = new PrductServices();
+             try
+             {
+                 if (file.ContentLength > 0)
+                 {
+                     string _FileName = Path.GetFileName(file.FileName);
+                     string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);
+                     file.SaveAs(_path);
+                 }
+                 ViewBag.Message = "File Uploaded Successfully!!";
+
+             }
+             catch
+             {
+                 ViewBag.Message = "File upload failed!!";
+
+             }*/
+        /* var result=services.addProduct(product, picDetail);
+         if (result.IsSuccess)
+         {
+             return View(initdetil());
+         }
+         else
+         {
+             ViewBag.ISuccess = "true";
+             ViewBag.ErrorMessage = result.Message;
+             return View(initdetil());
+         }
+    }*/
 
 
         public ActionResult Create()
@@ -171,7 +172,7 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
             return View();
         }
 
-        public ActionResult Edit(int? id)
+       /* public ActionResult Edit(int? id)
         {
 
             TempData["ProductID"] = id;
@@ -191,9 +192,9 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
             TempData["ProductID"] = null;
             //此程式碼是為了把資料不要被攻擊的預防行為
             return RedirectToAction("Form", initdetil());
-        }
+        }*/
 
-        public ActionResult Delete(int? id)
+      /*  public ActionResult Delete(int? id)
         {
                 var delItem =from d in item.Products
                              where d.ProductID==id
@@ -209,7 +210,7 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
                 PrductServices services = new PrductServices();
                 services.DeleteProduct(delItem, itempic, co);
             return RedirectToAction("Index");
-        }
+        }*/
        
 
       
