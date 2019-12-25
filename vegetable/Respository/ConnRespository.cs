@@ -34,13 +34,14 @@ namespace vegetable.Respository
             _context.Entry(Enity).State = EntityState.Deleted;
         }
 
+        //連接daper的指令
         public IEnumerable<T> GetAll(string sql)
         {
            
             using (SqlConnection conn= new SqlConnection(_context.Database.Connection.ConnectionString)) {
                 
-                var producets = conn.Query<T>(sql);
-                return producets;
+                var products = conn.Query<T>(sql);
+                return products;
             }
             
         }
@@ -56,7 +57,7 @@ namespace vegetable.Respository
             _context.Entry(Enity).State = EntityState.Modified;
         }
 
-        public static implicit operator ConnRespository<T>(ConnRespository<ProducetDetil> v)
+        public static implicit operator ConnRespository<T>(ConnRespository<ProducetDetail> v)
         {
             throw new NotImplementedException();
         }

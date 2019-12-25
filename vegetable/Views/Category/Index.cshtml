@@ -1,49 +1,53 @@
 ﻿@model IEnumerable<vegetable.Models.Category>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "分類管理";
 }
 
 
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryPic)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryDescription)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="content-title mx-auto" style="width:75vw !important">
+    <h2>分類管理</h2>
+</div>
+<table class="table mx-auto" style="width:75vw !important">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryPic)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryDescription)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.CategoryID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryPic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryDescription)
+            </th>
+            <th class="text-right">
+                @Html.ActionLink("Create New", "Create", null, new { @class = "btn-mytype btn-mycreatetype mr-2" })
+            </th>
         </tr>
-    }
+    </thead>
+    
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryPic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryDescription)
+                </td>
+                <td class="text-right">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID } , new { @class = "btn-mytype btn-myedittype mr-2" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CategoryID } , new { @class = "btn-mytype btn-mydetailtype mr-2" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID } , new { @class = "btn-mytype btn-mydeletetype mr-2" })
+                </td>
+            </tr>
+        }
+    </tbody>
+    
 
 </table>
 

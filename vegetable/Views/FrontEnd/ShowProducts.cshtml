@@ -749,19 +749,15 @@
                     var item = '';
                     switch (this.selectedvalue) {
                         case 'nameasc':
-                            console.log('a');
                             item = _.orderBy(this.allproducts, ['ProductName'], ['asc']);
                             break;
                         case 'namedesc':
-                            console.log('b');
                             item = _.orderBy(this.allproducts, ['ProductName'], ['desc']);
                             break;
                         case 'priceasc':
-                            console.log('c');
                             item = _.orderBy(this.allproducts, ['ProductPrice'], ['asc']);
                             break;
                         case 'pricedesc':
-                            console.log('d');
                             item = _.orderBy(this.allproducts, ['ProductPrice'], ['desc']);
                             break;
                     }

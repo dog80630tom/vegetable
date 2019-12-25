@@ -306,6 +306,7 @@
     <Compile Include="Controllers\FrontEndController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\NewProductController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SearchitemController.cs" />
@@ -335,21 +336,25 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\TokeData.cs" />
     <Compile Include="Models\Utitity.cs" />
-    <Compile Include="Models\ViewModels\OrderDetailViewModel.cs" />
+    <Compile Include="Models\ViewModels\JsonURL.cs" />
     <Compile Include="Models\ViewModels\JsonViewModel.cs" />
-    <Compile Include="Models\ViewModels\ProducetDetil.cs" />
+    <Compile Include="Models\ViewModels\JsonProductDetail .cs" />
+    <Compile Include="Models\ViewModels\NewProductDetail.cs" />
+    <Compile Include="Models\ViewModels\OrderDetailViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProducetDetail.cs" />
     <Compile Include="Models\ViewModels\ProductDetilListViewMdoel.cs" />
+    <Compile Include="Models\ViewModels\ProductViewModel.cs" />
     <Compile Include="Models\ViewModels\ReportViewModel.cs" />
     <Compile Include="Models\ViewModels\SearchViewModel.cs" />
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Respository\CheckoutRepository.cs" />
-    <Compile Include="Respository\DapperRepository.cs" />
-    <Compile Include="Respository\OrderDetailRepository.cs" />
     <Compile Include="Respository\ConnRespository.cs" />
+    <Compile Include="Respository\DapperRepository.cs" />
     <Compile Include="Respository\ICRUD.cs" />
     <Compile Include="Respository\MemberResp\Encryption.cs" />
     <Compile Include="Respository\MemberResp\initMember.cs" />
+    <Compile Include="Respository\OrderDetailRepository.cs" />
     <Compile Include="Services\CategoryServices.cs" />
     <Compile Include="Services\MemberServices.cs" />
     <Compile Include="Services\PrductServices.cs" />
@@ -504,7 +509,6 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
-    <Content Include="Scripts\xdate.js" />
     <Content Include="Views\Searchitem\Detail.cshtml" />
     <Content Include="Views\Shared\_CreatePartialView.cshtml" />
     <Content Include="Views\Shared\_NavPartial.cshtml" />
@@ -584,13 +588,16 @@
     <Content Include="Views\Members\Edit.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Product\AdminIndex.cshtml" />
-    <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Product\old_ProductList.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutFrontEnd.cshtml" />
-    <Content Include="Views\FrontEnd\Checkout.cshtml" />
-    <Content Include="Views\Shared\_MinCartPartial.cshtml" />
+    <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\NewProduct\Index.cshtml" />
+    <Content Include="Views\NewProduct\Create.cshtml" />
+    <Content Include="Views\NewProduct\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -641,7 +648,7 @@
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>���M�װѦҳo���q���W�үʤ֪� NuGet �M��C�бҥ� NuGet �M���٭�A�H�U���ӮM��C�p�ݸԲӸ�T�A�аѾ\ http://go.microsoft.com/fwlink/?LinkID=322105�C�ʤ֪��ɮ׬O {0}�C</ErrorText>
+      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
