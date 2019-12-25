@@ -609,5 +609,23 @@ namespace vegetable.Controllers
         {
             orderDetail.UpdateCart(cartId, quantity);
         }
+
+        public ActionResult CartItems ()
+        {
+            if (HttpContext.Request.Cookies.Get("myaccount") != null)
+            {
+                HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                CartServices cartServices = new CartServices();
+                OrderDetail []  products = cartServices.GetCartItems(memberData.MemberID);
+                return Json(products, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return null;
+            }
+           
+        }
     }
 }

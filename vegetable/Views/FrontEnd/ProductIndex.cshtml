@@ -451,13 +451,15 @@
             <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
                 @*<a class="mr-3 ">
 
-        </a>*@
-                <img class="viewPic thumbnail123" v-bind:src="pics.Url1" />
+                    </a>*@
                 <a class="mr-3">
-                    <img class="viewPic thumbnail123" v-bind:src="pics.Url2" />
+                    <img class="viewPic thumbnail123" v-bind:src="pics.Url1" v-on:click="PicChange($event)" />
+                </a>
+                <a class="mr-3">
+                    <img class="viewPic thumbnail123" v-bind:src="pics.Url2" v-on:click="PicChange($event)" />
                 </a>
                 <a class="">
-                    <img class="viewPic thumbnail123" v-bind:src="pics.Url3" />
+                    <img class="viewPic thumbnail123" v-bind:src="pics.Url3" v-on:click="PicChange($event)" />
                 </a>
             </div>
         </div>
@@ -695,8 +697,7 @@
             $( '#btn-detail' ).click( DetailSwitch );
             $( '#btn-SAndR' ).click( DetailSwitch );
             //切換產品大圖
-            $( '.thumbnail123' ).click( PicChange123 );
-            console.log("e04")
+            //$( '.thumbnail123' ).click( PicChange123 );
             //產品卡片
             $( ".card-figure" ).hover( function () {
                 $( this ).find( ".btnWL" ).addClass( "showdown" );
@@ -788,15 +789,15 @@
         }
 
         //切換產品大圖
-        function PicChange123() {
-            console.log("有進來嗎")
-            // 大小圖片的src
-            let smallSrc = $( this ).attr( 'src' );
-            let largeSrc = $( '#LargePic' ).attr( 'src' );
-            if ( smallSrc != largeSrc ) {
-                $( '#LargePic' ).attr( 'src', smallSrc );
-            }
-        }
+        //function picchange123() {
+        //     console.log("有進來嗎")
+        //    // 大小圖片的src
+        //    let smallsrc = $( this ).attr( 'src' );
+        //    let largesrc = $( '#largepic' ).attr( 'src' );
+        //    if ( smallsrc != largesrc ) {
+        //        $( '#largepic' ).attr( 'src', smallsrc );
+        //    }
+        //}
 
         //切換問題和回顧表格
         //bool 表示現在顯示的是哪種表格
@@ -853,7 +854,18 @@
         function BindingVue() {
             picVue = new Vue({
                 el:'#ProductPics',
-                data: {pics:  @Html.Raw(ViewBag.ProductUrl)}
+                data: { pics:  @Html.Raw(ViewBag.ProductUrl)},
+                methods: {
+                    PicChange(e){
+                        console.log("有進來嗎")
+                        // 大小圖片的src
+                        let smallSrc = $( e.target ).attr( 'src' );
+                        let largeSrc = $( '#LargePic' ).attr( 'src' );
+                        if ( smallSrc != largeSrc ) {
+                        $( '#LargePic' ).attr( 'src', smallSrc );
+                        }
+                    }
+                }
             } )
 
             let LargePicVue = new Vue( {
