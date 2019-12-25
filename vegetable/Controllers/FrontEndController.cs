@@ -121,6 +121,19 @@ namespace vegetable.Controllers
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
             var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+
+            var wishproducts = (from p in item.Products
+                            join w in item.WishLists
+                            on p.ProductID equals w.ProductID
+                            where memberData.MemberID == w.MemberID && w.ProductID == id
+                            select p.ProductID).ToList();
+
+            var isWish = "false";
+            if (wishproducts.Count() == 1)
+            {
+                isWish = "true";
+            }
+            ViewBag.isWish = isWish;
             //沒有傳入id
             if (id == null)
             {

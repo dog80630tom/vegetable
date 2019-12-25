@@ -464,7 +464,7 @@
         <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
         <div class="productView-rating"></div>
         <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
-        <a href="#" class="btnWL list-view">
+        <a href="#" class="btnWL list-view"id="AWL">
             <i class="far fa-heart"></i><span>Add to Wish list</span>
         </a>
     </div>
@@ -699,6 +699,7 @@
     <script src="~/Scripts/vue.js"></script>
     <script>
         //用來接pic的vue
+        //var isWish = @ViewBag.isWish;
         var picVue;
         $( function () {
             //隱藏Shipping and Returns
@@ -729,6 +730,8 @@
             } )
             //vue binding
             BindingVue();
+            //isWish = @ViewBag.isWish;
+            WishOrNot(@ViewBag.isWish);
             //加入wishlist
             $(".btnWL").click(function (e) {
             e.preventDefault();
@@ -738,11 +741,6 @@
                     id = @ViewBag.ProductID;
                 }
             var isRed = item.find("i").attr("style") == null ? false : true;
-            //if ($(this).find("i").attr("style") == null) {
-            //    var isRed = false;
-            //} else {
-            //    var isRed = true;
-            //}
             if (isRed) {
                 $.ajax({
                     type: "POST",
@@ -785,6 +783,12 @@
             //取得傳入btn的id
             let btnId = $( btn ).attr( 'id' );
             return btnId;
+        }
+        function WishOrNot(iswish) {
+            if (iswish) {
+                $("#AWL").find("i").attr("style", "color:red");
+                $("#AWL").find("span").text("Delete Wish List");
+            }
         }
 
         //增加購買數量
