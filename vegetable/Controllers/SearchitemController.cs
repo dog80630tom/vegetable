@@ -34,7 +34,7 @@ namespace vegetable.Controllers
             {
 
                 data.CategoryName = Category.FirstOrDefault(x => x.CategoryID == data.CategoryID).CategoryName;
-                data.CategoryPic= Category.FirstOrDefault(x => x.CategoryID == data.CategoryID).CategoryPic;
+                //data.CategoryPic= Category.FirstOrDefault(x => x.CategoryID == data.CategoryID).CategoryPic;
 
 
             }
