@@ -371,6 +371,25 @@
         visibility: visible !important;
         top: 15px !important;
     }
+    .btnWL span {
+        font-weight: 400;
+        color: #000;
+        border-bottom: 1px dotted #000;
+        margin-left: 10px;
+    }
+
+    .btnWL i {
+        font-weight: 400;
+        color: #000;
+        font-size: 16px;
+        margin-left: 40px;
+    }
+
+
+    .btnWL span:hover, .btnWL i:hover {
+        cursor: pointer;
+        color: #000;
+    }
 </style>
 
 
@@ -401,12 +420,12 @@
         @*產品大圖*@
         <div class="col-xl-4 order-xl-1 col-md-6 order-md-2 col-12 order-1">
             <figure class="figure">
-                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/1.jpg" alt="">
+                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" v-bind:src="pics.Url1" alt="">
             </figure>
         </div>
 
         @* 右半部  購買清單*@
-        <div class="col-xl-8 order-xl-2 col-md-6 order-md-2 order-3">
+        <div class="col-xl-8 order-xl-2 col-md-6 order-md-2 order-3 pics">
             <div id="ProductName" class="productView-title">@ViewBag.ProductName</div>
             <div class="productView-rating"></div>
             <div id="ProductPrice " class="productView-price">$@ViewBag.ProductPrice </div>
@@ -426,40 +445,40 @@
                 <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>*@
             <div class="productView-rating"></div>
 
-            @*購買相關*@
-            @* 
-                ID之後要隱藏!!!!
-                ID之後要隱藏!!!!
-                ID之後要隱藏!!!!
-                *@
-            @*會員ID*@
-            @*<input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />*@
-            @*產品ID*@
-            <input id="ProductID" type="hidden" name="ProductID" value="@ViewBag.ProductID" />
-            @* 數量 *@
-            <div>Quantity:</div>
-            @* 增加 *@
-            <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
-            <input id="quantity" name="Quantity" value="1" class="text-center" />
-            @* 減少 *@
-            <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
-            <div class="productView-rating"></div>
-            <button class="btn btn-outline-dark rounded-0" onclick="AddCart()">ADD TO CART</button>
-        </div>
+        @*購買相關*@
+        @*
+        ID之後要隱藏!!!!
+        ID之後要隱藏!!!!
+        ID之後要隱藏!!!!
+        *@
+        @*會員ID*@
+        @*<input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />*@
+        @*產品ID*@
+        <input id="ProductID" type="hidden" name="ProductID" value="@ViewBag.ProductID" />
+        @* 數量 *@
+        <div>Quantity:</div>
+        @* 增加 *@
+        <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+        <input id="quantity" name="Quantity" value="1" class="text-center" />
+        @* 減少 *@
+        <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+        <div class="productView-rating"></div>
+        <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
+        <a href="#" class="btnWL list-view"id="AWL">
+            <i class="far fa-heart"></i><span>Add to Wish list</span>
+        </a>
+    </div>
         @*產品小圖和社群按鈕*@
-        <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4">
+        <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4 " id="ProductPics">
             <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
                 <a class="mr-3 " href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/1.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" v-bind:src="pics.Url1" />
                 </a>
                 <a class="mr-3" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/2.jpg" alt="Tie and Knot Ring" />
-                </a>
-                <a class="mr-3" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/3.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" v-bind:src="pics.Url2" />
                 </a>
                 <a class="" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/4.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" v-bind:src="pics.Url3" />
                 </a>
             </div>
         </div>
@@ -600,7 +619,34 @@
                 <div class="prod-image">
                     <a href="#">
                         <img class="card-image"
-                             src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                             src="https://i.imgur.com/RekqJO3.jpg">
+                    </a>
+                    <div class="actions">
+                        <a href="#" class="btnWL">
+                            <i class="far fa-heart"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-dark rounded-0 btnATC">
+                            <i class="fa fa-heart-o"></i>Add to
+                            Cart
+                        </a>
+                        
+                        
+                        <a href="#" class="btnQV quickview">Quick view</a>
+                    </div>
+                </div>
+                <figcaption class="prod-desc">
+                    <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                    <div class="prod-price text-center"><span class="price">$24.00</span></div>
+
+                </figcaption>
+            </figure>
+        </div>
+        <div class="prod-item col-xl-4">
+            <figure class="card-figure">
+                <div class="prod-image">
+                    <a href="#">
+                        <img class="card-image"
+                             src="https://i.imgur.com/RekqJO3.jpg">
                     </a>
                     <div class="actions">
                         <a href="#" class="btnWL">
@@ -625,32 +671,7 @@
                 <div class="prod-image">
                     <a href="#">
                         <img class="card-image"
-                             src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
-                    </a>
-                    <div class="actions">
-                        <a href="#" class="btnWL">
-                            <i class="far fa-heart"></i>
-                        </a>
-                        <a href="#" class="btn btn-outline-dark rounded-0 btnATC">
-                            <i class="fa fa-heart-o"></i>Add to
-                            Cart
-                        </a>
-                        <a href="#" class="btnQV quickview">Quick view</a>
-                    </div>
-                </div>
-                <figcaption class="prod-desc">
-                    <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                    <div class="prod-price text-center"><span class="price">$24.00</span></div>
-
-                </figcaption>
-            </figure>
-        </div>
-        <div class="prod-item col-xl-4">
-            <figure class="card-figure">
-                <div class="prod-image">
-                    <a href="#">
-                        <img class="card-image"
-                             src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                             src="https://i.imgur.com/RekqJO3.jpg">
                     </a>
                     <div class="actions">
                         <a href="#" class="btnWL">
@@ -675,7 +696,11 @@
 </div>
 
 @section viewJquery{
+    <script src="~/Scripts/vue.js"></script>
     <script>
+        //用來接pic的vue
+        //var isWish = @ViewBag.isWish;
+        var picVue;
         $( function () {
             //隱藏Shipping and Returns
             $( '#SAndR' ).hide();
@@ -702,18 +727,20 @@
                 $( this ).find( ".btnWL" ).removeClass( "showdown" );
                 $( this ).find( ".btnQV" ).removeClass( "hoverin" );
                 $( this ).find( ".btnATC" ).removeClass( "hoverin" );
-            })
+            } )
+            //vue binding
+            BindingVue();
+            //isWish = @ViewBag.isWish;
+            WishOrNot(@ViewBag.isWish);
             //加入wishlist
             $(".btnWL").click(function (e) {
             e.preventDefault();
             var item = $(this);
             var id = item.parents("figure").attr("id");
+                if (id == null) {
+                    id = @ViewBag.ProductID;
+                }
             var isRed = item.find("i").attr("style") == null ? false : true;
-            //if ($(this).find("i").attr("style") == null) {
-            //    var isRed = false;
-            //} else {
-            //    var isRed = true;
-            //}
             if (isRed) {
                 $.ajax({
                     type: "POST",
@@ -726,7 +753,8 @@
                     success: function (response) {
                         if (response) {
                             alert('Delete wishlist');
-                            item.find("i").removeAttr("style")
+                            item.find("i").removeAttr("style");
+                            item.find("span").text("Add to Wish List");
                         }
                     }
                 });
@@ -743,17 +771,24 @@
                         if (response) {
                             alert('Add to wishlist');
                             item.find("i").attr("style", "color:red");
+                            item.find("span").text("Delete Wish List");
                         }
-                    }   
-                });
-            }
-        });
+                    }
+                    } );
+                }
+            } );
         } );
 
         function GetBtnId( btn ) {
             //取得傳入btn的id
             let btnId = $( btn ).attr( 'id' );
             return btnId;
+        }
+        function WishOrNot(iswish) {
+            if (iswish) {
+                $("#AWL").find("i").attr("style", "color:red");
+                $("#AWL").find("span").text("Delete Wish List");
+            }
         }
 
         //增加購買數量
@@ -783,7 +818,6 @@
 
         //切換產品大圖
         function PicChange() {
-            console.log( this );
             // 大小圖片的src
             let smallSrc = $( this ).attr( 'src' );
             let largeSrc = $( '#LargePic' ).attr( 'src' );
@@ -842,6 +876,19 @@
                     alert( '成功加入購物車' );
                 }
             } );
+        }
+
+        function BindingVue() {
+            picVue = new Vue({
+                el:'#ProductPics',
+                data: {pics:  @Html.Raw(ViewBag.ProductUrl)}
+            } )
+
+            let LargePicVue = new Vue( {
+                el:'#LargePic',
+                data: {pics:  @Html.Raw(ViewBag.ProductUrl)}
+            })
+
         }
     </script>
 }
