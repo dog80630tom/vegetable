@@ -1,0 +1,83 @@
+﻿@model vegetable.Models.Product
+
+@{
+    ViewBag.Title = "getupdate";
+}
+
+<h2>getupdate</h2>
+
+
+@using (Html.BeginForm("getupdate"))
+{
+    <div class="container">
+        <div class="row">
+            <img  id="ProductPrice" />
+            <input type="file" id="fileupload" />
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Endscripts {
+    <script>
+        var src;
+        $("#fileupload").change(function (e) {
+            //function getObjectURL(file) {
+            //    var url = null;
+            //    if (window.createObjcectURL != undefined) {
+            //        url = window.createOjcectURL(file);
+            //    } else if (window.URL != undefined) {
+            //        url = window.URL.createObjectURL(file);
+            //    } else if (window.webkitURL != undefined) {
+            //        url = window.webkitURL.createObjectURL(file);
+            //    }
+            //    return url;
+            //    }
+            //var url = $('input[type=file]').val();
+              var fp = $("#fileupload").val().split("\\");
+            var name = fp[fp.length - 1];
+       
+            //var reader = new FileReader();
+
+            //reader.onload = function (e) {
+                
+            //}
+
+            //reader.readAsDataURL(data);
+            //console.log($('input[type=file]').val());
+            let form = new FormData();
+            form.append("userfile", e.target.files[0]);
+            $.ajax({
+               type: "POST",
+               processData: false,
+                url: "/Product/UploadFile",
+                data: form,
+                contentType: false,
+                success: function (response) {
+                   
+                     $.ajax({
+                type: "POST",
+
+                         url: "/Product/UploadFile2Cloud",
+                         data: { updatedata: name, form: response },
+
+                      success: function (response) {
+                          console.log(response);
+                          $("#ProductPrice").attr("src",response);
+                }
+            });
+                }
+            });
+                 
+
+
+
+          
+
+        });
+    </script>
+}

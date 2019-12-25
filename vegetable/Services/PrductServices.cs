@@ -32,29 +32,51 @@ namespace vegetable.Services
         {
             ErrorMessage error = new ErrorMessage();
             error.IsSuccess = true;
-            using (var data = item.Database.BeginTransaction())
-            {
-                try
-                {                            
-                    item.Products.Add(product);
-                    item.SaveChanges();
-                    pic.ProductID = product.ProductID;                   
-                    item.PicDetails.Add(pic);
-                    item.SaveChanges();
-                    data.Commit();
-                }
-                catch (Exception ex)
-                {
-                    error.Message = ex.Message;
-                    error.IsSuccess = false;
-                    data.Rollback();
+            item.Products.Add(product);
+            item.SaveChanges();
+            item.Database.ExecuteSqlCommand($"insert into PicDetails values({product.ProductID},'{pic.PicUrl})')");
+            //using (var data = item.Database.BeginTransaction())
+            //{
+            //    try
+            //    {
+            //        data.Commit();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        error.Message = ex.Message;
+            //        error.IsSuccess = false;
+            //        data.Rollback();
 
-                    return error;
-                }
-            }
+            //        return error;
+            //    }
+            //}
             return error;
         }
 
+        public ErrorMessage addPic(PicDetail pic,int id)
+        {
+            ErrorMessage error = new ErrorMessage();
+            error.IsSuccess = true;
+            //using (var data = item.Database.BeginTransaction())
+            //{
+            //    try
+            //    {
+            //        pic.ProductID = id;
+            //        item.PicDetails.Add(pic);
+            //        item.SaveChanges();
+            //        data.Commit();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        error.Message = ex.Message;
+            //        error.IsSuccess = false;
+            //        data.Rollback();
+
+            //        return error;
+            //    }
+            //}
+            return error;
+        }
         public ErrorMessage EditProduct(Product product, PicDetail pic)
         {
             ErrorMessage error = new ErrorMessage();
@@ -73,6 +95,7 @@ namespace vegetable.Services
             }
             return error;
         }
+
        
         public ErrorMessage DeleteProduct(IQueryable<Product> a, IQueryable<PicDetail> picDetail)
         {
