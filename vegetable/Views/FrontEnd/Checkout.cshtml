@@ -1,119 +1,119 @@
 ﻿@model  IEnumerable<vegetable.Models.ViewModels.OrderDetailViewModel>
 
-@{
+    @{
     ViewBag.Title = "Checkout";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
     var orderID = Model.ToList().FirstOrDefault(x => x.OrderID > 0).OrderID;
-}
-
-<style>
-    .border-bottom-black {
-        border-bottom: solid 2px black;
-        height: 68px;
     }
 
-    .order-summary {
-        background-color: black;
-    }
+    <style>
+        .border-bottom-black {
+            border-bottom: solid 2px black;
+            height: 68px;
+        }
 
-    .text-grey {
-        color: lightslategrey;
-        font-size: 14px;
-    }
+        .order-summary {
+            background-color: black;
+        }
 
-    .text-total {
-        font-size: 20px;
-    }
+        .text-grey {
+            color: lightslategrey;
+            font-size: 14px;
+        }
 
-    .min-cart-card {
-        width: 90px;
-        height: 130px;
-    }
+        .text-total {
+            font-size: 20px;
+        }
 
-    .btn-confirm,
-    .btn-confirm:hover {
-        border-color: #000 !important;
-        background: #000 !important;
-    }
-</style>
-<div class="container my-5">
-    <div class="row">
-        @* 左邊 *@
-        <div class="col-6">
-            @* 收件者 *@
-            <div class="col-12 p-0 border-bottom-black">
-                <h2 class="d-inline mx-3 ">1</h2><h2 class="d-inline">Receiver</h2>
-            </div>
-            <div class="col-12 mt-3">
-                <input id="Receiver" class="w-100 " type="text" name="Receiver" value="" required="required" />
-            </div>
-            @* 地址 *@
-            <div class="col-12 p-0 border-bottom-black mt-5">
-                <h2 class="d-inline mx-3">2</h2><h2 class="d-inline">Address</h2>
-            </div>
-            <div class="col-12 mt-3">
-                <input id="Address" class="w-100 " type="text" name="Address" value="" required="required" />
-            </div>
-            @* 電話 *@
-            <div class="col-12 p-0 border-bottom-black mt-5">
-                <h2 class="d-inline mx-3">3</h2><h2 class="d-inline">Phone</h2>
-            </div>
-            <div class="col-12 mt-3">
-                <input id="Phone" class="w-100 " type="text" name="Phone" value="" required="required" />
-            </div>
+        .min-cart-card {
+            width: 90px;
+            height: 130px;
+        }
 
-            @* 確認 *@
-            <div class="col-12">
-                <button id="Checkout" class="btn btn-confirm rounded-0 text-white mw-100 w-100">CONFIRM </button>
-            </div>
-        </div>
-        @* 右邊 購買商品 *@
-        <div class="col-6 border p-0">
-            <div class="col-12 order-summary text-white p-3">
-                <div class="row px-4">
-                    <h4 class="">Order Summary</h4>
-                    <a href="@Url.Action("Cart", "FrontEnd")"
-                       class="ml-auto my-auto text-decoration-none text-white">EDIT CART</a>
+        .btn-confirm,
+        .btn-confirm:hover {
+            border-color: #000 !important;
+            background: #000 !important;
+        }
+    </style>
+    <div class="container my-5">
+        <div class="row">
+            @* 左邊 *@
+            <div class="col-6">
+                @* 收件者 *@
+                <div class="col-12 p-0 border-bottom-black">
+                    <h2 class="d-inline mx-3 ">1</h2><h2 class="d-inline">Receiver</h2>
+                </div>
+                <div class="col-12 mt-3">
+                    <input id="Receiver" class="w-100 " type="text" name="Receiver" value="" required="required" />
+                </div>
+                @* 地址 *@
+                <div class="col-12 p-0 border-bottom-black mt-5">
+                    <h2 class="d-inline mx-3">2</h2><h2 class="d-inline">Address</h2>
+                </div>
+                <div class="col-12 mt-3">
+                    <input id="Address" class="w-100 " type="text" name="Address" value="" required="required" />
+                </div>
+                @* 電話 *@
+                <div class="col-12 p-0 border-bottom-black mt-5">
+                    <h2 class="d-inline mx-3">3</h2><h2 class="d-inline">Phone</h2>
+                </div>
+                <div class="col-12 mt-3">
+                    <input id="Phone" class="w-100 " type="text" name="Phone" value="" required="required" />
+                </div>
+
+                @* 確認 *@
+                <div class="col-12">
+                    <button id="Checkout" class="btn btn-confirm rounded-0 text-white mw-100 w-100">CONFIRM </button>
                 </div>
             </div>
-            @* min cart card *@
-            <div class="col-12">
-                @* 總數量 *@
-                <div class="col-12 p-0 my-4">
-                    <span>2</span><span> items</span>
+            @* 右邊 購買商品 *@
+            <div class="col-6 border p-0">
+                <div class="col-12 order-summary text-white p-3">
+                    <div class="row px-4">
+                        <h4 class="">Order Summary</h4>
+                        <a href="@Url.Action("Cart", "FrontEnd" )"
+                           class="ml-auto my-auto text-decoration-none text-white">EDIT CART</a>
+                    </div>
                 </div>
-                @* partial *@
-                @foreach (var cart in Model)
-                {
+                @* min cart card *@
+                <div class="col-12">
+                    @* 總數量 *@
+                    <div class="col-12 p-0 my-4">
+                        <span class="cartItems">2</span><span> items</span>
+                    </div>
+                    @* partial *@
+                    @foreach (var cart in Model)
+                    {
                     @Html.Partial("_MinCartPartial", cart);
-                }
-            </div>
-            @* 運費 稅金 *@
-            <div class="col-12">
-                <div class="row">
-                    @* 小計 *@
-                    <div class="col-6 text-grey my-2">Subtotal</div>
-                    <div class="col-6 text-right my-2" id="Subtotal">$123.00</div>
-                    @* 運費 *@
-                    <div class="col-6 text-grey my-2">Shipping</div>
-                    <div class="col-6 text-right my-2">--</div>
-                    @* 稅金 *@
-                    <div class="col-6 text-grey my-2">Tax</div>
-                    <div class="col-6 text-right my-2">$0.00</div>
+                    }
                 </div>
-            </div>
-            @* Total金額 *@
-            <div class="col-12 border-top">
-                <div class="row text-total  my-3">
-                    <div class="col-6">Total(USD)</div>
-                    <div class="col-6 text-right" id="GrandTotal">$123.00</div>
+                @* 運費 稅金 *@
+                <div class="col-12">
+                    <div class="row">
+                        @* 小計 *@
+                        <div class="col-6 text-grey my-2">Subtotal</div>
+                        <div class="col-6 text-right my-2" id="Subtotal">$123.00</div>
+                        @* 運費 *@
+                        <div class="col-6 text-grey my-2">Shipping</div>
+                        <div class="col-6 text-right my-2">--</div>
+                        @* 稅金 *@
+                        <div class="col-6 text-grey my-2">Tax</div>
+                        <div class="col-6 text-right my-2">$0.00</div>
+                    </div>
+                </div>
+                @* Total金額 *@
+                <div class="col-12 border-top">
+                    <div class="row text-total  my-3">
+                        <div class="col-6">Total(USD)</div>
+                        <div class="col-6 text-right" id="GrandTotal">$123.00</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-@section viewJquery{
+    @section viewJquery{
     @*格式化日期js*@
     <script src="~/Scripts/xdate.js"></script>
     <script>
@@ -124,12 +124,17 @@
 
         function GetSubTotal() {
             let sum = 0;
+            //取出購物車中每項商品的數量
+            let quantity = [];
+            $( '.quantity' ).each( function ( index, element ) {
+                let q = $( element ).text();
+                quantity.push( q );
+            } );
             //把所有subTotal 價格收集起來
-            $( '.unitTotal' ).each( function (index) {
+            $( '.unitTotal' ).each( function ( index ) {
                 //this == .unitTotal中目前正在處理的單一項
                 let unitToal = $( this ).text();
-                //取出購物車中每項商品的數量
-                let quantity = $( '.quantity' ).text();
+
                 sum += parseInt( RemoveDollarSign( unitToal ) ) * quantity[index];
             } );
             GetGrandTotal( sum );
@@ -186,10 +191,10 @@
                 },
                 dataType: "text",
                 success: function ( response ) {
-                    alert('成功下訂')
+                    alert( '成功下訂' )
                 }
             } );
         }
 
     </script>
-}
+    }

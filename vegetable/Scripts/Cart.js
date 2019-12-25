@@ -3,9 +3,8 @@
 var carts;
 var itemVue;
 $( function () {
-    console.log( 'test' );
     GetCart();
-  
+
 } );
 
 function GetCart() {
@@ -27,20 +26,21 @@ function CountItems( carts ) {
     carts = JSON.parse( carts );
     let counts = 0;
     carts.forEach( item => counts += item.Quantity )
-    BindingVue(counts);
+    ChangeCartNumber( counts );
+    //BindingVue( counts );
 }
 
-//更改購物車數目
-//function ChangeCartNumber( counts ) {
-//    $( '.cartItems' ).each( function ( index, element ) {
-//        $( element ).text( `${counts}` );
-//    } );
+更改購物車數目
+function ChangeCartNumber( counts ) {
+    $( '.cartItems' ).each( function ( index, element ) {
+        $( element ).text( `${counts}` );
+    } );
+}
+
+////vue
+//function BindingVue( counts ) {
+//    itemVue = new Vue( {
+//        el: ".cartItems",
+//        data: { counts: counts }
+//    } )
 //}
-
-//vue
-function BindingVue(counts) {
-    itemVue = new Vue( {
-        el: ".cartItems",
-        data: { counts: counts}
-    })
-}

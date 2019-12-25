@@ -38,6 +38,7 @@ namespace vegetable
                     "~/Content/Css/datatables.css"));
 
             bundles.Add(new StyleBundle("~/bundles/CartJs").Include(
+                "~/Scripts/vue.js",
                 "~/Scripts/Cart.js"
                 ));
         }
