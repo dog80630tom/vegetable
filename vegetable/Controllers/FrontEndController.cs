@@ -91,14 +91,23 @@ namespace vegetable.Controllers
                 //沒有description
                 if (rqstCookie != null && wishproducts.Count != 0)
                 {
+                    var isWish = false;
                     foreach (int id in wishproducts)
                     {
                         if (p.ProductID == id)
                         {
-                            ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
+                            isWish= true;
+                            break;
                         }
                     }
-                    ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                    if(isWish)
+                    {
+                        ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
+                    }
+                    else
+                    {
+                        ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                    }
                 }
                 else
                 {
