@@ -7,6 +7,6 @@ namespace vegetable.Models.ViewModels
 {
     public class ProductDetilListViewMdoel
     {
-        public List<ProducetDetil> models { get; set; }
+        public List<ProducetDetail> models { get; set; }
     }
 }

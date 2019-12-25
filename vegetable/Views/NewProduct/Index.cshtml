@@ -1,10 +1,4 @@
-﻿@*@model IEnumerable<vegetable.Models.ViewModels.ProducetDetil>
-
-@{
-    ViewBag.Title = "ProductList";
-}
-
-<h2>ProductList</h2>
+﻿@model IEnumerable<vegetable.Models.ViewModels.NewProductDetail>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -15,7 +9,7 @@
             @Html.DisplayNameFor(model => model.ProductName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
+            @Html.DisplayNameFor(model => model.CategoryId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ProductDescription)
@@ -24,10 +18,10 @@
             @Html.DisplayNameFor(model => model.UnitsInStock)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PicUrl)
+            @Html.DisplayNameFor(model => model.ProductPrice)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductPrice)
+            @Html.DisplayNameFor(model => model.PicUrl)
         </th>
         <th></th>
     </tr>
@@ -38,7 +32,7 @@
             @Html.DisplayFor(modelItem => item.ProductName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
+            @Html.DisplayFor(modelItem => item.CategoryId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductDescription)
@@ -47,10 +41,10 @@
             @Html.DisplayFor(modelItem => item.UnitsInStock)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PicUrl)
+            @Html.DisplayFor(modelItem => item.ProductPrice)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProductPrice)
+            @Html.DisplayFor(modelItem => item.PicUrl)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
@@ -60,4 +54,4 @@
     </tr>
 }
 
-</table>*@
+</table>

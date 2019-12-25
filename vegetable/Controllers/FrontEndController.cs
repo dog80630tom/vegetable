@@ -236,6 +236,7 @@ namespace vegetable.Controllers
                     try
                     {
                         item.SaveChanges();
+                        //return View();
                     }
                     catch (Exception ex)
                     {
@@ -243,8 +244,14 @@ namespace vegetable.Controllers
                     }
                 }
             }
+            return RedirectToAction("MemberPageWishlist", new WishList());
+            //return View("MemberPageWishlist");
             //return Response.Redirect(Request.FilePath);
-            return RedirectToAction("MemberPageWishlist");
+            //return RedirectToAction("ShowProducts");
+        }
+        public ActionResult ProductModal()
+        {
+            return View();
         }
 
         public ActionResult LoginPage ()
