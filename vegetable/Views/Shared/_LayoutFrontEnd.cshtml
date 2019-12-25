@@ -9,8 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -123,38 +122,10 @@
             transition: .2s;
             opacity: 1;
         }
-
-        .lock-background {
-            background: rgba(255,255,255,.8);
-            bottom: 0;
-            display: none;
-            position: fixed;
-            right: 0;
-            top: 0;
-            z-index: 1000;
-            left: 0;
-            pointer-events: auto;
-        }
         /*silde bar*/
-        #ProductSidenav {
-            width: 280px;
-            margin-left: -280px;
-            padding-top: 35px;
-        }
-
-        #LoginSidenav {
-            width: 280px;
-            margin-left: -280px;
-            padding-top: 35px;
-        }
-
-        .navbar-toggler .fas,
-        .navbar-toggler .far {
-            font-size: 26px;
-            color: black;
-            text-align: center;
-            padding-top: .5rem;
-            padding-bottom: .5rem;
+        #mySidenav {
+            width: 300px;
+            margin-left: -300px;
         }
 
         .sidenav {
@@ -195,55 +166,31 @@
 
                 .sidenav .menu-item a {
                     text-decoration: none;
-                    font-size: 12px;
-                    font-weight: 400;
+                    font-size: 14px;
                     color: #000000;
                     display: block;
                     transition: 0.3s;
                     /*padding:.5rem 0 .5rem .8rem;*/
                 }
 
-                .sidenav .menu-item .fas {
-                    transition: transform .3s ease-in-out;
-                }
-
-                .sidenav .menu-item[aria-expanded="flase"] .fas,
-                .sidenav .menu-item[aria-expanded="true"] .fas {
-                    transform: rotateX(180deg);
-                }
-
             .sidenav .menu-child {
                 list-style: none;
                 padding: 0;
-                font-weight: 400;
             }
 
                 .sidenav .menu-child li {
                     padding: 10px 12px;
-                    opacity: 0.75;
                 }
 
-                    .sidenav .menu-child li:hover {
-                        opacity: 1;
-                    }
-
-
-                .sidenav .menu-child a,
-                .sidenav .menu-child i {
+                .sidenav .menu-child a {
                     /*padding:.5rem 0 .5rem .8rem;*/
                 }
-
-                    .sidenav .menu-child .btn-plus[aria-expanded="true"], .sidenav .menu-child .btn-plus[aria-expanded="flase"] {
-                        transform: rotate(180deg);
-                    }
 
             .sidenav .closebtn {
                 position: absolute;
                 top: .2rem;
                 right: .5rem;
-                font-size: 24px;
-                color: black;
-                text-decoration: none;
+                font-size: 28px;
             }
         /*search-bar-sm相關 mobile*/
         .search-bar-icon:hover {
@@ -566,7 +513,6 @@
             animation: animatezoom 0.6s
         }
     </style>
-    @RenderSection("styles", required: false)
 </head>
 <body class="pb-0">
     <div id="main">
@@ -634,9 +580,9 @@
                             </div>
                         </div>
                     </li>
-                    @*<li class="nav-item active">
+                    <li class="nav-item active">
                         <a class="nav-link text-dark  mx-3 navTop" href="#"><span class="dot">GIFT CERTIFICATES</span></a>
-                    </li>*@
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark mx-3 navTop border-right border-left" href="#"><span class="dot">WISH LISTS</span></a>
                     </li>
@@ -750,36 +696,7 @@
         </div>
 
 
-        @*---------------------------會員登入SideBar--------------------------------------------------------------------------------------------------------*@
-        <div id="LoginSidenav" class="sidenav">
-            <a href="#" id="Close-LoginSideNav" class="closebtn">&times</i></a>
-            <ul class="p-0">
-                <li class="d-block">
-                    <div class="menu-item">
-                        <a href="@Url.Action("loginpage", "FrontEnd")">LOGIN</a>
-                    </div>
-                </li>
-                <li class="d-block">
-                    <div class="menu-item">
-                        <a href="@Url.Action("MemberRegist","FrontEnd")">REGISTER</a>
-                    </div>
-                </li>
-                <li class="d-block">
-                    <div class="menu-item">
-                        <a>GIFT CERTIFICATES</a>
-                    </div>
-                </li>
-
-                <li class="d-block">
-                    <div class="menu-item">
-                        <a href="@Url.Action("loginpage", "FrontEnd")">ACCOUNT</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-        @*---------------Categories Navbar-------------------------------------------------*@
-        @*<div class="container">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOVODA</a></div>
             </div>
@@ -1016,36 +933,6 @@
                     <a class="nav-link text-dark" href="#"><span class="line">SALE</span></a>
                 </li>
             </ul>
-        </div>*@
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOVODA</a></div>
-            </div>
-            <ul class="main-nav nav justify-content-center mb-4 align-items-center">
-                <li v-for="items in categories"class="nav-item mx-2 pb-3">
-                    <a class="nav-link text-dark" href="#"><span class="line">{{items.name}}</span></a>
-                    <div class="menu-block">
-                        <div class="container">
-                            <div class="row">
-                                <div v-for="c2 in items.childs"class="col-6 col-md-3 col-xl-2">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">{{c2.name}}</a></li>
-                                        <li v-for="c3 in c2.childs"><a href="#" class="dot">{{c3.name}}</a></li>
-                                 
-                                       
-
-                                    </ul>
-                                </div>
-                                @*<div class="col-6 col-md-3 col-xl-2">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Back in Stock</a></li>
-                                    </ul>
-                                </div>*@
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
         </div>
         <div class="input-group search-bar-sm rounded-0">
             <input type="text" class="form-control rounded-0" placeholder="Search">
@@ -1056,22 +943,24 @@
             </div>
         </div>
         @RenderBody()
-
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jqueryval")
+        @RenderSection("scripts", required: false)
         <footer id="footer" class=" bg-footer py-5">
             <div class="container">
                 <div class="row">
                     <div class="col-6 col-md-3 col-xl-2">
                         <ul class="footer-list">
                             <li>SHOP</li>
-                            @*<li><a href="#" class="dot">Home</a></li>
+                            <li><a href="#" class="dot">Home</a></li>
                             <li><a href="#" class="dot">new</a></li>
                             <li><a href="#" class="dot">Earrings</a></li>
                             <li><a href="#" class="dot">Necklaces</a></li>
                             <li><a href="#" class="dot">Bracelets</a></li>
                             <li><a href="#" class="dot">Rings</a></li>
                             <li><a href="#" class="dot">Other Accessories</a></li>
-                            <li><a href="#" class="dot">Sale</a></li>*@
-                            <li v-for="items in categories"><a href="#" class="dot">{{items.name.toUpperCase()}}</a></li>
+                            <li><a href="#" class="dot">Sale</a></li>
                         </ul>
                     </div>
                     <div class="col-6 col-md-3 col-xl-2">
@@ -1176,83 +1065,30 @@
         </div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jqueryval")
-    @RenderSection("scripts", required: false)
+
     @RenderSection("viewJquery", required: false)
 
     <script>
-        var btn;
-        function openNav(selector) {
-            //$('#ProductSidenav').css('margin-left', '0px');
-            $(selector).css('margin-left', '0px');
-            $('#main').css('margin-left', '280px');
-            $('.lock-background').css('display', 'block');
-            $('body').css('overflow', 'hidden');
-            btn = selector;
-            console.log('btn is', btn);
+     
+
+        function openNav() {
+            // document.getElementById("mySidenav").style.width = "300px";
+            $('#mySidenav').css('margin-left', '0px');
+            //document.getElementById("main").style.marginLeft = "300px";
+            $('#main').css('margin-left', '300px');
         }
-        function closeNav(selector) {
-            //$('#ProductSidenav').css('margin-left', '-280px');
-            $(selector).css('margin-left', '-280px');
-            console.log('close', this);
+        function closeNav() {
+            //document.getElementById("mySidenav").style.width = "0";
+            $('#mySidenav').css('margin-left', '-300px');
+            //document.getElementById("main").style.marginLeft = "0";
             $('#main').css('margin-left', '0px');
         }
 
-        //}
-        //function openNavLogin() {
-        //    $('#LoginSidenav').css('margin-left', '0px');
-        //    $('#main').css('margin-left', '280px');
-        //}
-        //function closeNavLogin() {
-        //    $('#LoginSidenav').css('margin-left', '-280px');
-        //    $('#main').css('margin-left', '0px');
-        //}
-        function unlock() {
-            $('body').css('overflow', 'auto');
-            $('.lock-background').css('display', 'none');
-            closeNav(btn);
-        }
-        function Binding() {
-           var vm = new Vue({
-                el: '#main',
-                data: {
-                    categories: []
 
-                },
-                mounted: function () {
-                    var settings = {
-                        "async": true,
-                        "crossDomain": true,
-                        "url": "https://localhost:44394/api/CategoriesApi",
-                        "method": "GET",
-                        "headers": {
-                            "cache-control": "no-cache",
-                            "Postman-Token": "c87fd111-8d9c-48a4-9ce6-73ac1c87b509"
-                        }
-                    }
-                    $.ajax(settings).done(function (response) {
-                        console.log(response);
-                        vm.categories = response;
-                    });
-                }
-            });
-
-        }
         $(function () {
-            Binding();
-            $('#btn-slide').click(function () {
-                openNav('#ProductSidenav');
-            });
-            $(".lock-background").on('click', unlock);
-            $('#btn-slide-login').click(function () { openNav('#LoginSidenav') });
-            //$('#btn-slide-login').click(openNav);
-            $('#Close-ProductSideNav').click(function () { closeNav('#ProductSidenav') });
-            $('#Close-LoginSideNav').click(function () { closeNav('#LoginSidenav') });
-            //$('#btn-slide-login').click(openNav);
-            //$(".btn-plus").click(btnChange);
 
+            $('#btn-slide').click(openNav);
+            $('.closebtn').click(closeNav);
 
 
             $("#btn_login").click(function () {
