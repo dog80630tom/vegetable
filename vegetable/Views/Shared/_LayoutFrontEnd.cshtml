@@ -489,7 +489,7 @@
             margin: 0% auto 10% auto;
             border: 1px solid #888;
             width: 550px;
-            height: 500px;
+            height: 580px;
             overflow: auto;
         }
 
@@ -1110,7 +1110,6 @@
                         console.log('back', back);
                         if (back == "1") {
                             $("#loginStatus").html("sign in suceesfully");
-                            location.href = "/FrontEnd/MemberPageAddress"
                         }
                         else if (back == "2") {
                             $("#loginStatus").html("This account doesn't exist");
@@ -1118,32 +1117,72 @@
                         else {
                             $("#loginStatus").html("Your password is incorrect. Please try again.");
                         }
-
                     }
-
                 });
             });
 
+            $("#loginId").keydown(function (event) {
+                if( event.which == 13 ) {
+                    var uname = $("#loginId").val();
+                    var psw = $("#loginPsw").val();
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "/FrontEnd/Login",
+                        data: { uname, psw },
+                        success: function (back) {
+                            console.log('back', back);
+                            if (back == "1") {
+                                $("#loginStatus").html("sign in suceesfully");
+                            }
+                            else if (back == "2") {
+                                $("#loginStatus").html("This account doesn't exist");
+                            }
+                            else {
+                                $("#loginStatus").html("Your password is incorrect. Please try again.");
+                            }
+                        }
+                    });
+                }
+            });
+
+            $("#loginId").keydown(function (event) {
+                if( event.which == 13 ) {
+                    var uname = $("#loginId").val();
+                    var psw = $("#loginPsw").val();
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "/FrontEnd/Login",
+                        data: { uname, psw },
+                        success: function (back) {
+                            console.log('back', back);
+                            if (back == "1") {
+                                $("#loginStatus").html("sign in suceesfully");
+                            }
+                            else if (back == "2") {
+                                $("#loginStatus").html("This account doesn't exist");
+                            }
+                            else {
+                                $("#loginStatus").html("Your password is incorrect. Please try again.");
+                            }
+                        }
+                    });
+                }
+            });
+
         });
+
         $("#searchBTN").click(function () {
-            console.log("23234");
             var condition = $("#search").val();
             window.location.href = "/Products/" + condition;
-            //var SearchCondition  = {
-            //    "page": 1,
-            //    "Condition":condition
-            //}
+        });
 
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/frontend/ShowProducts",
-            //    data: { :SearchCondition },
-            //    success: function () {
-
-
-            //    }
-
-            //});
+        $("#search").keydown(function (event) {
+            if( event.which == 13 ) {
+                var condition = $("#search").val();
+                window.location.href = "/Products/" + condition;
+            }
         });
     </script>
     @RenderSection("Endscripts", required: false)

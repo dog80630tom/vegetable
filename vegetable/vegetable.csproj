@@ -573,8 +573,6 @@
     <Content Include="Views\FrontEnd\index_clone.cshtml" />
     <Content Include="Views\FrontEnd\LoginPage.cshtml" />
     <Content Include="Views\FrontEnd\MemberCart.cshtml" />
-    <Content Include="Views\FrontEnd\MemberLogInModel.cshtml" />
-    <Content Include="Views\FrontEnd\MemberPageAddress.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageOrder.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageOrderDetail.cshtml" />
     <Content Include="Views\FrontEnd\MemberPageSetting.cshtml" />
