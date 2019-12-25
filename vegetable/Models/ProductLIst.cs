@@ -5,12 +5,17 @@ using Microsoft.Owin.Security;
 
 namespace vegetable.Models
 {
-    public class SearchCondition
+    public class ProductList
     {
-        public string Condition { get; set; }
-        public int Page { get; set; }
-        public int? OrderBy { get; set; }
+        [Key]
+        public int ProductID { get; set; }
+        public int CategoryID { get; set; }
+        public string ProductName { get; set; }
+        public string ProductDescription { get; set; }
+        public int UnitsInStock { get; set; }
+        public decimal ProductPrice { get; set; }
+        public string Url { get; set; }
     }
 
-    
+
 }
