@@ -138,6 +138,9 @@ namespace vegetable.Controllers
 
         public ActionResult ProductIndex (int? id)
         {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
             //沒有傳入id
             if (id == null)
             {
@@ -152,8 +155,7 @@ namespace vegetable.Controllers
                 {
                     return HttpNotFound();
                 }
-                //先預設Id = 1 之後要改
-                ViewBag.MemberID = 1;
+                ViewBag.MemberID = memberData.MemberID;
                 //預設為1
                 ViewBag.CartID = 1;
                 ViewBag.ProductID = id;
