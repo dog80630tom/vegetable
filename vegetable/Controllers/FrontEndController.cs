@@ -48,7 +48,7 @@ namespace vegetable.Controllers
                                 where memberData.MemberID == w.MemberID
                                 select p.ProductID).ToList();
             }
-            
+
             //若沒有搜尋字串則顯示全部
             //尚未做找不到的功能
             if (query is null)
@@ -106,11 +106,11 @@ namespace vegetable.Controllers
                     {
                         if (p.ProductID == id)
                         {
-                            isWish= true;
+                            isWish = true;
                             break;
                         }
                     }
-                    if(isWish)
+                    if (isWish)
                     {
                         ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
                     }
@@ -124,10 +124,10 @@ namespace vegetable.Controllers
                     ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                 }
             }
-            ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
+                ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
+            
             return View();
         }
-
         public ActionResult MemberRegist ()
         {
             return View();
