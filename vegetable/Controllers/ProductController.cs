@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,6 @@ using System.Web.Mvc;
 using vegetable.Models;
 using vegetable.Models.ViewModels;
 using vegetable.Respository;
-using vegetable.Services;
 
 namespace vegetable.Controllers
 {
@@ -16,14 +16,14 @@ namespace vegetable.Controllers
     {
         ItemContext item = new ItemContext();
         // GET: Backstage
-        public List<ProducetDetil> initdetil() {
-            List<ProducetDetil> data =new List<ProducetDetil>();
+        public List<ProducetDetail> initdetil() {
+            List<ProducetDetail> data =new List<ProducetDetail>();
             try
             {
                 string sql = @"select *from Products p
 left join Categories c on p.CategoryID= c.CategoryID
 left join PicDetails pic on pic.ProductID=p.ProductID";
-                ConnRespository<ProducetDetil> Conn = new ConnRespository<ProducetDetil>(item);
+                ConnRespository<ProducetDetail> Conn = new ConnRespository<ProducetDetail>(item);
              data =  Conn.GetAll( sql).ToList();
                 //有join有viewmodel才要用隱含轉換
                 //data = (from d in item.Products
@@ -41,7 +41,7 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
                 //        ProductName = d.ProductName,
                 //        UnitsInStock = d.UnitsInStock,
                 //        ProductPrice=d.ProductPrice
-                //    }).ToList().Select(x=>new ProducetDetil
+                //    }).ToList().Select(x=>new ProducetDetail
                 //    {
                 //        ProductID = x.ProductID,
                 //        CategoryDescription = x.CategoryDescription,
@@ -64,13 +64,13 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
         {
             return View();
         }
-        public ActionResult Form()
+        public ActionResult ProductList()
         {
             var initdata = initdetil();
             if (initdata == null)
             {
 
-                return View(new List<ProducetDetil>());
+                return View(new List<ProducetDetail>());
             }
             ViewBag.ISuccess = "false";
             return View(initdata);
@@ -80,6 +80,8 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
             return View();
         }
 
+
+        //商品的初始資料
         [HttpPost]
         public ActionResult Getinitdata()
         {
@@ -102,10 +104,12 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
 
         //    return View(initdetil());
         //}
-        [HttpPost]
-        public void UploadFile()
-        {
 
+        //local圖片上傳方法
+        [HttpPost]
+        public ActionResult UploadFile()
+        {
+            var path = "";
             if (Request.Files.AllKeys.Any())
             {
                 //## 讀取指定的上傳檔案ID
@@ -114,45 +118,29 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
                 //## 真實有檔案，進行上傳
                 if (httpPostedFile != null && httpPostedFile.ContentLength != 0)
                 {
-                     string _FileName = Path.GetFileName(httpPostedFile.FileName);  
-                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);  
-                    httpPostedFile.SaveAs(_path); 
+                    string _FileName = Path.GetFileName(httpPostedFile.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);
+                    httpPostedFile.SaveAs(_path);
+                    path = _path;
                 }
             }
+            return Json(path, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult Form(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
+        public ActionResult ProductList(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
         {
-            PrductServices services = new PrductServices();
-            try
-            {
-                if (file.ContentLength > 0)
-                {
-                    string _FileName = Path.GetFileName(file.FileName);
-                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);
-                    file.SaveAs(_path);
-                }
-                ViewBag.Message = "File Uploaded Successfully!!";
-                
-            }
-            catch
-            {
-                ViewBag.Message = "File upload failed!!";
-                
-            }
-            var result=services.addProduct(product, category, picDetail);
-            if (result.IsSuccess)
-            {
-                return View(initdetil());
-            }
-            else
-            {
-                ViewBag.ISuccess = "true";
-                ViewBag.ErrorMessage = result.Message;
-                return View(initdetil());
-            }
+
+            return View();
         }
-        public ActionResult Edit(int? id)
+
+
+        [HttpPost]
+        public ActionResult Create(Product product, PicDetail pic)
+        {
+            return View();
+        }
+
+       /* public ActionResult Edit(int? id)
         {
 
             TempData["ProductID"] = id;
@@ -172,9 +160,9 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
             TempData["ProductID"] = null;
             //此程式碼是為了把資料不要被攻擊的預防行為
             return RedirectToAction("Form", initdetil());
-        }
+        }*/
 
-        public ActionResult Delete(int? id)
+      /*  public ActionResult Delete(int? id)
         {
                 var delItem =from d in item.Products
                              where d.ProductID==id
@@ -190,7 +178,7 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
                 PrductServices services = new PrductServices();
                 services.DeleteProduct(delItem, itempic, co);
             return RedirectToAction("Index");
-        }
+        }*/
        
 
       

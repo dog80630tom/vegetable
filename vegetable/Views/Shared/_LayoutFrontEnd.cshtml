@@ -5,10 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - LOVODA</title>
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/vegetable")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -121,35 +123,38 @@
             transition: .2s;
             opacity: 1;
         }
+
         .lock-background {
-           background: rgba(255,255,255,.8);
-           bottom: 0;
-           display: none;
-           position: fixed;
-           right: 0;
-           top: 0;
-           z-index: 1000;
-           left: 0;
-           pointer-events: auto;       
+            background: rgba(255,255,255,.8);
+            bottom: 0;
+            display: none;
+            position: fixed;
+            right: 0;
+            top: 0;
+            z-index: 1000;
+            left: 0;
+            pointer-events: auto;
         }
         /*silde bar*/
         #ProductSidenav {
             width: 280px;
             margin-left: -280px;
-            padding-top:35px;
+            padding-top: 35px;
         }
+
         #LoginSidenav {
             width: 280px;
             margin-left: -280px;
-            padding-top:35px;
+            padding-top: 35px;
         }
+
         .navbar-toggler .fas,
-        .navbar-toggler .far{
-            font-size:26px;
-            color:black;
-            text-align:center;
-            padding-top:.5rem;
-            padding-bottom:.5rem;
+        .navbar-toggler .far {
+            font-size: 26px;
+            color: black;
+            text-align: center;
+            padding-top: .5rem;
+            padding-bottom: .5rem;
         }
 
         .sidenav {
@@ -191,56 +196,54 @@
                 .sidenav .menu-item a {
                     text-decoration: none;
                     font-size: 12px;
-                    font-weight:400;
+                    font-weight: 400;
                     color: #000000;
                     display: block;
                     transition: 0.3s;
                     /*padding:.5rem 0 .5rem .8rem;*/
                 }
-                 .sidenav .menu-item .fas{
-                  transition:transform .3s ease-in-out;
+
+                .sidenav .menu-item .fas {
+                    transition: transform .3s ease-in-out;
                 }
+
                 .sidenav .menu-item[aria-expanded="flase"] .fas,
-                .sidenav .menu-item[aria-expanded="true"] .fas{
-                     transform:rotateX(180deg);
+                .sidenav .menu-item[aria-expanded="true"] .fas {
+                    transform: rotateX(180deg);
                 }
+
             .sidenav .menu-child {
                 list-style: none;
                 padding: 0;
-                font-weight:400;
+                font-weight: 400;
             }
 
                 .sidenav .menu-child li {
                     padding: 10px 12px;
-                    opacity:0.75;
+                    opacity: 0.75;
                 }
-                  .sidenav .menu-child li:hover {
-                   opacity:1;
-                }
+
+                    .sidenav .menu-child li:hover {
+                        opacity: 1;
+                    }
 
 
                 .sidenav .menu-child a,
                 .sidenav .menu-child i {
                     /*padding:.5rem 0 .5rem .8rem;*/
-                    cursor:pointer;
                 }
-                .sidenav .menu-child i:hover {
-                      cursor:pointer;               
-                }
-                .sidenav .menu-child .btn-plus{
-                   transition:transform .4s ease-in-out;
-                }
-                .sidenav .menu-child .btn-plus[aria-expanded="true"], .sidenav .menu-child .btn-plus[aria-expanded="flase"] {
-                   transform:rotate(180deg);
-                }
+
+                    .sidenav .menu-child .btn-plus[aria-expanded="true"], .sidenav .menu-child .btn-plus[aria-expanded="flase"] {
+                        transform: rotate(180deg);
+                    }
 
             .sidenav .closebtn {
                 position: absolute;
                 top: .2rem;
                 right: .5rem;
                 font-size: 24px;
-                color:black;
-                text-decoration:none;
+                color: black;
+                text-decoration: none;
             }
         /*search-bar-sm相關 mobile*/
         .search-bar-icon:hover {
@@ -563,39 +566,53 @@
             animation: animatezoom 0.6s
         }
     </style>
+    @RenderSection("styles", required: false)
 </head>
 <body class="pb-0">
     <div id="main">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom p-0 justify-content-between" @*onclick="openNav()"*@>
             <button class="navbar-toggler border-0" id="btn-slide" type="button" data-toggle="collapse" @*data-target="#navbarNavDropdown"*@ aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <button class="navbar-toggler border-0" id="btn-slide-login" type="button" data-toggle="collapse" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="far fa-user"></i>
-            </button>
-            <button class="navbar-toggler border-0" id="btn-slide-login" type="button" data-toggle="collapse" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="far fa-clipboard icon ml-3"></i>
-            </button>
+
             <div class="collapse navbar-collapse p-0 justify-content-between" id="navbarNavDropdown">
                 <ul class="navbar-nav p-0">
                     <li class="nav-item active border-right  p-0">
                         <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
                     </li>
-                    <li class="nav-item active">
-                        @if (Request.RequestContext.HttpContext.User.Identity.IsAuthenticated)
+
+                    @if (Request.Cookies["myaccount"] != null)
+                    {
+                        if ((string)TempData["roles"] == "Client")
                         {
-                            <a href="@Url.Action("Product", "BackEnd")" class="nav-link text-dark mx-3 navTop">前往後台</a>
-                            <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
+                            <li class="nav-item active">
+                                <a class="nav-link text-dark mx-3 navTop">@TempData["username"].ToString()</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
+                            </li>
                         }
                         else
                         {
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Product", "BackEnd")" class="nav-link text-dark mx-3 navTop">前往後台</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="nav-item active">
                             @*<a href="@Url.Action("Login", "FrontEnd")" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>*@
                             <a id="btn_login" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>
-                        }
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark  mx-3 navTop" href="@Url.Action("MemberRegist","FrontEnd")"><span class="dot">REGISTER</span></a>
-                    </li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark  mx-3 navTop" href="@Url.Action("MemberRegist","FrontEnd")"><span class="dot">REGISTER</span></a>
+                        </li>
+                    }
+
                 </ul>
                 @*<a class="nav-link text-dark  mx-3 navTop" href="">US ONLY - FREE SHIPPING OVER $50 & FREE RETURNS SHOP NOW</a>*@
                 <ul class="navbar-nav p-0 text-center">
@@ -617,9 +634,9 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item active">
+                    @*<li class="nav-item active">
                         <a class="nav-link text-dark  mx-3 navTop" href="#"><span class="dot">GIFT CERTIFICATES</span></a>
-                    </li>
+                    </li>*@
                     <li class="nav-item">
                         <a class="nav-link text-dark mx-3 navTop border-right border-left" href="#"><span class="dot">WISH LISTS</span></a>
                     </li>
@@ -630,8 +647,8 @@
             </div>
 
         </nav>
-        <div id="ProductSidenav" class="sidenav">
-            <a href="#" id="Close-ProductSideNav" class="closebtn">&times</a>
+        <div id="mySidenav" class="sidenav">
+            <a href="#" class="closebtn" @*onclick="closeNav()"*@>&times;</a>
             <ul class="p-0">
                 <li class="d-block">
                     <div class="menu-item" data-toggle="collapse" data-target="#New" aria-expanded="false" aria-controls="New">
@@ -654,6 +671,7 @@
                             <i class="fas fa-plus float-right" data-toggle="collapse" data-target="#Statement" aria-expanded="false" aria-controls="Statement"></i>
                             <ul id="Statement" class="collapse menu-child py-2">
                                 <li><a>Drop Earrings</a></li>
+
                                 <li><a>Golden</a></li>
                                 <li><a>Lucite & Resin</a></li>
                                 <li><a>Crystal Clear</a></li>
@@ -661,37 +679,10 @@
                                 <li><a>Ear Jackets</a></li>
                             </ul>
                         </li>
-
-                        <li>
-                            <a>Charm Earrings</a>
-                            <i class="fas fa-plus float-right" data-toggle="collapse" data-target="#charm" aria-expanded="false" aria-controls="charm"></i>
-                            <ul id="charm" class="collapse menu-child py-2">
-                                <li><a>Crawlers and Pins</a></li>
-                                <li><a>Threader Earrings</a></li>
-                                <li><a>Earring Sets</a></li>
-                                <li><a>Cuffs</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a>Natural Earrings</a>
-                            <i class="fas fa-plus float-right" data-toggle="collapse" data-target="#Natural" aria-expanded="false" aria-controls="Natural"></i>
-                            <ul id="Natural" class="collapse menu-child py-2">
-                                <li><a>Wood & Wicker</a></li>
-                                <li><a>Stone & Marble Earrings</a></li>
-                                <li><a>Geode Earrings</a></li>
-                                <li><a>Hypoallergenic Earrings</a></li>
-                            </ul>
-                        </li>
+                        <li><a>Charm Earrings</a></li>
+                        <li><a>Natural Earrings</a></li>
                         <li><a>Hypoallergenic Earrings</a></li>
-                        <li>
-                            <a>Fine Earrings</a>
-                            <i class="fas fa-plus float-right" data-toggle="collapse" data-target="#Fine" aria-expanded="false" aria-controls="Fine"></i>
-                            <ul id="Fine" class="collapse menu-child py-2">
-                                <li><a>Sterling Silver Earrings</a></li>
-                                <li><a>Gold Plated Earrings</a></li>
-                            </ul>
-                        </li>
+                        <li><a>Fine Earrings</a></li>
                     </ul>
                 </li>
                 <li class="d-block">
@@ -703,30 +694,11 @@
                         <li><a>Layered Necklaces</a></li>
                         <li><a>Fine Necklaces</a></li>
                         <li><a>Y-Necklace & Lariat</a></li>
-                        <li>
-                            <a>Stone & Marble Necklaces</a>
-                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Stone" aria-expanded="false" aria-controls="Stone"></i>
-                            <ul id="Stone" class="collapse menu-child py-2">
-                                <li><a>Marble Necklace</a></li>
-                                <li><a>Geode Necklaces</a></li>
-                            </ul>
-                        </li>
+                        <li><a>Stone & Marble Necklaces</a></li>
                         <li><a>Charm Necklaces</a></li>
-                        <li>
-                            <a>Statement Necklaces</a>
-                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Statement-Necklaces" aria-expanded="false" aria-controls="Statement-Necklaces"></i>
-                            <ul id="Statement-Necklaces" class="collapse menu-child py-2">
-                                <li><a>Beaded Necklace</a></li>
-                            </ul>
-                        </li>
+                        <li><a>Statement Necklaces</a></li>
                         <li><a>Tassel & Pendant Necklaces</a></li>
-                        <li>
-                            <a>Chokers</a>
-                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Chokers" aria-expanded="false" aria-controls="Chokers"></i>
-                            <ul id="Chokers" class="collapse menu-child py-2">
-                                <li><a>Gold/Silver Chokers</a></li>
-                            </ul>
-                        </li>
+                        <li><a>Chokers</a></li>
                     </ul>
                 </li>
 
@@ -737,13 +709,7 @@
                     </div>
                     <ul id="Bracelets" class="collapse menu-child">
                         <li><a>Fine Bracelets</a></li>
-                        <li>
-                            <a>Charm Bracelets</a>
-                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Charm-Bracelets" aria-expanded="false" aria-controls="Charm-Bracelets"></i>
-                            <ul id="Charm-Bracelets" class="collapse menu-child py-2">
-                                <li><a>Cord & Bead Bracelets</a></li>
-                            </ul>
-                        </li>
+                        <li><a>Charm Bracelets</a></li>
                         <li><a>Marble and Stone Jewelry</a></li>
                         <li><a>Cuffs & Bangles</a></li>
                         <li><a>Statement Bracelets</a></li>
@@ -756,28 +722,9 @@
                         <a><i class="fas fa-chevron-down"></i></a>
                     </div>
                     <ul id="Rings" class="collapse menu-child">
-                        <li>
-                            <a>Fine Rings</a>
-                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Fine-Rings" aria-expanded="false" aria-controls="Fine-Rings"></i>
-                            <ul id="Fine-Rings" class="collapse menu-child py-2">
-                                <li><a>Gem Stone Rings</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a>Charm Rings</a>
-                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Charm-Rings" aria-expanded="false" aria-controls="Charm-Rings"></i>
-                            <ul id="Charm-Rings" class="collapse menu-child py-2">
-                                <li><a>Geode Rings</a></li>
-                                <li><a>Marble Rings</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a>Statement Rings</a>
-                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Statement-Rings" aria-expanded="false" aria-controls="Statement-Rings"></i>
-                            <ul id="Statement-Rings" class="collapse menu-child py-2">
-                                <li><a>Chunky Rings</a></li>
-                            </ul>
-                        </li>
+                        <li><a>Fine Rings</a></li>
+                        <li><a>Charm Rings</a></li>
+                        <li><a>Statement Rings</a></li>
                         <li><a>Adjustable Rings</a></li>
                     </ul>
                 </li>
@@ -787,35 +734,9 @@
                         <a><i class="fas fa-chevron-down"></i></a>
                     </div>
                     <ul id="Other" class="collapse menu-child">
-                        <li>
-                            <a>Scarves</a>
-                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Scarves" aria-expanded="false" aria-controls="Scarves"></i>
-                            <ul id="Scarves" class="collapse menu-child py-2">
-                                <li><a>Light Scarves</a></li>
-                                <li><a>Tie Scarves</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a>Purses & Totes</a>
-                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#PursesTotes" aria-expanded="false" aria-controls="PursesTotes"></i>
-                            <ul id="PursesTotes" class="collapse menu-child py-2">
-                                <li><a>Backpack</a></li>
-                                <li><a>Crossbody</a></li>
-                                <li><a>Satchel</a></li>
-                                <li><a>Totes</a></li>
-                                <li><a>Wallets</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a>Hats & Hair Accessories</a>
-                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Hats" aria-expanded="false" aria-controls="Hats"></i>
-                            <ul id="Hats" class="collapse menu-child py-2">
-                                <li><a>Hair Pins</a></li>
-                                <li><a>Hair Ties</a></li>
-                                <li><a>Hats</a></li>
-                                <li><a>Headbands & Headwraps</a></li>
-                            </ul>
-                        </li>
+                        <li><a>Scarves</a></li>
+                        <li><a>Purses & Totes</a></li>
+                        <li><a>Hats & Hair Accessories</a></li>
                         <li><a>Bralettes</a></li>
                     </ul>
                 </li>
@@ -828,7 +749,6 @@
             </ul>
         </div>
 
-        <div class="lock-background"></div>
 
         @*---------------------------會員登入SideBar--------------------------------------------------------------------------------------------------------*@
         <div id="LoginSidenav" class="sidenav">
@@ -837,12 +757,12 @@
                 <li class="d-block">
                     <div class="menu-item">
                         <a href="@Url.Action("loginpage", "FrontEnd")">LOGIN</a>
-                    </div>                   
+                    </div>
                 </li>
                 <li class="d-block">
                     <div class="menu-item">
                         <a href="@Url.Action("MemberRegist","FrontEnd")">REGISTER</a>
-                    </div>              
+                    </div>
                 </li>
                 <li class="d-block">
                     <div class="menu-item">
@@ -853,13 +773,13 @@
                 <li class="d-block">
                     <div class="menu-item">
                         <a href="@Url.Action("loginpage", "FrontEnd")">ACCOUNT</a>
-                    </div>                    
+                    </div>
                 </li>
             </ul>
         </div>
 
-
-        <div class="container">
+        @*---------------Categories Navbar-------------------------------------------------*@
+        @*<div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOVODA</a></div>
             </div>
@@ -1096,6 +1016,36 @@
                     <a class="nav-link text-dark" href="#"><span class="line">SALE</span></a>
                 </li>
             </ul>
+        </div>*@
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOVODA</a></div>
+            </div>
+            <ul class="main-nav nav justify-content-center mb-4 align-items-center">
+                <li v-for="items in categories"class="nav-item mx-2 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">{{items.name}}</span></a>
+                    <div class="menu-block">
+                        <div class="container">
+                            <div class="row">
+                                <div v-for="c2 in items.childs"class="col-6 col-md-3 col-xl-2">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">{{c2.name}}</a></li>
+                                        <li v-for="c3 in c2.childs"><a href="#" class="dot">{{c3.name}}</a></li>
+                                 
+                                       
+
+                                    </ul>
+                                </div>
+                                @*<div class="col-6 col-md-3 col-xl-2">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Back in Stock</a></li>
+                                    </ul>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
         <div class="input-group search-bar-sm rounded-0">
             <input type="text" class="form-control rounded-0" placeholder="Search">
@@ -1106,24 +1056,22 @@
             </div>
         </div>
         @RenderBody()
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/jqueryval")
-        @RenderSection("scripts", required: false)
+
         <footer id="footer" class=" bg-footer py-5">
             <div class="container">
                 <div class="row">
                     <div class="col-6 col-md-3 col-xl-2">
                         <ul class="footer-list">
                             <li>SHOP</li>
-                            <li><a href="#" class="dot">Home</a></li>
+                            @*<li><a href="#" class="dot">Home</a></li>
                             <li><a href="#" class="dot">new</a></li>
                             <li><a href="#" class="dot">Earrings</a></li>
                             <li><a href="#" class="dot">Necklaces</a></li>
                             <li><a href="#" class="dot">Bracelets</a></li>
                             <li><a href="#" class="dot">Rings</a></li>
                             <li><a href="#" class="dot">Other Accessories</a></li>
-                            <li><a href="#" class="dot">Sale</a></li>
+                            <li><a href="#" class="dot">Sale</a></li>*@
+                            <li v-for="items in categories"><a href="#" class="dot">{{items.name.toUpperCase()}}</a></li>
                         </ul>
                     </div>
                     <div class="col-6 col-md-3 col-xl-2">
@@ -1211,6 +1159,12 @@
                                 <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
                                 <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
                                 <button class="btn-outline-dark w-100 btn-block" id="gotoRegist">REGISTER</button>
+                                <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&https://localhost:44394&redirect_uri=https://localhost:44394/FrontEnd/GoogleLogin&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="  btn btn-outline-danger  fa-square-o"><i class="fab fa-google-plus fa-3x"></i></a>
+
+                                <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1653659088&redirect_uri=https://localhost:44394/frontend/LineLogin&scope=openid%20profile&state=abcde" class="  btn btn-outline-success  fa-square-o" >
+                                  <i class="fab fa-line fa-3x"></i>
+                                </a>
+
                                 <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
                                 <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
                             </div>
@@ -1222,7 +1176,10 @@
         </div>
     </div>
 
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
     @RenderSection("viewJquery", required: false)
 
     <script>
@@ -1234,19 +1191,14 @@
             $('.lock-background').css('display', 'block');
             $('body').css('overflow', 'hidden');
             btn = selector;
-            console.log('btn is',btn);
+            console.log('btn is', btn);
         }
         function closeNav(selector) {
             //$('#ProductSidenav').css('margin-left', '-280px');
             $(selector).css('margin-left', '-280px');
-            console.log('close',this);
+            console.log('close', this);
             $('#main').css('margin-left', '0px');
-            $('.lock-background').css('display', 'none');
         }
-        //function btnChange() {
-        //    //console.log("this is", this);
-        //    $('.btn-plus').removeClass("fas fa-plus");
-        //    //$('.btn-plus').addClass("fas fa-minus");
 
         //}
         //function openNavLogin() {
@@ -1257,24 +1209,51 @@
         //    $('#LoginSidenav').css('margin-left', '-280px');
         //    $('#main').css('margin-left', '0px');
         //}
-        function unlock(){
+        function unlock() {
             $('body').css('overflow', 'auto');
             $('.lock-background').css('display', 'none');
             closeNav(btn);
         }
+        function Binding() {
+           var vm = new Vue({
+                el: '#main',
+                data: {
+                    categories: []
+
+                },
+                mounted: function () {
+                    var settings = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "https://localhost:44394/api/CategoriesApi",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache",
+                            "Postman-Token": "c87fd111-8d9c-48a4-9ce6-73ac1c87b509"
+                        }
+                    }
+                    $.ajax(settings).done(function (response) {
+                        console.log(response);
+                        vm.categories = response;
+                    });
+                }
+            });
+
+        }
         $(function () {
+            Binding();
             $('#btn-slide').click(function () {
                 openNav('#ProductSidenav');
             });
             $(".lock-background").on('click', unlock);
             $('#btn-slide-login').click(function () { openNav('#LoginSidenav') });
             //$('#btn-slide-login').click(openNav);
-            $('#Close-ProductSideNav').click(function () { closeNav('#ProductSidenav')});
-            $('#Close-LoginSideNav').click(function () { closeNav('#LoginSidenav')});
+            $('#Close-ProductSideNav').click(function () { closeNav('#ProductSidenav') });
+            $('#Close-LoginSideNav').click(function () { closeNav('#LoginSidenav') });
             //$('#btn-slide-login').click(openNav);
             //$(".btn-plus").click(btnChange);
-       
-          
+
+
 
             $("#btn_login").click(function () {
                 $('#loginModal').modal('show');
@@ -1284,30 +1263,30 @@
             });
 
             $("#loginConfirm").click(function () {
-              var uname = $("#loginId").val();
-            var psw = $("#loginPsw").val();
+                var uname = $("#loginId").val();
+                var psw = $("#loginPsw").val();
 
-            $.ajax({
-                type: "POST",
-                url: "/FrontEnd/Login",
-                data: { uname, psw },
-                success: function (back) {
-                    console.log('back', back);
-                    if (back == "1") {
-                        $("#loginStatus").html("登入成功");
-                        location.href = "/FrontEnd/MemberPageAddress"
-                    }
-                    else if (back == "2") {
-                        $("#loginStatus").html("此帳號尚未註冊，請先註冊");
-                    }
-                    else {
-                        $("#loginStatus").html("密碼錯誤");
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/Login",
+                    data: { uname, psw },
+                    success: function (back) {
+                        console.log('back', back);
+                        if (back == "1") {
+                            $("#loginStatus").html("sign in suceesfully");
+                            location.href = "/FrontEnd/MemberPageAddress"
+                        }
+                        else if (back == "2") {
+                            $("#loginStatus").html("This account doesn't exist");
+                        }
+                        else {
+                            $("#loginStatus").html("Your password is incorrect. Please try again.");
+                        }
+
                     }
 
-                }
-
+                });
             });
-            });  
 
         });
         $("#searchBTN").click(function () {

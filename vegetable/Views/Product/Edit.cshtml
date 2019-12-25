@@ -10,13 +10,13 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
         <h4>ProducetDetil</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ProductID)
-       
+
         <div class="form-group">
             @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -54,26 +54,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PicUrl, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PicUrl, "", new { @class = "text-danger" })
-                <input id="fileupload" type="file" name="files[]" data-url="Assets/images" accept=".png,.jpg">
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoryPic, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryPic, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CategoryPic, "", new { @class = "text-danger" })
-                <input id="fileupload2" type="file" data-url="Assets/images" accept=".png,.jpg">
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoryDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CategoryDescription, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -99,30 +79,4 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
-@section Endscripts
-{
-    <script>
-        $(function () {
-                
-        
-     
-        $("#fileupload").change(function (e) {
-            var fp = $("#fileupload").val().split("\\");
-            var name = fp[fp.length - 1];
-
-
-            $("#PicUrl").val(name);
-
-        });
-        $("#fileupload2").change(function (e) {
-            var fp = $("#fileupload2").val().split("\\");
-            var name = fp[fp.length - 1];
-
-
-            $("#CategoryPic").val(name);
-
-        });
-            });
-    </script>
 }
