@@ -112,9 +112,10 @@ namespace vegetable.Controllers
                 else
                 {
                     ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
-                }
-                ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
+                } 
             }
+                ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
+            
             return View();
         }
         public ActionResult MemberRegist ()
