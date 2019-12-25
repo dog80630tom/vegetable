@@ -9,8 +9,9 @@ namespace vegetable.Models
 {
     public class PicDetail
     {
-        [Key]
+       
         public string PicUrl { get; set; }
+        [Key]
         public int ProductID { get; set; }
     }
 }
