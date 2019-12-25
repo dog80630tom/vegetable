@@ -48,7 +48,7 @@ namespace vegetable.Controllers
                                 where memberData.MemberID == w.MemberID
                                 select p.ProductID).ToList();
             }
-            
+
             //若沒有搜尋字串則顯示全部
             //尚未做找不到的功能
             if (query is null)
@@ -96,11 +96,11 @@ namespace vegetable.Controllers
                     {
                         if (p.ProductID == id)
                         {
-                            isWish= true;
+                            isWish = true;
                             break;
                         }
                     }
-                    if(isWish)
+                    if (isWish)
                     {
                         ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
                     }
@@ -113,11 +113,10 @@ namespace vegetable.Controllers
                 {
                     ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                 }
+                ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
             }
-            ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
             return View();
         }
-
         public ActionResult MemberRegist ()
         {
             return View();
@@ -146,7 +145,7 @@ namespace vegetable.Controllers
             using (ItemContext item = new ItemContext())
             {
                 Product product = item.Products.Find(id);
-                //Category category = item.Categories.Find(product.CategoryID);
+                Category category = item.Categories.Find(product.CategoryID);
                 //傳入的id找不到商品
                 if (product == null)
                 {
