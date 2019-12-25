@@ -69,26 +69,6 @@ namespace vegetable.Controllers
             var JSONTO = allproducts.ToList();
             foreach (Product p in JSONTO)
             {
-                //用viewbag丟json格式到view
-                //判斷會員登入
-                //if (rqstCookie != null)
-                //{
-                //    foreach (int id in wishproducts)
-                //    {
-                //        if (p.ProductID == id)
-                //        {
-                //            ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductDescription:'" + p.ProductDescription + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
-                //        }
-                //        else
-                //        {
-                //            ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductDescription:'" + p.ProductDescription + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
-                //        }
-                //    }
-                //} else
-                //{
-                //    ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductDescription:'" + p.ProductDescription + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
-                //}
-                //沒有description
                 if (rqstCookie != null && wishproducts.Count != 0)
                 {
                     var isWish = false;
@@ -138,6 +118,18 @@ namespace vegetable.Controllers
 
         public ActionResult ProductIndex (int? id)
         {
+            List<int> wishproducts = new List<int>();
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            if (rqstCookie != null)
+            {
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                wishproducts = (from p in item.Products
+                                join w in item.WishLists
+                                on p.ProductID equals w.ProductID
+                                where memberData.MemberID == w.MemberID&&w.ProductID==id
+                                select p.ProductID).ToList();
+            }
             //沒有傳入id
             if (id == null)
             {
