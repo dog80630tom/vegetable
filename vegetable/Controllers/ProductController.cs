@@ -1,3 +1,6 @@
+using Imgur.API.Authentication.Impl;
+using Imgur.API.Endpoints.Impl;
+using Imgur.API.Models;
 using Newtonsoft.Json;
 
 using System;
@@ -108,9 +111,9 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
 
         //local圖片上傳方法
         [HttpPost]
-        public void UploadFile()
+        public ActionResult UploadFile()
         {
-
+            var path = "";
             if (Request.Files.AllKeys.Any())
             {
                 //## 讀取指定的上傳檔案ID
@@ -119,47 +122,16 @@ left join PicDetails pic on pic.ProductID=p.ProductID";
                 //## 真實有檔案，進行上傳
                 if (httpPostedFile != null && httpPostedFile.ContentLength != 0)
                 {
-                     string _FileName = Path.GetFileName(httpPostedFile.FileName);  
-                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);  
-                    httpPostedFile.SaveAs(_path); 
+                    string _FileName = Path.GetFileName(httpPostedFile.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);
+                    httpPostedFile.SaveAs(_path);
+                    path = _path;
                 }
             }
+            return Json(path, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        /* public ActionResult ProductList(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
-         {
-             PrductServices services = new PrductServices();
-             try
-             {
-                 if (file.ContentLength > 0)
-                 {
-                     string _FileName = Path.GetFileName(file.FileName);
-                     string _path = Path.Combine(Server.MapPath("~/Assets/Image"), _FileName);
-                     file.SaveAs(_path);
-                 }
-                 ViewBag.Message = "File Uploaded Successfully!!";
-
-             }
-             catch
-             {
-                 ViewBag.Message = "File upload failed!!";
-
-             }*/
-        /* var result=services.addProduct(product, picDetail);
-         if (result.IsSuccess)
-         {
-             return View(initdetil());
-         }
-         else
-         {
-             ViewBag.ISuccess = "true";
-             ViewBag.ErrorMessage = result.Message;
-             return View(initdetil());
-         }
-    }*/
-
-
-        public ActionResult Create()
+        public ActionResult ProductList(Product product,Category category,PicDetail picDetail, HttpPostedFileBase file)
         {
 
             return View();
