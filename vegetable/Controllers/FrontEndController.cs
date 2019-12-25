@@ -137,7 +137,7 @@ namespace vegetable.Controllers
             using (ItemContext item = new ItemContext())
             {
                 Product product = item.Products.Find(id);
-                Category category = item.Categories.Find(product.CategoryID);
+                //Category category = item.Categories.Find(product.CategoryID);
                 //傳入的id找不到商品
                 if (product == null)
                 {
