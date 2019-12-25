@@ -371,6 +371,25 @@
         visibility: visible !important;
         top: 15px !important;
     }
+    .btnWL span {
+        font-weight: 400;
+        color: #000;
+        border-bottom: 1px dotted #000;
+        margin-left: 10px;
+    }
+
+    .btnWL i {
+        font-weight: 400;
+        color: #000;
+        font-size: 16px;
+        margin-left: 40px;
+    }
+
+
+    .btnWL span:hover, .btnWL i:hover {
+        cursor: pointer;
+        color: #000;
+    }
 </style>
 
 
@@ -426,26 +445,29 @@
                 <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>*@
             <div class="productView-rating"></div>
 
-            @*購買相關*@
-            @*
-                ID之後要隱藏!!!!
-                ID之後要隱藏!!!!
-                ID之後要隱藏!!!!
-            *@
-            @*會員ID*@
-            @*<input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />*@
-            @*產品ID*@
-            <input id="ProductID" type="hidden" name="ProductID" value="@ViewBag.ProductID" />
-            @* 數量 *@
-            <div>Quantity:</div>
-            @* 增加 *@
-            <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
-            <input id="quantity" name="Quantity" value="1" class="text-center" />
-            @* 減少 *@
-            <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
-            <div class="productView-rating"></div>
-            <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
-        </div>
+        @*購買相關*@
+        @*
+        ID之後要隱藏!!!!
+        ID之後要隱藏!!!!
+        ID之後要隱藏!!!!
+        *@
+        @*會員ID*@
+        @*<input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />*@
+        @*產品ID*@
+        <input id="ProductID" type="hidden" name="ProductID" value="@ViewBag.ProductID" />
+        @* 數量 *@
+        <div>Quantity:</div>
+        @* 增加 *@
+        <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+        <input id="quantity" name="Quantity" value="1" class="text-center" />
+        @* 減少 *@
+        <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+        <div class="productView-rating"></div>
+        <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
+        <a href="#" class="btnWL list-view">
+            <i class="far fa-heart"></i><span>Add to Wish list</span>
+        </a>
+    </div>
         @*產品小圖和社群按鈕*@
         <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4 " id="ProductPics">
             <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
@@ -607,9 +629,8 @@
                             <i class="fa fa-heart-o"></i>Add to
                             Cart
                         </a>
-                        <a href="#" class="btnWL">
-                            <i class="far fa-heart">Add to WishList</i>
-                        </a>
+                        
+                        
                         <a href="#" class="btnQV quickview">Quick view</a>
                     </div>
                 </div>
@@ -709,46 +730,50 @@
             //vue binding
             BindingVue();
             //加入wishlist
-            $( ".btnWL" ).click( function ( e ) {
-                e.preventDefault();
-                var item = $( this );
-                var id = item.parents( "figure" ).attr( "id" );
-                var isRed = item.find( "i" ).attr( "style" ) == null ? false : true;
-                //if ($(this).find("i").attr("style") == null) {
-                //    var isRed = false;
-                //} else {
-                //    var isRed = true;
-                //}
-                if ( isRed ) {
-                    $.ajax( {
-                        type: "POST",
-                        url: "/FrontEnd/DeleteWish",
-                        data: {
-                            MemberID: 0,
-                            ProductID: id
-                        },
-                        dataType: "text",
-                        success: function ( response ) {
-                            if ( response ) {
-                                alert( 'Delete wishlist' );
-                                item.find( "i" ).removeAttr( "style" )
-                            }
+            $(".btnWL").click(function (e) {
+            e.preventDefault();
+            var item = $(this);
+            var id = item.parents("figure").attr("id");
+                if (id == null) {
+                    id = @ViewBag.ProductID;
+                }
+            var isRed = item.find("i").attr("style") == null ? false : true;
+            //if ($(this).find("i").attr("style") == null) {
+            //    var isRed = false;
+            //} else {
+            //    var isRed = true;
+            //}
+            if (isRed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/DeleteWish",
+                    data: {
+                        MemberID: 0,
+                        ProductID: id
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        if (response) {
+                            alert('Delete wishlist');
+                            item.find("i").removeAttr("style");
+                            item.find("span").text("Add to Wish List");
                         }
-                    } );
-                } else {
-                    $.ajax( {
-                        type: "POST",
-                        url: "/FrontEnd/AddWish",
-                        data: {
-                            MemberID: 0,
-                            ProductID: id
-                        },
-                        dataType: "text",
-                        success: function ( response ) {
-                            if ( response ) {
-                                alert( 'Add to wishlist' );
-                                item.find( "i" ).attr( "style", "color:red" );
-                            }
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/AddWish",
+                    data: {
+                        MemberID:0,
+                        ProductID:id
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        if (response) {
+                            alert('Add to wishlist');
+                            item.find("i").attr("style", "color:red");
+                            item.find("span").text("Delete Wish List");
                         }
                     } );
                 }
