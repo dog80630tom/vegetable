@@ -1,6 +1,3 @@
-using Imgur.API.Authentication.Impl;
-using Imgur.API.Endpoints.Impl;
-using Imgur.API.Models;
 using Newtonsoft.Json;
 
 using System;
@@ -12,7 +9,6 @@ using System.Web.Mvc;
 using vegetable.Models;
 using vegetable.Models.ViewModels;
 using vegetable.Respository;
-using vegetable.Services;
 
 namespace vegetable.Controllers
 {
