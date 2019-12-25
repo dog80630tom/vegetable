@@ -138,6 +138,9 @@ namespace vegetable.Controllers
 
         public ActionResult ProductIndex (int? id)
         {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
             //沒有傳入id
             if (id == null)
             {
@@ -146,21 +149,21 @@ namespace vegetable.Controllers
             using (ItemContext item = new ItemContext())
             {
                 Product product = item.Products.Find(id);
-                Category category = item.Categories.Find(product.CategoryID);
+                PicDetail picDetail = item.PicDetails.Find(id);
                 //傳入的id找不到商品
                 if (product == null)
                 {
                     return HttpNotFound();
                 }
-                //先預設Id = 1 之後要改
-                ViewBag.MemberID = 1;
+                ViewBag.MemberID = memberData.MemberID;
                 //預設為1
                 ViewBag.CartID = 1;
                 ViewBag.ProductID = id;
                 ViewBag.ProductDescription = product.ProductDescription;
                 ViewBag.ProductName = product.ProductName;
                 ViewBag.ProductPrice = product.ProductPrice;
-                ViewBag.CategoryName = category.CategoryName;
+                ViewBag.ProductUrl = picDetail.PicUrl;
+                //ViewBag.ProductUrl = JsonConvert.SerializeObject(picDetail.PicUrl);
                 return View();
             }
         }
