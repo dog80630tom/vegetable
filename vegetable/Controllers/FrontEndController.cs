@@ -94,7 +94,7 @@ namespace vegetable.Controllers
                     ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                 }
             }
-            ViewBag.products = ViewBag.products.TrimEnd(',');
+            ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
             return View();
         }
 
@@ -138,7 +138,7 @@ namespace vegetable.Controllers
             using (ItemContext item = new ItemContext())
             {
                 Product product = item.Products.Find(id);
-                Category category = item.Categories.Find(product.CategoryID);
+                //Category category = item.Categories.Find(product.CategoryID);
                 //傳入的id找不到商品
                 if (product == null)
                 {
