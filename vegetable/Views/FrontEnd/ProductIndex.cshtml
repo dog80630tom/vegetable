@@ -401,12 +401,12 @@
         @*產品大圖*@
         <div class="col-xl-4 order-xl-1 col-md-6 order-md-2 col-12 order-1">
             <figure class="figure">
-                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/1.jpg" alt="">
+                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" v-bind:src="pics.Url1" alt="">
             </figure>
         </div>
 
         @* 右半部  購買清單*@
-        <div class="col-xl-8 order-xl-2 col-md-6 order-md-2 order-3">
+        <div class="col-xl-8 order-xl-2 col-md-6 order-md-2 order-3 pics">
             <div id="ProductName" class="productView-title">@ViewBag.ProductName</div>
             <div class="productView-rating"></div>
             <div id="ProductPrice " class="productView-price">$@ViewBag.ProductPrice </div>
@@ -427,11 +427,11 @@
             <div class="productView-rating"></div>
 
             @*購買相關*@
-            @* 
+            @*
                 ID之後要隱藏!!!!
                 ID之後要隱藏!!!!
                 ID之後要隱藏!!!!
-                *@
+            *@
             @*會員ID*@
             @*<input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />*@
             @*產品ID*@
@@ -447,19 +447,16 @@
             <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
         </div>
         @*產品小圖和社群按鈕*@
-        <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4">
+        <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4 " id="ProductPics">
             <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
                 <a class="mr-3 " href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/1.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" v-bind:src="pics.Url1" />
                 </a>
                 <a class="mr-3" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/2.jpg" alt="Tie and Knot Ring" />
-                </a>
-                <a class="mr-3" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/3.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" v-bind:src="pics.Url2" />
                 </a>
                 <a class="" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.CategoryName/@ViewBag.ProductName/4.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" v-bind:src="pics.Url3" />
                 </a>
             </div>
         </div>
@@ -600,7 +597,7 @@
                 <div class="prod-image">
                     <a href="#">
                         <img class="card-image"
-                             src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                             src="https://i.imgur.com/RekqJO3.jpg">
                     </a>
                     <div class="actions">
                         <a href="#" class="btnWL">
@@ -628,7 +625,7 @@
                 <div class="prod-image">
                     <a href="#">
                         <img class="card-image"
-                             src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                             src="https://i.imgur.com/RekqJO3.jpg">
                     </a>
                     <div class="actions">
                         <a href="#" class="btnWL">
@@ -653,7 +650,7 @@
                 <div class="prod-image">
                     <a href="#">
                         <img class="card-image"
-                             src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                             src="https://i.imgur.com/RekqJO3.jpg">
                     </a>
                     <div class="actions">
                         <a href="#" class="btnWL">
@@ -678,7 +675,10 @@
 </div>
 
 @section viewJquery{
+    <script src="~/Scripts/vue.js"></script>
     <script>
+        //用來接pic的vue
+        var picVue;
         $( function () {
             //隱藏Shipping and Returns
             $( '#SAndR' ).hide();
@@ -705,52 +705,54 @@
                 $( this ).find( ".btnWL" ).removeClass( "showdown" );
                 $( this ).find( ".btnQV" ).removeClass( "hoverin" );
                 $( this ).find( ".btnATC" ).removeClass( "hoverin" );
-            })
+            } )
+            //vue binding
+            BindingVue();
             //加入wishlist
-            $(".btnWL").click(function (e) {
-            e.preventDefault();
-            var item = $(this);
-            var id = item.parents("figure").attr("id");
-            var isRed = item.find("i").attr("style") == null ? false : true;
-            //if ($(this).find("i").attr("style") == null) {
-            //    var isRed = false;
-            //} else {
-            //    var isRed = true;
-            //}
-            if (isRed) {
-                $.ajax({
-                    type: "POST",
-                    url: "/FrontEnd/DeleteWish",
-                    data: {
-                        MemberID: 0,
-                        ProductID: id
-                    },
-                    dataType: "text",
-                    success: function (response) {
-                        if (response) {
-                            alert('Delete wishlist');
-                            item.find("i").removeAttr("style")
+            $( ".btnWL" ).click( function ( e ) {
+                e.preventDefault();
+                var item = $( this );
+                var id = item.parents( "figure" ).attr( "id" );
+                var isRed = item.find( "i" ).attr( "style" ) == null ? false : true;
+                //if ($(this).find("i").attr("style") == null) {
+                //    var isRed = false;
+                //} else {
+                //    var isRed = true;
+                //}
+                if ( isRed ) {
+                    $.ajax( {
+                        type: "POST",
+                        url: "/FrontEnd/DeleteWish",
+                        data: {
+                            MemberID: 0,
+                            ProductID: id
+                        },
+                        dataType: "text",
+                        success: function ( response ) {
+                            if ( response ) {
+                                alert( 'Delete wishlist' );
+                                item.find( "i" ).removeAttr( "style" )
+                            }
                         }
-                    }
-                });
-            } else {
-                $.ajax({
-                    type: "POST",
-                    url: "/FrontEnd/AddWish",
-                    data: {
-                        MemberID:0,
-                        ProductID:id
-                    },
-                    dataType: "text",
-                    success: function (response) {
-                        if (response) {
-                            alert('Add to wishlist');
-                            item.find("i").attr("style", "color:red");
+                    } );
+                } else {
+                    $.ajax( {
+                        type: "POST",
+                        url: "/FrontEnd/AddWish",
+                        data: {
+                            MemberID: 0,
+                            ProductID: id
+                        },
+                        dataType: "text",
+                        success: function ( response ) {
+                            if ( response ) {
+                                alert( 'Add to wishlist' );
+                                item.find( "i" ).attr( "style", "color:red" );
+                            }
                         }
-                    }   
-                });
-            }
-        });
+                    } );
+                }
+            } );
         } );
 
         function GetBtnId( btn ) {
@@ -786,7 +788,6 @@
 
         //切換產品大圖
         function PicChange() {
-            console.log( this );
             // 大小圖片的src
             let smallSrc = $( this ).attr( 'src' );
             let largeSrc = $( '#LargePic' ).attr( 'src' );
@@ -845,6 +846,19 @@
                     alert( '成功加入購物車' );
                 }
             } );
+        }
+
+        function BindingVue() {
+            picVue = new Vue({
+                el:'#ProductPics',
+                data: {pics:  @Html.Raw(ViewBag.ProductUrl)}
+            } )
+
+            let LargePicVue = new Vue( {
+                el:'#LargePic',
+                data: {pics:  @Html.Raw(ViewBag.ProductUrl)}
+            })
+
         }
     </script>
 }

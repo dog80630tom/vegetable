@@ -146,7 +146,7 @@ namespace vegetable.Controllers
             using (ItemContext item = new ItemContext())
             {
                 Product product = item.Products.Find(id);
-                Category category = item.Categories.Find(product.CategoryID);
+                PicDetail picDetail = item.PicDetails.Find(id);
                 //傳入的id找不到商品
                 if (product == null)
                 {
@@ -160,7 +160,8 @@ namespace vegetable.Controllers
                 ViewBag.ProductDescription = product.ProductDescription;
                 ViewBag.ProductName = product.ProductName;
                 ViewBag.ProductPrice = product.ProductPrice;
-                ViewBag.CategoryName = category.CategoryName;
+                ViewBag.ProductUrl = picDetail.PicUrl;
+                //ViewBag.ProductUrl = JsonConvert.SerializeObject(picDetail.PicUrl);
                 return View();
             }
         }
