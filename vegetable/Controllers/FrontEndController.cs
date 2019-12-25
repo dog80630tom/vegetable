@@ -73,7 +73,7 @@ namespace vegetable.Controllers
                                   ProductDescription = p.ProductDescription,
                                   UnitsInStock = p.UnitsInStock,
                                   ProductPrice = p.ProductPrice,
-                                  Url = pd.PicUrl
+                                  Url = pd.PicUrl.Replace(")","")
                               };
                                                         
             var JSONTO = allproducts.ToList();       
