@@ -89,7 +89,7 @@ namespace vegetable.Controllers
                 //    ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductDescription:'" + p.ProductDescription + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                 //}
                 //沒有description
-                if (rqstCookie != null)
+                if (rqstCookie != null && wishproducts.Count != 0)
                 {
                     foreach (int id in wishproducts)
                     {
@@ -97,11 +97,8 @@ namespace vegetable.Controllers
                         {
                             ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
                         }
-                        else
-                        {
-                            ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
-                        }
                     }
+                    ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                 }
                 else
                 {
