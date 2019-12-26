@@ -4,8 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOBEDA</title>
-    @Styles.Render("~/Content/vegetable")
+    <title>@ViewBag.Title - LOVODA</title>
+    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
@@ -14,12 +14,9 @@
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 1.1px;
-        }
-        .container {
-            max-width:1200px;
+            letter-spacing: 2px;
         }
 
         .icon {
@@ -93,7 +90,6 @@
             z-index: 99;
             display: none;
             opacity: 0;
-            font-size:11px;
         }
 
         .bg-menu {
@@ -236,20 +232,17 @@
                 .sidenav .menu-child i {
                     /*padding:.5rem 0 .5rem .8rem;*/
                     cursor: pointer;
-                    color: black;
-                    text-decoration: none;
                 }
 
                     .sidenav .menu-child i:hover {
                         cursor: pointer;
-                        color: black;
                     }
 
-                .sidenav .menu-child .fas {
+                .sidenav .menu-child .btn-plus {
                     transition: transform .4s ease-in-out;
                 }
 
-                    .sidenav .menu-child .fas[aria-expanded="true"], .sidenav .menu-child .fas[aria-expanded="flase"] {
+                    .sidenav .menu-child .btn-plus[aria-expanded="true"], .sidenav .menu-child .btn-plus[aria-expanded="flase"] {
                         transform: rotate(180deg);
                     }
 
@@ -586,8 +579,6 @@
 </head>
 <body class="pb-0">
     <div id="main">
-
-        @*------------------------------首頁Navbar--------------------------------------------------------------------*@
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom p-0 justify-content-between" @*onclick="openNav()"*@>
             <button class="navbar-toggler border-0" id="btn-slide" type="button" data-toggle="collapse" @*data-target="#navbarNavDropdown"*@ aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -595,49 +586,31 @@
             <button class="navbar-toggler border-0" id="btn-slide-login" type="button" data-toggle="collapse" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="far fa-user"></i>
             </button>
-            <button class="navbar-toggler border-0" type="button" data-toggle="collapse" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0" id="btn-slide-login" type="button" data-toggle="collapse" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="far fa-clipboard icon ml-3"></i>
             </button>
-
             <div class="collapse navbar-collapse p-0 justify-content-between" id="navbarNavDropdown">
                 <ul class="navbar-nav p-0">
                     <li class="nav-item active border-right  p-0">
                         <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
                     </li>
-
-                    @if (Request.Cookies["myaccount"] != null)
-                    {
-                        if ((string)TempData["roles"] == "Client")
+                    <li class="nav-item active">
+                        @if (Request.RequestContext.HttpContext.User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item active">
-                                <a class="nav-link text-dark mx-3 navTop">@TempData["username"].ToString()</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
-                            </li>
+                            <a href="@Url.Action("Product", "BackEnd")" class="nav-link text-dark mx-3 navTop">前往後台</a>
+                            <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
                         }
                         else
                         {
-                            <li class="nav-item active">
-                                <a href="@Url.Action("Product", "BackEnd")" class="nav-link text-dark mx-3 navTop">前往後台</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
-                            </li>
-                        }
-                    }
-                    else
-                    {
-                        <li class="nav-item active">
                             @*<a href="@Url.Action("Login", "FrontEnd")" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>*@
                             <a id="btn_login" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark  mx-3 navTop" href="@Url.Action("MemberRegist","FrontEnd")"><span class="dot">REGISTER</span></a>
-                        </li>
-                    }
-
+                        }
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark  mx-3 navTop" href="@Url.Action("MemberRegist","FrontEnd")"><span class="dot">REGISTER</span></a>
+                    </li>
                 </ul>
+                @*<a class="nav-link text-dark  mx-3 navTop" href="">US ONLY - FREE SHIPPING OVER $50 & FREE RETURNS SHOP NOW</a>*@
                 <ul class="navbar-nav p-0 text-center">
 
                     <li class="nav-item active border-right border-left  p-0  quick-search">
@@ -645,8 +618,7 @@
                         <a class="nav-link text-dark  mx-3 navTop" href="#">
                             <i class="fas fa-search icon"></i>
                         </a>
-
-                        @*-----------------quick-search Search-bar-md----------------------------------*@
+                        @*quick-search Search-bar-md*@
                         <div class="container-fluid search-bar-md-warp">
                             <div class="input-group search-bar-md">
                                 <input id="search" type="text" class="form-control rounded-0" placeholder="Search">
@@ -658,42 +630,219 @@
                             </div>
                         </div>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link text-dark  mx-3 navTop" href="#"><span class="dot">GIFT CERTIFICATES</span></a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark mx-3 navTop" href="#"><span class="dot">WISH LISTS</span></a>
+                        <a class="nav-link text-dark mx-3 navTop border-right border-left" href="#"><span class="dot">WISH LISTS</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark   mx-3 navTop" href="#"><span class="dot">CART</span><i class="far fa-clipboard icon ml-3"></i></a>
                     </li>
                 </ul>
             </div>
+
         </nav>
         <div id="ProductSidenav" class="sidenav">
             <a href="#" id="Close-ProductSideNav" class="closebtn">&times</a>
             <ul class="p-0">
-                <li v-for="c1 in categories" class="d-block">
-                    <div class="menu-item" data-toggle="collapse" :data-target="'#'+c1.listname" aria-expanded="false" :aria-controls="c1.listname">
-                        <a :href=`Products/${c1.name}`>{{c1.name.toUpperCase()}}</a>
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#New" aria-expanded="false" aria-controls="New">
+                        <a>NEW</a>
                         <a><i class="fas fa-chevron-down"></i></a>
                     </div>
-                    <ul :id="c1.listname" class="collapse menu-child">
-                        <li v-for="c2 in c1.childs">
-                            <div v-if="c2.childs.length!==0" class="categoryitems">
-                                <a :href=`Products/${c1.name}` class="dot">{{c2.name}}</a>
-                                <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" :data-target="'#'+c2.listname" aria-expanded="false" :aria-controls="c2.listname"></i>
-                                <ul :id="c2.listname" class="collapse menu-child py-2">
-                                    <li v-for="c3 in c2.childs"><a class="dot" href="">{{c3.name}}</a></li>
-                                </ul>
-                            </div>
-                            <div v-else>
-                                <a :href=`Products/${c1.name}` class="dot">{{c2.name}}</a>
-                            </div>
+                    <ul id="New" class="collapse menu-child">
+                        <li><a>New Arrivals</a></li>
+                        <li><a>Back in Stock</a></li>
+                    </ul>
+                </li>
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#Earrings" aria-expanded="false" aria-controls="Earrings">
+                        <a>EARRINGS</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul id="Earrings" class="collapse menu-child">
+                        <li>
+                            <a>Statement Earrings</a>
+                            <i class="fas fa-plus float-right" data-toggle="collapse" data-target="#Statement" aria-expanded="false" aria-controls="Statement"></i>
+                            <ul id="Statement" class="collapse menu-child py-2">
+                                <li><a>Drop Earrings</a></li>
+                                <li><a>Golden</a></li>
+                                <li><a>Lucite & Resin</a></li>
+                                <li><a>Crystal Clear</a></li>
+                                <li><a>Hoop Earrings</a></li>
+                                <li><a>Ear Jackets</a></li>
+                            </ul>
+                        </li>
 
+                        <li>
+                            <a>Charm Earrings</a>
+                            <i class="fas fa-plus float-right" data-toggle="collapse" data-target="#charm" aria-expanded="false" aria-controls="charm"></i>
+                            <ul id="charm" class="collapse menu-child py-2">
+                                <li><a>Crawlers and Pins</a></li>
+                                <li><a>Threader Earrings</a></li>
+                                <li><a>Earring Sets</a></li>
+                                <li><a>Cuffs</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a>Natural Earrings</a>
+                            <i class="fas fa-plus float-right" data-toggle="collapse" data-target="#Natural" aria-expanded="false" aria-controls="Natural"></i>
+                            <ul id="Natural" class="collapse menu-child py-2">
+                                <li><a>Wood & Wicker</a></li>
+                                <li><a>Stone & Marble Earrings</a></li>
+                                <li><a>Geode Earrings</a></li>
+                                <li><a>Hypoallergenic Earrings</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Hypoallergenic Earrings</a></li>
+                        <li>
+                            <a>Fine Earrings</a>
+                            <i class="fas fa-plus float-right" data-toggle="collapse" data-target="#Fine" aria-expanded="false" aria-controls="Fine"></i>
+                            <ul id="Fine" class="collapse menu-child py-2">
+                                <li><a>Sterling Silver Earrings</a></li>
+                                <li><a>Gold Plated Earrings</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </li>
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#Necklaces" aria-expanded="false" aria-controls="Necklaces">
+                        <a>NECKLACES</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul id="Necklaces" class="collapse menu-child">
+                        <li><a>Layered Necklaces</a></li>
+                        <li><a>Fine Necklaces</a></li>
+                        <li><a>Y-Necklace & Lariat</a></li>
+                        <li>
+                            <a>Stone & Marble Necklaces</a>
+                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Stone" aria-expanded="false" aria-controls="Stone"></i>
+                            <ul id="Stone" class="collapse menu-child py-2">
+                                <li><a>Marble Necklace</a></li>
+                                <li><a>Geode Necklaces</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Charm Necklaces</a></li>
+                        <li>
+                            <a>Statement Necklaces</a>
+                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Statement-Necklaces" aria-expanded="false" aria-controls="Statement-Necklaces"></i>
+                            <ul id="Statement-Necklaces" class="collapse menu-child py-2">
+                                <li><a>Beaded Necklace</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Tassel & Pendant Necklaces</a></li>
+                        <li>
+                            <a>Chokers</a>
+                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Chokers" aria-expanded="false" aria-controls="Chokers"></i>
+                            <ul id="Chokers" class="collapse menu-child py-2">
+                                <li><a>Gold/Silver Chokers</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#Bracelets" aria-expanded="false" aria-controls="Bracelets">
+                        <a>BRACELETS</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul id="Bracelets" class="collapse menu-child">
+                        <li><a>Fine Bracelets</a></li>
+                        <li>
+                            <a>Charm Bracelets</a>
+                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Charm-Bracelets" aria-expanded="false" aria-controls="Charm-Bracelets"></i>
+                            <ul id="Charm-Bracelets" class="collapse menu-child py-2">
+                                <li><a>Cord & Bead Bracelets</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Marble and Stone Jewelry</a></li>
+                        <li><a>Cuffs & Bangles</a></li>
+                        <li><a>Statement Bracelets</a></li>
+                        <li><a>Anklets</a></li>
+                    </ul>
+                </li>
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#Rings" aria-expanded="false" aria-controls="Rings">
+                        <a>RINGS</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul id="Rings" class="collapse menu-child">
+                        <li>
+                            <a>Fine Rings</a>
+                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Fine-Rings" aria-expanded="false" aria-controls="Fine-Rings"></i>
+                            <ul id="Fine-Rings" class="collapse menu-child py-2">
+                                <li><a>Gem Stone Rings</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a>Charm Rings</a>
+                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Charm-Rings" aria-expanded="false" aria-controls="Charm-Rings"></i>
+                            <ul id="Charm-Rings" class="collapse menu-child py-2">
+                                <li><a>Geode Rings</a></li>
+                                <li><a>Marble Rings</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a>Statement Rings</a>
+                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Statement-Rings" aria-expanded="false" aria-controls="Statement-Rings"></i>
+                            <ul id="Statement-Rings" class="collapse menu-child py-2">
+                                <li><a>Chunky Rings</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Adjustable Rings</a></li>
+                    </ul>
+                </li>
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#Other" aria-expanded="false" aria-controls="Other">
+                        <a>OTHER ACCESSORIES</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul id="Other" class="collapse menu-child">
+                        <li>
+                            <a>Scarves</a>
+                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Scarves" aria-expanded="false" aria-controls="Scarves"></i>
+                            <ul id="Scarves" class="collapse menu-child py-2">
+                                <li><a>Light Scarves</a></li>
+                                <li><a>Tie Scarves</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a>Purses & Totes</a>
+                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#PursesTotes" aria-expanded="false" aria-controls="PursesTotes"></i>
+                            <ul id="PursesTotes" class="collapse menu-child py-2">
+                                <li><a>Backpack</a></li>
+                                <li><a>Crossbody</a></li>
+                                <li><a>Satchel</a></li>
+                                <li><a>Totes</a></li>
+                                <li><a>Wallets</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a>Hats & Hair Accessories</a>
+                            <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" data-target="#Hats" aria-expanded="false" aria-controls="Hats"></i>
+                            <ul id="Hats" class="collapse menu-child py-2">
+                                <li><a>Hair Pins</a></li>
+                                <li><a>Hair Ties</a></li>
+                                <li><a>Hats</a></li>
+                                <li><a>Headbands & Headwraps</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Bralettes</a></li>
+                    </ul>
+                </li>
+                @*<li><a href="#">Contact</a></li>*@
+                <li class="d-block">
+                    <div class="menu-item">
+                        <a>SALE</a>
+                    </div>
+                </li>
             </ul>
         </div>
+
         <div class="lock-background"></div>
+
         @*---------------------------會員登入SideBar--------------------------------------------------------------------------------------------------------*@
         <div id="LoginSidenav" class="sidenav">
             <a href="#" id="Close-LoginSideNav" class="closebtn">&times</i></a>
@@ -710,31 +859,254 @@
                 </li>
                 <li class="d-block">
                     <div class="menu-item">
+                        <a>GIFT CERTIFICATES</a>
+                    </div>
+                </li>
+
+                <li class="d-block">
+                    <div class="menu-item">
                         <a href="@Url.Action("loginpage", "FrontEnd")">ACCOUNT</a>
                     </div>
                 </li>
             </ul>
         </div>
-        @*-----------------------------content Category Bar-----------------------------------------------------------------------------*@
+
+
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOBEDA</a></div>
+                <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOVODA</a></div>
             </div>
             <ul class="main-nav nav justify-content-center mb-4 align-items-center">
-                <li v-for="c1 in categories" class="nav-item mx-2 pb-3">
-                    <a :href=`Products/${c1.name}` class="nav-link text-dark"><span class="line">{{c1.name.toUpperCase()}}</span></a>
-                    <div v-if="c1.childs.length!==0" class="menu-block">
+                <li class="nav-item mx-2 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">NEW</span></a>
+                    <div class="menu-block">
                         <div class="container">
                             <div class="row">
-                                <div v-for="c2 in c1.childs" class="col-6 col-md-3 col-xl-2">
+                                <div class="col-6 col-md-3 col-xl-2">
                                     <ul class="menu-list">
-                                        <li><a :href=`Products/${c1.name}` class="dot">{{c2.name}}</a></li>
-                                        <li v-for="c3 in c2.childs"><a :href=`Products/${c1.name}` class="dot">{{c3.name}}</a></li>
+                                        <li><a href="#" class="dot">New Arrivals</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-md-3 col-xl-2">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Back in Stock</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </li>
+
+                <li class="nav-item  mx-2 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">EARRINGS</span></a>
+
+                    <div class="menu-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Statement Earrings</a></li>
+                                        <li><a href="#" class="dot">Drop Earrings</a></li>
+                                        <li><a href="#" class="dot">Golden</a></li>
+                                        <li><a href="#" class="dot">Lucite & Resin</a></li>
+                                        <li><a href="#" class="dot">Crystal Clear</a></li>
+                                        <li><a href="#" class="dot">Hoop Earrings</a></li>
+                                        <li><a href="#" class="dot">Ear Jackets</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Charm Earrings</a></li>
+                                        <li><a href="#" class="dot">Crawlers and Pins</a></li>
+                                        <li><a href="#" class="dot">Threader Earrings</a></li>
+                                        <li><a href="#" class="dot">Earring Sets</a></li>
+                                        <li><a href="#" class="dot">Cuffs</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Natural Earrings</a></li>
+                                        <li><a href="#" class="dot">Wood & Wicker</a></li>
+                                        <li><a href="#" class="dot">Stone & Marble Earrings</a></li>
+                                        <li><a href="#" class="dot">Geode Earrings</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Hypoallergenic Earrings</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Fine Earrings</a></li>
+                                        <li><a href="#" class="dot">Sterling Silver Earrings</a></li>
+                                        <li><a href="#" class="dot">Gold Plated Earrings</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item  mx-3 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">NECKLACES</span></a>
+                    <div class="menu-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-sm">
+                                    <div class="d-flex flex-column">
+                                        <ul class="menu-list">
+                                            <li><a href="#" class="dot">Layered Necklaces</a></li>
+                                        </ul>
+                                        <ul class="menu-list  mt-2">
+                                            <li><a href="#" class="dot">Tassel & Pendant Necklaces</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <div class="d-flex flex-column">
+                                        <ul class="menu-list">
+                                            <li><a href="#" class="dot">Fine Necklaces</a></li>
+                                        </ul>
+                                        <ul class="menu-list  mt-2">
+                                            <li><a href="#" class="dot">Chokers</a></li>
+                                            <li><a href="#" class="dot">Gold/Silver Chokers</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Y-Necklace & Lariat</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Stone & Marble Necklaces</a></li>
+                                        <li><a href="#" class="dot">Marble Necklace</a></li>
+                                        <li><a href="#" class="dot">Geode Necklaces</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Charm Necklaces</a></li>
+                                        <li><a href="#" class="dot">Statement Necklaces</a></li>
+                                        <li><a href="#" class="dot">Beaded Necklace</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item  mx-2 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">BRACELETS</span></a>
+                    <div class="menu-block w-100">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Fine Bracelets</a></li>
+                                    </ul>
+                                </div>
+                                <div class=" col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Charm Bracelets</a></li>
+                                        <li><a href="#" class="dot">Cord & Bead Bracelets</a></li>
+                                    </ul>
+                                </div>
+                                <div class=" col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Marble and Stone Jewelry</a></li>
+                                        <li><a href="#" class="dot">Cuffs & Bangles</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Statement Bracelets</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Anklets</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item  mx-2 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">RINGS</span></a>
+                    <div class="menu-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Fine Rings</a></li>
+                                        <li><a href="#" class="dot">Gem Stone Rings</a></li>
+                                    </ul>
+                                </div>
+                                <div class=" col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Charm Rings</a></li>
+                                        <li><a href="#" class="dot">Geode Rings</a></li>
+                                        <li><a href="#" class="dot">Marble Rings</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Statement Rings</a></li>
+                                        <li><a href="#" class="dot">Chunky Rings</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Adjustable Rings</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item  mx-2 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">OTHER ACCESSORIES</span></a>
+                    <div class="menu-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class=" col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Scarves</a></li>
+                                        <li><a href="#" class="dot">Light Scarves</a></li>
+                                        <li><a href="#" class="dot">Tie Scarves</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Purses & Totes</a></li>
+                                        <li><a href="#" class="dot">Backpack</a></li>
+                                        <li><a href="#" class="dot">Crossbody</a></li>
+                                        <li><a href="#" class="dot">Satchel</a></li>
+                                        <li><a href="#" class="dot">Totes</a></li>
+                                        <li><a href="#" class="dot">Wallets</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Hats & Hair Accessories</a></li>
+                                        <li><a href="#" class="dot">Hair Pins</a></li>
+                                        <li><a href="#" class="dot">Hair Ties</a></li>
+                                        <li><a href="#" class="dot">Hats</a></li>
+                                        <li><a href="#" class="dot">Headbands & Headwraps</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Bralettes</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item  mx-1 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">SALE</span></a>
                 </li>
             </ul>
         </div>
@@ -747,14 +1119,21 @@
             </div>
         </div>
         @RenderBody()
-        @*------------------------footer------------------------------------------------------------------------- *@
+
         <footer id="footer" class=" bg-footer py-5">
             <div class="container">
                 <div class="row">
                     <div class="col-6 col-md-3 col-xl-2">
                         <ul class="footer-list">
                             <li>SHOP</li>
-                            <li v-for="c1 in categories"><a :href=`Products/${c1.name}` class="dot">{{c1.name}}</a></li>
+                            <li><a href="#" class="dot">Home</a></li>
+                            <li><a href="#" class="dot">new</a></li>
+                            <li><a href="#" class="dot">Earrings</a></li>
+                            <li><a href="#" class="dot">Necklaces</a></li>
+                            <li><a href="#" class="dot">Bracelets</a></li>
+                            <li><a href="#" class="dot">Rings</a></li>
+                            <li><a href="#" class="dot">Other Accessories</a></li>
+                            <li><a href="#" class="dot">Sale</a></li>
                         </ul>
                     </div>
                     <div class="col-6 col-md-3 col-xl-2">
@@ -826,7 +1205,8 @@
                 </div>
             </div>
         </footer>
-        @*-----------登入modal-------------------------------------------------------*@
+
+
         <div class="modal fade" id="loginModal" style="z-index:1000000000">
             <div class="modal-dialog">
                 <div class="modal-content animate  rounded-0 m-0">
@@ -841,12 +1221,6 @@
                                 <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
                                 <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
                                 <button class="btn-outline-dark w-100 btn-block" id="gotoRegist">REGISTER</button>
-                                <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&https://localhost:44394&redirect_uri=https://localhost:44394/FrontEnd/GoogleLogin&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="  btn btn-outline-danger  fa-square-o"><i class="fab fa-google-plus fa-3x"></i></a>
-
-                                <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1653659088&redirect_uri=https://localhost:44394/frontend/LineLogin&scope=openid%20profile&state=abcde" class="  btn btn-outline-success  fa-square-o">
-                                    <i class="fab fa-line fa-3x"></i>
-                                </a>
-
                                 <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
                                 <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
                             </div>
@@ -882,6 +1256,12 @@
             $('#main').css('margin-left', '0px');
             $('.lock-background').css('display', 'none');
         }
+        //function btnChange() {
+        //    //console.log("this is", this);
+        //    $('.btn-plus').removeClass("fas fa-plus");
+        //    //$('.btn-plus').addClass("fas fa-minus");
+
+        //}
         //function openNavLogin() {
         //    $('#LoginSidenav').css('margin-left', '0px');
         //    $('#main').css('margin-left', '280px');
@@ -896,11 +1276,10 @@
             closeNav(btn);
         }
         function Binding() {
-            var vm = new Vue({
+           var vm = new Vue({
                 el: '#main',
                 data: {
                     categories: []
-
 
                 },
                 mounted: function () {
@@ -933,6 +1312,8 @@
             $('#Close-ProductSideNav').click(function () { closeNav('#ProductSidenav') });
             $('#Close-LoginSideNav').click(function () { closeNav('#LoginSidenav') });
             //$('#btn-slide-login').click(openNav);
+            //$(".btn-plus").click(btnChange);
+
 
 
             $("#btn_login").click(function () {
@@ -953,14 +1334,14 @@
                     success: function (back) {
                         console.log('back', back);
                         if (back == "1") {
-                            $("#loginStatus").html("sign in suceesfully");
+                            $("#loginStatus").html("登入成功");
                             location.href = "/FrontEnd/MemberPageAddress"
                         }
                         else if (back == "2") {
-                            $("#loginStatus").html("This account doesn't exist");
+                            $("#loginStatus").html("此帳號尚未註冊，請先註冊");
                         }
                         else {
-                            $("#loginStatus").html("Your password is incorrect. Please try again.");
+                            $("#loginStatus").html("密碼錯誤");
                         }
 
                     }
@@ -993,5 +1374,4 @@
     @RenderSection("Endscripts", required: false)
 </body>
 </html>
-
 
