@@ -150,64 +150,61 @@
 
 
 <body>
-    @using (Html.BeginForm("FrontCreate", "Members", "Post"))
-    {
-        <div class="show-all">
-            <div class="container_page">
-                <div id="container_page_nav">
-                    <div class="container">
-                        <!-- 要塞目錄資料及連結資料   開頭-->
-                        <!-- 動態綁定有a標籤href及text屬性 -->
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="@Url.Action("Index", "FrontEnd")">Home</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="@Url.Action("LoginPage", "FrontEnd")">Login</a>
-                            </li>
-                        </ul>
-                        <!-- 要塞目錄資料及連結資料   結尾-->
+   <div class="show-all">
+        <div class="container_page">
+            <div id="container_page_nav">
+                <div class="container">
+                    <!-- 要塞目錄資料及連結資料   開頭-->
+                    <!-- 動態綁定有a標籤href及text屬性 -->
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="@Url.Action("Index", "FrontEnd")">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="@Url.Action("LoginPage", "FrontEnd")">Login</a>
+                        </li>
+                    </ul>
+                    <!-- 要塞目錄資料及連結資料   結尾-->
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <h1 class="page-heading">Login</h1>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <label>EmailAddress</label>
+                        <input id="loginId" class="form-input" type="email" name="MemberEmail">
+                    </div>
+                    <div class="col-6">
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label>Password</label>
+                        <input id="loginPsw" class="form-input" type="password" name="MemberPassword">
+                    </div>
+                    <div class="col-6">
+
                     </div>
                 </div>
-                <div class="container">
-                    <div class="row">
-                        <h1 class="page-heading">Login</h1>
+                <div class="row">
+                    <div class="col-6">
+                        <input class="btn btn-outline-dark w-25 rounded-0" value="Login" id="Login">
+                        <a href="@Url.Action("ForgotPassword", "FrontEnd")" style="margin:0 0 0 36px;color:black;">Forgot your password?</a>
+                        <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&https://localhost:44394&redirect_uri=https://localhost:44394/FrontEnd/Login&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="btn btn-success">google 登入</a>
                     </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <label>EmailAddress</label>
-                            <input id="loginId" class="form-input" type="email" name="MemberEmail">
-                        </div>
-                        <div class="col-6">
-
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label>Password</label>
-                            <input id="loginPsw" class="form-input" type="password" name="MemberPassword">
-                        </div>
-                        <div class="col-6">
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="submit" class="btn btn-outline-dark w-25 rounded-0" value="Login" id="Login">
-                            <a href="@Url.Action("ForgotPassword", "FrontEnd")" style="margin:0 0 0 36px;color:black;">Forgot your password?</a>
-                            <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&https://localhost:44394&redirect_uri=https://localhost:44394/FrontEnd/Login&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="btn btn-success">google 登入</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
-                        <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
-                    </div>
+                </div>
+                <div class="row">
+                    <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
+                    <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
                 </div>
             </div>
         </div>
-    }
+    </div>
 
 </body>
 
@@ -234,9 +231,7 @@
                         else {
                             $("#loginStatus").html("Your password is incorrect. Please try again.");
                         }
-
                     }
-
                 });
             });
 
