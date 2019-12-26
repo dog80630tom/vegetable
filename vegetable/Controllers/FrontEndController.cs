@@ -231,8 +231,7 @@ namespace vegetable.Controllers
             return RedirectToAction("Index");
         }
 
-
-        public ActionResult MemberPageWishlist ()
+        public ActionResult MemberPageWishlist()
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
@@ -240,8 +239,19 @@ namespace vegetable.Controllers
             var wishproducts = from p in item.Products
                                join w in item.WishLists
                                on p.ProductID equals w.ProductID
+                               join pd in item.PicDetails
+                               on p.ProductID equals pd.ProductID
                                where memberData.MemberID == w.MemberID
-                               select p;
+                               select new ProductList
+                               {
+                                   ProductID = p.ProductID,
+                                   CategoryID = p.CategoryID,
+                                   ProductName = p.ProductName,
+                                   ProductDescription = p.ProductDescription,
+                                   UnitsInStock = p.UnitsInStock,
+                                   ProductPrice = p.ProductPrice,
+                                   Url = pd.PicUrl
+                               };
             return View(wishproducts.ToList());
         }
         [HttpPost]

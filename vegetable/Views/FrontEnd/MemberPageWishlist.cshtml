@@ -1,4 +1,4 @@
-@model List<vegetable.Models.Product>
+@model List<vegetable.Models.ProductList>
 @{
     ViewBag.Title = "MemberPage";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -308,7 +308,7 @@
                         <a class="navBar-action" href="/FrontEnd/MemberPageOrder">Orders</a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberCart">Cart</a>
+                        <a class="navBar-action" href="/Cart">Cart</a>
                     </li>
                     <li class="navBar-item is-active">
                         <a class="navBar-action" href="/FrontEnd/MemberPageWishlist">Wish List </a>
@@ -328,13 +328,13 @@
     <div class="productBlockContainer row">
         @foreach (var data in Model)
         {
+            var urls = Json.Decode(data.Url);
             <div class="prod-item col-3">
                 <figure class="card-figure" id="@data.ProductID">
-
                     <div class="prod-image ">
                         <a href="Earrings/@data.ProductID">
                             <img class="card-image"
-                                 src="~/Assets/ProductPics/@data.ProductName/1.jpg">
+                                 src= "@urls.Url1"value="@urls.Url2">
                         </a>
                         <div class="actions">
                             <a href="#" class="btnWL grid-view">
@@ -367,7 +367,6 @@
 
 @section viewJquery{
     <script>
-        $(function () {
 
             $(".card-figure").hover(function () {
                 $(this).find(".btnWL").addClass("showdown");
@@ -409,7 +408,17 @@
                 });               
             });
             $(this).remove(".card-figure");
-        });
+            $(".card-image").hover(function () {
+                $(this).attr("style", "opacity:0.5");
+                var val = $(this).attr("src");
+                $(this).attr("src", $(this).attr("value"));
+                $(this).attr("value", val);
+            }, function () {
+                $(this).attr("style", "opacity:0.5");
+                var val = $(this).attr("src");
+                $(this).attr("src", $(this).attr("value"));
+                $(this).attr("value", val);
+            });
         
 
     </script>
