@@ -1110,7 +1110,9 @@
                         console.log('back', back);
                         if (back == "1") {
                             $("#loginStatus").html("sign in suceesfully");
-                            location.href = "/FrontEnd/MemberPageAddress"
+                            //location.href = "/FrontEnd/MemberPageOrder"
+                            $('#loginModal').modal('hide');
+                            location.reload();
                         }
                         else if (back == "2") {
                             $("#loginStatus").html("This account doesn't exist");
