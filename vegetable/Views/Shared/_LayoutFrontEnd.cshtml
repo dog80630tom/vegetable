@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - LOVODA</title>
+    <title>LOBEDA</title>
     @Styles.Render("~/Content/vegetable")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
@@ -582,6 +582,8 @@
 </head>
 <body class="pb-0">
     <div id="main">
+
+        @*------------------------------首頁Navbar--------------------------------------------------------------------*@
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom p-0 justify-content-between" @*onclick="openNav()"*@>
             <button class="navbar-toggler border-0" id="btn-slide" type="button" data-toggle="collapse" @*data-target="#navbarNavDropdown"*@ aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -632,7 +634,6 @@
                     }
 
                 </ul>
-                @*<a class="nav-link text-dark  mx-3 navTop" href="">US ONLY - FREE SHIPPING OVER $50 & FREE RETURNS SHOP NOW</a>*@
                 <ul class="navbar-nav p-0 text-center">
 
                     <li class="nav-item active border-right border-left  p-0  quick-search">
@@ -640,7 +641,8 @@
                         <a class="nav-link text-dark  mx-3 navTop" href="#">
                             <i class="fas fa-search icon"></i>
                         </a>
-                        @*quick-search Search-bar-md*@
+
+                        @*-----------------quick-search Search-bar-md----------------------------------*@
                         <div class="container-fluid search-bar-md-warp">
                             <div class="input-group search-bar-md">
                                 <input id="search" type="text" class="form-control rounded-0" placeholder="Search">
@@ -660,7 +662,6 @@
                     </li>
                 </ul>
             </div>
-
         </nav>
         <div id="ProductSidenav" class="sidenav">
             <a href="#" id="Close-ProductSideNav" class="closebtn">&times</a>
@@ -713,7 +714,7 @@
         @*-----------------------------content Category Bar-----------------------------------------------------------------------------*@
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOVODA</a></div>
+                <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOBEDA</a></div>
             </div>
             <ul class="main-nav nav justify-content-center mb-4 align-items-center">
                 <li v-for="c1 in categories" class="nav-item mx-2 pb-3">
@@ -749,7 +750,7 @@
                     <div class="col-6 col-md-3 col-xl-2">
                         <ul class="footer-list">
                             <li>SHOP</li>
-                            <li v-for="c1 in categories"><a:href=`Products/${c1.name}` class="dot">{{c1.name}}</a></li>
+                            <li v-for="c1 in categories"><a :href=`Products/${c1.name}` class="dot">{{c1.name}}</a></li>
                         </ul>
                     </div>
                     <div class="col-6 col-md-3 col-xl-2">
@@ -821,8 +822,7 @@
                 </div>
             </div>
         </footer>
-
-
+        @*-----------登入modal-------------------------------------------------------*@
         <div class="modal fade" id="loginModal" style="z-index:1000000000">
             <div class="modal-dialog">
                 <div class="modal-content animate  rounded-0 m-0">
