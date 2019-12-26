@@ -6,15 +6,20 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Contexts;
 using System.Web;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 using System.Web.Security;
+using vegetable.Cors;
 using vegetable.Models;
+using vegetable.Models.LinePay;
 using vegetable.Respository.MemberResp;
 using vegetable.Services;
+
 
 namespace vegetable.Controllers
 {
     [RoutePrefix("frontend")]
+    
     public class FrontEndController : Controller
     {
         ItemContext item = new ItemContext();
@@ -99,12 +104,27 @@ namespace vegetable.Controllers
         {
             return View();
         }
+        [AllowCrossSite]
         public ActionResult MemberPageOrderDetail()
         {
+           
             return View();
         }
-
-
+        [HttpPost]
+        public ActionResult getLine()
+        {
+            LinePay line = new LinePay();
+            var data= line.passdata(10);
+            TempData["Pay"] = 10;
+            return Json(data,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult checkPay() {
+            var code = Request.QueryString["transactionId"];
+            int doll = (int)TempData["Pay"];
+            LinePay line = new LinePay();
+            line.confirm(doll, code);
+            return View();
+        }
         public ActionResult ProductIndex(int? id)
         {
             //沒有傳入id
