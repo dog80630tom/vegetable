@@ -127,6 +127,23 @@ namespace vegetable.Controllers
             ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
             return View();
         }
+        [HttpGet]
+        public string ProductQuickView(int id)
+        {
+            Product product = item.Products.Find(id);
+            PicDetail picDetail = item.PicDetails.Find(id);
+            var currentitem = new ProductList
+            {
+                ProductID = product.ProductID,
+                CategoryID = product.CategoryID,
+                ProductName = product.ProductName,
+                ProductDescription = product.ProductDescription,
+                UnitsInStock = product.UnitsInStock,
+                ProductPrice = product.ProductPrice,
+                Url = picDetail.PicUrl
+            };
+            return JsonConvert.SerializeObject(currentitem);
+        }
 
         public ActionResult MemberRegist ()
         {

@@ -4,9 +4,9 @@
     ViewBag.Title = "Products";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <style>
 
     a,
@@ -521,7 +521,6 @@
     .pagination-link:hover {
         cursor: pointer;
     }
-
 </style>
 
 <div id="app" class="show-all">
@@ -647,11 +646,11 @@
                                                          :src=`${data.Url.Url1}` :value=`${data.Url.Url2}`>
                                                 </a>
                                                 <div class="actions">
-                                                    <a href="#" class="btnWL grid-view" :value=`${data.ProductID}`>
+                                                    <a class="btnWL grid-view" :value=`${data.ProductID}`>
                                                         <i class="fas fa-heart" :style=`${data.IsRed}`></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                                                    <a href="#" class="btnQV quickview">Quick view</a>
+                                                    <a class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                    <a class="btnQV quickview" :value=`${data.ProductID}` v-on:click='getquickview($event)'>Quick view</a>
                                                 </div>
                                             </div>
 
@@ -660,8 +659,8 @@
                                                 <div class="prod-price"><span class="price">${{data.ProductPrice}}.00</span></div>
                                                 <div class="prod-summary list-view">
                                                     @*<p>
-                                                        {{data.ProductDescription}}
-                                                    </p>*@
+                                                            {{data.ProductDescription}}
+                                                        </p>*@
                                                 </div>
 
                                                 <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
@@ -706,8 +705,86 @@
     </div>
 </div>
 
+<div class="modal fade" id="QuickViewModal" style="z-index:1000000000">
+    <div class="modal-dialog">
+        <div class="modal-content animate  rounded-0 m-0">
+            <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
+            <div class="container mt-5">
+                @*產品大圖和購買相關功能*@
+                <div class="row my-5">
+                    @*產品大圖*@
+                    <div class="col-xl-4 order-xl-1 col-md-6 order-md-2 col-12 order-1">
+                        <figure class="figure">
+                            <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" v-bind:src='currentproduct.Url.Url1' alt="">
+                        </figure>
+                    </div>
+
+                    @* 右半部  購買清單*@
+                    <div class="col-xl-8 order-xl-2 col-md-6 order-md-2 order-3 pics">
+                        <div id="ProductName" class="productView-title">{{currentproduct.ProductName}}</div>
+                        <div class="productView-rating"></div>
+                        <div id="ProductPrice " class="productView-price">${{currentproduct.ProductPrice}}</div>
+                        <span>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                        <hr>
+                        <div class="productView-rating"></div>
+                        @*大小選擇 有時間再做*@
+                        @*<div>Size: <span class="text-danger">*</span></div>
+                            <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">6</button>
+                            <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">7</button>
+                            <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>*@
+                        <div class="productView-rating"></div>
+
+                        @*購買相關*@
+                        @*
+                            ID之後要隱藏!!!!
+                            ID之後要隱藏!!!!
+                            ID之後要隱藏!!!!
+                        *@
+                        @*會員ID*@
+                        @*<input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />*@
+                        @*產品ID*@
+                        <input id="ProductID" type="hidden" name="ProductID" v-bind:value='currentproduct.ProductID' />
+                        @* 數量 *@
+                        <div>Quantity:</div>
+                        @* 增加 *@
+                        <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+                        <input id="quantity" name="Quantity" value="1" class="text-center" />
+                        @* 減少 *@
+                        <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+                        <div class="productView-rating"></div>
+                        <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
+                        <a href="#" class="btnWL list-view" id="AWL">
+                            <i class="far fa-heart"></i><span>Add to Wish list</span>
+                        </a>
+                    </div>
+                    @*產品小圖和社群按鈕*@
+                    <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4 " id="ProductPics">
+                        <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
+                            <a class="mr-3 " href="javascript:void(0)">
+                                <img class="viewPic thumbnail" v-bind:src='currentproduct.Url.Url1' />
+                            </a>
+                            <a class="mr-3" href="javascript:void(0)">
+                                <img class="viewPic thumbnail" v-bind:src='currentproduct.Url.Url2' />
+                            </a>
+                            <a class="" href="javascript:void(0)">
+                                <img class="viewPic thumbnail" v-bind:src='currentproduct.Url.Url3' />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section viewJquery{
-<script>
+    <script>
 
     $(function () {
         var pageshowitems = 12.0;
@@ -722,7 +799,8 @@
                 intervals:priceinterval,
                 products: _.orderBy(totalproducts, ['ProductID'], ['asc']),
                 filterproducts: '',
-                isRed:false
+                isRed: false,
+                currentproduct:''
             },
             methods: {
                 //分頁按下動作
@@ -742,6 +820,26 @@
                     });
                     app.products = filterproducts;
                 },
+                getquickview(e) {
+                    var id = $(e.currentTarget).attr("value");
+                    $.ajax({
+                        type: "GET",
+                        url: "/FrontEnd/ProductQuickView",
+                        data: {
+                            id: id
+                        },
+                        dataType: "text",
+                        success: function (response) {
+                            console.log("in");
+                            console.log(response);
+                            console.log(this.currentproduct);
+                            this.currentproduct = response;
+                            console.log(this.currentproduct);
+                            $('#QuickViewModal').modal('show');
+                        }
+                    });
+                    
+                }
             },
 
             watch: {
@@ -796,6 +894,7 @@
             },
         })
         
+            
 
         $( ".list-view" ).hide();
         $( "#grid-view" ).click( function () {
@@ -844,17 +943,13 @@
             $(this).attr("src", $(this).attr("value"));
             $(this).attr("value", val);
         });
-        
+
         $(".btnWL").click(function (e) {
             e.preventDefault();
             var item = $(this);
             var id = item.parents("figure").attr("id");
             var isRed = item.find("i").attr("style") == null ? false : true;
-            //if ($(this).find("i").attr("style") == null) {
-            //    var isRed = false;
-            //} else {
-            //    var isRed = true;
-            //}
+           
             if (isRed) {
                 $.ajax({
                     type: "POST",
@@ -885,12 +980,12 @@
                             alert('Add to wishlist');
                             item.find("i").attr("style", "color:red");
                         }
-                    }   
+                    }
                 });
             }
         });
     });
-</script>
+    </script>
 }
 
 

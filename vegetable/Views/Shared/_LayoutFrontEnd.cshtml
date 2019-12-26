@@ -49,8 +49,14 @@
         }
 
             .btn-outline-dark:hover {
-                color: white;
-                background: #000;
+                color: white !important;
+                background: #000 !important;
+                border-color: #000;
+            }
+
+            .btn-outline-dark:active, .btn-outline-dark:focus {
+                box-shadow:none !important;
+                outline:none !important;
                 border-color: #000;
             }
 
@@ -445,7 +451,7 @@
 
             button:hover {
                 opacity: 0.8;
-            }
+            }       
 
         .closecontainer {
             text-align: center;
