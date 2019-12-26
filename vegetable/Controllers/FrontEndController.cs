@@ -122,7 +122,11 @@ namespace vegetable.Controllers
             var code = Request.QueryString["transactionId"];
             int doll = (int)TempData["Pay"];
             LinePay line = new LinePay();
-            line.confirm(doll, code);
+          var con=  line.confirm(doll, code);
+            if (con.returnCode == "0000")
+            {
+                return Content("訂單成功");
+            }
             return View();
         }
         public ActionResult ProductIndex(int? id)

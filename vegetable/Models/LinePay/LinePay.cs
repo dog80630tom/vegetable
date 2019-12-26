@@ -37,7 +37,7 @@ namespace vegetable.Models.LinePay
             post.Headers.Add("X-LINE-ChannelId", "1653696494") ;
             post.Headers.Add("X-LINE-ChannelSecret", "86ba3a2c73531c34810b6617047ef6a8");
             post.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-            Linedata linedata = new Linedata() { productName = "test product", productImageUrl = "http://testst.com", amount = amount, confirmUrl = "https://localhost:44394/FrontEnd/checkpay", currency = "TWD", orderId = "20140101123456789" };
+            Linedata linedata = new Linedata() { productName = "test product", productImageUrl = "http://testst.com", amount = amount, confirmUrl = "https://localhost:44394/FrontEnd/checkpay", currency = "TWD", orderId = "20140101123456788" };
             string json = JsonConvert.SerializeObject(linedata);
             
             var bResult = post.UploadString("https://api-pay.line.me/v2/payments/request", json);
