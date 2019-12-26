@@ -30,7 +30,7 @@ function CountItems( carts ) {
     //BindingVue( counts );
 }
 
-更改購物車數目
+//更改購物車數目
 function ChangeCartNumber( counts ) {
     $( '.cartItems' ).each( function ( index, element ) {
         $( element ).text( `${counts}` );

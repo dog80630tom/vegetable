@@ -4,394 +4,396 @@
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
 
-<style>
-    /**/
-    /** {
-        font-family: "Open Sans",Arial,Helvetica,sans-serif;
-    }*/
+@section styles{
+    <style>
+        /**/
+        /** {
+            font-family: "Open Sans",Arial,Helvetica,sans-serif;
+        }*/
 
-    .fa-star {
-        color: rgb(255, 210, 0);
-    }
-
-    /*.Product-info {
-        box-sizing: border-box;
-        width: 120px;
-    }*/
-
-    .btn-size {
-        border: 1px solid #dedede;
-    }
-
-    .add-to-cart {
-        border: 2px solid #000;
-    }
-
-    .productView-title {
-        font-size: 20px;
-        font-weight: 400;
-        margin: 0 10px 10px 0;
-        letter-spacing: .02em;
-        line-height: 32px;
-    }
-
-    .productView-rating {
-        padding-top: 8px;
-        padding-bottom: 27px;
-    }
-
-    .productView-price {
-        font-family: Poppins,Arial,Helvetica,sans-serif;
-        font-size: 20px;
-        font-weight: 400;
-        color: #000;
-        letter-spacing: .02em;
-    }
-
-    #button#form-action-addToCart {
-        font-size: 90px;
-        min-width: 270px;
-        max-width: 280px;
-        display: -ms-inline-flexbox;
-        display: inline-flex;
-        -ms-flex-pack: center;
-        justify-content: center;
-        color: #000;
-        background-color: #fff;
-        border-color: #000;
-    }
-
-    /*產品小圖和社群列*/
-    .productView-thumbnail {
-        display: flex;
-        justify-content: center;
-    }
-
-    /*產品小圖*/
-    .viewPic {
-        width: 64px;
-        height: 97px;
-    }
-
-    .btn-outline-white, .RAndQ {
-        border: 1px solid #e5e5e5;
-    }
-
-    #questionCount, #reviewCount {
-        background: #eee;
-        padding: 2px 5px;
-        margin-left: 10px;
-    }
-
-    /*防止layout margin影響*/
-    button {
-        margin: 0;
-        /*去除點擊後的籃框*/
-        box-shadow: none;
-        outline: none;
-    }
-
-    /*數量input大小*/
-    #quantity {
-        width: 68px;
-        height: 42px;
-    }
-
-    .btn:focus, .btn:active {
-        outline: none !important;
-        box-shadow: none;
-    }
-
-    /*nav bar*/
-    #container_page_nav {
-        background-color: #f7f8f9;
-        padding: 20px 0 15px 15px;
-        margin-top: 15px;
-        margin-bottom: 36px;
-    }
-
-    .breadcrumb {
-        background-color: #f7f8f9;
-        padding: 0;
-        margin: 0;
-    }
-
-    .breadcrumb-item {
-        display: inline-block;
-        padding-right: 10px;
-    }
-
-        .breadcrumb-item::before {
-            content: ">" !important;
-            color: #b4b4b4 !important;
-            margin: 0 12px 0 3px;
+        .fa-star {
+            color: rgb(255, 210, 0);
         }
 
-        .breadcrumb-item:first-child::before {
-            display: none;
+        /*.Product-info {
+            box-sizing: border-box;
+            width: 120px;
+        }*/
+
+        .btn-size {
+            border: 1px solid #dedede;
         }
 
-        .breadcrumb-item a {
-            color: #b4b4b4;
+        .add-to-cart {
+            border: 2px solid #000;
         }
 
-            .breadcrumb-item a:hover {
-                color: #000;
-                /*border-bottom: 1px solid #000;*/
+        .productView-title {
+            font-size: 20px;
+            font-weight: 400;
+            margin: 0 10px 10px 0;
+            letter-spacing: .02em;
+            line-height: 32px;
+        }
+
+        .productView-rating {
+            padding-top: 8px;
+            padding-bottom: 27px;
+        }
+
+        .productView-price {
+            font-family: Poppins,Arial,Helvetica,sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: #000;
+            letter-spacing: .02em;
+        }
+
+        #button#form-action-addToCart {
+            font-size: 90px;
+            min-width: 270px;
+            max-width: 280px;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            -ms-flex-pack: center;
+            justify-content: center;
+            color: #000;
+            background-color: #fff;
+            border-color: #000;
+        }
+
+        /*產品小圖和社群列*/
+        .productView-thumbnail {
+            display: flex;
+            justify-content: center;
+        }
+
+        /*產品小圖*/
+        .viewPic {
+            width: 64px;
+            height: 97px;
+        }
+
+        .btn-outline-white, .RAndQ {
+            border: 1px solid #e5e5e5;
+        }
+
+        #questionCount, #reviewCount {
+            background: #eee;
+            padding: 2px 5px;
+            margin-left: 10px;
+        }
+
+        /*防止layout margin影響*/
+        button {
+            margin: 0;
+            /*去除點擊後的籃框*/
+            box-shadow: none;
+            outline: none;
+        }
+
+        /*數量input大小*/
+        #quantity {
+            width: 68px;
+            height: 42px;
+        }
+
+        .btn:focus, .btn:active {
+            outline: none !important;
+            box-shadow: none;
+        }
+
+        /*nav bar*/
+        #container_page_nav {
+            background-color: #f7f8f9;
+            padding: 20px 0 15px 15px;
+            margin-top: 15px;
+            margin-bottom: 36px;
+        }
+
+        .breadcrumb {
+            background-color: #f7f8f9;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb-item {
+            display: inline-block;
+            padding-right: 10px;
+        }
+
+            .breadcrumb-item::before {
+                content: ">" !important;
+                color: #b4b4b4 !important;
+                margin: 0 12px 0 3px;
             }
 
-        .breadcrumb-item.active a:hover {
-            color: #b4b4b4;
+            .breadcrumb-item:first-child::before {
+                display: none;
+            }
+
+            .breadcrumb-item a {
+                color: #b4b4b4;
+            }
+
+                .breadcrumb-item a:hover {
+                    color: #000;
+                    /*border-bottom: 1px solid #000;*/
+                }
+
+            .breadcrumb-item.active a:hover {
+                color: #b4b4b4;
+            }
+
+        /*產品 card*/
+        nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
+            background: #fff;
+            position: relative;
+            text-decoration: none !important;
         }
 
-    /*產品 card*/
-    nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
-        background: #fff;
-        position: relative;
-        text-decoration: none !important;
-    }
 
 
+        nav.navBar--sub ul.navBar-section li.navBar-item a {
+            font-size: 13px;
+            font-weight: 700;
+            display: block;
+            display: table-cell;
+            padding: 15px 30px 3px;
+            transition: background .3s ease 0s;
+            vertical-align: middle;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #000;
+            border: 1px solid #e5e5e5;
+            background: #f7f8f9;
+            text-decoration: none !important;
+            float: left;
+            height: 51.6px;
+        }
 
-    nav.navBar--sub ul.navBar-section li.navBar-item a {
-        font-size: 13px;
-        font-weight: 700;
-        display: block;
-        display: table-cell;
-        padding: 15px 30px 3px;
-        transition: background .3s ease 0s;
-        vertical-align: middle;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-        color: #000;
-        border: 1px solid #e5e5e5;
-        background: #f7f8f9;
-        text-decoration: none !important;
-        float: left;
-        height: 51.6px;
-    }
-
-    .navBar-section {
-        list-style-type: none;
-    }
+        .navBar-section {
+            list-style-type: none;
+        }
 
 
-    .btn.btn-checkout, .btn.btn-checkout:hover {
-        border-color: #000;
-        background: #000;
-    }
+        .btn.btn-checkout, .btn.btn-checkout:hover {
+            border-color: #000;
+            background: #000;
+        }
 
-    .btn.btn-checkout {
-        max-width: 270px;
-        padding-top: 10px;
-        color: #fff;
-    }
+        .btn.btn-checkout {
+            max-width: 270px;
+            padding-top: 10px;
+            color: #fff;
+        }
 
-    .form-input, .form-select {
-        border-style: solid;
-        border-width: 1px;
-        font-family: inherit;
-        margin: 0;
-        font-size: 1rem;
-        width: 100%;
-        height: 42px;
-        padding: 0px;
-        transition: border-color .1s ease-out;
-        background-color: #fff;
-        border-color: #dcdcdc;
-        color: #454545;
-        max-width: none;
-    }
+        .form-input, .form-select {
+            border-style: solid;
+            border-width: 1px;
+            font-family: inherit;
+            margin: 0;
+            font-size: 1rem;
+            width: 100%;
+            height: 42px;
+            padding: 0px;
+            transition: border-color .1s ease-out;
+            background-color: #fff;
+            border-color: #dcdcdc;
+            color: #454545;
+            max-width: none;
+        }
 
-    .page-heading {
-        font-size: 24px;
-    }
+        .page-heading {
+            font-size: 24px;
+        }
 
-    .alert {
-        padding: 10px 30px 1px 25px;
-        margin-top: 40px;
-        margin-bottom: 160px;
-        border-radius: 1px;
-        background-color: #d9edf7;
-        border-color: #bce8f1;
-        color: #31708f;
-    }
+        .alert {
+            padding: 10px 30px 1px 25px;
+            margin-top: 40px;
+            margin-bottom: 160px;
+            border-radius: 1px;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+            color: #31708f;
+        }
 
-    ul {
-        padding-left: 0px;
-    }
+        ul {
+            padding-left: 0px;
+        }
 
-    .container_page {
-        margin: 0 auto;
-        padding-bottom: 80px;
-        border-top: 1px solid #eaeaea;
-    }
+        .container_page {
+            margin: 0 auto;
+            padding-bottom: 80px;
+            border-top: 1px solid #eaeaea;
+        }
 
-    .productBlockContainer {
-        margin: 0 -15px;
-        display: flex;
-        /*flex-wrap:wrap;*/
-    }
+        .productBlockContainer {
+            margin: 0 -15px;
+            display: flex;
+            /*flex-wrap:wrap;*/
+        }
 
-    .prod-item {
-        margin-bottom: 27px;
-        width: 33.33%;
-        float: left;
-    }
+        .prod-item {
+            margin-bottom: 27px;
+            width: 33.33%;
+            float: left;
+        }
 
-    .card-figure {
-        padding: 0;
-        position: relative;
-        margin-top: 0;
-    }
+        .card-figure {
+            padding: 0;
+            position: relative;
+            margin-top: 0;
+        }
 
-    .prod-item .prod-image {
-        position: relative;
-        margin-bottom: 21px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+        .prod-item .prod-image {
+            position: relative;
+            margin-bottom: 21px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-        .prod-item .prod-image > a {
-            display: inline-flex;
+            .prod-item .prod-image > a {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                width: 100%;
+            }
+
+        .card-image {
+            width: 350px;
+            /*height: 405px;*/
+            max-width: 100%;
+        }
+
+        .prod-item .prod-image > a img.lazyloaded {
+            width: 100% !important;
+        }
+
+        .card-image {
+            border: 0;
+            display: inline-block;
+        }
+
+        .actions > .btnQV,
+        .actions > a.btnWL,
+        .actions > a.btnATC {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease 0s;
+            position: absolute;
+        }
+
+        .actions > a.btnWL {
+            top: -20px;
+            right: 13px;
+            display: inline-block;
+            width: 30px;
+            padding: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+            .actions > a.btnWL:hover {
+                border-bottom: none;
+            }
+
+        .btnWL {
+            font-weight: 400;
+            color: #000;
+        }
+
+            .btnWL:hover {
+                cursor: pointer;
+                color: #000;
+                border-bottom: 1px dotted #000;
+            }
+
+
+        .actions > a.btnATC {
+            width: 100%;
+            bottom: 10px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+        }
+
+        .actions > .btnQV {
+            right: 0px;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0px;
+            width: 106px;
+            height: 33px;
+            margin: 0 auto;
+            color: #000;
+            border: 2px solid #000;
+            background-color: #fff;
+            display: flex;
             justify-content: center;
             align-items: center;
-            align-content: center;
-            width: 100%;
+            font-family: Poppins, Arial, Helvetica, sans-serif;
+            font-weight: 700;
         }
 
-    .card-image {
-        width: 350px;
-        /*height: 405px;*/
-        max-width: 100%;
-    }
+            .actions > .btnQV:hover {
+                border: 1px solid #000;
+            }
 
-    .prod-item .prod-image > a img.lazyloaded {
-        width: 100% !important;
-    }
-
-    .card-image {
-        border: 0;
-        display: inline-block;
-    }
-
-    .actions > .btnQV,
-    .actions > a.btnWL,
-    .actions > a.btnATC {
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease 0s;
-        position: absolute;
-    }
-
-    .actions > a.btnWL {
-        top: -20px;
-        right: 13px;
-        display: inline-block;
-        width: 30px;
-        padding: 5px;
-        font-size: 16px;
-        text-align: center;
-    }
-
-        .actions > a.btnWL:hover {
-            border-bottom: none;
+        .productBlockContainer.row:after {
+            content: "";
+            display: table;
+            clear: both;
         }
 
-    .btnWL {
-        font-weight: 400;
-        color: #000;
-    }
+        .prod-name a {
+            font-weight: 400;
+            color: #000;
+        }
 
-        .btnWL:hover {
-            cursor: pointer;
+            .prod-name a:hover {
+                color: #000;
+            }
+
+        .prod-summary {
+            font-weight: 400;
+            line-height: 1.5rem;
+        }
+
+        .hoverin {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .showdown {
+            opacity: 1 !important;
+            visibility: visible !important;
+            top: 15px !important;
+        }
+
+        .btnWL span {
+            font-weight: 400;
             color: #000;
             border-bottom: 1px dotted #000;
+            margin-left: 10px;
         }
 
-
-    .actions > a.btnATC {
-        width: 100%;
-        bottom: 10px;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-weight: 700;
-    }
-
-    .actions > .btnQV {
-        right: 0px;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 0px;
-        width: 106px;
-        height: 33px;
-        margin: 0 auto;
-        color: #000;
-        border: 2px solid #000;
-        background-color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Poppins, Arial, Helvetica, sans-serif;
-        font-weight: 700;
-    }
-
-        .actions > .btnQV:hover {
-            border: 1px solid #000;
-        }
-
-    .productBlockContainer.row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    .prod-name a {
-        font-weight: 400;
-        color: #000;
-    }
-
-        .prod-name a:hover {
+        .btnWL i {
+            font-weight: 400;
             color: #000;
+            font-size: 16px;
+            margin-left: 40px;
         }
 
-    .prod-summary {
-        font-weight: 400;
-        line-height: 1.5rem;
-    }
 
-    .hoverin {
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-
-    .showdown {
-        opacity: 1 !important;
-        visibility: visible !important;
-        top: 15px !important;
-    }
-    .btnWL span {
-        font-weight: 400;
-        color: #000;
-        border-bottom: 1px dotted #000;
-        margin-left: 10px;
-    }
-
-    .btnWL i {
-        font-weight: 400;
-        color: #000;
-        font-size: 16px;
-        margin-left: 40px;
-    }
-
-
-    .btnWL span:hover, .btnWL i:hover {
-        cursor: pointer;
-        color: #000;
-    }
-</style>
-
+            .btnWL span:hover, .btnWL i:hover {
+                cursor: pointer;
+                color: #000;
+            }
+    </style>
+}
 
 <div id="container_page_nav">
     <div class="container">
@@ -445,29 +447,29 @@
                 <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>*@
             <div class="productView-rating"></div>
 
-        @*購買相關*@
-        @*
-        ID之後要隱藏!!!!
-        ID之後要隱藏!!!!
-        ID之後要隱藏!!!!
-        *@
-        @*會員ID*@
-        @*<input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />*@
-        @*產品ID*@
-        <input id="ProductID" type="hidden" name="ProductID" value="@ViewBag.ProductID" />
-        @* 數量 *@
-        <div>Quantity:</div>
-        @* 增加 *@
-        <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
-        <input id="quantity" name="Quantity" value="1" class="text-center" />
-        @* 減少 *@
-        <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
-        <div class="productView-rating"></div>
-        <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
-        <a href="#" class="btnWL list-view">
-            <i class="far fa-heart"></i><span>Add to Wish list</span>
-        </a>
-    </div>
+            @*購買相關*@
+            @*
+                ID之後要隱藏!!!!
+                ID之後要隱藏!!!!
+                ID之後要隱藏!!!!
+            *@
+            @*會員ID*@
+            @*<input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />*@
+            @*產品ID*@
+            <input id="ProductID" type="hidden" name="ProductID" value="@ViewBag.ProductID" />
+            @* 數量 *@
+            <div>Quantity:</div>
+            @* 增加 *@
+            <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+            <input id="quantity" name="Quantity" value="1" class="text-center" />
+            @* 減少 *@
+            <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+            <div class="productView-rating"></div>
+            <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
+            <a href="#" class="btnWL list-view">
+                <i class="far fa-heart"></i><span>Add to Wish list</span>
+            </a>
+        </div>
         @*產品小圖和社群按鈕*@
         <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4 " id="ProductPics">
             <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
@@ -505,8 +507,12 @@
         @*SHIPPING & RETURNS 貨運和退貨Q&A*@
         <div id="SAndR" class="col-xl-12 mt-4">
             <div>Shipping and Returns Policy</div>
-            <div class="mt-3"><a href="@Url.Action("Shipping", "FrontEnd") ">Shipping FAQ</a></div>
-            <div class="mt-3"><a href="javascript:void(0) ">Returns / Exchanges FAQ</a></div>
+            <div class="mt-3">
+                <a href="@Url.Action("Shipping", "FrontEnd") ">Shipping FAQ</a>
+            </div>
+            <div class="mt-3">
+                <a href="javascript:void(0) ">Returns / Exchanges FAQ</a>
+            </div>
         </div>
     </div>
     @* 顧客回應 *@
@@ -631,14 +637,18 @@
                             <i class="fa fa-heart-o"></i>Add to
                             Cart
                         </a>
-                        
-                        
+
+
                         <a href="#" class="btnQV quickview">Quick view</a>
                     </div>
                 </div>
                 <figcaption class="prod-desc">
-                    <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                    <div class="prod-price text-center"><span class="price">$24.00</span></div>
+                    <p class="prod-name text-center">
+                        <a href="#">Shine Bright Y-Necklace (14K)</a>
+                    </p>
+                    <div class="prod-price text-center">
+                        <span class="price">$24.00</span>
+                    </div>
 
                 </figcaption>
             </figure>
@@ -662,8 +672,12 @@
                     </div>
                 </div>
                 <figcaption class="prod-desc">
-                    <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                    <div class="prod-price text-center"><span class="price">$24.00</span></div>
+                    <p class="prod-name text-center">
+                        <a href="#">Shine Bright Y-Necklace (14K)</a>
+                    </p>
+                    <div class="prod-price text-center">
+                        <span class="price">$24.00</span>
+                    </div>
 
                 </figcaption>
             </figure>
@@ -687,8 +701,12 @@
                     </div>
                 </div>
                 <figcaption class="prod-desc">
-                    <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                    <div class="prod-price text-center"><span class="price">$24.00</span></div>
+                    <p class="prod-name text-center">
+                        <a href="#">Shine Bright Y-Necklace (14K)</a>
+                    </p>
+                    <div class="prod-price text-center">
+                        <span class="price">$24.00</span>
+                    </div>
 
 
                 </figcaption>
@@ -698,207 +716,416 @@
 </div>
 
 @section viewJquery{
-    <script src="~/Scripts/vue.js"></script>
-    <script>
-        //用來接pic的vue
-        var picVue;
-        $( function () {
-            //隱藏Shipping and Returns
-            $( '#SAndR' ).hide();
-            //隱藏問題跟回顧表格
-            $( '#questionForm' ).hide();
-            $( '#reviewForm' ).hide();
-            //問題跟回顧表格按鈕
-            $( '#btn-review' ).click( FormStatus );
-            $( '#btn-question' ).click( FormStatus );
-            //控制購買數量按鈕
-            $( '#quantityAdd' ).click( QuantityChange );
-            $( '#quantityReduce' ).click( QuantityChange );
-            //產品細節切換
-            $( '#btn-detail' ).click( DetailSwitch );
-            $( '#btn-SAndR' ).click( DetailSwitch );
-            //切換產品大圖
-            //$( '.thumbnail123' ).click( PicChange123 );
-            //產品卡片
-            $( ".card-figure" ).hover( function () {
-                $( this ).find( ".btnWL" ).addClass( "showdown" );
-                $( this ).find( ".btnQV" ).addClass( "hoverin" );
-                $( this ).find( ".btnATC" ).addClass( "hoverin" );
-            }, function () {
-                $( this ).find( ".btnWL" ).removeClass( "showdown" );
-                $( this ).find( ".btnQV" ).removeClass( "hoverin" );
-                $( this ).find( ".btnATC" ).removeClass( "hoverin" );
-            } )
-            //vue binding
-            BindingVue();
-            //加入wishlist
-            $(".btnWL").click(function (e) {
-            e.preventDefault();
-            var item = $(this);
-            var id = item.parents("figure").attr("id");
-                if (id == null) {
-                    id = @ViewBag.ProductID;
-                }
-            var isRed = item.find("i").attr("style") == null ? false : true;
-            //if ($(this).find("i").attr("style") == null) {
-            //    var isRed = false;
-            //} else {
-            //    var isRed = true;
-            //}
-            if (isRed) {
-                $.ajax({
-                    type: "POST",
-                    url: "/FrontEnd/DeleteWish",
-                    data: {
-                        MemberID: 0,
-                        ProductID: id
-                    },
-                    dataType: "text",
-                    success: function (response) {
-                        if (response) {
-                            alert('Delete wishlist');
-                            item.find("i").removeAttr("style");
-                            item.find("span").text("Add to Wish List");
-                        }
-                    }
-                });
-            } else {
-                $.ajax({
-                    type: "POST",
-                    url: "/FrontEnd/AddWish",
-                    data: {
-                        MemberID:0,
-                        ProductID:id
-                    },
-                    dataType: "text",
-                    success: function (response) {
-                        if (response) {
-                            alert('Add to wishlist');
-                            item.find("i").attr("style", "color:red");
-                            item.find("span").text("Delete Wish List");
-                        }
-                    }
-                    } );
-                }
-            } );
-        } );
-
-        function GetBtnId( btn ) {
-            //取得傳入btn的id
-            let btnId = $( btn ).attr( 'id' );
-            return btnId;
-        }
-
-        //增加購買數量
-        function QuantityChange() {
-            let btnId = GetBtnId( this );
-            //取得目前顯示數量
-            var quant = $( '#quantity' ).val();
-            if ( btnId == 'quantityReduce' && quant > 1 ) {
-                quant--;
-            } else if ( btnId == 'quantityAdd' ) {
-                quant++;
-            }
-            $( '#quantity' ).val( quant );
-        }
-
-        //產品細節和Q&A切換
-        function DetailSwitch() {
-            let btnId = GetBtnId( this );
-            if ( btnId == 'btn-detail' ) {
-                $( '#detail' ).show();
+    @*<script>
+            //用來接pic的vue
+            var picVue;
+            $( function () {
+                //隱藏Shipping and Returns
                 $( '#SAndR' ).hide();
-            } else {
-                $( '#detail' ).hide();
-                $( '#SAndR' ).show();
-            }
-        }
-
-        //切換產品大圖
-        //function picchange123() {
-        //     console.log("有進來嗎")
-        //    // 大小圖片的src
-        //    let smallsrc = $( this ).attr( 'src' );
-        //    let largesrc = $( '#largepic' ).attr( 'src' );
-        //    if ( smallsrc != largesrc ) {
-        //        $( '#largepic' ).attr( 'src', smallsrc );
-        //    }
-        //}
-
-        //切換問題和回顧表格
-        //bool 表示現在顯示的是哪種表格
-        var question = false;
-        var review = false;
-        function FormStatus() {
-            let btnId = GetBtnId( this );
-            if ( btnId == "btn-question" && question == false ) {
-                question = true;
-                review = false;
-            } else if ( btnId == "btn-question" && question == true ) {
-                question = false;
-            } else if ( btnId == "btn-review" && review == false ) {
-                question = false;
-                review = true;
-            } else if ( btnId == "btn-review" && review == true ) {
-                review = false;
-            }
-            FormSwitch( question, review );
-        }
-
-        //切換表格顯示
-        function FormSwitch( question, review ) {
-            $( '#questionForm' ).hide();
-            $( '#reviewForm' ).hide();
-            $( '#defaultReview' ).hide();
-            if ( question ) {
-                $( '#questionForm' ).show();
-            } else if ( review ) {
-                $( '#reviewForm' ).show();
-            } else {
-                $( '#defaultReview' ).show();
-            }
-        }
-
-        //新增購物車 ajax
-        function AddCart() {
-            let productId = $( '#ProductID' ).val();
-            //let memberId = $( '#MemberID' ).val();
-            let quantity = $( '#quantity' ).val();
-
-            $.ajax( {
-                type: "POST",
-                //先確認目前的訂單狀況 再接AddCart的action
-                url: "/FrontEnd/CheckOrder",
-                data: { /*MemberID: memberId,*/ ProductID: productId, Quantity: quantity },
-                dataType: "text",
-                success: function ( response ) {
-                    alert( '成功加入購物車' );
-                }
-            } );
-        }
-
-        function BindingVue() {
-            picVue = new Vue({
-                el:'#ProductPics',
-                data: { pics:  @Html.Raw(ViewBag.ProductUrl)},
-                methods: {
-                    PicChange(e){
-                        console.log("有進來嗎")
-                        // 大小圖片的src
-                        let smallSrc = $( e.target ).attr( 'src' );
-                        let largeSrc = $( '#LargePic' ).attr( 'src' );
-                        if ( smallSrc != largeSrc ) {
-                        $( '#LargePic' ).attr( 'src', smallSrc );
+                //隱藏問題跟回顧表格
+                $( '#questionForm' ).hide();
+                $( '#reviewForm' ).hide();
+                //問題跟回顧表格按鈕
+                $( '#btn-review' ).click( FormStatus );
+                $( '#btn-question' ).click( FormStatus );
+                //控制購買數量按鈕
+                $( '#quantityAdd' ).click( QuantityChange );
+                $( '#quantityReduce' ).click( QuantityChange );
+                //產品細節切換
+                $( '#btn-detail' ).click( DetailSwitch );
+                $( '#btn-SAndR' ).click( DetailSwitch );
+                //切換產品大圖
+                //$( '.thumbnail123' ).click( PicChange123 );
+                //產品卡片
+                $( ".card-figure" ).hover( function () {
+                    $( this ).find( ".btnWL" ).addClass( "showdown" );
+                    $( this ).find( ".btnQV" ).addClass( "hoverin" );
+                    $( this ).find( ".btnATC" ).addClass( "hoverin" );
+                }, function () {
+                    $( this ).find( ".btnWL" ).removeClass( "showdown" );
+                    $( this ).find( ".btnQV" ).removeClass( "hoverin" );
+                    $( this ).find( ".btnATC" ).removeClass( "hoverin" );
+                } )
+                //vue binding
+                BindingVue();
+                //加入wishlist
+                $(".btnWL").click(function (e) {
+                e.preventDefault();
+                var item = $(this);
+                var id = item.parents("figure").attr("id");
+                    if (id == null) {
+                        id = @ViewBag.ProductID;
+                    }
+                var isRed = item.find("i").attr("style") == null ? false : true;
+                //if ($(this).find("i").attr("style") == null) {
+                //    var isRed = false;
+                //} else {
+                //    var isRed = true;
+                //}
+                if (isRed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/FrontEnd/DeleteWish",
+                        data: {
+                            MemberID: 0,
+                            ProductID: id
+                        },
+                        dataType: "text",
+                        success: function (response) {
+                            if (response) {
+                                alert('Delete wishlist');
+                                item.find("i").removeAttr("style");
+                                item.find("span").text("Add to Wish List");
+                            }
                         }
+                    });
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/FrontEnd/AddWish",
+                        data: {
+                            MemberID:0,
+                            ProductID:id
+                        },
+                        dataType: "text",
+                        success: function (response) {
+                            if (response) {
+                                alert('Add to wishlist');
+                                item.find("i").attr("style", "color:red");
+                                item.find("span").text("Delete Wish List");
+                            }
+                        }
+                        } );
+                    }
+                } );
+            } );
+
+            function GetBtnId( btn ) {
+                //取得傳入btn的id
+                let btnId = $( btn ).attr( 'id' );
+                return btnId;
+            }
+
+            //增加購買數量
+            function QuantityChange() {
+                let btnId = GetBtnId( this );
+                //取得目前顯示數量
+                var quant = $( '#quantity' ).val();
+                if ( btnId == 'quantityReduce' && quant > 1 ) {
+                    quant--;
+                } else if ( btnId == 'quantityAdd' ) {
+                    quant++;
+                }
+                $( '#quantity' ).val( quant );
+            }
+
+            //產品細節和Q&A切換
+            function DetailSwitch() {
+                let btnId = GetBtnId( this );
+                if ( btnId == 'btn-detail' ) {
+                    $( '#detail' ).show();
+                    $( '#SAndR' ).hide();
+                } else {
+                    $( '#detail' ).hide();
+                    $( '#SAndR' ).show();
+                }
+            }
+
+            //切換產品大圖
+            //function picchange123() {
+            //     console.log("有進來嗎")
+            //    // 大小圖片的src
+            //    let smallsrc = $( this ).attr( 'src' );
+            //    let largesrc = $( '#largepic' ).attr( 'src' );
+            //    if ( smallsrc != largesrc ) {
+            //        $( '#largepic' ).attr( 'src', smallsrc );
+            //    }
+            //}
+
+            //切換問題和回顧表格
+            //bool 表示現在顯示的是哪種表格
+            var question = false;
+            var review = false;
+            function FormStatus() {
+                let btnId = GetBtnId( this );
+                if ( btnId == "btn-question" && question == false ) {
+                    question = true;
+                    review = false;
+                } else if ( btnId == "btn-question" && question == true ) {
+                    question = false;
+                } else if ( btnId == "btn-review" && review == false ) {
+                    question = false;
+                    review = true;
+                } else if ( btnId == "btn-review" && review == true ) {
+                    review = false;
+                }
+                FormSwitch( question, review );
+            }
+
+            //切換表格顯示
+            function FormSwitch( question, review ) {
+                $( '#questionForm' ).hide();
+                $( '#reviewForm' ).hide();
+                $( '#defaultReview' ).hide();
+                if ( question ) {
+                    $( '#questionForm' ).show();
+                } else if ( review ) {
+                    $( '#reviewForm' ).show();
+                } else {
+                    $( '#defaultReview' ).show();
+                }
+            }
+
+            //新增購物車 ajax
+            function AddCart() {
+                let productId = $( '#ProductID' ).val();
+                //let memberId = $( '#MemberID' ).val();
+                let quantity = $( '#quantity' ).val();
+
+                $.ajax( {
+                    type: "POST",
+                    //先確認目前的訂單狀況 再接AddCart的action
+                    url: "/FrontEnd/CheckOrder",
+                    data: { /*MemberID: memberId,*/ ProductID: productId, Quantity: quantity },
+                    dataType: "text",
+                    success: function ( response ) {
+                        alert( '成功加入購物車' );
+                    }
+                } );
+            }
+
+            function BindingVue() {
+                //picVue = new Vue( {
+                //    el: '#ProductPics',
+                //    data: { pics:  @Html.Raw(ViewBag.ProductUrl)},
+                //    methods: {
+                //        PicChange( e ) {
+                //            // 大小圖片的src
+                //            let smallSrc = $( e.target ).attr( 'src' );
+                //            let largeSrc = $( '#LargePic' ).attr( 'src' );
+                //            if ( smallSrc != largeSrc ) {
+                //                $( '#LargePic' ).attr( 'src', smallSrc );
+                //            }
+                //        }
+                //    }
+                //} );
+
+                //let LargePicVue = new Vue( {
+                //    el: '#LargePic',
+                //    data: { pics:  @Html.Raw(ViewBag.ProductUrl)}
+                //} );
+
+            }
+        </script*@>
+    <script>
+        //var picVue = null
+$(function () {
+    //隱藏Shipping and Returns
+    $('#SAndR').hide()
+    //隱藏問題跟回顧表格
+    $('#questionForm').hide()
+    $('#reviewForm').hide()
+    //問題跟回顧表格按鈕
+    $('#btn-review').click(FormStatus)
+    $('#btn-question').click(FormStatus)
+    //控制購買數量按鈕
+    $('#quantityAdd').click(QuantityChange)
+    $('#quantityReduce').click(QuantityChange)
+    //產品細節切換
+    $('#btn-detail').click(DetailSwitch)
+    $('#btn-SAndR').click(DetailSwitch)
+    //切換產品大圖
+    //$( '.thumbnail123' ).click( PicChange123 )
+    //產品卡片
+    $(".card-figure").hover(function () {
+        $(this).find(".btnWL").addClass("showdown")
+        $(this).find(".btnQV").addClass("hoverin")
+        $(this).find(".btnATC").addClass("hoverin")
+    }, function () {
+        $(this).find(".btnWL").removeClass("showdown")
+        $(this).find(".btnQV").removeClass("hoverin")
+        $(this).find(".btnATC").removeClass("hoverin")
+    })
+    //vue binding
+    //BindingVue()
+    //加入wishlist
+    $(".btnWL").click(function (e) {
+        e.preventDefault()
+        var item = $(this)
+        var id = item.parents("figure").attr("id")
+        if (id == null) {
+            id = @ViewBag.ProductID
+        }
+        var isRed = item.find("i").attr("style") == null ? false : true
+        //if ($(this).find("i").attr("style") == null) {
+        //    var isRed = false
+        //} else {
+        //    var isRed = true
+        //}
+        if (isRed) {
+            $.ajax({
+                type: "POST",
+                url: "/FrontEnd/DeleteWish",
+                data: {
+                    MemberID: 0,
+                    ProductID: id
+                },
+                dataType: "text",
+                success: function (response) {
+                    if (response) {
+                        alert('Delete wishlist')
+                        item.find("i").removeAttr("style")
+                        item.find("span").text("Add to Wish List")
                     }
                 }
-            } )
-
-            let LargePicVue = new Vue( {
-                el:'#LargePic',
-                data: {pics:  @Html.Raw(ViewBag.ProductUrl)}
             })
-
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/FrontEnd/AddWish",
+                data: {
+                    MemberID: 0,
+                    ProductID: id
+                },
+                dataType: "text",
+                success: function (response) {
+                    if (response) {
+                        alert('Add to wishlist')
+                        item.find("i").attr("style", "color:red")
+                        item.find("span").text("Delete Wish List")
+                    }
+                }
+            })
         }
-    </script>
+    })
+})
+
+function GetBtnId(btn) {
+    //取得傳入btn的id
+    let btnId = $(btn).attr('id')
+    return btnId
+}
+
+//增加購買數量
+function QuantityChange() {
+    let btnId = GetBtnId(this)
+    //取得目前顯示數量
+    var quant = $('#quantity').val()
+    if (btnId == 'quantityReduce' && quant > 1) {
+        quant--
+    } else if (btnId == 'quantityAdd') {
+        quant++
+    }
+    $('#quantity').val(quant)
+}
+
+//產品細節和Q&A切換
+function DetailSwitch() {
+    let btnId = GetBtnId(this)
+    if (btnId == 'btn-detail') {
+        $('#detail').show()
+        $('#SAndR').hide()
+    } else {
+        $('#detail').hide()
+        $('#SAndR').show()
+    }
+}
+
+//切換產品大圖
+//function picchange123() {
+//     console.log("有進來嗎")
+//    // 大小圖片的src
+//    let smallsrc = $( this ).attr( 'src' )
+//    let largesrc = $( '#largepic' ).attr( 'src' )
+//    if ( smallsrc != largesrc ) {
+//        $( '#largepic' ).attr( 'src', smallsrc )
+//    }
+//}
+
+//切換問題和回顧表格
+//bool 表示現在顯示的是哪種表格
+var question = false
+var review = false
+
+function FormStatus() {
+    let btnId = GetBtnId(this)
+    if (btnId == "btn-question" && question == false) {
+        question = true
+        review = false
+    } else if (btnId == "btn-question" && question == true) {
+        question = false
+    } else if (btnId == "btn-review" && review == false) {
+        question = false
+        review = true
+    } else if (btnId == "btn-review" && review == true) {
+        review = false
+    }
+    FormSwitch(question, review)
+}
+
+//切換表格顯示
+function FormSwitch(question, review) {
+    $('#questionForm').hide()
+    $('#reviewForm').hide()
+    $('#defaultReview').hide()
+    if (question) {
+        $('#questionForm').show()
+    } else if (review) {
+        $('#reviewForm').show()
+    } else {
+        $('#defaultReview').show()
+    }
+}
+
+//新增購物車 ajax
+function AddCart() {
+    let productId = $('#ProductID').val()
+    //let memberId = $( '#MemberID' ).val()
+    let quantity = $('#quantity').val()
+
+    $.ajax({
+        type: "POST",
+        //先確認目前的訂單狀況 再接AddCart的action
+        url: "/FrontEnd/CheckOrder",
+        data: {
+            /*MemberID: memberId,*/
+            ProductID: productId,
+            Quantity: quantity
+        },
+        dataType: "text",
+        success: function (response) {
+            alert('成功加入購物車')
+        }
+    })
+}
+
+//function BindingVue() {
+    const picVue = new Vue({
+        el: '#ProductPics',
+        data: {
+            pics: @Html.Raw(ViewBag.ProductUrl)
+        },
+        methods: {
+            PicChange(e) {
+                // 大小圖片的src
+                let smallSrc = $(e.target).attr('src')
+                let largeSrc = $('#LargePic').attr('src')
+                if (smallSrc != largeSrc) {
+                    $('#LargePic').attr('src', smallSrc)
+                }
+            }
+        }
+    })
+
+    const LargePicVue = new Vue({
+        el: '#LargePic',
+        data: {
+            pics: @Html.Raw(ViewBag.ProductUrl)
+        }
+    })
+
+//}
+
+
+</script>
 }
