@@ -179,8 +179,14 @@
             let receiver = $( '#Receiver' ).val();
             let address = $( '#Address' ).val();
             let phone = $( '#Phone' ).val();
+            let arr = ['#Receiver', '#Address', '#Phone'];
+            let can = false;
+            for ( var i = 0; i < arr.length; i++ ) {
+                can = CheckEmpty( arr[i] );
+            }
 
-            $.ajax( {
+            if ( can ) {
+                $.ajax( {
                 type: "POST",
                 url: "/FrontEnd/AddCheckout",
                 data: {
@@ -191,10 +197,21 @@
                 },
                 dataType: "text",
                 success: function ( response ) {
-                    alert( '成功下訂' )
+                    alert('成功下訂')
                 }
             } );
+            }
         }
 
+        function CheckEmpty(item)
+        {
+            let can = true;
+            let empty = $( item ).val() == "";
+                if ( empty) {
+                    can = false;
+                    $( item ).attr( "placeholder", "Cannot be empty." );
+                }
+            return can;
+        }
     </script>
     }
