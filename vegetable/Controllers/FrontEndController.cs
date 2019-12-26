@@ -148,6 +148,7 @@ namespace vegetable.Controllers
 
         public ActionResult ProductIndex (int? id)
         {
+
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
             var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
@@ -618,6 +619,37 @@ namespace vegetable.Controllers
         public void UpdateCart (int cartId, int quantity)
         {
             orderDetail.UpdateCart(cartId, quantity);
+        }
+
+        public ActionResult CartItems ()
+        {
+            if (HttpContext.Request.Cookies.Get("myaccount") != null)
+            {
+                HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                CartServices cartServices = new CartServices();
+                OrderDetail []  products = cartServices.GetCartItems(memberData.MemberID);
+                return Json(products, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return null;
+            }
+           
+        }
+
+        //確認現在是否登入
+        public string CheckLoginApi ()
+        {
+            if (HttpContext.Request.Cookies.Get("myaccount") != null)
+            {
+                return "true";
+            }
+            else
+            {
+                return "false";
+            }
         }
     }
 }

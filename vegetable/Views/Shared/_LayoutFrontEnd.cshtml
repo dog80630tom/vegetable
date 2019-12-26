@@ -605,12 +605,12 @@
                         <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
                     </li>
 
-                    @if (Request.Cookies["myaccount"] != null)
+                    @if (Request.Cookies ["myaccount"] != null)
                     {
-                        if ((string)TempData["roles"] == "Client")
+                        if ((string)TempData ["roles"] == "Client")
                         {
                             <li class="nav-item active">
-                                <a class="nav-link text-dark mx-3 navTop">@TempData["username"].ToString()</a>
+                                <a class="nav-link text-dark mx-3 navTop">@TempData ["username"].ToString()</a>
                             </li>
                             <li class="nav-item">
                                 <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
@@ -662,7 +662,11 @@
                         <a class="nav-link text-dark mx-3 navTop" href="#"><span class="dot">WISH LISTS</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark   mx-3 navTop" href="#"><span class="dot">CART</span><i class="far fa-clipboard icon ml-3"></i></a>
+                        <a class="nav-link text-dark   mx-3 navTop" href="#">
+                            <span class="dot">CART</span>
+                            <span>(</span><span class="cartItems">0</span><span>)</span>
+                            <i class="far fa-clipboard icon ml-3"></i>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -940,38 +944,38 @@
             });
             $("#gotoRegist").click(function () {
                 location.href = "/FrontEnd/MemberRegist"
-            });
+            } );
 
-            $("#loginConfirm").click(function () {
-                var uname = $("#loginId").val();
-                var psw = $("#loginPsw").val();
+            $( "#loginConfirm" ).click( function () {
+                var uname = $( "#loginId" ).val();
+                var psw = $( "#loginPsw" ).val();
 
-                $.ajax({
+                $.ajax( {
                     type: "POST",
                     url: "/FrontEnd/Login",
                     data: { uname, psw },
-                    success: function (back) {
-                        console.log('back', back);
-                        if (back == "1") {
-                            $("#loginStatus").html("sign in suceesfully");
+                    success: function ( back ) {
+                        console.log( 'back', back );
+                        if ( back == "1" ) {
+                            $( "#loginStatus" ).html( "sign in suceesfully" );
                             location.href = "/FrontEnd/MemberPageAddress"
                         }
-                        else if (back == "2") {
-                            $("#loginStatus").html("This account doesn't exist");
+                        else if ( back == "2" ) {
+                            $( "#loginStatus" ).html( "This account doesn't exist" );
                         }
                         else {
-                            $("#loginStatus").html("Your password is incorrect. Please try again.");
+                            $( "#loginStatus" ).html( "Your password is incorrect. Please try again." );
                         }
 
                     }
 
-                });
-            });
+                } );
+            } );
 
-        });
-        $("#searchBTN").click(function () {
-            console.log("23234");
-            var condition = $("#search").val();
+        } );
+        $( "#searchBTN" ).click( function () {
+            console.log( "23234" );
+            var condition = $( "#search" ).val();
             window.location.href = "/Products/" + condition;
             //var SearchCondition  = {
             //    "page": 1,
@@ -988,7 +992,7 @@
             //    }
 
             //});
-        });
+        } );
     </script>
     @RenderSection("Endscripts", required: false)
 </body>
