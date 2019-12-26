@@ -12,6 +12,6 @@ namespace vegetable.Models
        
         public string PicUrl { get; set; }
         [Key]
-        public int ProductID { get; set; }
+        public int? ProductID { get; set; }
     }
 }

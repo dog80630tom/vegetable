@@ -48,7 +48,7 @@ namespace vegetable.Controllers
                                 where memberData.MemberID == w.MemberID
                                 select p.ProductID).ToList();
             }
-            
+
             //若沒有搜尋字串則顯示全部
             //尚未做找不到的功能
             if (query is null)
@@ -63,12 +63,42 @@ namespace vegetable.Controllers
             var allproducts = from p in item.Products
                               join c in item.Categories
                               on p.CategoryID equals c.CategoryID
+                              join pd in item.PicDetails
+                              on p.ProductID equals pd.ProductID
                               where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
-                              select p;
-
-            var JSONTO = allproducts.ToList();
-            foreach (Product p in JSONTO)
+                              select new ProductList { 
+                                  ProductID = p.ProductID,
+                                  CategoryID = p.CategoryID,
+                                  ProductName = p.ProductName,
+                                  ProductDescription = p.ProductDescription,
+                                  UnitsInStock = p.UnitsInStock,
+                                  ProductPrice = p.ProductPrice,
+                                  Url = pd.PicUrl
+                              };
+                                                        
+            var JSONTO = allproducts.ToList();       
+            foreach (ProductList p in JSONTO)
             {
+                //用viewbag丟json格式到view
+                //判斷會員登入
+                //if (rqstCookie != null)
+                //{
+                //    foreach (int id in wishproducts)
+                //    {
+                //        if (p.ProductID == id)
+                //        {
+                //            ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductDescription:'" + p.ProductDescription + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
+                //        }
+                //        else
+                //        {
+                //            ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductDescription:'" + p.ProductDescription + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                //        }
+                //    }
+                //} else
+                //{
+                //    ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductDescription:'" + p.ProductDescription + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                //}
+                //沒有description
                 if (rqstCookie != null && wishproducts.Count != 0)
                 {
                     var isWish = false;
@@ -76,28 +106,28 @@ namespace vegetable.Controllers
                     {
                         if (p.ProductID == id)
                         {
-                            isWish= true;
+                            isWish = true;
                             break;
                         }
                     }
-                    if(isWish)
+                    if (isWish)
                     {
-                        ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
+                        ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
                     }
                     else
                     {
-                        ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                        ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                     }
                 }
                 else
                 {
-                    ViewBag.products += "{ProductID:" + p.ProductID + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                    ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                 }
             }
-            ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
+                ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
+            
             return View();
         }
-
         public ActionResult MemberRegist ()
         {
             return View();

@@ -1,4 +1,4 @@
-﻿@model List<vegetable.Models.Product>
+﻿@model List<vegetable.Models.ProductList>
 
 @{
     ViewBag.Title = "Products";
@@ -644,7 +644,7 @@
                                             <div class="prod-image viewchange">
                                                 <a :href=`Earrings/${data.ProductID}`>
                                                     <img class="card-image viewchange" :id=`${data.ProductName}`
-                                                         :src=`/Assets/ProductPics/${data.ProductName}/1.jpg`>
+                                                         :src=`${data.Url.Url1}` :value=`${data.Url.Url2}`>
                                                 </a>
                                                 <div class="actions">
                                                     <a href="#" class="btnWL grid-view" :value=`${data.ProductID}`>
@@ -835,10 +835,14 @@
 
         $(".card-image").hover(function () {
             $(this).attr("style", "opacity:0.5");
-            $(this).attr("src", $(this).attr("src").replace('1.jpg','2.jpg'));
+            var val = $(this).attr("src");
+            $(this).attr("src", $(this).attr("value"));
+            $(this).attr("value", val);
         }, function () {
             $(this).attr("style", "opacity:0.5");
-            $(this).attr("src", $(this).attr("src").replace('2.jpg','1.jpg'));
+            var val = $(this).attr("src");
+            $(this).attr("src", $(this).attr("value"));
+            $(this).attr("value", val);
         });
         
         $(".btnWL").click(function (e) {

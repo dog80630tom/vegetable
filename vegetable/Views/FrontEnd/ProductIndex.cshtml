@@ -471,14 +471,15 @@
         @*產品小圖和社群按鈕*@
         <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4 " id="ProductPics">
             <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
-                <a class="mr-3 " href="javascript:void(0)">
-                    <img class="viewPic thumbnail" v-bind:src="pics.Url1" />
+                @*<a class="mr-3 ">
+
+        </a>*@
+                <img class="viewPic thumbnail123" v-bind:src="pics.Url1" />
+                <a class="mr-3">
+                    <img class="viewPic thumbnail123" v-bind:src="pics.Url2" />
                 </a>
-                <a class="mr-3" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" v-bind:src="pics.Url2" />
-                </a>
-                <a class="" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" v-bind:src="pics.Url3" />
+                <a class="">
+                    <img class="viewPic thumbnail123" v-bind:src="pics.Url3" />
                 </a>
             </div>
         </div>
@@ -610,7 +611,6 @@
 
     <div class="row mb-3"></div>
 </div>
-
 @* 產品卡片 *@
 <div class="container">
     <div class="productBlockContainer row">
@@ -717,7 +717,8 @@
             $( '#btn-detail' ).click( DetailSwitch );
             $( '#btn-SAndR' ).click( DetailSwitch );
             //切換產品大圖
-            $( '.thumbnail' ).click( PicChange );
+            $( '.thumbnail123' ).click( PicChange123 );
+            console.log("e04")
             //產品卡片
             $( ".card-figure" ).hover( function () {
                 $( this ).find( ".btnWL" ).addClass( "showdown" );
@@ -817,7 +818,8 @@
         }
 
         //切換產品大圖
-        function PicChange() {
+        function PicChange123() {
+            console.log("有進來嗎")
             // 大小圖片的src
             let smallSrc = $( this ).attr( 'src' );
             let largeSrc = $( '#LargePic' ).attr( 'src' );
