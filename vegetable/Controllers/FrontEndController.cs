@@ -16,7 +16,6 @@ using vegetable.Respository;
 
 namespace vegetable.Controllers
 {
-    [RoutePrefix("frontend")]
     public class FrontEndController : Controller
     {
         ItemContext item = new ItemContext();
@@ -73,9 +72,8 @@ namespace vegetable.Controllers
                                   ProductDescription = p.ProductDescription,
                                   UnitsInStock = p.UnitsInStock,
                                   ProductPrice = p.ProductPrice,
-                                  Url = pd.PicUrl.Replace(")","")
-                              };
-                                                        
+                                  Url = pd.PicUrl
+                              };                
             var JSONTO = allproducts.ToList();       
             foreach (ProductList p in JSONTO)
             {
@@ -128,6 +126,24 @@ namespace vegetable.Controllers
             
             return View();
         }
+        [HttpGet]
+        public string ProductQuickView(int id)
+        {
+            Product product = item.Products.Find(id);
+            PicDetail picDetail = item.PicDetails.Find(id);
+            var currentitem = new ProductList
+            {
+                ProductID = product.ProductID,
+                CategoryID = product.CategoryID,
+                ProductName = product.ProductName,
+                ProductDescription = product.ProductDescription,
+                UnitsInStock = product.UnitsInStock,
+                ProductPrice = product.ProductPrice,
+                Url = picDetail.PicUrl
+            };
+            return JsonConvert.SerializeObject(currentitem);
+        }
+
         public ActionResult MemberRegist ()
         {
             return View();
@@ -151,6 +167,19 @@ namespace vegetable.Controllers
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
             var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+
+            var wishproducts = (from p in item.Products
+                            join w in item.WishLists
+                            on p.ProductID equals w.ProductID
+                            where memberData.MemberID == w.MemberID && w.ProductID == id
+                            select p.ProductID).ToList();
+
+            var isWish = "false";
+            if (wishproducts.Count() == 1)
+            {
+                isWish = "true";
+            }
+            ViewBag.isWish = isWish;
             //沒有傳入id
             if (id == null)
             {
@@ -201,8 +230,7 @@ namespace vegetable.Controllers
             return RedirectToAction("Index");
         }
 
-
-        public ActionResult MemberPageWishlist ()
+        public ActionResult MemberPageWishlist()
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
@@ -210,8 +238,19 @@ namespace vegetable.Controllers
             var wishproducts = from p in item.Products
                                join w in item.WishLists
                                on p.ProductID equals w.ProductID
+                               join pd in item.PicDetails
+                               on p.ProductID equals pd.ProductID
                                where memberData.MemberID == w.MemberID
-                               select p;
+                               select new ProductList
+                               {
+                                   ProductID = p.ProductID,
+                                   CategoryID = p.CategoryID,
+                                   ProductName = p.ProductName,
+                                   ProductDescription = p.ProductDescription,
+                                   UnitsInStock = p.UnitsInStock,
+                                   ProductPrice = p.ProductPrice,
+                                   Url = pd.PicUrl
+                               };
             return View(wishproducts.ToList());
         }
         [HttpPost]
