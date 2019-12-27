@@ -184,7 +184,7 @@ namespace vegetable
             //會員管理頁
             routes.MapRoute(
                name: "MemberManagement",
-               url: "AdminProduct",
+               url: "AdminMember",
                defaults: new
                {
                    controller = "Members",
