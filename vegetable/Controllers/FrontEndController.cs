@@ -162,29 +162,32 @@ namespace vegetable.Controllers
         }
 
 
-        public ActionResult ProductIndex (int? id)
+        public ActionResult ProductIndex (int id)
         {
+            //(小嫚更改)暫時把int? id改成 int id
+            var isWish = false;
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
-            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
-            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
-
-            var wishproducts = (from p in item.Products
-                            join w in item.WishLists
-                            on p.ProductID equals w.ProductID
-                            where memberData.MemberID == w.MemberID && w.ProductID == id
-                            select p.ProductID).ToList();
-
-            var isWish = "false";
-            if (wishproducts.Count() == 1)
+            if (rqstCookie!=null) 
             {
-                isWish = "true";
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+
+                var wishproducts = (from p in item.Products
+                                    join w in item.WishLists
+                                    on p.ProductID equals w.ProductID
+                                    where memberData.MemberID == w.MemberID
+                                    select p.ProductID).ToList();
+                if (wishproducts.Contains(id))
+                {
+                    isWish = true;
+                }
+                ViewBag.isWish = isWish;
             }
-            ViewBag.isWish = isWish;
-            //沒有傳入id
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //沒有傳入id(小嫚暫時拿掉)
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             using (ItemContext item = new ItemContext())
             {
                 Product product = item.Products.Find(id);
@@ -194,7 +197,7 @@ namespace vegetable.Controllers
                 {
                     return HttpNotFound();
                 }
-                ViewBag.MemberID = memberData.MemberID;
+                //ViewBag.MemberID = memberData.MemberID;(小嫚暫時拿掉)
                 //預設為1
                 ViewBag.CartID = 1;
                 ViewBag.ProductID = id;
