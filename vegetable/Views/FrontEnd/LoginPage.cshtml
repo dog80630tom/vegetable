@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "LoginPage";
+    ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
 <style>
@@ -161,7 +161,7 @@
                             <a href="@Url.Action("Index", "FrontEnd")">Home</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="@Url.Action("LoginPage", "FrontEnd")">Login</a>
+                            <a href="/Login">Login</a>
                         </li>
                     </ul>
                     <!-- 要塞目錄資料及連結資料   結尾-->
@@ -194,7 +194,7 @@
                 <div class="row">
                     <div class="col-6">
                         <input class="btn btn-outline-dark w-25 rounded-0" value="Login" id="Login">
-                        <a href="@Url.Action("ForgotPassword", "FrontEnd")" style="margin:0 0 0 36px;color:black;">Forgot your password?</a>
+                        <a href="/Login/ForgotPassword" style="margin:0 0 0 36px;color:black;">Forgot your password?</a>
                         <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&https://localhost:44394&redirect_uri=https://localhost:44394/FrontEnd/Login&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="btn btn-success">google 登入</a>
                     </div>
                 </div>
@@ -217,13 +217,13 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/FrontEnd/Login",
+                    url: "/Login",
                     data: { uname, psw },
                     success: function (back) {
                         console.log('back', back);
                         if (back == "1") {
                             $("#loginStatus").html("sign in suceesfully");
-			                location.href = "/FrontEnd/MemberPageOrder"                        
+			                location.href = "/Order"                        
 			            }
                         else if (back == "2") {
                             $("#loginStatus").html("This account doesn't exist");
@@ -242,12 +242,13 @@
                     
                     $.ajax({
                         type: "POST",
-                        url: "/FrontEnd/Login",
+                        url: "/Login",
                         data: { uname, psw },
                         success: function (back) {
                             console.log('back', back);
                             if (back == "1") {
                                 $("#loginStatus").html("sign in suceesfully");
+                                location.href = "/Order"  
                             }
                             else if (back == "2") {
                                 $("#loginStatus").html("This account doesn't exist");
@@ -260,19 +261,20 @@
                 }
             });
 
-            $("#loginId").keydown(function (event) {
+            $("#loginPsw").keydown(function (event) {
                 if( event.which == 13 ) {
                     var uname = $("#loginId").val();
                     var psw = $("#loginPsw").val();
                     
                     $.ajax({
                         type: "POST",
-                        url: "/FrontEnd/Login",
+                        url: "/Login",
                         data: { uname, psw },
                         success: function (back) {
                             console.log('back', back);
                             if (back == "1") {
                                 $("#loginStatus").html("sign in suceesfully");
+                                location.href = "/Order"  
                             }
                             else if (back == "2") {
                                 $("#loginStatus").html("This account doesn't exist");

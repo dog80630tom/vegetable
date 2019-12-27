@@ -16,7 +16,6 @@ using vegetable.Respository;
 
 namespace vegetable.Controllers
 {
-    [RoutePrefix("frontend")]
     public class FrontEndController : Controller
     {
         ItemContext item = new ItemContext();

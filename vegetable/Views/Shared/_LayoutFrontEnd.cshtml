@@ -612,12 +612,12 @@
 
             <div class="collapse navbar-collapse p-0 justify-content-between" id="navbarNavDropdown">
                 <ul class="navbar-nav p-0">
-                    <li class="nav-item active border-right  p-0">
-                        <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
-                    </li>
-
                     @if (Request.Cookies["myaccount"] != null)
                     {
+                        <li class="nav-item active border-right  p-0">
+                            <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("MemberPageOrder", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
+                        </li>
+
                         if ((string)TempData["roles"] == "Client")
                         {
                             <li class="nav-item active">
@@ -639,6 +639,9 @@
                     }
                     else
                     {
+                        <li class="nav-item active border-right  p-0">
+                            <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
+                        </li>
                         <li class="nav-item active">
                             @*<a href="@Url.Action("Login", "FrontEnd")" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>*@
                             <a id="btn_login" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>
@@ -1010,7 +1013,7 @@
             }
         });
 
-        $("#loginId").keydown(function (event) {
+        $("#loginPsw").keydown(function (event) {
             if (event.which == 13) {
                 var uname = $("#loginId").val();
                 var psw = $("#loginPsw").val();

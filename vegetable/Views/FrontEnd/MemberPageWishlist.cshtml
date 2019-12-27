@@ -1,6 +1,6 @@
 @model List<vegetable.Models.ProductList>
 @{
-    ViewBag.Title = "MemberPage";
+    ViewBag.Title = "WishList";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
 
@@ -284,10 +284,10 @@
                 <a href="@Url.Action("Index", "FrontEnd")">Home</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="@Url.Action("MemberPageOrder", "FrontEnd")">Member</a>
+                <a href="/Order">Member</a>
             </li>
             <li class="breadcrumb-item current">
-                <a href="@Url.Action("MemberPageWishlist", "FrontEnd")"> Wishlist</a>
+                <a href="/WishList"> WishList</a>
             </li>
 
         </ul>
@@ -305,16 +305,16 @@
             <nav class="navBar navBar--sub navBar--account">
                 <ul class="navBar-section">
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberPageOrder">Orders</a>
+                        <a class="navBar-action" href="/Order">Orders</a>
                     </li>
                     <li class="navBar-item is-active">
                         <a class="navBar-action" href="/Cart">Cart</a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberPageWishlist">Wish List </a>
+                        <a class="navBar-action" href="/WishList">Wish List </a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberPageSetting">Account Settings</a>
+                        <a class="navBar-action" href="/Member">Account Settings</a>
                     </li>
                 </ul>
             </nav>
