@@ -165,7 +165,7 @@ namespace vegetable.Controllers
         public ActionResult ProductIndex (int id)
         {
             //(小嫚更改)暫時把int? id改成 int id
-            var isWish = false;
+            var isWish = "false";
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             if (rqstCookie!=null) 
             {
@@ -179,10 +179,10 @@ namespace vegetable.Controllers
                                     select p.ProductID).ToList();
                 if (wishproducts.Contains(id))
                 {
-                    isWish = true;
+                    isWish = "true";
                 }
-                ViewBag.isWish = isWish;
             }
+            ViewBag.isWish = isWish;
             //沒有傳入id(小嫚暫時拿掉)
             //if (id == null)
             //{
@@ -265,18 +265,21 @@ namespace vegetable.Controllers
                 using (ItemContext item = new ItemContext())
                 {
                     HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
-                    var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
-                    var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
-                    wish.MemberID = memberData.MemberID;
-                    item.WishLists.Add(wish);
-                    try
+                    if (rqstCookie!=null)
                     {
-                        item.SaveChanges();
-                        isSuccess = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw;
+                        var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                        var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                        wish.MemberID = memberData.MemberID;
+                        item.WishLists.Add(wish);
+                        try
+                        {
+                            item.SaveChanges();
+                            isSuccess = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
                     }
                 }
             }

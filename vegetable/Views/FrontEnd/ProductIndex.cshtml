@@ -732,9 +732,8 @@
             $(this).find(".btnATC").removeClass("hoverin");
         });
 
-            //var isWish = (bool)@ViewBag.isWish;
-
-        //WishOrNot(isWish);
+        var isWish =@ViewBag.isWish;
+        WishOrNot(isWish);
         //加入wishlist
 
         $(".btnWL").click(function (e) {
