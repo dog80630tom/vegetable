@@ -1,718 +1,766 @@
-﻿@model List<vegetable.Models.ProductList>
+@model List<vegetable.Models.ProductList>
 
 @{
     ViewBag.Title = "Products";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+ v-on:click='picchange($event)'
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<style>
+    <style>
 
-    a,
-    a:hover,
-    img,
-    img:hover {
-        text-decoration: none
-    }
-
-        a:active,
-        a:focus,
-        img:active,
-        img:focus {
+        a,
+        a:hover,
+        img,
+        img:hover {
             text-decoration: none
         }
 
-    ul {
-        list-style: none;
-        margin: 0;
-    }
+            a:active,
+            a:focus,
+            img:active,
+            img:focus {
+                text-decoration: none
+            }
 
-    a:hover {
-        cursor: pointer;
-    }
-
-    li {
-        list-style: none;
-    }
-
-    .show-all {
-        margin: 0;
-        padding: 0;
-    }
-
-    /* ---------------------- */
-    #container_page_nav {
-        background-color: #f7f8f9;
-        padding: 20px 0 15px 15px;
-        margin-top: 15px;
-        margin-bottom: 36px;
-    }
-
-    .breadcrumb {
-        background-color: #f7f8f9;
-        padding: 0;
-        margin: 0;
-    }
-
-    .breadcrumb-item {
-        display: inline-block;
-        padding-right: 10px;
-    }
-
-        .breadcrumb-item::before {
-            content: ">" !important;
-            color: #b4b4b4 !important;
-            margin: 0 12px 0 3px;
+        ul {
+            list-style: none;
+            margin: 0;
         }
 
-        .breadcrumb-item:first-child::before {
-            display: none;
+        a:hover {
+            cursor: pointer;
         }
 
-        .breadcrumb-item a {
-            color: #b4b4b4;
+        li {
+            list-style: none;
         }
 
-            .breadcrumb-item a:hover {
+        .show-all {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ---------------------- */
+        #container_page_nav {
+            background-color: #f7f8f9;
+            padding: 20px 0 15px 15px;
+            margin-top: 15px;
+            margin-bottom: 36px;
+        }
+
+        .breadcrumb {
+            background-color: #f7f8f9;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb-item {
+            display: inline-block;
+            padding-right: 10px;
+        }
+
+            .breadcrumb-item::before {
+                content: ">" !important;
+                color: #b4b4b4 !important;
+                margin: 0 12px 0 3px;
+            }
+
+            .breadcrumb-item:first-child::before {
+                display: none;
+            }
+
+            .breadcrumb-item a {
+                color: #b4b4b4;
+            }
+
+                .breadcrumb-item a:hover {
+                    color: #000;
+                    border-bottom: 1px solid #000;
+                }
+
+            .breadcrumb-item.active a:hover {
+                color: #b4b4b4;
+            }
+
+        /* ---------------------- */
+        .container_page {
+            margin: 0;
+        }
+
+        /* ---------------------- */
+        .container_page_body {
+            padding: 0 15px;
+        }
+
+        .sidebarBlock {
+            margin-bottom: 17px;
+        }
+
+        .side-module-heading {
+            font-weight: 800;
+            padding: 22px 0;
+            margin-bottom: 0;
+            text-transform: capitalize;
+            margin-top: 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .navList-item {
+            padding: 0 0 22px 0;
+        }
+
+            .sidebarBlock a,
+            .navList-item p {
                 color: #000;
-                border-bottom: 1px solid #000;
+                transition: all .3s ease 0s;
             }
 
-        .breadcrumb-item.active a:hover {
-            color: #b4b4b4;
-        }
-
-    /* ---------------------- */
-    .container_page {
-        margin: 0;
-    }
-
-    /* ---------------------- */
-    .container_page_body {
-        padding: 0 15px;
-    }
-
-    .sidebarBlock {
-        margin-bottom: 17px;
-    }
-
-    .side-module-heading {
-        font-weight: 800;
-        padding: 22px 0;
-        margin-bottom: 0;
-        text-transform: capitalize;
-        margin-top: 0;
-        margin-bottom: 30px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .navList-item {
-        padding: 0 0 22px 0;
-    }
-
-        .sidebarBlock a,
-        .navList-item p {
-            color: #000;
-            transition: all .3s ease 0s;
-        }
-
-    .navList-action {
-        padding: 0;
-        display: inline;
-        font-weight: 600;
-    }
-
-        .navList-action:hover {
-            border-bottom: 1px dotted #000;
-        }
-
-    .side-module-heading + ul {
-        padding: 0;
-    }
-
-        .side-module-heading + ul li:not(.navList-item) {
-            padding: 0 0 10px 0;
-        }
-
-            .side-module-heading + ul li:not(.navList-item) a:hover {
-                border-bottom: 1px solid #000;
-            }
-
-    /* ---------------------- */
-
-    .category-heading .page-heading {
-        display: inline-block;
-        padding: 2px 0 20px;
-        margin-bottom: 3px;
-        font-size: 24px;
-        font-weight: 700;
-        text-align: left;
-        text-transform: capitalize;
-    }
-
-    .view-mode-btn {
-        display: inline-flex;
-        align-items: center;
-        position: relative;
-        width: 150px;
-    }
-
-        .view-mode-btn a.current-view {
-            cursor: default;
-        }
-
-        .view-mode-btn label {
-            width: 65px;
+        .navList-action {
+            padding: 0;
+            display: inline;
             font-weight: 600;
-            white-space: nowrap;
+        }
+
+            .navList-action:hover {
+                border-bottom: 1px dotted #000;
+            }
+
+        .side-module-heading + ul {
+            padding: 0;
+        }
+
+            .side-module-heading + ul li:not(.navList-item) {
+                padding: 0 0 10px 0;
+            }
+
+                .side-module-heading + ul li:not(.navList-item) a:hover {
+                    border-bottom: 1px solid #000;
+                }
+
+        /* ---------------------- */
+
+        .category-heading .page-heading {
+            display: inline-block;
+            padding: 2px 0 20px;
+            margin-bottom: 3px;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: left;
+            text-transform: capitalize;
+        }
+
+        .view-mode-btn {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            width: 150px;
+        }
+
+            .view-mode-btn a.current-view {
+                cursor: default;
+            }
+
+            .view-mode-btn label {
+                width: 65px;
+                font-weight: 600;
+                white-space: nowrap;
+                letter-spacing: .05em;
+                padding-right: 12px;
+                margin: 0;
+            }
+
+        .btn-group {
+            display: flex;
+        }
+
+        .view-mode-btn a,
+        .view-mode-btn a:active,
+        .view-mode-btn a:focus,
+        .view-mode-btn a:hover {
+            font-size: 11px;
+            font-weight: 400;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 40px;
+            height: 40px;
+            margin-right: 0;
+            margin-left: 0;
+            text-decoration: none;
+            padding: 5px;
+            border: 1px solid #e5e5e5;
+        }
+
+            .view-mode-btn a > div {
+                width: 30px;
+            }
+
+            .view-mode-btn a#grid-view {
+                margin-right: -1px;
+            }
+
+                .view-mode-btn a#grid-view .icon-bar {
+                    width: 4px;
+                }
+
+                    .view-mode-btn a#grid-view .icon-bar:after,
+                    .view-mode-btn a#grid-view .icon-bar:before {
+                        position: absolute;
+                        display: block;
+                        width: 4px;
+                        height: 4px;
+                        content: '';
+                        transition: all .15s ease;
+                        background: #e5e5e5;
+                    }
+
+                    .view-mode-btn a#grid-view .icon-bar:before {
+                        left: -5px;
+                    }
+
+                    .view-mode-btn a#grid-view .icon-bar:after {
+                        right: -5px;
+                    }
+
+        a.current-view .icon-bar:after,
+        a.current-view .icon-bar:before,
+        a.current-view .icon-bar {
+            background: #232323 !important;
+        }
+
+        .view-mode-btn a .icon-bar {
+            filter: alpha(opacity=100);
+            opacity: 1;
+            position: relative;
+            top: -1px;
+            width: 14px;
+            height: 4px;
+            margin: 1px auto 0;
+            transition: all .15s ease;
+            background: #e5e5e5;
+        }
+
+        .actionBar {
+            text-align: right;
+            margin-left: 40px;
+            display: inline-block;
+            clear: both;
+        }
+
+        .form-field {
+            margin: 0;
+            display: inline-block;
+        }
+
+        .form-select {
+            display: inline-block;
+            max-width: 180px;
+            border: 1px solid #dedede;
+            cursor: pointer;
+            color: #454545;
+            padding: 7px 15px 7px 9px;
+            min-width: 90px;
+            height: 38px;
+        }
+
+        .actionBar select option {
+            padding: 5px 10px;
+        }
+
+        .form-label {
+            display: inline-block;
+            text-transform: uppercase;
             letter-spacing: .05em;
+            position: relative;
             padding-right: 12px;
             margin: 0;
         }
 
-    .btn-group {
-        display: flex;
-    }
-
-    .view-mode-btn a,
-    .view-mode-btn a:active,
-    .view-mode-btn a:focus,
-    .view-mode-btn a:hover {
-        font-size: 11px;
-        font-weight: 400;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        width: 40px;
-        height: 40px;
-        margin-right: 0;
-        margin-left: 0;
-        text-decoration: none;
-        padding: 5px;
-        border: 1px solid #e5e5e5;
-    }
-
-        .view-mode-btn a > div {
-            width: 30px;
+        .product-pagination {
+            margin-bottom: 25px;
+            justify-content: center;
+            text-align: right;
+            font-weight: 600;
         }
 
-        .view-mode-btn a#grid-view {
-            margin-right: -1px;
+        .module-wrapper {
+            margin: 0 0 20px;
         }
 
-            .view-mode-btn a#grid-view .icon-bar {
-                width: 4px;
+        .productBlockContainer {
+            margin: 0 -15px;
+            display: flex;
+            /*flex-wrap:wrap;*/
+        }
+
+        .prod-item {
+            margin-bottom: 27px;
+            width: 33.33%;
+            float: left;
+        }
+
+        /*:not(.productList).module-wrapper .prod-item{
+                width: 33.33%;
+            }*/
+
+        /*.module-wrapper .productBlockContainer.columns-3 .prod-item{
+                position:relative;
+                height:100%;
+                padding:0 15px;
+                display:flex;
+                align-content:stretch;
+                align-items:stretch;
+            }*/
+
+        /*:not(.productList).module-wrapper .prod-item .card-figure {
+                height:auto;
+                background:0 0
+            }*/
+
+        .card-figure {
+            padding: 0;
+            position: relative;
+            margin-top: 0;
+        }
+
+        .prod-item .prod-image {
+            position: relative;
+            margin-bottom: 21px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+            .prod-item .prod-image > a {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                width: 100%;
             }
 
-                .view-mode-btn a#grid-view .icon-bar:after,
-                .view-mode-btn a#grid-view .icon-bar:before {
-                    position: absolute;
-                    display: block;
-                    width: 4px;
-                    height: 4px;
-                    content: '';
-                    transition: all .15s ease;
-                    background: #e5e5e5;
-                }
+        .card-image {
+            width: 270px;
+            height: 405px;
+            max-width: 100%;
+            border: 0;
+            display: inline-block;
+        }
 
-                .view-mode-btn a#grid-view .icon-bar:before {
-                    left: -5px;
-                }
+        .prod-item .prod-image > a img.lazyloaded {
+            width: 100% !important;
+        }
 
-                .view-mode-btn a#grid-view .icon-bar:after {
-                    right: -5px;
-                }
+        .actions > .btnQV, .actions > a.btnWL, .actions > a.btnATC {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease 0s;
+            position: absolute;
+        }
 
-    a.current-view .icon-bar:after,
-    a.current-view .icon-bar:before,
-    a.current-view .icon-bar {
-        background: #232323 !important;
-    }
+        .actions > a.btnWL {
+            top: -20px;
+            right: 13px;
+            display: inline-block;
+            width: 30px;
+            padding: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
 
-    .view-mode-btn a .icon-bar {
-        filter: alpha(opacity=100);
-        opacity: 1;
-        position: relative;
-        top: -1px;
-        width: 14px;
-        height: 4px;
-        margin: 1px auto 0;
-        transition: all .15s ease;
-        background: #e5e5e5;
-    }
+            .actions > a.btnWL:hover {
+                border-bottom: none;
+            }
 
-    .actionBar {
-        text-align: right;
-        margin-left: 40px;
-        display: inline-block;
-        clear: both;
-    }
+        .btnWL span, .btnWL i {
+            font-weight: 400;
+            color: #000;
+        }
 
-    .form-field {
-        margin: 0;
-        display: inline-block;
-    }
+        .prod-desc .btnWL i {
+            font-size: 16px;
+            margin-left: 40px;
+        }
 
-    .form-select {
-        display: inline-block;
-        max-width: 180px;
-        border: 1px solid #dedede;
-        cursor: pointer;
-        color: #454545;
-        padding: 7px 15px 7px 9px;
-        min-width: 90px;
-        height: 38px;
-    }
+        .prod-desc .btnWL span {
+            border-bottom: 1px dotted #000;
+            margin-left: 10px;
+        }
 
-    .actionBar select option {
-        padding: 5px 10px;
-    }
+            .prod-desc .btnWL span:hover, .prod-desc .btnWL i:hover {
+                cursor: pointer;
+                color: #000;
+            }
 
-    .form-label {
-        display: inline-block;
-        text-transform: uppercase;
-        letter-spacing: .05em;
-        position: relative;
-        padding-right: 12px;
-        margin: 0;
-    }
 
-    .product-pagination {
-        margin-bottom: 25px;
-        justify-content: center;
-        text-align: right;
-        font-weight: 600;
-    }
+        .actions > a.btnATC {
+            width: 100%;
+            bottom: 10px;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-weight: 700;
+        }
 
-    .module-wrapper {
-        margin: 0 0 20px;
-    }
-
-    .productBlockContainer {
-        margin: 0 -15px;
-        display: flex;
-        /*flex-wrap:wrap;*/
-    }
-
-    .prod-item {
-        margin-bottom: 27px;
-        width: 33.33%;
-        float: left;
-    }
-
-    /*:not(.productList).module-wrapper .prod-item{
-            width: 33.33%;
-        }*/
-
-    /*.module-wrapper .productBlockContainer.columns-3 .prod-item{
-            position:relative;
-            height:100%;
-            padding:0 15px;
-            display:flex;
-            align-content:stretch;
-            align-items:stretch;
-        }*/
-
-    /*:not(.productList).module-wrapper .prod-item .card-figure {
-            height:auto;
-            background:0 0
-        }*/
-
-    .card-figure {
-        padding: 0;
-        position: relative;
-        margin-top: 0;
-    }
-
-    .prod-item .prod-image {
-        position: relative;
-        margin-bottom: 21px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-        .prod-item .prod-image > a {
-            display: inline-flex;
+        .actions > .btnQV {
+            right: 0px;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0px;
+            width: 106px;
+            height: 33px;
+            margin: 0 auto;
+            color: #000;
+            border: 2px solid #000;
+            background-color: #fff;
+            display: flex;
             justify-content: center;
             align-items: center;
-            align-content: center;
-            width: 100%;
+            font-family: Poppins,Arial,Helvetica,sans-serif;
+            font-weight: 700;
         }
 
-    .card-image {
-        width: 270px;
-        height: 405px;
-        max-width: 100%;
-        border: 0;
-        display: inline-block;
-    }
+            .actions > .btnQV:hover {
+                border: 1px solid #000;
+            }
 
-    .prod-item .prod-image > a img.lazyloaded {
-        width: 100% !important;
-    }
-
-    .actions > .btnQV, .actions > a.btnWL, .actions > a.btnATC {
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease 0s;
-        position: absolute;
-    }
-
-    .actions > a.btnWL {
-        top: -20px;
-        right: 13px;
-        display: inline-block;
-        width: 30px;
-        padding: 5px;
-        font-size: 16px;
-        text-align: center;
-    }
-
-        .actions > a.btnWL:hover {
-            border-bottom: none;
+        .productBlockContainer.row:after {
+            content: "";
+            display: table;
+            clear: both;
         }
 
-    .btnWL span, .btnWL i {
-        font-weight: 400;
-        color: #000;
-    }
+        .prod-name a {
+            font-weight: 400;
+            color: #000;
+        }
 
-    .prod-desc .btnWL i {
-        font-size: 16px;
-        margin-left: 40px;
-    }
+            .prod-name a:hover {
+                color: #000;
+            }
 
-    .prod-desc .btnWL span {
-        border-bottom: 1px dotted #000;
-        margin-left: 10px;
-    }
+        .prod-summary {
+            font-weight: 400;
+            line-height: 1.5rem;
+        }
 
-        .prod-desc .btnWL span:hover, .prod-desc .btnWL i:hover {
+        .hoverin {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .showdown {
+            opacity: 1 !important;
+            visibility: visible !important;
+            top: 15px !important;
+        }
+
+        ul {
+            padding: 0;
+        }
+
+        .pagination-list li {
+            display: inline;
+            padding: 0 5px;
+        }
+
+        .pagination-list .pagination-item a {
+            color: #000;
+            font-weight: 600;
+        }
+
+            .pagination-list .pagination-item a:hover {
+                text-decoration: none;
+                color: #000;
+            }
+
+        .selectedpage a {
+            border-bottom: 1px dotted #000;
+        }
+
+            .selectedpage a:hover {
+                cursor: none;
+            }
+
+        .pagination-item--next a, .pagination-item--previous a {
+            color: #000;
+            border-bottom: 1px dotted #000;
+        }
+
+            .pagination-item--next a:hover, .pagination-item--previous a:hover {
+                color: #000;
+            }
+
+        .pagination-link:hover {
             cursor: pointer;
-            color: #000;
         }
 
-
-    .actions > a.btnATC {
-        width: 100%;
-        bottom: 10px;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        font-weight: 700;
-    }
-
-    .actions > .btnQV {
-        right: 0px;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 0px;
-        width: 106px;
-        height: 33px;
-        margin: 0 auto;
-        color: #000;
-        border: 2px solid #000;
-        background-color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Poppins,Arial,Helvetica,sans-serif;
-        font-weight: 700;
-    }
-
-        .actions > .btnQV:hover {
-            border: 1px solid #000;
+        /*.imghchange {
+            height:300px;
+            margin-bottom:0 !important;
+            border-bottom:1px solid #ccc;
+        }*/
+        figure {
+            margin: 20px 0;
         }
 
-    .productBlockContainer.row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    .prod-name a {
-        font-weight: 400;
-        color: #000;
-    }
-
-        .prod-name a:hover {
-            color: #000;
+        .center {
+            text-align: center;
         }
 
-    .prod-summary {
-        font-weight: 400;
-        line-height: 1.5rem;
-    }
-
-    .hoverin {
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-
-    .showdown {
-        opacity: 1 !important;
-        visibility: visible !important;
-        top: 15px !important;
-    }
-
-    ul {
-        padding: 0;
-    }
-
-    .pagination-list li {
-        display: inline;
-        padding: 0 5px;
-    }
-
-    .pagination-list .pagination-item a {
-        color: #000;
-        font-weight: 600;
-    }
-
-        .pagination-list .pagination-item a:hover {
-            text-decoration: none;
-            color: #000;
+        .pagination-link:hover {
+            cursor: pointer;
         }
-
-    .selectedpage a {
-        border-bottom: 1px dotted #000;
-    }
-
-        .selectedpage a:hover {
-            cursor: none;
-        }
-
-    .pagination-item--next a, .pagination-item--previous a {
-        color: #000;
-        border-bottom: 1px dotted #000;
-    }
-
-        .pagination-item--next a:hover, .pagination-item--previous a:hover {
-            color: #000;
-        }
-
-    .prod-desc > a.btnATC {
-        width: 40%;
-        font-weight: 700;
-    }
-
-    .prod-desc {
-        padding-top: 25px;
-    }
-
-    .prod-image-small {
-        padding: 0;
-    }
-    /*.imghchange {
-        height:300px;
-        margin-bottom:0 !important;
-        border-bottom:1px solid #ccc;
-    }*/
-    figure {
-        margin: 20px 0;
-    }
-
-    .center {
-        text-align: center;
-    }
-
-    .pagination-link:hover {
-        cursor: pointer;
-    }
-
-</style>
-
-<div id="app" class="show-all">
-    <div class="container_page">
-        <div id="container_page_nav">
-            <div class="container">
-                <!-- 要塞目錄資料及連結資料   開頭-->
-                <!-- 動態綁定有a標籤href及text屬性 -->
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="#">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="#">Necklaces</a>
-                    </li>
-                    <li class="breadcrumb-item active">
-                        <a href="#">Y-Necklace &amp; Lariat</a>
-                    </li>
-                </ul>
-                <!-- 要塞目錄資料及連結資料   結尾-->
-            </div>
-        </div>
-        <div class="container">
-            <div class="container_page_body row">
-                <div class="page_sidebar col-sm-3" id="faceted-search-container">
-                    <!-- <div id="sidebar-toggle">
-                    <a class="btn btn-alt" href="#">SHOWSIDEBAR<i class="fa fa-plus"></i></a>
-                    </div> -->
-                    <nav>
-                        <div class="sidebarBlock" id="sidebar-wrapper">
-                            <h6 class="side-module-heading"><span>Categories</span></h6>
-                            <ul class="navList">
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/crawlers-and-pins/"
-                                       alt="Crawlers and Pins" title="Crawlers and Pins">Crawlers and Pins</a>
-                                </li>
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/threader-earrings/"
-                                       alt="Threader Earrings" title="Threader Earrings">Threader Earrings</a>
-                                </li>
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/earring-sets/"
-                                       alt="Earring Sets" title="Earring Sets">Earring Sets</a>
-                                </li>
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/cuffs/" alt="Cuffs"
-                                       title="Cuffs">Cuffs</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="sidebarBlock" id="sideShopByPrice">
-                            <h6 class="side-module-heading"><span>Shop by Price</span></h6>
-                            <ul>
-                                <li v-for="interval in intervals" v-on:click="pricefilter(interval.low,interval.height)">
-                                    <a alt=interval title=interval>${{interval.low}}.00 - ${{interval.height}}.00</a>
-                                </li>
-                            </ul>
-                        </div>
+    </style>
+}
 
 
-                        <!-- BEGIN Side Custom CMS Block -->
-                        <!-- <div id="sideCustomCMS" class="sidebarBlock">
-                            <h6 class="side-module-heading"><span></span></h6>
-                            <div class="side-cms-content">
-                                <p></p>
-                                <p></p>
-                            </div>
-                        </div> -->
-                        <!-- END Side Custom CMS Block -->
-                    </nav>
+    <div id="app" class="show-all">
+        <div class="container_page">
+            <div id="container_page_nav">
+                <div class="container">
+                    <!-- 要塞目錄資料及連結資料   開頭-->
+                    <!-- 動態綁定有a標籤href及text屬性 -->
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="#">Necklaces</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <a href="#">Y-Necklace &amp; Lariat</a>
+                        </li>
+                    </ul>
+                    <!-- 要塞目錄資料及連結資料   結尾-->
                 </div>
-                <main class="page-content col-sm-9">
-                    <div class="category-heading">
-                        <h1 class="page-heading">Y-Necklace &amp; Lariat</h1>
-                    </div>
-
-                    <div id="product-listing-container" class="showMoreCat">
-                        <!-- snippet location categories -->
-                        <div class="product-pagination top">
-                            <div class="view-mode-btn">
-                                <label class="view-as">VIEW AS</label>
-                                <div class="btn-group">
-                                    <a href="javascript:void(0);" id="grid-view" title="Grid View"
-                                       class="current-view">
-                                        <div>
-                                            <div class="icon-bar"></div>
-                                            <div class="icon-bar"></div>
-                                            <div class="icon-bar"></div>
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0);" id="list-view" title="List View" class="">
-                                        <div>
-                                            <div class="icon-bar"></div>
-                                            <div class="icon-bar"></div>
-                                            <div class="icon-bar"></div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <form class="actionBar">
-                                <fieldset class="form-fieldset actionBar-section">
-                                    <div class="form-field">
-                                        <label class="form-label" for="sort">Sort By:</label>
-                                        <select v-model="selectedvalue" class="form-select form-select--small" name="sort" id="sort">
-                                            <option value="nameasc">A to Z</option>
-                                            <option value="namedesc">Z to A</option>
-                                            <option value="priceasc">Price: Ascending</option>
-                                            <option value="pricedesc">Price: Descending</option>
-                                        </select>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-
-                        <form action="/compare" method="POST">
-                            <div class="module-wrapper">
-                                <div class="productBlockContainer row">
-                                    <div class="prod-item viewchange col-4" v-for="data in products.slice(beginitem,enditem)">
-                                        <figure class="card-figure viewchange" :id=`${data.ProductID}`>
-                                            <div class="prod-image viewchange">
-                                                <a :href=`Earrings/${data.ProductID}`>
-                                                    <img class="card-image viewchange" :id=`${data.ProductName}`
-                                                         :src=`${data.Url.Url1}` :value=`${data.Url.Url2}`>
-                                                </a>
-                                                <div class="actions">
-                                                    <a href="#" class="btnWL grid-view" :value=`${data.ProductID}`>
-                                                        <i class="fas fa-heart" :style=`${data.IsRed}`></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                                                    <a href="#" class="btnQV quickview">Quick view</a>
-                                                </div>
-                                            </div>
-
-                                            <figcaption class="prod-desc viewchange center">
-                                                <p class="prod-name"><a href="#">{{data.ProductName}}</a></p>
-                                                <div class="prod-price"><span class="price">${{data.ProductPrice}}.00</span></div>
-                                                <div class="prod-summary list-view">
-                                                    @*<p>
-                                                        {{data.ProductDescription}}
-                                                    </p>*@
-                                                </div>
-
-                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
-                                                <a href="#" class="btnWL list-view">
-                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
-                                                </a>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <hr class="list-view" />
-                                </div>
-                            </div>
-                        </form>
-
-
-                        <div class="product-pagination bottom">
-                            <div class="pagination row">
-                                <div class="pagination-item pagination-item--previous ml-0 col-1" v-if="preshow">
-                                    <a class="pagination-link" v-on:click='pagepreclick()'>
-                                        <span>Previous</span>
-                                    </a>
-                                </div>
-
-                                <ul class="pagination-list mx-auto">
-                                    <li class="pagination-item" v-bind:class="{'selectedpage':item==curpage}" v-for='item in sum'>
-                                        <a class="pagination-link" v-on:click='pageclick(item)'>{{item}}</a>
+            </div>
+            <div class="container">
+                <div class="container_page_body row">
+                    <div class="page_sidebar col-sm-3" id="faceted-search-container">
+                        <!-- <div id="sidebar-toggle">
+                        <a class="btn btn-alt" href="#">SHOWSIDEBAR<i class="fa fa-plus"></i></a>
+                        </div> -->
+                        <nav>
+                            <div class="sidebarBlock" id="sidebar-wrapper">
+                                <h6 class="side-module-heading"><span>Categories</span></h6>
+                                <ul class="navList">
+                                    <li class="navList-item">
+                                        <a class="navList-action" href="https://lovoda.com/crawlers-and-pins/"
+                                           alt="Crawlers and Pins" title="Crawlers and Pins">Crawlers and Pins</a>
+                                    </li>
+                                    <li class="navList-item">
+                                        <a class="navList-action" href="https://lovoda.com/threader-earrings/"
+                                           alt="Threader Earrings" title="Threader Earrings">Threader Earrings</a>
+                                    </li>
+                                    <li class="navList-item">
+                                        <a class="navList-action" href="https://lovoda.com/earring-sets/"
+                                           alt="Earring Sets" title="Earring Sets">Earring Sets</a>
+                                    </li>
+                                    <li class="navList-item">
+                                        <a class="navList-action" href="https://lovoda.com/cuffs/" alt="Cuffs"
+                                           title="Cuffs">Cuffs</a>
                                     </li>
                                 </ul>
-                                <div class="pagination-item pagination-item--next mr-0 col-1" v-if="nextshow">
-                                    <a class="pagination-link" v-on:click='pagenextclick()'>
-                                        <span>Next</span>
-                                    </a>
-                                </div>
+                            </div>
+                            <div class="sidebarBlock" id="sideShopByPrice">
+                                <h6 class="side-module-heading"><span>Shop by Price</span></h6>
+                                <ul>
+                                    <li v-for="interval in intervals" v-on:click="pricefilter(interval.low,interval.height)">
+                                        <a alt=interval title=interval>${{interval.low}}.00 - ${{interval.height}}.00</a>
+                                    </li>
+                                </ul>
                             </div>
 
+
+                            <!-- BEGIN Side Custom CMS Block -->
+                            <!-- <div id="sideCustomCMS" class="sidebarBlock">
+                                <h6 class="side-module-heading"><span></span></h6>
+                                <div class="side-cms-content">
+                                    <p></p>
+                                    <p></p>
+                                </div>
+                            </div> -->
+                            <!-- END Side Custom CMS Block -->
+                        </nav>
+                    </div>
+                    <main class="page-content col-sm-9">
+                        <div class="category-heading">
+                            <h1 class="page-heading">Y-Necklace &amp; Lariat</h1>
+                        </div>
+
+                        <div id="product-listing-container" class="showMoreCat">
+                            <!-- snippet location categories -->
+                            <div class="product-pagination top">
+                                <div class="view-mode-btn">
+                                    <label class="view-as">VIEW AS</label>
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0);" id="grid-view" title="Grid View"
+                                           class="current-view">
+                                            <div>
+                                                <div class="icon-bar"></div>
+                                                <div class="icon-bar"></div>
+                                                <div class="icon-bar"></div>
+                                            </div>
+                                        </a>
+                                        <a href="javascript:void(0);" id="list-view" title="List View" class="">
+                                            <div>
+                                                <div class="icon-bar"></div>
+                                                <div class="icon-bar"></div>
+                                                <div class="icon-bar"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <form class="actionBar">
+                                    <fieldset class="form-fieldset actionBar-section">
+                                        <div class="form-field">
+                                            <label class="form-label" for="sort">Sort By:</label>
+                                            <select v-model="selectedvalue" class="form-select form-select--small" name="sort" id="sort">
+                                                <option value="nameasc">A to Z</option>
+                                                <option value="namedesc">Z to A</option>
+                                                <option value="priceasc">Price: Ascending</option>
+                                                <option value="pricedesc">Price: Descending</option>
+                                            </select>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+
+                            <form action="/compare" method="POST">
+                                <div class="module-wrapper">
+                                    <div class="productBlockContainer row">
+                                        <div class="prod-item viewchange col-4" v-for="data in products.slice(beginitem,enditem)">
+                                            <figure class="card-figure viewchange" :id=`${data.ProductID}`>
+                                                <div class="prod-image viewchange">
+                                                    <a :href=`Earrings/${data.ProductID}`>
+                                                        <img class="card-image viewchange" :id=`${data.ProductName}`
+                                                             :src=`${data.Url.Url1}` :value=`${data.Url.Url2}`>
+                                                    </a>
+                                                    <div class="actions">
+                                                        <a class="btnWL grid-view" :value=`${data.ProductID}`>
+                                                            <i class="fas fa-heart" :style=`${data.IsRed}`></i>
+                                                        </a>
+                                                        <a class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                                                        <a class="btnQV quickview" :value=`${data.ProductID}` v-on:click='getquickview($event)'>Quick view</a>
+                                                    </div>
+                                                </div>
+
+                                                <figcaption class="prod-desc viewchange center">
+                                                    <p class="prod-name"><a href="#">{{data.ProductName}}</a></p>
+                                                    <div class="prod-price"><span class="price">${{data.ProductPrice}}.00</span></div>
+                                                    <div class="prod-summary list-view">
+                                                        @*<p>
+                                                                {{data.ProductDescription}}
+                                                            </p>*@
+                                                    </div>
+
+                                                    <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
+                                                    <a href="#" class="btnWL list-view">
+                                                        <i class="far fa-heart"></i><span>Add to Wish list</span>
+                                                    </a>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                        <hr class="list-view" />
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            <div class="product-pagination bottom">
+                                <div class="pagination row">
+                                    <div class="pagination-item pagination-item--previous ml-0 col-1" v-if="preshow">
+                                        <a class="pagination-link" v-on:click='pagepreclick()'>
+                                            <span>Previous</span>
+                                        </a>
+                                    </div>
+
+                                    <ul class="pagination-list mx-auto">
+                                        <li class="pagination-item" v-bind:class="{'selectedpage':item==curpage}" v-for='item in sum'>
+                                            <a class="pagination-link" v-on:click='pageclick(item)'>{{item}}</a>
+                                        </li>
+                                    </ul>
+                                    <div class="pagination-item pagination-item--next mr-0 col-1" v-if="nextshow">
+                                        <a class="pagination-link" v-on:click='pagenextclick()'>
+                                            <span>Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="QuickViewModal" style="z-index:1000000000">
+        <div class="modal-dialog">
+            <div class="modal-content animate  rounded-0 m-0">
+                <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
+                <div class="container mt-5">
+                    <div class="row my-5">
+                        <div class="col-xl-4 order-xl-1 col-md-6 order-md-2 col-12 order-1">
+                            <figure class="figure">
+                                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" v-bind:src='currentproduct.Url.Url1' alt="">
+                            </figure>
+                        </div>
+                        <div class="col-xl-8 order-xl-2 col-md-6 order-md-2 order-3 pics">
+                            <div id="ProductName" class="productView-title">{{currentproduct.ProductName}}</div>
+                            <div class="productView-rating"></div>
+                            <div id="ProductPrice " class="productView-price">${{currentproduct.ProductPrice}}</div>
+                            <span>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <hr>
+                            <div class="productView-rating"></div>
+                        
+                            <input id="ProductID" type="hidden" name="ProductID" v-bind:value='currentproduct.ProductID' />
+
+                            <div>Quantity:</div>
+
+                            <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+                            <input id="quantity" name="Quantity" value="1" class="text-center" />
+                            <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+                            <div class="productView-rating"></div>
+                            <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
+                            <a href="#" class="btnWL list-view" id="AWL">
+                                <i class="far fa-heart"></i><span>Add to Wish list</span>
+                            </a>
+                        </div>
+                        <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4 " id="ProductPics">
+                            <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
+                                <a class="mr-3 " href="javascript:void(0)">
+                                    <img class="viewPic thumbnail" v-bind:src='currentproduct.Url.Url1' />
+                                </a>
+                                <a class="mr-3" href="javascript:void(0)">
+                                    <img class="viewPic thumbnail" v-bind:src='currentproduct.Url.Url2' />
+                                </a>
+                                <a class="" href="javascript:void(0)">
+                                    <img class="viewPic thumbnail" v-bind:src='currentproduct.Url.Url3' />
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </main>
+                </div>
             </div>
         </div>
-
     </div>
-</div>
 
-@section viewJquery{
+@section Vuejs{
 <script>
-
-    $(function () {
         var pageshowitems = 12.0;
         var totalproducts = [@Html.Raw(ViewBag.products)];
         var priceinterval = [{ low: 0, height: 19 }, { low: 19., height: 23 }, { low: 23, height: 27 }, { low: 27, height: 31 }, { low: 31, height: 35 }];
+
         var app = new Vue({
             el: '#app',
             data: {
@@ -722,7 +770,8 @@
                 intervals:priceinterval,
                 products: _.orderBy(totalproducts, ['ProductID'], ['asc']),
                 filterproducts: '',
-                isRed:false
+                isRed: false,
+                currentproduct:''
             },
             methods: {
                 //分頁按下動作
@@ -742,6 +791,25 @@
                     });
                     app.products = filterproducts;
                 },
+                getquickview(e) {
+                    var id = $(e.currentTarget).attr("value");
+                    $.ajax({
+                        type: "GET",
+                        url: "/FrontEnd/ProductQuickView",
+                        data: {
+                            id: id
+                        },
+                        dataType: "text",
+                        success: function (response) {
+                            console.log("in");
+                            console.log(response);
+                            console.log(this.currentproduct);
+                            this.currentproduct = response;
+                            console.log(this.currentproduct);
+                            $('#QuickViewModal').modal('show');
+                        }
+                    });
+                }
             },
 
             watch: {
@@ -795,8 +863,11 @@
                 },
             },
         })
-        
+</script>
+}
 
+@section viewJquery{
+<script>
         $( ".list-view" ).hide();
         $( "#grid-view" ).click( function () {
             $( ".list-view" ).hide();
@@ -808,8 +879,8 @@
             $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
             $( ".card-image.viewchange" ).removeClass( "h-100" );
             $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
-
         });
+
         $( "#list-view" ).click( function () {
             $( ".grid-view" ).hide();
             $( ".list-view" ).show();
@@ -820,7 +891,6 @@
             $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
             $( ".card-image.viewchange" ).addClass( "h-100" );
             $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
-
         } );
 
         $( ".card-figure" ).hover( function () {
@@ -844,24 +914,20 @@
             $(this).attr("src", $(this).attr("value"));
             $(this).attr("value", val);
         });
-        
+
         $(".btnWL").click(function (e) {
             e.preventDefault();
             var item = $(this);
             var id = item.parents("figure").attr("id");
             var isRed = item.find("i").attr("style") == null ? false : true;
-            //if ($(this).find("i").attr("style") == null) {
-            //    var isRed = false;
-            //} else {
-            //    var isRed = true;
-            //}
+
             if (isRed) {
                 $.ajax({
                     type: "POST",
                     url: "/FrontEnd/DeleteWish",
                     data: {
-                        MemberID: 0,
-                        ProductID: id
+                    MemberID: 0,
+                    ProductID: id
                     },
                     dataType: "text",
                     success: function (response) {
@@ -876,8 +942,8 @@
                     type: "POST",
                     url: "/FrontEnd/AddWish",
                     data: {
-                        MemberID:0,
-                        ProductID:id
+                    MemberID:0,
+                    ProductID:id
                     },
                     dataType: "text",
                     success: function (response) {
@@ -885,11 +951,10 @@
                             alert('Add to wishlist');
                             item.find("i").attr("style", "color:red");
                         }
-                    }   
+                    }
                 });
             }
         });
-    });
 </script>
 }
 

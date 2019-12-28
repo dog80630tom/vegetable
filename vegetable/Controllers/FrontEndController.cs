@@ -16,7 +16,6 @@ using vegetable.Respository;
 
 namespace vegetable.Controllers
 {
-    [RoutePrefix("frontend")]
     public class FrontEndController : Controller
     {
         ItemContext item = new ItemContext();
@@ -74,8 +73,7 @@ namespace vegetable.Controllers
                                   UnitsInStock = p.UnitsInStock,
                                   ProductPrice = p.ProductPrice,
                                   Url = pd.PicUrl
-                              };
-                                                        
+                              };                
             var JSONTO = allproducts.ToList();       
             foreach (ProductList p in JSONTO)
             {
@@ -128,6 +126,24 @@ namespace vegetable.Controllers
             
             return View();
         }
+        [HttpGet]
+        public string ProductQuickView(int id)
+        {
+            Product product = item.Products.Find(id);
+            PicDetail picDetail = item.PicDetails.Find(id);
+            var currentitem = new ProductList
+            {
+                ProductID = product.ProductID,
+                CategoryID = product.CategoryID,
+                ProductName = product.ProductName,
+                ProductDescription = product.ProductDescription,
+                UnitsInStock = product.UnitsInStock,
+                ProductPrice = product.ProductPrice,
+                Url = picDetail.PicUrl
+            };
+            return JsonConvert.SerializeObject(currentitem);
+        }
+
         public ActionResult MemberRegist ()
         {
             return View();
@@ -146,29 +162,32 @@ namespace vegetable.Controllers
         }
 
 
-        public ActionResult ProductIndex (int? id)
+        public ActionResult ProductIndex (int id)
         {
-            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
-            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
-            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
-
-            var wishproducts = (from p in item.Products
-                            join w in item.WishLists
-                            on p.ProductID equals w.ProductID
-                            where memberData.MemberID == w.MemberID && w.ProductID == id
-                            select p.ProductID).ToList();
-
+            //(小嫚更改)暫時把int? id改成 int id
             var isWish = "false";
-            if (wishproducts.Count() == 1)
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            if (rqstCookie!=null) 
             {
-                isWish = "true";
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+
+                var wishproducts = (from p in item.Products
+                                    join w in item.WishLists
+                                    on p.ProductID equals w.ProductID
+                                    where memberData.MemberID == w.MemberID
+                                    select p.ProductID).ToList();
+                if (wishproducts.Contains(id))
+                {
+                    isWish = "true";
+                }
             }
             ViewBag.isWish = isWish;
-            //沒有傳入id
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //沒有傳入id(小嫚暫時拿掉)
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             using (ItemContext item = new ItemContext())
             {
                 Product product = item.Products.Find(id);
@@ -178,7 +197,7 @@ namespace vegetable.Controllers
                 {
                     return HttpNotFound();
                 }
-                ViewBag.MemberID = memberData.MemberID;
+                //ViewBag.MemberID = memberData.MemberID;(小嫚暫時拿掉)
                 //預設為1
                 ViewBag.CartID = 1;
                 ViewBag.ProductID = id;
@@ -214,8 +233,7 @@ namespace vegetable.Controllers
             return RedirectToAction("Index");
         }
 
-
-        public ActionResult MemberPageWishlist ()
+        public ActionResult MemberPageWishlist()
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
@@ -247,18 +265,21 @@ namespace vegetable.Controllers
                 using (ItemContext item = new ItemContext())
                 {
                     HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
-                    var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
-                    var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
-                    wish.MemberID = memberData.MemberID;
-                    item.WishLists.Add(wish);
-                    try
+                    if (rqstCookie!=null)
                     {
-                        item.SaveChanges();
-                        isSuccess = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw;
+                        var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                        var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                        wish.MemberID = memberData.MemberID;
+                        item.WishLists.Add(wish);
+                        try
+                        {
+                            item.SaveChanges();
+                            isSuccess = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
                     }
                 }
             }

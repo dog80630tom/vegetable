@@ -13,5 +13,6 @@ namespace vegetable.Models
          public string CategoryName{get; set;}
          //public string CategoryPic{get; set;}
          public string CategoryDescription{get; set;}
+        public int? ParentID { get; set; }
     }
 }
