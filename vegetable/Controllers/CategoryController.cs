@@ -12,7 +12,7 @@ namespace vegetable.Controllers
     {
         ItemContext item = new ItemContext();
         // GET: Category
-
+        
         public List<Category> initCategoryData()
         {
             List<Category> categoryData = new List<Category>();
@@ -26,7 +26,6 @@ namespace vegetable.Controllers
             }
             return (categoryData);
         }
-
         public ActionResult Index()
         {
             var initdata = initCategoryData();
@@ -37,7 +36,6 @@ namespace vegetable.Controllers
             ViewBag.ISuccess = "false";
             return View(initdata);
         }
-
 
         public ActionResult Edit(int? Id)
         {
@@ -81,7 +79,7 @@ namespace vegetable.Controllers
             services.DeleteCategory(category);
             return RedirectToAction("Index");
         }
-
+     
         public ActionResult Create()
         {
             return View(new List<Category>());

@@ -1,4 +1,4 @@
-﻿
+
 @{
     ViewBag.Title = @ViewBag.ProductName;
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -371,6 +371,7 @@
         visibility: visible !important;
         top: 15px !important;
     }
+
     .btnWL span {
         font-weight: 400;
         color: #000;
@@ -386,10 +387,10 @@
     }
 
 
-    .btnWL span:hover, .btnWL i:hover {
-        cursor: pointer;
-        color: #000;
-    }
+        .btnWL span:hover, .btnWL i:hover {
+            cursor: pointer;
+            color: #000;
+        }
 </style>
 
 
@@ -415,16 +416,14 @@
     </div>
 </div>
 <div class="container">
-    @*產品大圖和購買相關功能*@
     <div class="row my-5">
-        @*產品大圖*@
+
         <div class="col-xl-4 order-xl-1 col-md-6 order-md-2 col-12 order-1">
             <figure class="figure">
                 <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" v-bind:src="pics.Url1" alt="">
             </figure>
         </div>
 
-        @* 右半部  購買清單*@
         <div class="col-xl-8 order-xl-2 col-md-6 order-md-2 order-3 pics">
             <div id="ProductName" class="productView-title">@ViewBag.ProductName</div>
             <div class="productView-rating"></div>
@@ -438,57 +437,42 @@
             </span>
             <hr>
             <div class="productView-rating"></div>
-            @*大小選擇 有時間再做*@
-            @*<div>Size: <span class="text-danger">*</span></div>
-                <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">6</button>
-                <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">7</button>
-                <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>*@
+
             <div class="productView-rating"></div>
 
-        @*購買相關*@
-        @*
-        ID之後要隱藏!!!!
-        ID之後要隱藏!!!!
-        ID之後要隱藏!!!!
-        *@
-        @*會員ID*@
-        @*<input id="MemberID" type="hidden" name="MemberID" value="@ViewBag.MemberID" />*@
-        @*產品ID*@
-        <input id="ProductID" type="hidden" name="ProductID" value="@ViewBag.ProductID" />
-        @* 數量 *@
-        <div>Quantity:</div>
-        @* 增加 *@
-        <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
-        <input id="quantity" name="Quantity" value="1" class="text-center" />
-        @* 減少 *@
-        <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
-        <div class="productView-rating"></div>
-        <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
-        <a href="#" class="btnWL list-view">
-            <i class="far fa-heart"></i><span>Add to Wish list</span>
-        </a>
-    </div>
-        @*產品小圖和社群按鈕*@
+
+            <input id="ProductID" type="hidden" name="ProductID" value="@ViewBag.ProductID" />
+
+            <div>Quantity:</div>
+
+            <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+            <input id="quantity" name="Quantity" value="1" class="text-center" />
+
+            <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+            <div class="productView-rating"></div>
+            <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
+            <a href="#" class="btnWL list-view" id="AWL">
+                <i class="far fa-heart"></i><span>Add to Wish list</span>
+            </a>
+        </div>
+        
         <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4 " id="ProductPics">
             <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
-                @*<a class="mr-3 ">
-
-                    </a>*@
-                <a class="mr-3">
-                    <img class="viewPic thumbnail123" v-bind:src="pics.Url1" v-on:click="PicChange($event)" />
+                <a class="mr-3 " href="javascript:void(0)">
+                    <img class="viewPic thumbnail" v-on:click="picchange($event)" v-bind:src="pics.Url1" />
                 </a>
-                <a class="mr-3">
-                    <img class="viewPic thumbnail123" v-bind:src="pics.Url2" v-on:click="PicChange($event)" />
+                <a class="mr-3" href="javascript:void(0)">
+                    <img class="viewPic thumbnail" v-on:click="picchange($event)" v-bind:src="pics.Url2" />
                 </a>
-                <a class="">
-                    <img class="viewPic thumbnail123" v-bind:src="pics.Url3" v-on:click="PicChange($event)" />
+                <a class="" href="javascript:void(0)">
+                    <img class="viewPic thumbnail" v-on:click="picchange($event)" v-bind:src="pics.Url3" />
                 </a>
             </div>
         </div>
     </div>
 
 
-    @* 產品detail *@
+
     <div class="row">
         <button id="btn-detail" class="btn rounded-0 btn-outline-white" style="border-right:0;border-bottom:0">DETAILS</button>
         <button id="btn-SAndR" type="button" class="btn rounded-0 btn-outline-white" style="border-bottom:0">SHIPPING & RETURNS</button>
@@ -502,14 +486,14 @@
         </div>
     </div>
     <div class="row">
-        @*SHIPPING & RETURNS 貨運和退貨Q&A*@
+
         <div id="SAndR" class="col-xl-12 mt-4">
             <div>Shipping and Returns Policy</div>
             <div class="mt-3"><a href="@Url.Action("Shipping", "FrontEnd") ">Shipping FAQ</a></div>
             <div class="mt-3"><a href="javascript:void(0) ">Returns / Exchanges FAQ</a></div>
         </div>
     </div>
-    @* 顧客回應 *@
+
     <div class="row">
         <h2 class="mt-5">Customer Reviews</h2>
     </div>
@@ -533,12 +517,12 @@
             <span id="questionCount">0</span>
         </button>
     </div>
-    @* review and question 內容 *@
+
     <div class="RAndQ row border-left-0 border-right-0">
         <div id="defaultReview" class="my-5 mx-auto">
             Be the first to review this item
         </div>
-        @*問問題*@
+
         <div id="questionForm" class="col-xl-12 my-5">
             <form>
                 <h5 class="mb-4">Ask a Qusetion</h5>
@@ -563,7 +547,7 @@
                 </div>
             </form>
         </div>
-        @*寫review*@
+
         <div id="reviewForm" class="col-xl-12 col-md-12 my-5">
             <form>
                 <div class="row">
@@ -606,14 +590,14 @@
             </form>
         </div>
     </div>
-    @* 相關商品 *@
+
     <div class="row mt-5">
         <h2>Relative Produsts</h2>
     </div>
 
     <div class="row mb-3"></div>
 </div>
-@* 產品卡片 *@
+
 <div class="container">
     <div class="productBlockContainer row">
         <div class="prod-item col-xl-4">
@@ -631,8 +615,8 @@
                             <i class="fa fa-heart-o"></i>Add to
                             Cart
                         </a>
-                        
-                        
+
+
                         <a href="#" class="btnQV quickview">Quick view</a>
                     </div>
                 </div>
@@ -698,41 +682,39 @@
 </div>
 
 @section viewJquery{
-    <script src="~/Scripts/vue.js"></script>
     <script>
         //用來接pic的vue
-        var picVue;
-        $( function () {
-            //隱藏Shipping and Returns
-            $( '#SAndR' ).hide();
-            //隱藏問題跟回顧表格
-            $( '#questionForm' ).hide();
-            $( '#reviewForm' ).hide();
-            //問題跟回顧表格按鈕
-            $( '#btn-review' ).click( FormStatus );
-            $( '#btn-question' ).click( FormStatus );
-            //控制購買數量按鈕
-            $( '#quantityAdd' ).click( QuantityChange );
-            $( '#quantityReduce' ).click( QuantityChange );
-            //產品細節切換
-            $( '#btn-detail' ).click( DetailSwitch );
-            $( '#btn-SAndR' ).click( DetailSwitch );
-            //切換產品大圖
-            //$( '.thumbnail123' ).click( PicChange123 );
-            //產品卡片
-            $( ".card-figure" ).hover( function () {
-                $( this ).find( ".btnWL" ).addClass( "showdown" );
-                $( this ).find( ".btnQV" ).addClass( "hoverin" );
-                $( this ).find( ".btnATC" ).addClass( "hoverin" );
-            }, function () {
-                $( this ).find( ".btnWL" ).removeClass( "showdown" );
-                $( this ).find( ".btnQV" ).removeClass( "hoverin" );
-                $( this ).find( ".btnATC" ).removeClass( "hoverin" );
-            } )
-            //vue binding
-            BindingVue();
-            //加入wishlist
-            $(".btnWL").click(function (e) {
+
+        //隱藏Shipping and Returns
+        $( '#SAndR' ).hide();
+        //隱藏問題跟回顧表格
+        $( '#questionForm' ).hide();
+        $( '#reviewForm' ).hide();
+        //問題跟回顧表格按鈕
+        $( '#btn-review' ).click( FormStatus );
+        $( '#btn-question' ).click( FormStatus );
+        //控制購買數量按鈕
+        $( '#quantityAdd' ).click( QuantityChange );
+        $( '#quantityReduce' ).click( QuantityChange );
+        //產品細節切換
+        $( '#btn-detail' ).click( DetailSwitch );
+        $( '#btn-SAndR' ).click( DetailSwitch );
+        //產品卡片
+        $(".card-figure").hover(function () {
+            $(this).find(".btnWL").addClass("showdown");
+            $(this).find(".btnQV").addClass("hoverin");
+            $(this).find(".btnATC").addClass("hoverin");
+        }, function () {
+            $(this).find(".btnWL").removeClass("showdown");
+            $(this).find(".btnQV").removeClass("hoverin");
+            $(this).find(".btnATC").removeClass("hoverin");
+        });
+        //vue binding
+        BindingVue();
+        isWish = @ViewBag.isWish;
+        WishOrNot(@ViewBag.isWish);
+        //加入wishlist
+        $(".btnWL").click(function (e) {
             e.preventDefault();
             var item = $(this);
             var id = item.parents("figure").attr("id");
@@ -740,11 +722,6 @@
                     id = @ViewBag.ProductID;
                 }
             var isRed = item.find("i").attr("style") == null ? false : true;
-            //if ($(this).find("i").attr("style") == null) {
-            //    var isRed = false;
-            //} else {
-            //    var isRed = true;
-            //}
             if (isRed) {
                 $.ajax({
                     type: "POST",
@@ -778,15 +755,21 @@
                             item.find("span").text("Delete Wish List");
                         }
                     }
-                    } );
-                }
-            } );
+                } );
+            }
         } );
 
         function GetBtnId( btn ) {
             //取得傳入btn的id
             let btnId = $( btn ).attr( 'id' );
             return btnId;
+        }
+
+        function WishOrNot(iswish) {
+            if (iswish) {
+                $("#AWL").find("i").attr("style", "color:red");
+                $("#AWL").find("span").text("Delete Wish List");
+            }
         }
 
         //增加購買數量
@@ -813,17 +796,6 @@
                 $( '#SAndR' ).show();
             }
         }
-
-        //切換產品大圖
-        //function picchange123() {
-        //     console.log("有進來嗎")
-        //    // 大小圖片的src
-        //    let smallsrc = $( this ).attr( 'src' );
-        //    let largesrc = $( '#largepic' ).attr( 'src' );
-        //    if ( smallsrc != largesrc ) {
-        //        $( '#largepic' ).attr( 'src', smallsrc );
-        //    }
-        //}
 
         //切換問題和回顧表格
         //bool 表示現在顯示的是哪種表格
@@ -872,32 +844,34 @@
                 data: { /*MemberID: memberId,*/ ProductID: productId, Quantity: quantity },
                 dataType: "text",
                 success: function ( response ) {
-                    alert( '成功加入購物車' );
+                    alert("abc");
                 }
             } );
         }
-
+    </script>
+}
+@section Vuejs{
+    <script>
         function BindingVue() {
-            picVue = new Vue({
-                el:'#ProductPics',
+            var picVue = new Vue({
+                el: '#ProductPics',
                 data: { pics:  @Html.Raw(ViewBag.ProductUrl)},
-                methods: {
-                    PicChange(e){
-                        console.log("有進來嗎")
+                method: {
+                    picdhange(e) {
                         // 大小圖片的src
-                        let smallSrc = $( e.target ).attr( 'src' );
+                        let smallSrc = $(e.currentTarget).attr( 'src' );
                         let largeSrc = $( '#LargePic' ).attr( 'src' );
                         if ( smallSrc != largeSrc ) {
-                        $( '#LargePic' ).attr( 'src', smallSrc );
+                            $( '#LargePic' ).attr( 'src', smallSrc );
                         }
                     }
                 }
-            } )
+            });
 
-            let LargePicVue = new Vue( {
-                el:'#LargePic',
-                data: {pics:  @Html.Raw(ViewBag.ProductUrl)}
-            })
+            let LargePicVue = new Vue({
+                el: '#LargePic',
+                data: { pics:  @Html.Raw(ViewBag.ProductUrl)}
+            });
 
         }
     </script>
