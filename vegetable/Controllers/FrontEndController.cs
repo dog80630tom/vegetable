@@ -154,7 +154,14 @@ namespace vegetable.Controllers
         }
         public ActionResult MemberPageOrder ()
         {
-            return View();
+
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            var pageorder = from o in item.Orders
+                            where memberData.MemberID == o.MemberID
+                            select o;
+            return View(pageorder.ToList());
         }
         public ActionResult MemberPageOrderDetail ()
         {
@@ -164,7 +171,7 @@ namespace vegetable.Controllers
 
         public ActionResult ProductIndex (int id)
         {
-
+            var isWish = "False";
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             if (rqstCookie!=null) 
             {
