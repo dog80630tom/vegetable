@@ -247,7 +247,7 @@ namespace vegetable.Controllers
             var token =isRock.LineLoginV21.Utility.GetTokenFromCode(code,
                  "1653659088",
                  "27d426186987ed6e5d69cb7601129805",
-                 "https://localhost:44394/frontend/LineLogin");
+                 "https://vegetable20191226044821.azurewebsites.net/frontend/LineLogin");
 
             var UserInfoResult = isRock.LineLoginV21.Utility.GetUserProfile(token.access_token);
             // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
@@ -283,7 +283,7 @@ namespace vegetable.Controllers
             var token = Utility.GetTokenFromCode(code,
                  "145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com",
                  "At2kDe1L5weKB4Xf7dpf6rmx",
-                 "https://localhost:44394/FrontEnd/GoogleLogin");
+                 "https://vegetable20191226044821.azurewebsites.net/FrontEnd/GoogleLogin");
 
             var UserInfoResult = Utility.GetUserInfo(token.access_token);
             // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
