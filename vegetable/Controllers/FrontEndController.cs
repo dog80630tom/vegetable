@@ -168,10 +168,10 @@ namespace vegetable.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult getLine()
+        public ActionResult getLine(int memberId)
         {
             LinePay line = new LinePay();
-            var data= line.passdata(10);
+            var data= line.passdata(memberId);
             TempData["Pay"] = 10;
             return Json(data,JsonRequestBehavior.AllowGet);
         }
@@ -713,6 +713,26 @@ namespace vegetable.Controllers
             {
                 return "false";
             }
+        }
+
+        //回傳一筆Order中 所有的商品數量
+        public int GetCartAmount ()
+        {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            CartServices cartServices = new CartServices();
+            int amount = cartServices.GetCartAmount(memberData.MemberID).CountAmount;
+            return amount;
+        }
+
+        //取得會員ID
+        public int GetMemberId ()
+        {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            return memberData.MemberID;
         }
     }
 }
