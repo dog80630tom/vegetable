@@ -153,6 +153,11 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Services" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.1.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
@@ -176,12 +181,18 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -225,6 +236,9 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Thinktecture.IdentityModel, Version=3.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Thinktecture.IdentityModel.3.6.1\lib\net45\Thinktecture.IdentityModel.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -314,6 +328,7 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SearchitemController.cs" />
+    <Compile Include="Cors\AllowCrossSiteAttribute.cs" />
     <Compile Include="Helper\MyHtmlHelper.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\AdminRespond.cs" />
@@ -333,6 +348,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Line.cs" />
+    <Compile Include="Models\LinePay\LinePay.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\OrderDetail.cs" />
@@ -747,6 +763,7 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="libman.json" />
+    <None Include="Properties\PublishProfiles\vegetable20191226094631 - Web Deploy.pubxml" />
     <Content Include="Assets\ProductPics\Bracelets\productbook_page2.csv" />
     <Content Include="Assets\ProductPics\Earrings\productbook.csv" />
     <Content Include="Assets\ProductPics\Necklaces\productbook.csv" />

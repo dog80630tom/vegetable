@@ -5,17 +5,22 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Contexts;
 using System.Web;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 using System.Web.Security;
+using vegetable.Cors;
 using vegetable.Models;
+using vegetable.Models.LinePay;
 using vegetable.Respository.MemberResp;
 using vegetable.Services;
 using Member = vegetable.Models.Member;
 using vegetable.Models.ViewModels;
 using vegetable.Respository;
 
+
 namespace vegetable.Controllers
 {
+    [RoutePrefix("frontend")]
     public class FrontEndController : Controller
     {
         ItemContext item = new ItemContext();
@@ -156,13 +161,32 @@ namespace vegetable.Controllers
         {
             return View();
         }
-        public ActionResult MemberPageOrderDetail ()
+        [AllowCrossSite]
+        public ActionResult MemberPageOrderDetail()
         {
+           
             return View();
         }
-
-
-        public ActionResult ProductIndex (int? id)
+        [HttpPost]
+        public ActionResult getLine()
+        {
+            LinePay line = new LinePay();
+            var data= line.passdata(10);
+            TempData["Pay"] = 10;
+            return Json(data,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult checkPay() {
+            var code = Request.QueryString["transactionId"];
+            int doll = (int)TempData["Pay"];
+            LinePay line = new LinePay();
+          var con=  line.confirm(doll, code);
+            if (con.returnCode == "0000")
+            {
+                return Content("訂單成功");
+            }
+            return View();
+        }
+        public ActionResult ProductIndex(int? id)
         {
 
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
