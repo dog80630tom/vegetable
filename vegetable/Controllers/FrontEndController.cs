@@ -611,7 +611,7 @@ namespace vegetable.Controllers
             var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
             IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberData.MemberID);
 
-            return View("Cart", cartVM);
+            return View("MemberPageOrderDetail", cartVM);
         }
 
         public void DeleteCart (int cartId)
