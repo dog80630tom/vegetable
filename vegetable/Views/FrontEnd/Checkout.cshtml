@@ -132,6 +132,8 @@
     @*格式化日期js*@
     <script src="~/Scripts/xdate.js"></script>
     <script>
+        //當前的Url
+        var Url = "";
         var memberId = 0;
         $( function () {
             $( '#RecieverInfo' ).hide();
@@ -234,7 +236,7 @@
                 url: `/frontend/${actionName}`,
                 success: function ( respond ) {
                     //將傳回的JSON資料轉成array
-                    var json = JSON.parse(JSON.parse( respond ));
+                    var json = JSON.parse( JSON.parse( respond ) );
                     console.log( json );
                     var url = json.info.paymentUrl.web;
                     window.location.href = url;
