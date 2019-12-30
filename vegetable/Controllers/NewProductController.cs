@@ -17,6 +17,7 @@ using vegetable.Services;
 
 namespace vegetable.Controllers
 {
+
     public class NewProductController : Controller
     {
         // GET: NewProduct

@@ -3,90 +3,94 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
-<style>
-    .jumbColor {
-        background: #fff8ee;
-    }
+@section styles{
+    <style>
+        .jumbColor {
+            background: #fff8ee;
+        }
 
-    .font {
-        font-weight: 900;
-    }
-    .img-row {
-        padding: 0 15%;
-    }
+        .font {
+            font-weight: 900;
+        }
 
-    .toolbar {
-        max-height: 100%;
-        position: relative;
-        margin-bottom: 0;
-        overflow: hidden;
-    }
-    .current {
-         max-height: 100%;
-         overflow: hidden;
-    }
+        .img-row {
+            padding: 0 15%;
+        }
 
-    .currentImg:hover {
-        opacity: .4;
-    }
-    .zoomin {
-        margin-bottom: 0;
-    }
+        .toolbar {
+            max-height: 100%;
+            position: relative;
+            margin-bottom: 0;
+            overflow: hidden;
+        }
 
-    .zoomin:hover {
-            transform: scale(1.1);
-            transition: all 0.5s linear;
-    }
+        .current {
+            max-height: 100%;
+            overflow: hidden;
+        }
 
-    /*左右箭頭輪播效果*/
+        .currentImg:hover {
+            opacity: .4;
+        }
 
-    #carouselExampleControls .arrow-right-top,
-    #carouselExampleControls .arrow-left-top {
-        width: 1%;
-        font-size: 36px;
-        opacity: 0;
-        color: black;
-    }
+        .zoomin {
+            margin-bottom: 0;
+        }
 
-    #carouselExampleInterval .arrow-right,
-    #carouselExampleInterval .arrow-left {
-        width: 1%;
-        font-size: 36px;
-        opacity: 0;
-        color: black;
-    }
+            .zoomin:hover {
+                transform: scale(1.1);
+                transition: all 0.5s linear;
+            }
 
-    .arrow-right-top {
-        margin-right: 8%;
-    }
+        /*左右箭頭輪播效果*/
 
-    .arrow-left-top {
-        margin-left: 8%;
-    }
+        #carouselExampleControls .arrow-right-top,
+        #carouselExampleControls .arrow-left-top {
+            width: 1%;
+            font-size: 36px;
+            opacity: 0;
+            color: black;
+        }
 
-    .arrow-right {
-        margin-right: -5%;
-    }
+        #carouselExampleInterval .arrow-right,
+        #carouselExampleInterval .arrow-left {
+            width: 1%;
+            font-size: 36px;
+            opacity: 0;
+            color: black;
+        }
 
-    .arrow-left {
-        margin-left: -5%;
-    }
+        .arrow-right-top {
+            margin-right: 8%;
+        }
 
-    #carouselExampleControls:hover .arrow-right-top,
-    #carouselExampleControls:hover .arrow-left-top {
-        transition: 2s;
-        opacity: 1;
-    }
+        .arrow-left-top {
+            margin-left: 8%;
+        }
 
-    #carouselExampleInterval:hover .arrow-right,
-    #carouselExampleInterval:hover .arrow-left {
-        transition: 2s;
-        opacity: 1;
-    }
+        .arrow-right {
+            margin-right: -5%;
+        }
 
-    /*下方toolbar效果*/
+        .arrow-left {
+            margin-left: -5%;
+        }
 
-       .toolbar-img {
+        #carouselExampleControls:hover .arrow-right-top,
+        #carouselExampleControls:hover .arrow-left-top {
+            transition: 2s;
+            opacity: 1;
+        }
+
+        #carouselExampleInterval:hover .arrow-right,
+        #carouselExampleInterval:hover .arrow-left {
+            transition: 2s;
+            opacity: 1;
+        }
+
+        /*下方toolbar效果*/
+
+        .toolbar-img {
             margin-bottom: 0;
         }
 
@@ -130,15 +134,16 @@
             color: #312f2e;
         }
 
-        .info a:hover{
-            background:#312f2e;
-            color:white;
-        }
-    
-</style>
+            .info a:hover {
+                background: #312f2e;
+                color: white;
+            }
+    </style>
+}
+
 <div class="container-fluid">
     <div class="row justify-content-center align-items-center">
-        <div class="col-xs-10 mb-3 mx-4">
+        <div class="col-xs-10 col-md-11 mb-3 mx-4">
             <a href="#"><img src="~/Content/images/1.jpg" alt="Alternate Text" class="figure-img img-fluid" /></a>
         </div>
     </div>
@@ -222,7 +227,7 @@
 </div>
 <div class="container-fluid">
     <div class="row justify-content-center align-items-center">
-        <div class="col-xs-10 mb-3 mx-4">
+        <div class="col-xs-10 col-md-11 mb-3 mx-4">
             <a href="#"><img src="~/Content/images/3-1.jpg" alt="Alternate Text" class="figure-img img-fluid" /></a>
         </div>
     </div>
@@ -230,10 +235,10 @@
 <div class="container-fluid jumbColor mt-3 img-row">
     <div class="row justify-content-center">
         <div class="col-sm-12 text-center mt-5">
-            <h2 class="footertext"><i class="fab fa-instagram mr-2 font"></i>#LOVODA</h2>
+            <h2 class="footertext"><i class="fab fa-instagram mr-2 font"></i>#LOBEDA</h2>
             <P>ON INSTAGRAM</P>
             <P>Tag us on Instagram or use our hashtag</P>
-            <P>to show us how you style Lovoda!</P>
+            <P>to show us how you style Lobeda!</P>
         </div>
     </div>
     <div class="row justify-content-center my-5">
@@ -387,6 +392,7 @@
     </div>
 
 </div>
+
 
 
 
