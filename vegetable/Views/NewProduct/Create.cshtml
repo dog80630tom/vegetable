@@ -1,0 +1,204 @@
+﻿@model vegetable.Models.ViewModels.JsonProductDetail
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>JsonProductDetail</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnitsInStock, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UnitsInStock, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UnitsInStock, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PicUrl1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="Pic1" id="Pic1" />
+                <br />
+                <label id="PicUrl1label" name="PicUrl1label"></label>
+                @Html.EditorFor(model => model.PicUrl1, new { htmlAttributes = new { @class = "form-control", style = " display:none" } })
+                <img src="" id="PicUrl1Img" />
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PicUrl2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="Pic2" id="Pic2" />
+                <br />
+                <label id="PicUrl2label" name="PicUrl2label"></label>
+                @Html.EditorFor(model => model.PicUrl2, new { htmlAttributes = new { @class = "form-control", style = " display:none" } })
+                <img src="" id="PicUrl2Img" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PicUrl3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="Pic3" id="Pic3" />
+                <br />
+                <label id="PicUrl3label" name="PicUrl3label"></label>
+                @Html.EditorFor(model => model.PicUrl3, new { htmlAttributes = new { @class = "form-control", style = " display:none" } })
+                <img src="" id="PicUrl3Img" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+
+    }
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@section Endscripts
+{
+    <script>
+        var src;
+        $("#Pic1").change(function (e) {
+            var fp = $("#Pic1").val().split("\\");
+            var name = fp[fp.length - 1];
+
+            let form = new FormData();
+            form.append("userfile", e.target.files[0]);
+            $.ajax({
+                type: "POST",
+                processData: false,
+                url: "/NewProduct/UploadFile",
+                data: form,
+                contentType: false,
+                success: function (response) {
+
+                    $.ajax({
+                        type: "POST",
+
+                        url: "/NewProduct/UploadFile2Cloud",
+                        data: { updatedata: name, form: response },
+
+                        success: function (response) {
+                            console.log(response);
+                            $("#PicUrl1Img").attr("style", "width:20%;height:20%")
+                            document.getElementById("PicUrl1Img").src = response;
+                            document.getElementById("PicUrl1label").innerText = response;
+                            $("#PicUrl1").attr("value",response);
+
+                        }
+                    });
+                }
+            });
+        });
+
+        $("#Pic2").change(function (e) {
+            var fp = $("#Pic2").val().split("\\");
+            var name = fp[fp.length - 1];
+
+            let form = new FormData();
+            form.append("userfile", e.target.files[0]);
+            $.ajax({
+                type: "POST",
+                processData: false,
+                url: "/NewProduct/UploadFile",
+                data: form,
+                contentType: false,
+                success: function (response) {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/NewProduct/UploadFile2Cloud",
+                        data: { updatedata: name, form: response },
+                        success: function (response) {
+                            console.log(response);
+                            $("#PicUrl2Img").attr("style", "width:20%;height:20%")
+                            document.getElementById("PicUrl2Img").src = response;
+                            document.getElementById("PicUrl2label").innerText = response;
+                            $("#PicUrl2").attr("value",response);
+                        }
+                    });
+                }
+            });
+        });
+        $("#Pic3").change(function (e) {
+            var fp = $("#Pic3").val().split("\\");
+            var name = fp[fp.length - 1];
+
+            let form = new FormData();
+            form.append("userfile", e.target.files[0]);
+            $.ajax({
+                type: "POST",
+                processData: false,
+                url: "/NewProduct/UploadFile",
+                data: form,
+                contentType: false,
+                success: function (response) {
+
+                    $.ajax({
+                        type: "POST",
+
+                        url: "/NewProduct/UploadFile2Cloud",
+                        data: { updatedata: name, form: response },
+
+                        success: function (response) {
+                            console.log(response);
+                            $("#PicUrl3Img").attr("style", "width:20%;height:20%")
+                            document.getElementById("PicUrl3Img").src = response;
+                            document.getElementById("PicUrl3label").innerText = response;
+                            $("#PicUrl3").attr("value",response);
+
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

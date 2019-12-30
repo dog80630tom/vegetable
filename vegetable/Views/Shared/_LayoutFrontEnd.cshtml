@@ -4,17 +4,27 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - LOVODA</title>
-    @Styles.Render("~/Content/css")
+    <title>LOBEDA</title>
+    @Styles.Render("~/Content/vegetable")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>-->
+    <script src="~/Scripts/vue.js"></script>
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 1.1px;
+        }
+
+        .container {
+            max-width: 1200px;
         }
 
         .icon {
@@ -48,8 +58,14 @@
         }
 
             .btn-outline-dark:hover {
-                color: white;
-                background: #000;
+                color: white !important;
+                background: #000 !important;
+                border-color: #000;
+            }
+
+            .btn-outline-dark:active, .btn-outline-dark:focus {
+                box-shadow: none !important;
+                outline: none !important;
                 border-color: #000;
             }
 
@@ -88,6 +104,7 @@
             z-index: 99;
             display: none;
             opacity: 0;
+            font-size: 11px;
         }
 
         .bg-menu {
@@ -121,10 +138,38 @@
             transition: .2s;
             opacity: 1;
         }
+
+        .lock-background {
+            background: rgba(255,255,255,.8);
+            bottom: 0;
+            display: none;
+            position: fixed;
+            right: 0;
+            top: 0;
+            z-index: 1000;
+            left: 0;
+            pointer-events: auto;
+        }
         /*silde bar*/
-        #mySidenav {
-            width: 300px;
-            margin-left: -300px;
+        #ProductSidenav {
+            width: 280px;
+            margin-left: -280px;
+            padding-top: 35px;
+        }
+
+        #LoginSidenav {
+            width: 280px;
+            margin-left: -280px;
+            padding-top: 35px;
+        }
+
+        .navbar-toggler .fas,
+        .navbar-toggler .far {
+            font-size: 26px;
+            color: black;
+            text-align: center;
+            padding-top: .5rem;
+            padding-bottom: .5rem;
         }
 
         .sidenav {
@@ -165,31 +210,67 @@
 
                 .sidenav .menu-item a {
                     text-decoration: none;
-                    font-size: 14px;
+                    font-size: 12px;
+                    font-weight: 400;
                     color: #000000;
                     display: block;
                     transition: 0.3s;
                     /*padding:.5rem 0 .5rem .8rem;*/
                 }
 
+                .sidenav .menu-item .fas {
+                    transition: transform .3s ease-in-out;
+                }
+
+                .sidenav .menu-item[aria-expanded="flase"] .fas,
+                .sidenav .menu-item[aria-expanded="true"] .fas {
+                    transform: rotateX(180deg);
+                }
+
             .sidenav .menu-child {
                 list-style: none;
                 padding: 0;
+                font-weight: 400;
             }
 
                 .sidenav .menu-child li {
                     padding: 10px 12px;
+                    opacity: 0.75;
                 }
 
-                .sidenav .menu-child a {
+                    .sidenav .menu-child li:hover {
+                        opacity: 1;
+                    }
+
+
+                .sidenav .menu-child a,
+                .sidenav .menu-child i {
                     /*padding:.5rem 0 .5rem .8rem;*/
+                    cursor: pointer;
+                    color: black;
+                    text-decoration: none;
                 }
+
+                    .sidenav .menu-child i:hover {
+                        cursor: pointer;
+                        color: black;
+                    }
+
+                .sidenav .menu-child .fas {
+                    transition: transform .4s ease-in-out;
+                }
+
+                    .sidenav .menu-child .fas[aria-expanded="true"], .sidenav .menu-child .fas[aria-expanded="flase"] {
+                        transform: rotate(180deg);
+                    }
 
             .sidenav .closebtn {
                 position: absolute;
                 top: .2rem;
                 right: .5rem;
-                font-size: 28px;
+                font-size: 24px;
+                color: black;
+                text-decoration: none;
             }
         /*search-bar-sm相關 mobile*/
         .search-bar-icon:hover {
@@ -488,7 +569,7 @@
             margin: 0% auto 10% auto;
             border: 1px solid #888;
             width: 550px;
-            height: 500px;
+            height: 580px;
             overflow: auto;
         }
 
@@ -512,26 +593,35 @@
             animation: animatezoom 0.6s
         }
     </style>
+    @RenderSection("styles", required: false)
 </head>
 <body class="pb-0">
     <div id="main">
+
+        @*------------------------------首頁Navbar--------------------------------------------------------------------*@
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom p-0 justify-content-between" @*onclick="openNav()"*@>
             <button class="navbar-toggler border-0" id="btn-slide" type="button" data-toggle="collapse" @*data-target="#navbarNavDropdown"*@ aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <i class="fas fa-bars"></i>
+            </button>
+            <button class="navbar-toggler border-0" id="btn-slide-login" type="button" data-toggle="collapse" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="far fa-user"></i>
+            </button>
+            <button class="navbar-toggler border-0" type="button" data-toggle="collapse" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="far fa-clipboard icon ml-3"></i>
             </button>
 
             <div class="collapse navbar-collapse p-0 justify-content-between" id="navbarNavDropdown">
                 <ul class="navbar-nav p-0">
-                    <li class="nav-item active border-right  p-0">
-                        <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
-                    </li>
-
                     @if (Request.Cookies["myaccount"] != null)
                     {
+                        <li class="nav-item active border-right  p-0">
+                            <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("MemberPageOrder", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
+                        </li>
+
                         if ((string)TempData["roles"] == "Client")
                         {
                             <li class="nav-item active">
-                                <a class="nav-link text-dark mx-3 navTop">@TempData["username"].ToString()</a>
+                                <a class="nav-link text-dark mx-3 navTop">@TempData ["username"].ToString()</a>
                             </li>
                             <li class="nav-item">
                                 <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
@@ -549,6 +639,9 @@
                     }
                     else
                     {
+                        <li class="nav-item active border-right  p-0">
+                            <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
+                        </li>
                         <li class="nav-item active">
                             @*<a href="@Url.Action("Login", "FrontEnd")" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>*@
                             <a id="btn_login" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>
@@ -559,7 +652,6 @@
                     }
 
                 </ul>
-                @*<a class="nav-link text-dark  mx-3 navTop" href="">US ONLY - FREE SHIPPING OVER $50 & FREE RETURNS SHOP NOW</a>*@
                 <ul class="navbar-nav p-0 text-center">
 
                     <li class="nav-item active border-right border-left  p-0  quick-search">
@@ -567,7 +659,8 @@
                         <a class="nav-link text-dark  mx-3 navTop" href="#">
                             <i class="fas fa-search icon"></i>
                         </a>
-                        @*quick-search Search-bar-md*@
+
+                        @*-----------------quick-search Search-bar-md----------------------------------*@
                         <div class="container-fluid search-bar-md-warp">
                             <div class="input-group search-bar-md">
                                 <input id="search" type="text" class="form-control rounded-0" placeholder="Search">
@@ -579,357 +672,83 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link text-dark  mx-3 navTop" href="#"><span class="dot">GIFT CERTIFICATES</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark mx-3 navTop" href="/FrontEnd/MemberPageWishlist"><span class="dot">WISH LISTS</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark mx-3 navTop border-right border-left" href="#"><span class="dot">WISH LISTS</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark   mx-3 navTop" href="#"><span class="dot">CART</span><i class="far fa-clipboard icon ml-3"></i></a>
+                        <a class="nav-link text-dark   mx-3 navTop" href="/Cart"><span class="dot">CART</span><i class="far fa-clipboard icon ml-3"></i></a>
                     </li>
                 </ul>
             </div>
-
         </nav>
-        <div id="mySidenav" class="sidenav">
-            <a href="#" class="closebtn" @*onclick="closeNav()"*@>&times;</a>
+        <div id="ProductSidenav" class="sidenav">
+            <a href="#" id="Close-ProductSideNav" class="closebtn">&times</a>
+            <ul class="p-0">
+                <li v-for="c1 in categories" class="d-block">
+                    <div class="menu-item" data-toggle="collapse" :data-target="'#'+c1.listname" aria-expanded="false" :aria-controls="c1.listname">
+                        <a :href=`/Products/${c1.name}`>{{c1.name.toUpperCase()}}</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul :id="c1.listname" class="collapse menu-child">
+                        <li v-for="c2 in c1.childs">
+                            <div v-if="c2.childs.length!==0" class="categoryitems">
+                                <a :href=`/Products/${c1.name}` class="dot">{{c2.name}}</a>
+                                <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" :data-target="'#'+c2.listname" aria-expanded="false" :aria-controls="c2.listname"></i>
+                                <ul :id="c2.listname" class="collapse menu-child py-2">
+                                    <li v-for="c3 in c2.childs"><a class="dot" href="">{{c3.name}}</a></li>
+                                </ul>
+                            </div>
+                            <div v-else>
+                                <a :href=`/Products/${c1.name}` class="dot">{{c2.name}}</a>
+                            </div>
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="lock-background"></div>
+        @*---------------------------會員登入SideBar--------------------------------------------------------------------------------------------------------*@
+        <div id="LoginSidenav" class="sidenav">
+            <a href="#" id="Close-LoginSideNav" class="closebtn">&times</i></a>
             <ul class="p-0">
                 <li class="d-block">
-                    <div class="menu-item" data-toggle="collapse" data-target="#New" aria-expanded="false" aria-controls="New">
-                        <a>NEW</a>
-                        <a><i class="fas fa-chevron-down"></i></a>
+                    <div class="menu-item">
+                        <a href="@Url.Action("loginpage", "FrontEnd")">LOGIN</a>
                     </div>
-                    <ul id="New" class="collapse menu-child">
-                        <li><a>New Arrivals</a></li>
-                        <li><a>Back in Stock</a></li>
-                    </ul>
                 </li>
-                <li class="d-block">
-                    <div class="menu-item" data-toggle="collapse" data-target="#Earrings" aria-expanded="false" aria-controls="Earrings">
-                        <a>EARRINGS</a>
-                        <a><i class="fas fa-chevron-down"></i></a>
-                    </div>
-                    <ul id="Earrings" class="collapse menu-child">
-                        <li>
-                            <a>Statement Earrings</a>
-                            <i class="fas fa-plus float-right" data-toggle="collapse" data-target="#Statement" aria-expanded="false" aria-controls="Statement"></i>
-                            <ul id="Statement" class="collapse menu-child py-2">
-                                <li><a>Drop Earrings</a></li>
-
-                                <li><a>Golden</a></li>
-                                <li><a>Lucite & Resin</a></li>
-                                <li><a>Crystal Clear</a></li>
-                                <li><a>Hoop Earrings</a></li>
-                                <li><a>Ear Jackets</a></li>
-                            </ul>
-                        </li>
-                        <li><a>Charm Earrings</a></li>
-                        <li><a>Natural Earrings</a></li>
-                        <li><a>Hypoallergenic Earrings</a></li>
-                        <li><a>Fine Earrings</a></li>
-                    </ul>
-                </li>
-                <li class="d-block">
-                    <div class="menu-item" data-toggle="collapse" data-target="#Necklaces" aria-expanded="false" aria-controls="Necklaces">
-                        <a>NECKLACES</a>
-                        <a><i class="fas fa-chevron-down"></i></a>
-                    </div>
-                    <ul id="Necklaces" class="collapse menu-child">
-                        <li><a>Layered Necklaces</a></li>
-                        <li><a>Fine Necklaces</a></li>
-                        <li><a>Y-Necklace & Lariat</a></li>
-                        <li><a>Stone & Marble Necklaces</a></li>
-                        <li><a>Charm Necklaces</a></li>
-                        <li><a>Statement Necklaces</a></li>
-                        <li><a>Tassel & Pendant Necklaces</a></li>
-                        <li><a>Chokers</a></li>
-                    </ul>
-                </li>
-
-                <li class="d-block">
-                    <div class="menu-item" data-toggle="collapse" data-target="#Bracelets" aria-expanded="false" aria-controls="Bracelets">
-                        <a>BRACELETS</a>
-                        <a><i class="fas fa-chevron-down"></i></a>
-                    </div>
-                    <ul id="Bracelets" class="collapse menu-child">
-                        <li><a>Fine Bracelets</a></li>
-                        <li><a>Charm Bracelets</a></li>
-                        <li><a>Marble and Stone Jewelry</a></li>
-                        <li><a>Cuffs & Bangles</a></li>
-                        <li><a>Statement Bracelets</a></li>
-                        <li><a>Anklets</a></li>
-                    </ul>
-                </li>
-                <li class="d-block">
-                    <div class="menu-item" data-toggle="collapse" data-target="#Rings" aria-expanded="false" aria-controls="Rings">
-                        <a>RINGS</a>
-                        <a><i class="fas fa-chevron-down"></i></a>
-                    </div>
-                    <ul id="Rings" class="collapse menu-child">
-                        <li><a>Fine Rings</a></li>
-                        <li><a>Charm Rings</a></li>
-                        <li><a>Statement Rings</a></li>
-                        <li><a>Adjustable Rings</a></li>
-                    </ul>
-                </li>
-                <li class="d-block">
-                    <div class="menu-item" data-toggle="collapse" data-target="#Other" aria-expanded="false" aria-controls="Other">
-                        <a>OTHER ACCESSORIES</a>
-                        <a><i class="fas fa-chevron-down"></i></a>
-                    </div>
-                    <ul id="Other" class="collapse menu-child">
-                        <li><a>Scarves</a></li>
-                        <li><a>Purses & Totes</a></li>
-                        <li><a>Hats & Hair Accessories</a></li>
-                        <li><a>Bralettes</a></li>
-                    </ul>
-                </li>
-                @*<li><a href="#">Contact</a></li>*@
                 <li class="d-block">
                     <div class="menu-item">
-                        <a>SALE</a>
+                        <a href="@Url.Action("MemberRegist","FrontEnd")">REGISTER</a>
+                    </div>
+                </li>
+                <li class="d-block">
+                    <div class="menu-item">
+                        <a href="@Url.Action("loginpage", "FrontEnd")">ACCOUNT</a>
                     </div>
                 </li>
             </ul>
         </div>
-
-
+        @*-----------------------------content Category Bar-----------------------------------------------------------------------------*@
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOVODA</a></div>
+                <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOBEDA</a></div>
             </div>
             <ul class="main-nav nav justify-content-center mb-4 align-items-center">
-                <li class="nav-item mx-2 pb-3">
-                    <a class="nav-link text-dark" href="#"><span class="line">NEW</span></a>
-                    <div class="menu-block">
+                <li v-for="c1 in categories" class="nav-item mx-2 pb-3">
+                    <a :href=`/Products/${c1.name}` class="nav-link text-dark"><span class="line">{{c1.name.toUpperCase()}}</span></a>
+                    <div v-if="c1.childs.length!==0" class="menu-block">
                         <div class="container">
                             <div class="row">
-                                <div class="col-6 col-md-3 col-xl-2">
+                                <div v-for="c2 in c1.childs" class="col-6 col-md-3 col-xl-2">
                                     <ul class="menu-list">
-                                        <li><a href="#" class="dot">New Arrivals</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-md-3 col-xl-2">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Back in Stock</a></li>
+                                        <li><a :href=`/Products/${c1.name}` class="dot">{{c2.name}}</a></li>
+                                        <li v-for="c3 in c2.childs"><a :href=`/Products/${c1.name}` class="dot">{{c3.name}}</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </li>
-
-                <li class="nav-item  mx-2 pb-3">
-                    <a class="nav-link text-dark" href="#"><span class="line">EARRINGS</span></a>
-
-                    <div class="menu-block">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Statement Earrings</a></li>
-                                        <li><a href="#" class="dot">Drop Earrings</a></li>
-                                        <li><a href="#" class="dot">Golden</a></li>
-                                        <li><a href="#" class="dot">Lucite & Resin</a></li>
-                                        <li><a href="#" class="dot">Crystal Clear</a></li>
-                                        <li><a href="#" class="dot">Hoop Earrings</a></li>
-                                        <li><a href="#" class="dot">Ear Jackets</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Charm Earrings</a></li>
-                                        <li><a href="#" class="dot">Crawlers and Pins</a></li>
-                                        <li><a href="#" class="dot">Threader Earrings</a></li>
-                                        <li><a href="#" class="dot">Earring Sets</a></li>
-                                        <li><a href="#" class="dot">Cuffs</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Natural Earrings</a></li>
-                                        <li><a href="#" class="dot">Wood & Wicker</a></li>
-                                        <li><a href="#" class="dot">Stone & Marble Earrings</a></li>
-                                        <li><a href="#" class="dot">Geode Earrings</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Hypoallergenic Earrings</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Fine Earrings</a></li>
-                                        <li><a href="#" class="dot">Sterling Silver Earrings</a></li>
-                                        <li><a href="#" class="dot">Gold Plated Earrings</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item  mx-3 pb-3">
-                    <a class="nav-link text-dark" href="#"><span class="line">NECKLACES</span></a>
-                    <div class="menu-block">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6 col-sm">
-                                    <div class="d-flex flex-column">
-                                        <ul class="menu-list">
-                                            <li><a href="#" class="dot">Layered Necklaces</a></li>
-                                        </ul>
-                                        <ul class="menu-list  mt-2">
-                                            <li><a href="#" class="dot">Tassel & Pendant Necklaces</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <div class="d-flex flex-column">
-                                        <ul class="menu-list">
-                                            <li><a href="#" class="dot">Fine Necklaces</a></li>
-                                        </ul>
-                                        <ul class="menu-list  mt-2">
-                                            <li><a href="#" class="dot">Chokers</a></li>
-                                            <li><a href="#" class="dot">Gold/Silver Chokers</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Y-Necklace & Lariat</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Stone & Marble Necklaces</a></li>
-                                        <li><a href="#" class="dot">Marble Necklace</a></li>
-                                        <li><a href="#" class="dot">Geode Necklaces</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Charm Necklaces</a></li>
-                                        <li><a href="#" class="dot">Statement Necklaces</a></li>
-                                        <li><a href="#" class="dot">Beaded Necklace</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item  mx-2 pb-3">
-                    <a class="nav-link text-dark" href="#"><span class="line">BRACELETS</span></a>
-                    <div class="menu-block w-100">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Fine Bracelets</a></li>
-                                    </ul>
-                                </div>
-                                <div class=" col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Charm Bracelets</a></li>
-                                        <li><a href="#" class="dot">Cord & Bead Bracelets</a></li>
-                                    </ul>
-                                </div>
-                                <div class=" col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Marble and Stone Jewelry</a></li>
-                                        <li><a href="#" class="dot">Cuffs & Bangles</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Statement Bracelets</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Anklets</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item  mx-2 pb-3">
-                    <a class="nav-link text-dark" href="#"><span class="line">RINGS</span></a>
-                    <div class="menu-block">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Fine Rings</a></li>
-                                        <li><a href="#" class="dot">Gem Stone Rings</a></li>
-                                    </ul>
-                                </div>
-                                <div class=" col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Charm Rings</a></li>
-                                        <li><a href="#" class="dot">Geode Rings</a></li>
-                                        <li><a href="#" class="dot">Marble Rings</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Statement Rings</a></li>
-                                        <li><a href="#" class="dot">Chunky Rings</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Adjustable Rings</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item  mx-2 pb-3">
-                    <a class="nav-link text-dark" href="#"><span class="line">OTHER ACCESSORIES</span></a>
-                    <div class="menu-block">
-                        <div class="container">
-                            <div class="row">
-                                <div class=" col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Scarves</a></li>
-                                        <li><a href="#" class="dot">Light Scarves</a></li>
-                                        <li><a href="#" class="dot">Tie Scarves</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Purses & Totes</a></li>
-                                        <li><a href="#" class="dot">Backpack</a></li>
-                                        <li><a href="#" class="dot">Crossbody</a></li>
-                                        <li><a href="#" class="dot">Satchel</a></li>
-                                        <li><a href="#" class="dot">Totes</a></li>
-                                        <li><a href="#" class="dot">Wallets</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Hats & Hair Accessories</a></li>
-                                        <li><a href="#" class="dot">Hair Pins</a></li>
-                                        <li><a href="#" class="dot">Hair Ties</a></li>
-                                        <li><a href="#" class="dot">Hats</a></li>
-                                        <li><a href="#" class="dot">Headbands & Headwraps</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-6 col-sm">
-                                    <ul class="menu-list">
-                                        <li><a href="#" class="dot">Bralettes</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item  mx-1 pb-3">
-                    <a class="nav-link text-dark" href="#"><span class="line">SALE</span></a>
                 </li>
             </ul>
         </div>
@@ -941,163 +760,261 @@
                 </a>
             </div>
         </div>
-        @RenderBody()
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/jqueryval")
-        @RenderSection("scripts", required: false)
-        <footer id="footer" class=" bg-footer py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-6 col-md-3 col-xl-2">
-                        <ul class="footer-list">
+    </div>
+    <div>
+    @RenderBody()
+    </div>
+    @*------------------------footer------------------------------------------------------------------------- *@
+    <footer id="footer" class=" bg-footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 col-xl-2">
+                     <ul class="footer-list">
                             <li>SHOP</li>
-                            <li><a href="#" class="dot">Home</a></li>
-                            <li><a href="#" class="dot">new</a></li>
-                            <li><a href="#" class="dot">Earrings</a></li>
-                            <li><a href="#" class="dot">Necklaces</a></li>
-                            <li><a href="#" class="dot">Bracelets</a></li>
-                            <li><a href="#" class="dot">Rings</a></li>
-                            <li><a href="#" class="dot">Other Accessories</a></li>
-                            <li><a href="#" class="dot">Sale</a></li>
+                            <li><a href="/FrontEnd/Index" class="dot">Home</a></li>
+                            <li><a href="/Products/new" class="dot">new</a></li>
+                            <li><a href="/Products/Earrings" class="dot">Earrings</a></li>
+                            <li><a href="/Products/Necklaces" class="dot">Necklaces</a></li>
+                            <li><a href="/Products/Bracelets" class="dot">Bracelets</a></li>
+                            <li><a href="/Products/Rings" class="dot">Rings</a></li>
+                            <li><a href="/Products/Other Accessories" class="dot">Other Accessories</a></li>
+                            <li><a href="/Products/Sale" class="dot">Sale</a></li>
                         </ul>
-                    </div>
-                    <div class="col-6 col-md-3 col-xl-2">
-                        <ul class="footer-list">
-                            <li>ABOUT US</li>
-                            <li><a href="#" class="dot">About us</a></li>
-                            <li><a href="#" class="dot">Style Blog</a></li>
-                            <li><a href="#" class="dot">Contact a Stylist</a></li>
-                            <li><a href="#" class="dot">Meet with a Stylist</a></li>
-                            <li><a href="#" class="dot">Visit Us</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-3 col-xl-2">
-                        <ul class="footer-list">
-                            <li>CUSTOMER SERVICE</li>
-                            <li><a href="#" class="dot">Contact Us</a></li>
-                            <li><a href="#" class="dot">Shipping</a></li>
-                            <li><a href="#" class="dot">Returns Policy</a></li>
-                            <li><a href="#" class="dot">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-3 col-xl-2">
-                        <ul class="footer-list">
-                            <li>FURTHER INFO</li>
-                            <li><a href="#" class="dot">Sitemap</a></li>
-                            <li><a href="#" class="dot">Affiliates</a></li>
-                            <li><a href="#" class="dot">Wholesale Application</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <ul class="footer-list">
-                            <li>STAY CONNECTED</li>
-                            <li>
-                                <a href="https://www.instagram.com/lovodashop/" target="_blank"><i class="fab fa-instagram mr-4 bg-footer footericon icon"></i></a>
-                                <a href="https://www.facebook.com/LovodaShop/" target="_blank"><i class="fab fa-facebook-f mr-4 bg-footer footericon icon"></i></a>
-                                <a href="https://www.pinterest.com/lovodashop/" target="_blank"><i class="fab fa-pinterest mr-4 bg-footer footericon icon"></i></a>
-                                <a href="https://twitter.com/LovodaShop" target="_blank"><i class="fab fa-twitter mr-4 bg-footer footericon icon"></i></a>
-                            </li>
-                            <li>FEATURED ON</li>
-                            <li>
-                                <img src="~/Content/images/asseenonwhite.png" width="370" alt="Alternate Text" />
-                            </li>
-                        </ul>
-                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <ul class="footer-list">
+                        <li>ABOUT US</li>
+                        <li><a href="#" class="dot">About us</a></li>
+                        <li><a href="#" class="dot">Style Blog</a></li>
+                        <li><a href="#" class="dot">Contact a Stylist</a></li>
+                        <li><a href="#" class="dot">Meet with a Stylist</a></li>
+                        <li><a href="#" class="dot">Visit Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <ul class="footer-list">
+                        <li>CUSTOMER SERVICE</li>
+                        <li><a href="#" class="dot">Contact Us</a></li>
+                        <li><a href="#" class="dot">Shipping</a></li>
+                        <li><a href="#" class="dot">Returns Policy</a></li>
+                        <li><a href="#" class="dot">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <ul class="footer-list">
+                        <li>FURTHER INFO</li>
+                        <li><a href="#" class="dot">Sitemap</a></li>
+                        <li><a href="#" class="dot">Affiliates</a></li>
+                        <li><a href="#" class="dot">Wholesale Application</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                    <ul class="footer-list">
+                        <li>STAY CONNECTED</li>
+                        <li>
+                            <a href="https://www.instagram.com/lovodashop/" target="_blank"><i class="fab fa-instagram mr-4 bg-footer footericon icon"></i></a>
+                            <a href="https://www.facebook.com/LovodaShop/" target="_blank"><i class="fab fa-facebook-f mr-4 bg-footer footericon icon"></i></a>
+                            <a href="https://www.pinterest.com/lovodashop/" target="_blank"><i class="fab fa-pinterest mr-4 bg-footer footericon icon"></i></a>
+                            <a href="https://twitter.com/LovodaShop" target="_blank"><i class="fab fa-twitter mr-4 bg-footer footericon icon"></i></a>
+                        </li>
+                        <li>FEATURED ON</li>
+                        <li>
+                            <img src="~/Content/images/asseenonwhite.png" width="370" alt="Alternate Text" />
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="bg-footer text-light py-4 text-center">
-                <div class="container">
-                    <p class="footertext mb-5">
-                        <i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.
-                    </p>
-                    <div class="row justify-content-center my-5">
-                        <a href="" class=" text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/visa-pay-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/master-card-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/american-express-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/discover-logo-of-pay-system.png" alt="Alternate Text" />
-                        </a>
-                    </div>
+        </div>
+        <div class="bg-footer text-light py-4 text-center">
+            <div class="container">
+                <p class="footertext mb-5">
+                    <i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.
+                </p>
+                <div class="row justify-content-center my-5">
+                    <a href="" class=" text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/visa-pay-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/master-card-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/american-express-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/discover-logo-of-pay-system.png" alt="Alternate Text" />
+                    </a>
                 </div>
             </div>
-        </footer>
+        </div>
+    </footer>
+    @*-----------登入modal-------------------------------------------------------*@
+    <div class="modal fade" id="loginModal" style="z-index:1000000000">
+        <div class="modal-dialog">
+            <div class="modal-content animate  rounded-0 m-0">
+                <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
+                <div class="container mt-5">
+                    <div class="row px-5">
+                        <div class="col-8 mx-auto justify-content-center">
+                            <h4><b>Sign In</b></h4>
+                            <label for="uname"><b>Email Address<span class="text-danger">*</span></b></label>
+                            <input class="w-100" type="text" placeholder="Enter Email" name="uname" id="loginId" required>
+                            <label for="psw"><b>Password<span class="text-danger">*</span></b></label>
+                            <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
+                            <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
+                            <button class="btn-outline-dark w-100 btn-block" id="gotoRegist">REGISTER</button>
+                            <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&https://localhost:44394&redirect_uri=https://localhost:44394/FrontEnd/GoogleLogin&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="  btn btn-outline-danger  fa-square-o"><i class="fab fa-google-plus fa-3x"></i></a>
 
+                            <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1653659088&redirect_uri=https://localhost:44394/frontend/LineLogin&scope=openid%20profile&state=abcde" class="  btn btn-outline-success  fa-square-o">
+                                <i class="fab fa-line fa-3x"></i>
+                            </a>
 
-        <div class="modal fade" id="loginModal" style="z-index:1000000000">
-            <div class="modal-dialog">
-                <div class="modal-content animate  rounded-0 m-0">
-                    <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
-                    <div class="container mt-5">
-                        <div class="row px-5">
-                            <div class="col-8 mx-auto justify-content-center">
-                                <h4><b>Sign In</b></h4>
-                                <label for="uname"><b>Email Address<span class="text-danger">*</span></b></label>
-                                <input class="w-100" type="text" placeholder="Enter Email" name="uname" id="loginId" required>
-                                <label for="psw"><b>Password<span class="text-danger">*</span></b></label>
-                                <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
-                                <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
-                                <button class="btn-outline-dark w-100 btn-block" id="gotoRegist">REGISTER</button>
-                                <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&https://localhost:44394&redirect_uri=https://vegetable20191226044821.azurewebsites.net/FrontEnd/GoogleLogin&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="  btn btn-outline-danger  fa-square-o"><i class="fab fa-google-plus fa-3x"></i></a>
-
-                                <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1653659088&redirect_uri=https://vegetable20191226044821.azurewebsites.net/frontend/LineLogin&scope=openid%20profile&state=abcde" class="  btn btn-outline-success  fa-square-o" >
-                                  <i class="fab fa-line fa-3x"></i>
-                                </a>
-
-                                <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
-                                <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
-                            </div>
+                            <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
+                            <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+    
 
-
-    @RenderSection("viewJquery", required: false)
-
+    @RenderSection("scripts", required: false)
     <script>
-     
-
-        function openNav() {
-            // document.getElementById("mySidenav").style.width = "300px";
-            $('#mySidenav').css('margin-left', '0px');
-            //document.getElementById("main").style.marginLeft = "300px";
-            $('#main').css('margin-left', '300px');
+        var btn;
+        function openNav(selector) {
+            //$('#ProductSidenav').css('margin-left', '0px');
+            $(selector).css('margin-left', '0px');
+            $('#main').css('margin-left', '280px');
+            $('.lock-background').css('display', 'block');
+            $('body').css('overflow', 'hidden');
+            btn = selector;
+            console.log('btn is', btn);
         }
-        function closeNav() {
-            //document.getElementById("mySidenav").style.width = "0";
-            $('#mySidenav').css('margin-left', '-300px');
-            //document.getElementById("main").style.marginLeft = "0";
+        function closeNav(selector) {
+            //$('#ProductSidenav').css('margin-left', '-280px');
+            $(selector).css('margin-left', '-280px');
+            console.log('close', this);
             $('#main').css('margin-left', '0px');
+            $('.lock-background').css('display', 'none');
         }
+        //function openNavLogin() {
+        //    $('#LoginSidenav').css('margin-left', '0px');
+        //    $('#main').css('margin-left', '280px');
+        //}
+        //function closeNavLogin() {
+        //    $('#LoginSidenav').css('margin-left', '-280px');
+        //    $('#main').css('margin-left', '0px');
+        //}
+        function unlock() {
+            $('body').css('overflow', 'auto');
+            $('.lock-background').css('display', 'none');
+            closeNav(btn);
+        }
+        function Binding() {
+            var vm = new Vue({
+                el: '#main',
+                data: {
+                    categories: []
 
 
-        $(function () {
-
-            $('#btn-slide').click(openNav);
-            $('.closebtn').click(closeNav);
-
-
-            $("#btn_login").click(function () {
-                $('#loginModal').modal('show');
+                },
+                mounted: function () {
+                    var settings = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "/api/CategoriesApi",
+                        "method": "GET",
+                        "headers": {
+                            "cache-control": "no-cache",
+                            "Postman-Token": "c87fd111-8d9c-48a4-9ce6-73ac1c87b509"
+                        }
+                    }
+                    $.ajax(settings).done(function (response) {
+                        console.log(response);
+                        vm.categories = response;
+                    });
+                }
             });
-            $("#gotoRegist").click(function () {
-                location.href = "/FrontEnd/MemberRegist"
-            });
+        }
+        Binding();
+    </script>
+    @RenderSection("Vuejs", required: false)
+    <script>
+        $('#btn-slide').click(function () {
+            openNav('#ProductSidenav');
+        });
+        $(".lock-background").on('click', unlock);
+        $('#btn-slide-login').click(function () { openNav('#LoginSidenav') });
+        //$('#btn-slide-login').click(openNav);
+        $('#Close-ProductSideNav').click(function () { closeNav('#ProductSidenav') });
+        $('#Close-LoginSideNav').click(function () { closeNav('#LoginSidenav') });
+        //$('#btn-slide-login').click(openNav);
 
-            $("#loginConfirm").click(function () {
+
+        $("#btn_login").click(function () {
+            $('#loginModal').modal('show');
+        });
+        $("#gotoRegist").click(function () {
+            location.href = "/FrontEnd/MemberRegist"
+        });
+
+        $("#loginConfirm").click(function () {
+            var uname = $("#loginId").val();
+            var psw = $("#loginPsw").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/FrontEnd/Login",
+                data: { uname, psw },
+                success: function (back) {
+                    console.log('back', back);
+                    if (back == "1") {
+                        $("#loginStatus").html("sign in suceesfully");
+                        location.reload()
+                    }
+                    else if (back == "2") {
+                        $("#loginStatus").html("This account doesn't exist");
+                    }
+                    else {
+                        $("#loginStatus").html("Your password is incorrect. Please try again.");
+                    }
+                }
+            });
+        });
+
+        $("#loginId").keydown(function (event) {
+            if (event.which == 13) {
+                var uname = $("#loginId").val();
+                var psw = $("#loginPsw").val();
+
+                $.ajax( {
+                    type: "POST",
+                    url: "/FrontEnd/Login",
+                    data: { uname, psw },
+                    success: function (back) {
+                        console.log('back', back);
+                        if (back == "1") {
+                            $("#loginStatus").html("sign in suceesfully");
+                            location.reload()
+
+                        }
+                        else if ( back == "2" ) {
+                            $( "#loginStatus" ).html( "This account doesn't exist" );
+                        }
+                        else {
+                            $( "#loginStatus" ).html( "Your password is incorrect. Please try again." );
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#loginPsw").keydown(function (event) {
+            if (event.which == 13) {
                 var uname = $("#loginId").val();
                 var psw = $("#loginPsw").val();
 
@@ -1108,44 +1025,36 @@
                     success: function (back) {
                         console.log('back', back);
                         if (back == "1") {
-                            $("#loginStatus").html("登入成功");
-                            location.href = "/FrontEnd/MemberPageAddress"
+                            $("#loginStatus").html("sign in suceesfully");
+                            location.reload()
                         }
                         else if (back == "2") {
-                            $("#loginStatus").html("此帳號尚未註冊，請先註冊");
+                            $("#loginStatus").html("This account doesn't exist");
                         }
                         else {
-                            $("#loginStatus").html("密碼錯誤");
+                            $("#loginStatus").html("Your password is incorrect. Please try again.");
                         }
-
                     }
-
                 });
-            });
-
+            }
         });
+
+
         $("#searchBTN").click(function () {
-            console.log("23234");
             var condition = $("#search").val();
             window.location.href = "/Products/" + condition;
-            //var SearchCondition  = {
-            //    "page": 1,
-            //    "Condition":condition
-            //}
+        });
 
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/frontend/ShowProducts",
-            //    data: { :SearchCondition },
-            //    success: function () {
-
-
-            //    }
-
-            //});
+        $("#search").keydown(function (event) {
+            if (event.which == 13) {
+                var condition = $("#search").val();
+                window.location.href = "/Products/" + condition;
+            }
         });
     </script>
+    @RenderSection("viewJquery", required: false)
     @RenderSection("Endscripts", required: false)
 </body>
 </html>
+
 

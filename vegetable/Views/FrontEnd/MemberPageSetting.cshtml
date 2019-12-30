@@ -136,10 +136,10 @@
                 <a href="@Url.Action("Index", "FrontEnd")">Home</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="@Url.Action("MemberPageOrder", "FrontEnd")">Member</a>
+                <a href="/Order">Member</a>
             </li>
             <li class="breadcrumb-item current">
-                <a href="@Url.Action("MemberPageSetting", "FrontEnd")"> Setting</a>
+                <a href="/Member">Setting</a>
             </li>
 
         </ul>
@@ -157,21 +157,17 @@
             <nav class="navBar navBar--sub navBar--account">
                 <ul class="navBar-section">
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberPageOrder">Orders</a>
+                        <a class="navBar-action" href="/Order">Orders</a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberPageAddress">Addresses</a>
+                        <a class="navBar-action" href="/Cart">Cart</a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberCart">Cart</a>
+                        <a class="navBar-action" href="/WishList">Wish List </a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberPageWishlist">Wish List </a>
+                        <a class="navBar-action" href="/Member">Account Settings</a>
                     </li>
-                    <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberPageSetting">Account Settings</a>
-                    </li>
-
                 </ul>
             </nav>
         </div>
@@ -213,7 +209,7 @@
                 </div>
             </div>
             <div class="row" style="padding:15px">
-                <label class="mt-1 my-auto" id="pwStat" style="color:red">test</label>
+                <label class="mt-1 my-auto" id="pwStat" style="color:red"></label>
                 <input type="submit" class="btn btn-outline-dark rounded-0 ml-auto" style="margin-top:25px" value="Update Details" id="UpdateMember">
             </div>
         </div>
@@ -233,7 +229,7 @@
                     var psw = $("#psw").val();
                     $.ajax({
                         type: "POST",
-                        url: "/FontEnd/Login",
+                        url: "/Login",
                         data: { uname, psw },
                         success: function (back) {
                             console.log('back', back);

@@ -16,17 +16,15 @@ using vegetable.Services;
 
 namespace vegetable.Controllers
 {
+
     public class MembersController : Controller
 
     {
         Encryption Encryption = new Encryption();
         ItemContext item = new ItemContext();
         initMember init = new initMember();
-    
+
         // GET: Member
-
-
-
         public ActionResult Index()
         {
             var initdata = init.initMemberData();
@@ -96,18 +94,6 @@ namespace vegetable.Controllers
             services.CreateMember(Member);
             return RedirectToAction("Index");
         }
-
-    
-        
-
-
-
-
-
-
-
-
-
 
 
     }

@@ -9,7 +9,7 @@ namespace vegetable
         public static void RegisterBundles (BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js", "~/Scripts/jquery.dataTables.min.js","~/Scripts/dataTables.select.min.js", "~/Scripts/Chart.js"));
+                        "~/Scripts/jquery-{version}.js", "~/Scripts/jquery.dataTables.min.js", "~/Scripts/dataTables.select.min.js", "~/Scripts/Chart.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -22,10 +22,10 @@ namespace vegetable
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                      "~/Scripts/umd/popper.js", "~/Scripts/bootstrap.js", "~/Scripts/jquery.nicescroll.js", "~/Scripts/jquery.scrollTo.min.js", "~/Scripts/common-scripts.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/vegetable").Include(
                     "~/Content/fontawesome-all.css",
                     "~/Content/bootstrap.css",
-                    "~/Content/site.css"
+                    "~/Content/Site.css"
                    ));
 
             bundles.Add(new StyleBundle("~/Content/adminCss").Include(
@@ -36,6 +36,11 @@ namespace vegetable
                     "~/Content/Css/to-do.css",
                     "~/Content/Css/zabuto_calendar.css",
                     "~/Content/Css/datatables.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/CartJs").Include(
+                "~/Scripts/vue.js",
+                "~/Scripts/Cart.js"
+                ));
         }
     }
 }

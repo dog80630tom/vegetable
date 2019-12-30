@@ -1,4 +1,4 @@
-﻿
+
 @{
     ViewBag.Title = @ViewBag.ProductName;
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
@@ -371,6 +371,26 @@
         visibility: visible !important;
         top: 15px !important;
     }
+
+    .btnWL span {
+        font-weight: 400;
+        color: #000;
+        border-bottom: 1px dotted #000;
+        margin-left: 10px;
+    }
+
+    .btnWL i {
+        font-weight: 400;
+        color: #000;
+        font-size: 16px;
+        margin-left: 40px;
+    }
+
+
+        .btnWL span:hover, .btnWL i:hover {
+            cursor: pointer;
+            color: #000;
+        }
 </style>
 
 
@@ -396,20 +416,18 @@
     </div>
 </div>
 <div class="container">
-    @*產品大圖和購買相關功能*@
     <div class="row my-5">
-        @*產品大圖*@
+
         <div class="col-xl-4 order-xl-1 col-md-6 order-md-2 col-12 order-1">
             <figure class="figure">
-                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" src="~/Assets/ProductPics/@ViewBag.ProductName/1.jpg" alt="">
+                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" v-bind:src="pics.Url1" alt="">
             </figure>
         </div>
 
-        @* 右半部  購買清單*@
-        <div class="col-xl-8 order-xl-2 col-md-6 order-md-2 order-3">
-            <div class="productView-title">@ViewBag.ProductName</div>
+        <div class="col-xl-8 order-xl-2 col-md-6 order-md-2 order-3 pics">
+            <div id="ProductName" class="productView-title">@ViewBag.ProductName</div>
             <div class="productView-rating"></div>
-            <div class="productView-price">$@ViewBag.ProductPrice </div>
+            <div id="ProductPrice " class="productView-price">$@ViewBag.ProductPrice </div>
             <span>
                 <i class="far fa-star"></i>
                 <i class="far fa-star"></i>
@@ -419,56 +437,42 @@
             </span>
             <hr>
             <div class="productView-rating"></div>
-            @*大小選擇 有時間再做*@
-            @*<div>Size: <span class="text-danger">*</span></div>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">6</button>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2">7</button>
-            <button type="button" class="btn btn-outline-dark rounded-0 btn-size">8</button>*@
+
             <div class="productView-rating"></div>
-            @*購改清單*@
-            <form action="/FrontEnd/AddCart" method="post">
-                @*會員ID*@
-                <input type="hidden" name="MemberID" value="@ViewBag.MemberID" />
-                @*產品ID*@
-                <input type="hidden" name="ProductID" value="@ViewBag.ProductID" />
-                @*Cart ID*@
-                @*                <input type="hidden" name="CartID" value="@ViewBag.CartID" />*@
-                @* 數量 *@
-                <div>Quantity:</div>
-                @* 增加 *@
-                <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
-                <input id="quantity" name="Quantity" value="1" class="text-center" />
-                @* 減少 *@
-                <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
-                <div class="productView-rating"></div>
-                <button id="button#form-action-addToCart" type="submit" style="width:220px"
-                        class="btn btn-outline-dark rounded-0">
-                    ADD TO CART
-                    @*<a href="@Url.Action("Cart", "FrontEnd")"> ADD TO CART</a>*@
-                </button>
-            </form>
+
+
+            <input id="ProductID" type="hidden" name="ProductID" value="@ViewBag.ProductID" />
+
+            <div>Quantity:</div>
+
+            <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+            <input id="quantity" name="Quantity" value="1" class="text-center" />
+
+            <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+            <div class="productView-rating"></div>
+            <button class="btn btn-outline-dark" onclick="AddCart()">ADD TO CART</button>
+            <a href="#" class="btnWL list-view" id="AWL">
+                <i class="far fa-heart"></i><span>Add to Wish list</span>
+            </a>
         </div>
-        @*產品小圖和社群按鈕*@
-        <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4">
-            <div class="col-xl-4 col-md-5 productView-thumbnail">
+        
+        <div class="col-xl-12 order-xl-3 col-md-12 order-md-3 col-12 order-2 mt-4 " id="ProductPics">
+            <div class="col-xl-4 col-md-5 p-0 productView-thumbnail">
                 <a class="mr-3 " href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/1.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" v-on:click="picchange($event)" v-bind:src="pics.Url1" />
                 </a>
                 <a class="mr-3" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/2.jpg" alt="Tie and Knot Ring" />
-                </a>
-                <a class="mr-3" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/3.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" v-on:click="picchange($event)" v-bind:src="pics.Url2" />
                 </a>
                 <a class="" href="javascript:void(0)">
-                    <img class="viewPic thumbnail" src="~/Assets/ProductPics/@ViewBag.ProductName/4.jpg" alt="Tie and Knot Ring" />
+                    <img class="viewPic thumbnail" v-on:click="picchange($event)" v-bind:src="pics.Url3" />
                 </a>
             </div>
         </div>
     </div>
 
 
-    @* 產品detail *@
+
     <div class="row">
         <button id="btn-detail" class="btn rounded-0 btn-outline-white" style="border-right:0;border-bottom:0">DETAILS</button>
         <button id="btn-SAndR" type="button" class="btn rounded-0 btn-outline-white" style="border-bottom:0">SHIPPING & RETURNS</button>
@@ -482,14 +486,14 @@
         </div>
     </div>
     <div class="row">
-        @*SHIPPING & RETURNS 貨運和退貨Q&A*@
+
         <div id="SAndR" class="col-xl-12 mt-4">
             <div>Shipping and Returns Policy</div>
             <div class="mt-3"><a href="@Url.Action("Shipping", "FrontEnd") ">Shipping FAQ</a></div>
             <div class="mt-3"><a href="javascript:void(0) ">Returns / Exchanges FAQ</a></div>
         </div>
     </div>
-    @* 顧客回應 *@
+
     <div class="row">
         <h2 class="mt-5">Customer Reviews</h2>
     </div>
@@ -513,12 +517,12 @@
             <span id="questionCount">0</span>
         </button>
     </div>
-    @* review and question 內容 *@
+
     <div class="RAndQ row border-left-0 border-right-0">
         <div id="defaultReview" class="my-5 mx-auto">
             Be the first to review this item
         </div>
-        @*問問題*@
+
         <div id="questionForm" class="col-xl-12 my-5">
             <form>
                 <h5 class="mb-4">Ask a Qusetion</h5>
@@ -543,7 +547,7 @@
                 </div>
             </form>
         </div>
-        @*寫review*@
+
         <div id="reviewForm" class="col-xl-12 col-md-12 my-5">
             <form>
                 <div class="row">
@@ -586,7 +590,7 @@
             </form>
         </div>
     </div>
-    @* 相關商品 *@
+
     <div class="row mt-5">
         <h2>Relative Produsts</h2>
     </div>
@@ -594,7 +598,6 @@
     <div class="row mb-3"></div>
 </div>
 
-@* 產品卡片 *@
 <div class="container">
     <div class="productBlockContainer row">
         <div class="prod-item col-xl-4">
@@ -602,7 +605,34 @@
                 <div class="prod-image">
                     <a href="#">
                         <img class="card-image"
-                             src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                             src="https://i.imgur.com/RekqJO3.jpg">
+                    </a>
+                    <div class="actions">
+                        <a href="#" class="btnWL">
+                            <i class="far fa-heart"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-dark rounded-0 btnATC">
+                            <i class="fa fa-heart-o"></i>Add to
+                            Cart
+                        </a>
+
+
+                        <a href="#" class="btnQV quickview">Quick view</a>
+                    </div>
+                </div>
+                <figcaption class="prod-desc">
+                    <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
+                    <div class="prod-price text-center"><span class="price">$24.00</span></div>
+
+                </figcaption>
+            </figure>
+        </div>
+        <div class="prod-item col-xl-4">
+            <figure class="card-figure">
+                <div class="prod-image">
+                    <a href="#">
+                        <img class="card-image"
+                             src="https://i.imgur.com/RekqJO3.jpg">
                     </a>
                     <div class="actions">
                         <a href="#" class="btnWL">
@@ -627,32 +657,7 @@
                 <div class="prod-image">
                     <a href="#">
                         <img class="card-image"
-                             src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
-                    </a>
-                    <div class="actions">
-                        <a href="#" class="btnWL">
-                            <i class="far fa-heart"></i>
-                        </a>
-                        <a href="#" class="btn btn-outline-dark rounded-0 btnATC">
-                            <i class="fa fa-heart-o"></i>Add to
-                            Cart
-                        </a>
-                        <a href="#" class="btnQV quickview">Quick view</a>
-                    </div>
-                </div>
-                <figcaption class="prod-desc">
-                    <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                    <div class="prod-price text-center"><span class="price">$24.00</span></div>
-
-                </figcaption>
-            </figure>
-        </div>
-        <div class="prod-item col-xl-4">
-            <figure class="card-figure">
-                <div class="prod-image">
-                    <a href="#">
-                        <img class="card-image"
-                             src="https://cdn11.bigcommerce.com/s-8pcbviyy/images/stencil/600x900/products/5597/24310/020400079-1__89005.1562615110.jpg?c=2">
+                             src="https://i.imgur.com/RekqJO3.jpg">
                     </a>
                     <div class="actions">
                         <a href="#" class="btnWL">
@@ -678,39 +683,93 @@
 
 @section viewJquery{
     <script>
-        $( function () {
-            //隱藏Shipping and Returns
-            $( '#SAndR' ).hide();
-            //隱藏問題跟回顧表格
-            $( '#questionForm' ).hide();
-            $( '#reviewForm' ).hide();
-            //問題跟回顧表格按鈕
-            $( '#btn-review' ).click( FormStatus );
-            $( '#btn-question' ).click( FormStatus );
-            //控制購買數量按鈕
-            $( '#quantityAdd' ).click( QuantityChange );
-            $( '#quantityReduce' ).click( QuantityChange );
-            //產品細節切換
-            $( '#btn-detail' ).click( DetailSwitch );
-            $( '#btn-SAndR' ).click( DetailSwitch );
-            //切換產品大圖
-            $( '.thumbnail' ).click( PicChange );
-            //產品卡片
-            $( ".card-figure" ).hover( function () {
-                $( this ).find( ".btnWL" ).addClass( "showdown" );
-                $( this ).find( ".btnQV" ).addClass( "hoverin" );
-                $( this ).find( ".btnATC" ).addClass( "hoverin" );
-            }, function () {
-                $( this ).find( ".btnWL" ).removeClass( "showdown" );
-                $( this ).find( ".btnQV" ).removeClass( "hoverin" );
-                $( this ).find( ".btnATC" ).removeClass( "hoverin" );
-            } )
+        //用來接pic的vue
+
+        //隱藏Shipping and Returns
+        $( '#SAndR' ).hide();
+        //隱藏問題跟回顧表格
+        $( '#questionForm' ).hide();
+        $( '#reviewForm' ).hide();
+        //問題跟回顧表格按鈕
+        $( '#btn-review' ).click( FormStatus );
+        $( '#btn-question' ).click( FormStatus );
+        //控制購買數量按鈕
+        $( '#quantityAdd' ).click( QuantityChange );
+        $( '#quantityReduce' ).click( QuantityChange );
+        //產品細節切換
+        $( '#btn-detail' ).click( DetailSwitch );
+        $( '#btn-SAndR' ).click( DetailSwitch );
+        //產品卡片
+        $(".card-figure").hover(function () {
+            $(this).find(".btnWL").addClass("showdown");
+            $(this).find(".btnQV").addClass("hoverin");
+            $(this).find(".btnATC").addClass("hoverin");
+        }, function () {
+            $(this).find(".btnWL").removeClass("showdown");
+            $(this).find(".btnQV").removeClass("hoverin");
+            $(this).find(".btnATC").removeClass("hoverin");
+        });
+        //vue binding
+        BindingVue();
+        isWish = @ViewBag.isWish;
+        WishOrNot(@ViewBag.isWish);
+        //加入wishlist
+        $(".btnWL").click(function (e) {
+            e.preventDefault();
+            var item = $(this);
+            var id = item.parents("figure").attr("id");
+                if (id == null) {
+                    id = @ViewBag.ProductID;
+                }
+            var isRed = item.find("i").attr("style") == null ? false : true;
+            if (isRed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/DeleteWish",
+                    data: {
+                        MemberID: 0,
+                        ProductID: id
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        if (response) {
+                            alert('Delete wishlist');
+                            item.find("i").removeAttr("style");
+                            item.find("span").text("Add to Wish List");
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/AddWish",
+                    data: {
+                        MemberID:0,
+                        ProductID:id
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        if (response) {
+                            alert('Add to wishlist');
+                            item.find("i").attr("style", "color:red");
+                            item.find("span").text("Delete Wish List");
+                        }
+                    }
+                } );
+            }
         } );
 
         function GetBtnId( btn ) {
             //取得傳入btn的id
             let btnId = $( btn ).attr( 'id' );
             return btnId;
+        }
+
+        function WishOrNot(iswish) {
+            if (iswish) {
+                $("#AWL").find("i").attr("style", "color:red");
+                $("#AWL").find("span").text("Delete Wish List");
+            }
         }
 
         //增加購買數量
@@ -735,17 +794,6 @@
             } else {
                 $( '#detail' ).hide();
                 $( '#SAndR' ).show();
-            }
-        }
-
-        //切換產品大圖
-        function PicChange() {
-            console.log( this );
-            // 大小圖片的src
-            let smallSrc = $( this ).attr( 'src' );
-            let largeSrc = $( '#LargePic' ).attr( 'src' );
-            if ( smallSrc != largeSrc ) {
-                $( '#LargePic' ).attr( 'src', smallSrc );
             }
         }
 
@@ -783,5 +831,48 @@
             }
         }
 
+        //新增購物車 ajax
+        function AddCart() {
+            let productId = $( '#ProductID' ).val();
+            //let memberId = $( '#MemberID' ).val();
+            let quantity = $( '#quantity' ).val();
+
+            $.ajax( {
+                type: "POST",
+                //先確認目前的訂單狀況 再接AddCart的action
+                url: "/FrontEnd/CheckOrder",
+                data: { /*MemberID: memberId,*/ ProductID: productId, Quantity: quantity },
+                dataType: "text",
+                success: function ( response ) {
+                    alert("abc");
+                }
+            } );
+        }
+    </script>
+}
+@section Vuejs{
+    <script>
+        function BindingVue() {
+            var picVue = new Vue({
+                el: '#ProductPics',
+                data: { pics:  @Html.Raw(ViewBag.ProductUrl)},
+                method: {
+                    picdhange(e) {
+                        // 大小圖片的src
+                        let smallSrc = $(e.currentTarget).attr( 'src' );
+                        let largeSrc = $( '#LargePic' ).attr( 'src' );
+                        if ( smallSrc != largeSrc ) {
+                            $( '#LargePic' ).attr( 'src', smallSrc );
+                        }
+                    }
+                }
+            });
+
+            let LargePicVue = new Vue({
+                el: '#LargePic',
+                data: { pics:  @Html.Raw(ViewBag.ProductUrl)}
+            });
+
+        }
     </script>
 }

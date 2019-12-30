@@ -1,22 +1,36 @@
-﻿@using vegetable.Models.ViewModels;
-@model IEnumerable<vegetable.Models.ViewModels.ProducetDetil>
+﻿@*@model IEnumerable<vegetable.Models.ViewModels.ProducetDetil>
 
 @{
     ViewBag.Title = "ProductList";
-    var data = new ProducetDetil();
 }
 
-<style>
-    .list-head {
-        padding-top:30px; 
-        padding-bottom:15px;
-    }
+<h2>ProductList</h2>
 
-    .list-head h3 {
-        font-weight:600;
-        /*color:#20b2ac;*/
-        color:#008b8b;
-    }
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitsInStock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PicUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </th>
+        <th></th>
+    </tr>
 
     .btn-right {
         text-align:right;
@@ -87,7 +101,7 @@
                 data: form,
                 contentType: false,
                 success: function (response) {
-                    
+
                 }
             });
             var fp = $("#fileupload").val().split("\\");
@@ -123,3 +137,5 @@
         })
     </script>
 }
+
+</table>*@
