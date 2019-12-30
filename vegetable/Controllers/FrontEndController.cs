@@ -736,9 +736,10 @@ namespace vegetable.Controllers
         }
 
         //一筆訂單的總價
-        //public int OrderPrice (memberId)
-        //{
-        
-        //}
+        public int GetOrderPrice (int MemberId)
+        {
+
+        }
+
     }
 }
