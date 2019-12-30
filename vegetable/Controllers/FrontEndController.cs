@@ -93,8 +93,8 @@ namespace vegetable.Controllers
             var JSONTO = allproducts.ToList();       
             foreach (ProductList p in JSONTO)
             {
-                //用viewbag丟json格式到view             
-                //判斷會員登入                         
+                //用viewbag丟json格式到view
+                //判斷會員登入
                 //if (rqstCookie != null)
                 //{
                 //    foreach (int id in wishproducts)
@@ -184,7 +184,14 @@ namespace vegetable.Controllers
         }
         public ActionResult MemberPageOrder ()
         {
-            return View();
+
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            var pageorder = from o in item.Orders
+                            where memberData.MemberID == o.MemberID
+                            select o;
+            return View(pageorder.ToList());
         }
         public ActionResult MemberPageOrderDetail ()
         {
@@ -194,7 +201,6 @@ namespace vegetable.Controllers
 
         public ActionResult ProductIndex (int id)
         {
-            //(小嫚更改)暫時把int? id改成 int id
             var isWish = "false";
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             if (rqstCookie!=null) 
@@ -286,7 +292,7 @@ namespace vegetable.Controllers
                                };
             return View(wishproducts.ToList());
         }
-        [HttpPost]
+    [HttpPost]
         public bool AddWish ([Bind(Include = "MemberID,ProductID")] WishList wish)
         {
             bool isSuccess = false;
@@ -693,6 +699,37 @@ namespace vegetable.Controllers
         public void UpdateCart (int cartId, int quantity)
         {
             orderDetail.UpdateCart(cartId, quantity);
+        }
+
+        public ActionResult CartItems ()
+        {
+            if (HttpContext.Request.Cookies.Get("myaccount") != null)
+            {
+                HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                CartServices cartServices = new CartServices();
+                OrderDetail []  products = cartServices.GetCartItems(memberData.MemberID);
+                return Json(products, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return null;
+            }
+           
+        }
+
+        //確認現在是否登入
+        public string CheckLoginApi ()
+        {
+            if (HttpContext.Request.Cookies.Get("myaccount") != null)
+            {
+                return "true";
+            }
+            else
+            {
+                return "false";
+            }
         }
     }
 }

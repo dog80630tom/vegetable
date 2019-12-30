@@ -359,6 +359,7 @@
     <Compile Include="Respository\MemberResp\Encryption.cs" />
     <Compile Include="Respository\MemberResp\initMember.cs" />
     <Compile Include="Respository\OrderDetailRepository.cs" />
+    <Compile Include="Services\CartServices.cs" />
     <Compile Include="Services\CategoryServices.cs" />
     <Compile Include="Services\MemberServices.cs" />
     <Compile Include="Services\PrductServices.cs" />
