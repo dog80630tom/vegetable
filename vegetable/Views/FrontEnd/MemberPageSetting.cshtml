@@ -124,6 +124,9 @@
         .breadcrumb-item.active a:hover {
             color: #b4b4b4;
         }
+            .disable {
+    pointer-events: none
+    }
 </style>
 
 
@@ -173,17 +176,17 @@
         </div>
     </div>
 
-    @using (Html.BeginForm("MemberPageSetting", "Members", "Post"))
+    @using (Html.BeginForm("MemberPageSetting", "FrontEnd", "Post"))
     {
         <div class="container">
             <div class="row">
                 <div class="col-6" style="margin-top:25px;">
                     <label>Last Name</label>
-                    @Html.TextBox("MemberName",Model.MemberName, new { @class = "form-input" })
+                    @Html.TextBox("MemberName", Model.MemberName, new { @class = "form-input" })
                 </div>
                 <div class="col-6" style="margin-top:25px;">
                     <label>Email Address</label>
-                    @Html.TextBox("MemberEmail", Model.MemberEmail, new { @class = "form-input", id = "userEmail" })
+                    @Html.TextBox("MemberEmail", Model.MemberEmail, new { @class = "form-input", id = "userEmail",  @readonly= "true"})
                 </div>
             </div>
 
@@ -191,17 +194,17 @@
 
                 <div class="col-6" style="margin-top:25px;">
                     <label>Password</label>
-                    @Html.TextBox("MemberPassword", "", new { @class = "form-input", id = "newpw", onchange = "checkpsw()" })
+                    @Html.TextBox("MemberPassword", "", new { @class = "form-input", id = "newpw", onchange = "checkpsw()",type="password" })
                 </div>
                 <div class="col-6" style="margin-top:25px;">
                     <label>Confirm Password</label>
-                    @Html.TextBox("MemberPassword", "", new { @class = "form-input", id = "confirmnewPw", onchange = "checkpsw()" })
+                    @Html.TextBox("MemberPassword", "", new { @class = "form-input", id = "confirmnewPw", onchange = "checkpsw()" ,type="password"})
                 </div>
             </div>
             <div class="row">
                 <div class="col-6" style="margin-top:25px;">
                     <label>Current Password</label>
-                    <input class="form-input" id="psw">
+                    <input class="form-input" id="psw" onchange="checkCurrentPsw()" type="password">
                 </div>
                 <div class="col-6" style="margin-top:25px;">
                     <label>Phone Number</label>
@@ -210,7 +213,7 @@
             </div>
             <div class="row" style="padding:15px">
                 <label class="mt-1 my-auto" id="pwStat" style="color:red">123</label>
-                <input type="submit" class="btn btn-outline-dark rounded-0 ml-auto" style="margin-top:25px" value="Update Details" id="UpdateMember">
+                <input type="submit" class="btn btn-outline-dark rounded-0 ml-auto disable" style="margin-top:25px;" value="Update Details" id="submitInfor">
             </div>
         </div>
     }
@@ -224,43 +227,75 @@
         var canSubmit = false;
         var confirmPsw = false;
         $(function () {
-            $("#UpdateMember").click(function () {
-                 var uname = $("#userEmail").val();
-                    var psw = $("#psw").val();
-                    $.ajax({
-                        type: "POST",
-                        url: "/Login",
-                        data: { uname, psw },
-                        success: function (back) {
-                            console.log('back', back);
-                            if (back == "1") {
-                                $("#pwStat").html("密碼正確");
-                                canSubmit = true;
-                            }
-                            else {
-                                $("#pwStat").html("密碼錯誤");
-                            }
-                        }
-                    });
-                return canSubmit;
-            });
-            checkpsw();
 
+            
+            checkpsw();
 
         });
          function checkpsw() {
                 console.log("檢查");
              if ($("#newpw").val() != $("#confirmnewPw").val()) {
-                 $("#pwStat").html("您輸入的新密碼不一致，請再次檢查");
+                 $("#pwStat").html("the new password you set is incorrect");
+                 confirmPsw = false;
              }
              else
              {
-                  $("#pwStat").html("您輸入的新密碼一致");
+                 $("#pwStat").html("");
                  confirmPsw = true;
              }
 
         }
 
+        function checkCurrentPsw()
+        {
+            if (confirmPsw) {
+                  var uname = $("#userEmail").val();
+                var psw = $("#psw").val();
+                callAjax(uname, psw);
+         
+
+            //canSubmit();
+
+            }
+            else {
+                 $("#pwStat").html("You have not set your new passsword yet");
+            }
+           
+        }
+
+        function IfCanSubmit() {
+            if (canSubmit) {
+                $('#submitInfor').removeClass("disable");
+            }
+        }
+
+        function callAjax(uname, psw)
+        {
+            console.log(uname + psw);
+             $.ajax({
+                type: "POST",
+                url: "FrontEnd/Login",
+                data: { uname, psw },
+                success: function (data) {
+                    console.log('back', data);
+                    if (data == "1") {
+                        $("#pwStat").html("Password correct");
+                        canSubmit = true;
+                                    IfCanSubmit();
+                    }
+                    else if (data == "3") {
+                        $("#pwStat").html("Password incorrect");
+                        canSubmit = false;
+                    }
+                        else if (data == "2") {
+                        $("#pwStat").html("2");
+                        canSubmit = false;
+                    }
+
+                }   
+             })
+            IfCanSubmit();
+        }
 
 
     </script>
