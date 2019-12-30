@@ -371,16 +371,16 @@ namespace vegetable.Controllers
             if (string.IsNullOrEmpty(code))
                 return Content("沒有收到 Code");
 
-            var token = isRock.LineLoginV21.Utility.GetTokenFromCode(code,
+            var token = Utility.GetTokenFromCodeLine(code,
                  "1653659088",
                  "27d426186987ed6e5d69cb7601129805",
-                 "https://vegetable20191216120019.azurewebsites.net/frontend/LineLogin");
+                 "https://vegetable20191216120019.azurewebsites.net/FrontEnd/LineLogin");
 
-            var UserInfoResult = isRock.LineLoginV21.Utility.GetUserProfile(token.access_token);
+            var UserInfoResult = Utility.GetUserInfoLine(token.access_token,token.id_token);
             // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
 
             int i = 0;
-            var email = UserInfoResult.statusMessage;
+            var email = UserInfoResult.email;
             var name = UserInfoResult.displayName;
             var password2 = UserInfoResult.userId;
             if (!item.Members.Any(x => x.MemberEmail == email))
