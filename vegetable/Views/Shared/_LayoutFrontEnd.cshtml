@@ -7,10 +7,14 @@
     <title>LOBEDA</title>
     @Styles.Render("~/Content/vegetable")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>-->
+    <script src="~/Scripts/vue.js"></script>
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -18,8 +22,9 @@
             font-weight: 600;
             letter-spacing: 1.1px;
         }
+
         .container {
-            max-width:1200px;
+            max-width: 1200px;
         }
 
         .icon {
@@ -53,8 +58,14 @@
         }
 
             .btn-outline-dark:hover {
-                color: white;
-                background: #000;
+                color: white !important;
+                background: #000 !important;
+                border-color: #000;
+            }
+
+            .btn-outline-dark:active, .btn-outline-dark:focus {
+                box-shadow: none !important;
+                outline: none !important;
                 border-color: #000;
             }
 
@@ -93,7 +104,7 @@
             z-index: 99;
             display: none;
             opacity: 0;
-            font-size:11px;
+            font-size: 11px;
         }
 
         .bg-menu {
@@ -558,7 +569,7 @@
             margin: 0% auto 10% auto;
             border: 1px solid #888;
             width: 550px;
-            height: 500px;
+            height: 580px;
             overflow: auto;
         }
 
@@ -601,12 +612,12 @@
 
             <div class="collapse navbar-collapse p-0 justify-content-between" id="navbarNavDropdown">
                 <ul class="navbar-nav p-0">
-                    <li class="nav-item active border-right  p-0">
-                        <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
-                    </li>
-
                     @if (Request.Cookies["myaccount"] != null)
                     {
+                        <li class="nav-item active border-right  p-0">
+                            <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("MemberPageOrder", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
+                        </li>
+
                         if ((string)TempData["roles"] == "Client")
                         {
                             <li class="nav-item active">
@@ -628,6 +639,9 @@
                     }
                     else
                     {
+                        <li class="nav-item active border-right  p-0">
+                            <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
+                        </li>
                         <li class="nav-item active">
                             @*<a href="@Url.Action("Login", "FrontEnd")" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>*@
                             <a id="btn_login" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>
@@ -659,15 +673,15 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark mx-3 navTop" href="#"><span class="dot">WISH LISTS</span></a>
+                        <a class="nav-link text-dark mx-3 navTop" href="/FrontEnd/MemberPageWishlist"><span class="dot">WISH LISTS</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark   mx-3 navTop" href="#"><span class="dot">CART</span><i class="far fa-clipboard icon ml-3"></i></a>
+                        <a class="nav-link text-dark   mx-3 navTop" href="/Cart"><span class="dot">CART</span><i class="far fa-clipboard icon ml-3"></i></a>
                     </li>
                 </ul>
             </div>
         </nav>
-        @*<div id="ProductSidenav" class="sidenav">
+        <div id="ProductSidenav" class="sidenav">
             <a href="#" id="Close-ProductSideNav" class="closebtn">&times</a>
             <ul class="p-0">
                 <li v-for="c1 in categories" class="d-block">
@@ -692,7 +706,7 @@
                     </ul>
                 </li>
             </ul>
-        </div>*@
+        </div>
         <div class="lock-background"></div>
         @*---------------------------會員登入SideBar--------------------------------------------------------------------------------------------------------*@
         <div id="LoginSidenav" class="sidenav">
@@ -716,7 +730,7 @@
             </ul>
         </div>
         @*-----------------------------content Category Bar-----------------------------------------------------------------------------*@
-        <div class="container" id="maincategory">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOBEDA</a></div>
             </div>
@@ -746,124 +760,129 @@
                 </a>
             </div>
         </div>
-        @RenderBody()
-        @*------------------------footer------------------------------------------------------------------------- *@
-        <footer id="footer" class=" bg-footer py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-6 col-md-3 col-xl-2">
-                        <ul class="footer-list">
+    </div>
+    <div>
+    @RenderBody()
+    </div>
+    @*------------------------footer------------------------------------------------------------------------- *@
+    <footer id="footer" class=" bg-footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 col-xl-2">
+                     <ul class="footer-list">
                             <li>SHOP</li>
-                            @*<li v-for="c1 in categories"><a :href=`/Products/${c1.name}` class="dot">{{c1.name}}</a></li>*@
+                            <li><a href="/FrontEnd/Index" class="dot">Home</a></li>
+                            <li><a href="/Products/new" class="dot">new</a></li>
+                            <li><a href="/Products/Earrings" class="dot">Earrings</a></li>
+                            <li><a href="/Products/Necklaces" class="dot">Necklaces</a></li>
+                            <li><a href="/Products/Bracelets" class="dot">Bracelets</a></li>
+                            <li><a href="/Products/Rings" class="dot">Rings</a></li>
+                            <li><a href="/Products/Other Accessories" class="dot">Other Accessories</a></li>
+                            <li><a href="/Products/Sale" class="dot">Sale</a></li>
                         </ul>
-                    </div>
-                    <div class="col-6 col-md-3 col-xl-2">
-                        <ul class="footer-list">
-                            <li>ABOUT US</li>
-                            <li><a href="#" class="dot">About us</a></li>
-                            <li><a href="#" class="dot">Style Blog</a></li>
-                            <li><a href="#" class="dot">Contact a Stylist</a></li>
-                            <li><a href="#" class="dot">Meet with a Stylist</a></li>
-                            <li><a href="#" class="dot">Visit Us</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-3 col-xl-2">
-                        <ul class="footer-list">
-                            <li>CUSTOMER SERVICE</li>
-                            <li><a href="#" class="dot">Contact Us</a></li>
-                            <li><a href="#" class="dot">Shipping</a></li>
-                            <li><a href="#" class="dot">Returns Policy</a></li>
-                            <li><a href="#" class="dot">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-3 col-xl-2">
-                        <ul class="footer-list">
-                            <li>FURTHER INFO</li>
-                            <li><a href="#" class="dot">Sitemap</a></li>
-                            <li><a href="#" class="dot">Affiliates</a></li>
-                            <li><a href="#" class="dot">Wholesale Application</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <ul class="footer-list">
-                            <li>STAY CONNECTED</li>
-                            <li>
-                                <a href="https://www.instagram.com/lovodashop/" target="_blank"><i class="fab fa-instagram mr-4 bg-footer footericon icon"></i></a>
-                                <a href="https://www.facebook.com/LovodaShop/" target="_blank"><i class="fab fa-facebook-f mr-4 bg-footer footericon icon"></i></a>
-                                <a href="https://www.pinterest.com/lovodashop/" target="_blank"><i class="fab fa-pinterest mr-4 bg-footer footericon icon"></i></a>
-                                <a href="https://twitter.com/LovodaShop" target="_blank"><i class="fab fa-twitter mr-4 bg-footer footericon icon"></i></a>
-                            </li>
-                            <li>FEATURED ON</li>
-                            <li>
-                                <img src="~/Content/images/asseenonwhite.png" width="370" alt="Alternate Text" />
-                            </li>
-                        </ul>
-                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <ul class="footer-list">
+                        <li>ABOUT US</li>
+                        <li><a href="#" class="dot">About us</a></li>
+                        <li><a href="#" class="dot">Style Blog</a></li>
+                        <li><a href="#" class="dot">Contact a Stylist</a></li>
+                        <li><a href="#" class="dot">Meet with a Stylist</a></li>
+                        <li><a href="#" class="dot">Visit Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <ul class="footer-list">
+                        <li>CUSTOMER SERVICE</li>
+                        <li><a href="#" class="dot">Contact Us</a></li>
+                        <li><a href="#" class="dot">Shipping</a></li>
+                        <li><a href="#" class="dot">Returns Policy</a></li>
+                        <li><a href="#" class="dot">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
+                    <ul class="footer-list">
+                        <li>FURTHER INFO</li>
+                        <li><a href="#" class="dot">Sitemap</a></li>
+                        <li><a href="#" class="dot">Affiliates</a></li>
+                        <li><a href="#" class="dot">Wholesale Application</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                    <ul class="footer-list">
+                        <li>STAY CONNECTED</li>
+                        <li>
+                            <a href="https://www.instagram.com/lovodashop/" target="_blank"><i class="fab fa-instagram mr-4 bg-footer footericon icon"></i></a>
+                            <a href="https://www.facebook.com/LovodaShop/" target="_blank"><i class="fab fa-facebook-f mr-4 bg-footer footericon icon"></i></a>
+                            <a href="https://www.pinterest.com/lovodashop/" target="_blank"><i class="fab fa-pinterest mr-4 bg-footer footericon icon"></i></a>
+                            <a href="https://twitter.com/LovodaShop" target="_blank"><i class="fab fa-twitter mr-4 bg-footer footericon icon"></i></a>
+                        </li>
+                        <li>FEATURED ON</li>
+                        <li>
+                            <img src="~/Content/images/asseenonwhite.png" width="370" alt="Alternate Text" />
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="bg-footer text-light py-4 text-center">
-                <div class="container">
-                    <p class="footertext mb-5">
-                        <i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.
-                    </p>
-                    <div class="row justify-content-center my-5">
-                        <a href="" class=" text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/visa-pay-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/master-card-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/american-express-logo.png" alt="Alternate Text" />
-                        </a>
-                        <a href="" class="text-white mr-3 mt-2 text-white">
-                            <img src="~/Content/images/discover-logo-of-pay-system.png" alt="Alternate Text" />
-                        </a>
-                    </div>
+        </div>
+        <div class="bg-footer text-light py-4 text-center">
+            <div class="container">
+                <p class="footertext mb-5">
+                    <i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.
+                </p>
+                <div class="row justify-content-center my-5">
+                    <a href="" class=" text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/visa-pay-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/master-card-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/american-express-logo.png" alt="Alternate Text" />
+                    </a>
+                    <a href="" class="text-white mr-3 mt-2 text-white">
+                        <img src="~/Content/images/discover-logo-of-pay-system.png" alt="Alternate Text" />
+                    </a>
                 </div>
             </div>
-        </footer>
-        @*-----------登入modal-------------------------------------------------------*@
-        <div class="modal fade" id="loginModal" style="z-index:1000000000">
-            <div class="modal-dialog">
-                <div class="modal-content animate  rounded-0 m-0">
-                    <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
-                    <div class="container mt-5">
-                        <div class="row px-5">
-                            <div class="col-8 mx-auto justify-content-center">
-                                <h4><b>Sign In</b></h4>
-                                <label for="uname"><b>Email Address<span class="text-danger">*</span></b></label>
-                                <input class="w-100" type="text" placeholder="Enter Email" name="uname" id="loginId" required>
-                                <label for="psw"><b>Password<span class="text-danger">*</span></b></label>
-                                <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
-                                <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
-                                <button class="btn-outline-dark w-100 btn-block" id="gotoRegist">REGISTER</button>
-                                <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&https://localhost:44394&redirect_uri=https://localhost:44394/FrontEnd/GoogleLogin&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="  btn btn-outline-danger  fa-square-o"><i class="fab fa-google-plus fa-3x"></i></a>
+        </div>
+    </footer>
+    @*-----------登入modal-------------------------------------------------------*@
+    <div class="modal fade" id="loginModal" style="z-index:1000000000">
+        <div class="modal-dialog">
+            <div class="modal-content animate  rounded-0 m-0">
+                <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
+                <div class="container mt-5">
+                    <div class="row px-5">
+                        <div class="col-8 mx-auto justify-content-center">
+                            <h4><b>Sign In</b></h4>
+                            <label for="uname"><b>Email Address<span class="text-danger">*</span></b></label>
+                            <input class="w-100" type="text" placeholder="Enter Email" name="uname" id="loginId" required>
+                            <label for="psw"><b>Password<span class="text-danger">*</span></b></label>
+                            <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
+                            <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
+                            <button class="btn-outline-dark w-100 btn-block" id="gotoRegist">REGISTER</button>
+                            <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&https://localhost:44394&redirect_uri=https://localhost:44394/FrontEnd/GoogleLogin&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="  btn btn-outline-danger  fa-square-o"><i class="fab fa-google-plus fa-3x"></i></a>
 
-                                <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1653659088&redirect_uri=https://localhost:44394/frontend/LineLogin&scope=openid%20profile&state=abcde" class="  btn btn-outline-success  fa-square-o">
-                                    <i class="fab fa-line fa-3x"></i>
-                                </a>
+                            <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1653659088&redirect_uri=https://localhost:44394/frontend/LineLogin&scope=openid%20profile&state=abcde" class="  btn btn-outline-success  fa-square-o">
+                                <i class="fab fa-line fa-3x"></i>
+                            </a>
 
-                                <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
-                                <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
-                            </div>
+                            <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
+                            <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+    
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
-    @RenderSection("viewJquery", required: false)
-
     <script>
         var btn;
         function openNav(selector) {
@@ -881,7 +900,6 @@
             console.log('close', this);
             $('#main').css('margin-left', '0px');
             $('.lock-background').css('display', 'none');
-            $('body').css('overflow', 'auto');
         }
         //function openNavLogin() {
         //    $('#LoginSidenav').css('margin-left', '0px');
@@ -898,7 +916,7 @@
         }
         function Binding() {
             var vm = new Vue({
-                el: '#maincategory',
+                el: '#main',
                 data: {
                     categories: []
 
@@ -908,12 +926,8 @@
                     var settings = {
                         "async": true,
                         "crossDomain": true,
-                        "url": "https://localhost:44394/api/CategoriesApi",
+                        "url": "/api/CategoriesApi",
                         "method": "GET",
-                        "headers": {
-                            "cache-control": "no-cache",
-                            "Postman-Token": "c87fd111-8d9c-48a4-9ce6-73ac1c87b509"
-                        }
                     }
                     $.ajax(settings).done(function (response) {
                         console.log(response);
@@ -921,29 +935,55 @@
                     });
                 }
             });
-
         }
-        $(function () {
-            Binding();
-            $('#btn-slide').click(function () {
-                openNav('#ProductSidenav');
-            });
-            $(".lock-background").on('click', unlock);
-            $('#btn-slide-login').click(function () { openNav('#LoginSidenav') });
-            //$('#btn-slide-login').click(openNav);
-            $('#Close-ProductSideNav').click(function () { closeNav('#ProductSidenav') });
-            $('#Close-LoginSideNav').click(function () { closeNav('#LoginSidenav') });
-            //$('#btn-slide-login').click(openNav);
+        Binding();
+    </script>
+    @RenderSection("Vuejs", required: false)
+    <script>
+        $('#btn-slide').click(function () {
+            openNav('#ProductSidenav');
+        });
+        $(".lock-background").on('click', unlock);
+        $('#btn-slide-login').click(function () { openNav('#LoginSidenav') });
+        //$('#btn-slide-login').click(openNav);
+        $('#Close-ProductSideNav').click(function () { closeNav('#ProductSidenav') });
+        $('#Close-LoginSideNav').click(function () { closeNav('#LoginSidenav') });
+        //$('#btn-slide-login').click(openNav);
 
 
-            $("#btn_login").click(function () {
-                $('#loginModal').modal('show');
-            });
-            $("#gotoRegist").click(function () {
-                location.href = "/FrontEnd/MemberRegist"
-            });
+        $("#btn_login").click(function () {
+            $('#loginModal').modal('show');
+        });
+        $("#gotoRegist").click(function () {
+            location.href = "/FrontEnd/MemberRegist"
+        });
 
-            $("#loginConfirm").click(function () {
+        $("#loginConfirm").click(function () {
+            var uname = $("#loginId").val();
+            var psw = $("#loginPsw").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/FrontEnd/Login",
+                data: { uname, psw },
+                success: function (back) {
+                    console.log('back', back);
+                    if (back == "1") {
+                        $("#loginStatus").html("sign in suceesfully");
+                        location.reload()
+                    }
+                    else if (back == "2") {
+                        $("#loginStatus").html("This account doesn't exist");
+                    }
+                    else {
+                        $("#loginStatus").html("Your password is incorrect. Please try again.");
+                    }
+                }
+            });
+        });
+
+        $("#loginId").keydown(function (event) {
+            if (event.which == 13) {
                 var uname = $("#loginId").val();
                 var psw = $("#loginPsw").val();
 
@@ -955,7 +995,8 @@
                         console.log('back', back);
                         if (back == "1") {
                             $("#loginStatus").html("sign in suceesfully");
-                            location.href = "/FrontEnd/MemberPageAddress"
+                            location.reload()
+
                         }
                         else if (back == "2") {
                             $("#loginStatus").html("This account doesn't exist");
@@ -963,34 +1004,51 @@
                         else {
                             $("#loginStatus").html("Your password is incorrect. Please try again.");
                         }
-
                     }
-
                 });
-            });
-
+            }
         });
+
+        $("#loginPsw").keydown(function (event) {
+            if (event.which == 13) {
+                var uname = $("#loginId").val();
+                var psw = $("#loginPsw").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/Login",
+                    data: { uname, psw },
+                    success: function (back) {
+                        console.log('back', back);
+                        if (back == "1") {
+                            $("#loginStatus").html("sign in suceesfully");
+                            location.reload()
+                        }
+                        else if (back == "2") {
+                            $("#loginStatus").html("This account doesn't exist");
+                        }
+                        else {
+                            $("#loginStatus").html("Your password is incorrect. Please try again.");
+                        }
+                    }
+                });
+            }
+        });
+
+
         $("#searchBTN").click(function () {
-            console.log("23234");
             var condition = $("#search").val();
             window.location.href = "/Products/" + condition;
-            //var SearchCondition  = {
-            //    "page": 1,
-            //    "Condition":condition
-            //}
+        });
 
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/frontend/ShowProducts",
-            //    data: { :SearchCondition },
-            //    success: function () {
-
-
-            //    }
-
-            //});
+        $("#search").keydown(function (event) {
+            if (event.which == 13) {
+                var condition = $("#search").val();
+                window.location.href = "/Products/" + condition;
+            }
         });
     </script>
+    @RenderSection("viewJquery", required: false)
     @RenderSection("Endscripts", required: false)
 </body>
 </html>

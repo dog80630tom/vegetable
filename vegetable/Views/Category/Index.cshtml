@@ -4,52 +4,233 @@
     ViewBag.Title = "分類管理";
 }
 
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 <div class="content-title mx-auto" style="width:75vw !important">
     <h2>分類管理</h2>
 </div>
-<table class="table mx-auto" style="width:75vw !important">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryPic)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryDescription)
-            </th>
-            <th class="text-right">
-                @Html.ActionLink("Create New", "Create", null, new { @class = "btn-mytype btn-mycreatetype mr-2" })
-            </th>
-        </tr>
-    </thead>
-    
-    <tbody>
-        @foreach (var item in Model)
-        {
+@*<table class="table mx-auto" style="width:75vw !important">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryPic)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryDescription)
+                </th>
+                <th class="text-right">
+                    @Html.ActionLink("Create New", "Create", null, new { @class = "btn-mytype btn-mycreatetype mr-2" })
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.CategoryName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CategoryPic)
-                </td>
+                @Html.DisplayFor(modelItem => item.CategoryPic)
+            </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CategoryDescription)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParentID)
+                </td>
                 <td class="text-right">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID } , new { @class = "btn-mytype btn-myedittype mr-2" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.CategoryID } , new { @class = "btn-mytype btn-mydetailtype mr-2" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID } , new { @class = "btn-mytype btn-mydeletetype mr-2" })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }, new { @class = "btn-mytype btn-myedittype mr-2" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CategoryID }, new { @class = "btn-mytype btn-mydetailtype mr-2" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID }, new { @class = "btn-mytype btn-mydeletetype mr-2" })
                 </td>
             </tr>
-        }
-    </tbody>
-    
+            }
+        </tbody>
 
-</table>
+
+    </table>*@
+
+<div class="custom-tree-container" id="app">
+    <div class="block">
+        <el-tree :data="catrgoriesdata"
+                 show-checkbox
+                 node-key="id"
+                 @*default-expand-all*@
+                 :expand-on-click-node="false">
+            <span class="custom-tree-node" slot-scope="{ node, data }">
+                <span>{{ node.label }}</span>
+                <span>
+                    <el-row>
+                        <el-button type="success"
+                                   size="medium"
+                                   icon="el-icon-edit"
+                                   @@click="() => append(data)">
+                            新增
+                        </el-button>
+                        <el-button type="danger"
+                                   size="medium"
+                                   icon="el-icon-delete"
+                                   @@click="() => remove(node, data)">
+                            刪除
+                        </el-button>
+                    </el-row>
+
+                </span>
+            </span>
+        </el-tree>
+    </div>
+    <el-dialog title="提示"
+               :visible.sync="dialogVisible"
+               width="30%"
+               :before-close="handleClose">
+        <el-form ref="form" :model="form" label-width="150px">
+            <el-form-item label="CategoryName">
+                <el-input v-model="form.CategoryName"></el-input>
+            </el-form-item>
+            <el-form-item label="CategoryDescription">
+                <el-input v-model="form.CategoryDescription"></el-input>
+            </el-form-item>
+</el-form>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @@click="dialogVisible = false">取消</el-button>
+                    <el-button type="primary" @@click="dialogVisible = false">確定</el-button>
+                </span>
+    </el-dialog>
+
+</div>
+
+<script>
+    let id = 1000;
+    //var catrgoriesdata = [{
+    //    id: 1,
+    //    label: '一级 1',
+    //    children: [{
+    //        id: 4,
+    //        label: '二级 1-1',
+    //        children: [{
+    //            id: 9,
+    //            label: '三级 1-1-1'
+    //        }, {
+    //            id: 10,
+    //            label: '三级 1-1-2'
+    //        }]
+    //    }]
+    //}, {
+    //    id: 2,
+    //    label: '一级 2',
+    //    children: [{
+    //        id: 5,
+    //        label: '二级 2-1'
+    //    }, {
+    //        id: 6,
+    //        label: '二级 2-2'
+    //    }]
+    //}, {
+    //    id: 3,
+    //    label: '一级 3',
+    //    children: [{
+    //        id: 7,
+    //        label: '二级 3-1'
+    //    }, {
+    //        id: 8,
+    //        label: '二级 3-2'
+    //    }]
+    //}];
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            catrgoriesdata: [],
+            dialogVisible: false,
+            form: {
+                CategoryName: '',
+                CategoryDescription:''
+
+            }
+        },
+        mounted: function () {
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "/api/CategoriesApi",
+                "method": "GET",
+            }
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                vm.catrgoriesdata = response;
+            });
+        },
+        
+        methods: {
+            append(data) {
+                this.dialogVisible = true;
+                console.log(data)
+                let item = {
+                    "CategoryName": data.form.CategoryName,
+                    "ParentID": data.id,
+                    "CategoryDescription": data.form.CategoryDescription
+            }
+                $.ajax({
+	                    type: 'POST',
+	                    url:'/api/CategoriesApi',
+	                    data: item,
+	                    dataType:'json',
+                    success: function (response) {
+                        alert('成功新增資料');
+                    }
+                    });
+                const newChild = {
+                    id: id++,
+                    label: 'testtest',
+                    children: []
+                };
+                if (!data.children) {
+                    this.$set(data, 'children', []);
+                }
+                data.children.push(newChild);
+
+
+            },
+            remove(node, data) {
+                const parent = node.parent;
+                const children = parent.data.children || parent.data;
+                const index = children.findIndex(d => d.id === data.id);
+                children.splice(index, 1);
+            },
+             handleClose(done) {
+                    this.$confirm('確認關閉？')
+                    .then(_ => {
+                                done();
+                                })
+                    .catch(_ => {});
+                    }
+             }
+        
+    });
+
+
+</script>
+
+<style>
+    .custom-tree-node {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 20px;
+        padding-right: 8px;
+    }
+</style>
 
 
 <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="CanNotDeleteCategory" aria-hidden="true">
