@@ -340,7 +340,7 @@
                             <a href="#" class="btnWL grid-view">
                                 <i class="far fa-heart" style = "color:red"></i>
                             </a>
-                            <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
+                            <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view" onclick="AddCart()"><i class="fa fa-heart-o"></i>Add to Cart</a>
                             <a href="#" class="btnQV quickview">Quick view</a>
                         </div>
                     </div>
@@ -368,17 +368,39 @@
 @section viewJquery{
     <script>
 
-            $(".card-figure").hover(function () {
-                $(this).find(".btnWL").addClass("showdown");
-                $(this).find(".btnQV").addClass("hoverin");
-                $(this).find(".btnATC").addClass("hoverin");
-            }, function () {
-                $(this).find(".btnWL").removeClass("showdown");
-                $(this).find(".btnQV").removeClass("hoverin");
-                $(this).find(".btnATC").removeClass("hoverin");
-            });
+        $(".card-figure").hover(function () {
+            $(this).find(".btnWL").addClass("showdown");
+            $(this).find(".btnQV").addClass("hoverin");
+            $(this).find(".btnATC").addClass("hoverin");
+        }, function () {
+            $(this).find(".btnWL").removeClass("showdown");
+            $(this).find(".btnQV").removeClass("hoverin");
+            $(this).find(".btnATC").removeClass("hoverin");
+        });
 
-            $(".card-image").hover(function () {
+        $(".deleteWish,.btnWL").click(function (e) {
+
+            e.preventDefault();
+            //var id = $(this).parent().parent().parent().attr("id");
+            var id = $(this).parents("figure").attr("id");
+            $.ajax({
+                type: "POST",
+                url: "/FrontEnd/DeleteWish",
+                data: {
+                    MemberID: 0,
+                    ProductID: id
+                },
+                dataType: "text",
+                success: function (response) {
+                    if (response) {
+                        alert('Delete wishlist')  
+                        $(`#${id}`).parent().remove();
+                    }
+                }
+            });               
+        });
+
+        $(".card-image").hover(function () {
             $(this).attr("style", "opacity:0.5");
             var val = $(this).attr("src");
             $(this).attr("src", $(this).attr("value"));
@@ -388,42 +410,23 @@
             var val = $(this).attr("src");
             $(this).attr("src", $(this).attr("value"));
             $(this).attr("value", val);
-        });      
+        });
 
-            $(".deleteWish,.btnWL").click(function (e) {
+        function AddCart() {
+            var id = $(this).parents("figure").attr("id");
+            let quantity = 1;
 
-                e.preventDefault();
-                //var id = $(this).parent().parent().parent().attr("id");
-                var id = $(this).parents("figure").attr("id");
-                $.ajax({
-                    type: "POST",
-                    url: "/FrontEnd/DeleteWish",
-                    data: {
-                        MemberID: 0,
-                        ProductID: id
-                    },
-                    dataType: "text",
-                    success: function (response) {
-                        if (response) {
-                            alert('Delete wishlist')  
-                            $(`#${id}`).parent().remove();
-                        }
-                    }
-                });               
-            });
-            $(this).remove(".card-figure");
-            $(".card-image").hover(function () {
-                $(this).attr("style", "opacity:0.5");
-                var val = $(this).attr("src");
-                $(this).attr("src", $(this).attr("value"));
-                $(this).attr("value", val);
-            }, function () {
-                $(this).attr("style", "opacity:0.5");
-                var val = $(this).attr("src");
-                $(this).attr("src", $(this).attr("value"));
-                $(this).attr("value", val);
-            });
-        
+            $.ajax( {
+                type: "POST",
+                //先確認目前的訂單狀況 再接AddCart的action
+                url: "/FrontEnd/CheckOrder",
+                data: { ProductID: id, Quantity: quantity },
+                dataType: "text",
+                success: function ( response ) {
+                    alert("Add to Cart Success!");
+                }
+            } );
+        }
 
     </script>
 }
