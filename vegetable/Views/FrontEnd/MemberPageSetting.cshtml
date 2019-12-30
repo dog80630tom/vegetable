@@ -234,33 +234,27 @@
                         success: function (back) {
                             console.log('back', back);
                             if (back == "1") {
-                                $("#pwStat").html("密碼正確");
+                                $("#pwStat").html('Password is correct.');
                                 canSubmit = true;
                             }
                             else {
-                                $("#pwStat").html("密碼錯誤");
+                                $("#pwStat").html('Password is not correct.');
                             }
                         }
                     });
                     return canSubmit;
                 });
-
-
             });
             function checkpsw() {
                 console.log("檢查");
                 if ($("#newpw").val() != $("#confirmnewPw").val()) {
-                    $("#pwStat").html("您輸入的新密碼不一致，請再次檢查");
+                    $("#pwStat").html('The new passwords you enter must be the same.');
                 }
                 else {
-                    $("#pwStat").html("您輸入的新密碼一致");
+                    $("#pwStat").html('The new passwords you enter are the same.');
                     confirmPsw = true;
                 }
-
             }
-
-
-
         </script>
     }
 

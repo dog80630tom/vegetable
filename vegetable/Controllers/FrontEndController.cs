@@ -83,7 +83,7 @@ namespace vegetable.Controllers
                               where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
                               select new ProductList { 
                                   ProductID = p.ProductID,
-                                  CategoryID = p.CategoryID,
+                                  CategoryName = c.CategoryName,
                                   ProductName = p.ProductName,
                                   ProductDescription = p.ProductDescription,
                                   UnitsInStock = p.UnitsInStock,
@@ -126,16 +126,16 @@ namespace vegetable.Controllers
                     }
                     if (isWish)
                     {
-                        ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
+                        ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryName:'" + p.CategoryName + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
                     }
                     else
                     {
-                        ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                        ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryName:'" + p.CategoryName + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                     }
                 }
                 else
                 {
-                    ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                    ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryName:'" + p.CategoryName + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                 }
             }
                 ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
@@ -146,11 +146,14 @@ namespace vegetable.Controllers
         public string ProductQuickView(int id)
         {
             Product product = item.Products.Find(id);
+            var categoryname = (from c in item.Categories
+                               where c.CategoryID == product.CategoryID
+                               select c.CategoryName).FirstOrDefault();
             PicDetail picDetail = item.PicDetails.Find(id);
             var currentitem = new ProductList
             {
                 ProductID = product.ProductID,
-                CategoryID = product.CategoryID,
+                CategoryName = categoryname,
                 ProductName = product.ProductName,
                 ProductDescription = product.ProductDescription,
                 UnitsInStock = product.UnitsInStock,
@@ -277,13 +280,15 @@ namespace vegetable.Controllers
             var wishproducts = from p in item.Products
                                join w in item.WishLists
                                on p.ProductID equals w.ProductID
+                               join c in item.Categories
+                               on p.CategoryID equals c.CategoryID
                                join pd in item.PicDetails
                                on p.ProductID equals pd.ProductID
                                where memberData.MemberID == w.MemberID
                                select new ProductList
                                {
                                    ProductID = p.ProductID,
-                                   CategoryID = p.CategoryID,
+                                   CategoryName = c.CategoryName,
                                    ProductName = p.ProductName,
                                    ProductDescription = p.ProductDescription,
                                    UnitsInStock = p.UnitsInStock,
