@@ -545,6 +545,7 @@
             background-color: rgb(0, 0, 0);
             background-color: rgba(0, 0, 0, 0.4);
             padding-top: 60px;
+            padding-right:0 !important;
         }
 
             .modal label {
@@ -630,7 +631,7 @@
                         else
                         {
                             <li class="nav-item active">
-                                <a href="@Url.Action("Product", "BackEnd")" class="nav-link text-dark mx-3 navTop">前往後台</a>
+                                <a href="@Url.Action("Index", "Home")" class="nav-link text-dark mx-3 navTop">前往後台</a>
                             </li>
                             <li class="nav-item">
                                 <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
@@ -999,8 +1000,9 @@
                         console.log('back', back);
                         if (back == "1") {
                             $("#loginStatus").html("sign in suceesfully");
-                            location.reload()
-
+                            //location.href = "/FrontEnd/MemberPageOrder"
+                            $('#loginModal').modal('hide');
+                            location.reload();
                         }
                         else if ( back == "2" ) {
                             $( "#loginStatus" ).html( "This account doesn't exist" );

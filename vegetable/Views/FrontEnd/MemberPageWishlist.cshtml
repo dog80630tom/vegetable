@@ -3,370 +3,370 @@
     ViewBag.Title = "WishList";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
-
-<style>
-    nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
-        background: #fff;
-        position: relative;
-        text-decoration: none !important;
-    }
-
-
-
-    nav.navBar--sub ul.navBar-section li.navBar-item a {
-        font-size: 13px;
-        font-weight: 700;
-        display: block;
-        display: table-cell;
-        padding: 15px 30px 3px;
-        transition: background .3s ease 0s;
-        vertical-align: middle;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-        color: #000;
-        border: 1px solid #e5e5e5;
-        background: #f7f8f9;
-        text-decoration: none !important;
-        float: left;
-        height: 51.6px;
-    }
-
-    .navBar-section {
-        list-style-type: none;
-    }
+@section styles{
+    <style>
+        nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
+            background: #fff;
+            position: relative;
+            text-decoration: none !important;
+        }
 
 
-    .btn.btn-checkout, .btn.btn-checkout:hover {
-        border-color: #000;
-        background: #000;
-    }
 
-    .btn.btn-checkout {
-        max-width: 270px;
-        padding-top: 10px;
-        color: #fff;
-    }
+        nav.navBar--sub ul.navBar-section li.navBar-item a {
+            font-size: 13px;
+            font-weight: 700;
+            display: block;
+            display: table-cell;
+            padding: 15px 30px 3px;
+            transition: background .3s ease 0s;
+            vertical-align: middle;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #000;
+            border: 1px solid #e5e5e5;
+            background: #f7f8f9;
+            text-decoration: none !important;
+            float: left;
+            height: 51.6px;
+        }
 
-    .form-input, .form-select {
-        border-style: solid;
-        border-width: 1px;
-        font-family: inherit;
-        margin: 0;
-        font-size: 1rem;
-        width: 100%;
-        height: 42px;
-        padding: 0px;
-        transition: border-color .1s ease-out;
-        background-color: #fff;
-        border-color: #dcdcdc;
-        color: #454545;
-        max-width: none;
-    }
+        .navBar-section {
+            list-style-type: none;
+        }
 
-    .page-heading {
-        font-size: 24px;
-    }
 
-    .alert {
-        padding: 10px 30px 1px 25px;
-        margin-top: 40px;
-        margin-bottom: 160px;
-        border-radius: 1px;
-        background-color: #d9edf7;
-        border-color: #bce8f1;
-        color: #31708f;
-    }
+        .btn.btn-checkout, .btn.btn-checkout:hover {
+            border-color: #000;
+            background: #000;
+        }
 
-    ul {
-        padding-left: 0px;
-    }
+        .btn.btn-checkout {
+            max-width: 270px;
+            padding-top: 10px;
+            color: #fff;
+        }
 
-    .container_page {
-        margin: 0 auto;
-        padding-bottom: 80px;
-        border-top: 1px solid #eaeaea;
-    }
-
-    .productBlockContainer {
-        margin: 0 -15px;
-        display: flex;
-        /*flex-wrap:wrap;*/
-    }
-
-    .prod-item {
-        margin-bottom: 27px;
-        width: 33.33%;
-        float: left;
-    }
-
-    .card-figure {
-        padding: 0;
-        position: relative;
-        margin-top: 0;
-    }
-
-    .prod-item .prod-image {
-        position: relative;
-        margin-bottom: 21px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-        .prod-item .prod-image > a {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            align-content: center;
+        .form-input, .form-select {
+            border-style: solid;
+            border-width: 1px;
+            font-family: inherit;
+            margin: 0;
+            font-size: 1rem;
             width: 100%;
+            height: 42px;
+            padding: 0px;
+            transition: border-color .1s ease-out;
+            background-color: #fff;
+            border-color: #dcdcdc;
+            color: #454545;
+            max-width: none;
         }
 
-    .card-image {
-        width: 270px;
-        height: 405px;
-        max-width: 100%;
-    }
-
-    .prod-item .prod-image > a img.lazyloaded {
-        width: 100% !important;
-    }
-
-    .card-image {
-        border: 0;
-        display: inline-block;
-    }
-
-    .actions > .btnQV,
-    .actions > a.btnWL,
-    .actions > a.btnATC {
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease 0s;
-        position: absolute;
-    }
-
-    .actions > a.btnWL {
-        top: -20px;
-        right: 13px;
-        display: inline-block;
-        width: 30px;
-        padding: 5px;
-        font-size: 16px;
-        text-align: center;
-    }
-
-        .actions > a.btnWL:hover {
-            border-bottom: none;
+        .page-heading {
+            font-size: 24px;
         }
 
-    .btnWL {
-        font-weight: 400;
-        color: #000;
-    }
-
-        .btnWL:hover {
-            cursor: pointer;
-            color: #000;
-            border-bottom: 1px dotted #000;
+        .alert {
+            padding: 10px 30px 1px 25px;
+            margin-top: 40px;
+            margin-bottom: 160px;
+            border-radius: 1px;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+            color: #31708f;
         }
 
-
-    .actions > a.btnATC {
-        width: 100%;
-        bottom: 10px;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-weight: 700;
-    }
-
-    .actions > .btnQV {
-        right: 0px;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 0px;
-        width: 106px;
-        height: 33px;
-        margin: 0 auto;
-        color: #000;
-        border: 2px solid #000;
-        background-color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Poppins, Arial, Helvetica, sans-serif;
-        font-weight: 700;
-    }
-
-        .actions > .btnQV:hover {
-            border: 1px solid #000;
+        ul {
+            padding-left: 0px;
         }
 
-    .productBlockContainer.row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    .prod-name a {
-        font-weight: 400;
-        color: #000;
-    }
-
-        .prod-name a:hover {
-            color: #000;
+        .container_page {
+            margin: 0 auto;
+            padding-bottom: 80px;
+            border-top: 1px solid #eaeaea;
         }
 
-    .prod-summary {
-        font-weight: 400;
-        line-height: 1.5rem;
-    }
-
-    .hoverin {
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-
-    .showdown {
-        opacity: 1 !important;
-        visibility: visible !important;
-        top: 15px !important;
-    }
-    /*nav bar*/
-    #container_page_nav {
-        background-color: #f7f8f9;
-        padding: 20px 0 15px 15px;
-        margin-top: 15px;
-        margin-bottom: 36px;
-    }
-
-    .breadcrumb {
-        background-color: #f7f8f9;
-        padding: 0;
-        margin: 0;
-    }
-
-    .breadcrumb-item {
-        display: inline-block;
-        padding-right: 10px;
-    }
-
-        .breadcrumb-item::before {
-            content: ">" !important;
-            color: #b4b4b4 !important;
-            margin: 0 12px 0 3px;
+        .productBlockContainer {
+            margin: 0 -15px;
+            display: flex;
+            /*flex-wrap:wrap;*/
         }
 
-        .breadcrumb-item:first-child::before {
-            display: none;
+        .prod-item {
+            margin-bottom: 27px;
+            width: 33.33%;
+            float: left;
         }
 
-        .breadcrumb-item a {
-            color: #b4b4b4;
+        .card-figure {
+            padding: 0;
+            position: relative;
+            margin-top: 0;
         }
 
-            .breadcrumb-item a:hover {
-                color: #000;
-                /*border-bottom: 1px solid #000;*/
+        .prod-item .prod-image {
+            position: relative;
+            margin-bottom: 21px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+            .prod-item .prod-image > a {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                width: 100%;
             }
 
-        .breadcrumb-item.active a:hover {
-            color: #b4b4b4;
+        .card-image {
+            width: 270px;
+            height: 405px;
+            max-width: 100%;
         }
-</style>
+
+        .prod-item .prod-image > a img.lazyloaded {
+            width: 100% !important;
+        }
+
+        .card-image {
+            border: 0;
+            display: inline-block;
+        }
+
+        .actions > .btnQV,
+        .actions > a.btnWL,
+        .actions > a.btnATC {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease 0s;
+            position: absolute;
+        }
+
+        .actions > a.btnWL {
+            top: -20px;
+            right: 13px;
+            display: inline-block;
+            width: 30px;
+            padding: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+            .actions > a.btnWL:hover {
+                border-bottom: none;
+            }
+
+        .btnWL {
+            font-weight: 400;
+            color: #000;
+        }
+
+            .btnWL:hover {
+                cursor: pointer;
+                color: #000;
+                border-bottom: 1px dotted #000;
+            }
 
 
-<div id="container_page_nav">
-    <div class="container">
-        <!-- 要塞目錄資料及連結資料   開頭-->
-        <!-- 動態綁定有a標籤href及text屬性 -->
-        <ul class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="@Url.Action("Index", "FrontEnd")">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a href="/Order">Member</a>
-            </li>
-            <li class="breadcrumb-item current">
-                <a href="/WishList"> WishList</a>
-            </li>
+        .actions > a.btnATC {
+            width: 100%;
+            bottom: 10px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+        }
 
-        </ul>
-        <!-- 要塞目錄資料及連結資料   結尾-->
-    </div>
-</div>
+        .actions > .btnQV {
+            right: 0px;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0px;
+            width: 106px;
+            height: 33px;
+            margin: 0 auto;
+            color: #000;
+            border: 2px solid #000;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Poppins, Arial, Helvetica, sans-serif;
+            font-weight: 700;
+        }
 
+            .actions > .btnQV:hover {
+                border: 1px solid #000;
+            }
 
+        .productBlockContainer.row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="page-heading" style="font-weight:600;">Wishlist</h1>
+        .prod-name a {
+            font-weight: 400;
+            color: #000;
+        }
 
-            <nav class="navBar navBar--sub navBar--account">
-                <ul class="navBar-section">
-                    <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/Order">Orders</a>
-                    </li>
-                    <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/Cart">Cart</a>
-                    </li>
-                    <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/WishList">Wish List </a>
-                    </li>
-                    <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/Member">Account Settings</a>
-                    </li>
-                </ul>
-            </nav>
+            .prod-name a:hover {
+                color: #000;
+            }
+
+        .prod-summary {
+            font-weight: 400;
+            line-height: 1.5rem;
+        }
+
+        .hoverin {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .showdown {
+            opacity: 1 !important;
+            visibility: visible !important;
+            top: 15px !important;
+        }
+        /*nav bar*/
+        #container_page_nav {
+            background-color: #f7f8f9;
+            padding: 20px 0 15px 15px;
+            margin-top: 15px;
+            margin-bottom: 36px;
+        }
+
+        .breadcrumb {
+            background-color: #f7f8f9;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb-item {
+            display: inline-block;
+            padding-right: 10px;
+        }
+
+            .breadcrumb-item::before {
+                content: ">" !important;
+                color: #b4b4b4 !important;
+                margin: 0 12px 0 3px;
+            }
+
+            .breadcrumb-item:first-child::before {
+                display: none;
+            }
+
+            .breadcrumb-item a {
+                color: #b4b4b4;
+            }
+
+                .breadcrumb-item a:hover {
+                    color: #000;
+                    /*border-bottom: 1px solid #000;*/
+                }
+
+            .breadcrumb-item.active a:hover {
+                color: #b4b4b4;
+            }
+    </style>
+    }
+
+    <div id="container_page_nav">
+        <div class="container">
+            <!-- 要塞目錄資料及連結資料   開頭-->
+            <!-- 動態綁定有a標籤href及text屬性 -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Index", "FrontEnd")">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/Order">Member</a>
+                </li>
+                <li class="breadcrumb-item current">
+                    <a href="/WishList"> WishList</a>
+                </li>
+
+            </ul>
+            <!-- 要塞目錄資料及連結資料   結尾-->
         </div>
     </div>
 
-    <br />
-    <br />
 
 
-    <div class="productBlockContainer row">
-        @foreach (var data in Model)
-        {
-            var urls = Json.Decode(data.Url);
-            <div class="prod-item col-3">
-                <figure class="card-figure" id="@data.ProductID">
-                    <div class="prod-image ">
-                        <a href="Earrings/@data.ProductID">
-                            <img class="card-image"
-                                 src= "@urls.Url1"value="@urls.Url2">
-                        </a>
-                        <div class="actions">
-                            <a href="#" class="btnWL grid-view">
-                                <i class="far fa-heart" style = "color:red"></i>
-                            </a>
-                            <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                            <a href="#" class="btnQV quickview">Quick view</a>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="page-heading" style="font-weight:600;">Wishlist</h1>
 
-                    <figcaption class="prod-desc center">
-                        <p class="prod-name"><a href="#">@data.ProductName</a></p>
-                        <div class="prod-price"><span class="price">$@data.ProductPrice</span></div>
-
-                    </figcaption>
-                    <button class="btn btn-outline-dark rounded-0 btnATC deleteWish">Delete</button>
-                </figure>
-                <br />
-
+                <nav class="navBar navBar--sub navBar--account">
+                    <ul class="navBar-section">
+                        <li class="navBar-item is-active">
+                            <a class="navBar-action" href="/Order">Orders</a>
+                        </li>
+                        <li class="navBar-item is-active">
+                            <a class="navBar-action" href="/Cart">Cart</a>
+                        </li>
+                        <li class="navBar-item is-active">
+                            <a class="navBar-action" href="/WishList">Wish List </a>
+                        </li>
+                        <li class="navBar-item is-active">
+                            <a class="navBar-action" href="/Member">Account Settings</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-        }
+        </div>
 
-        <div class="col-1"></div>
+        <br />
+        <br />
+
+
+        <div class="productBlockContainer row">
+            @foreach (var data in Model)
+            {
+                var urls = Json.Decode(data.Url);
+                <div class="prod-item col-3">
+                    <figure class="card-figure" id="@data.ProductID">
+                        <div class="prod-image ">
+                            <a href="/Products/@data.CategoryName/@data.ProductID">
+                                <img class="card-image"
+                                     src="@urls.Url1" value="@urls.Url2">
+                            </a>
+                            <div class="actions">
+                                <a href="#" class="btnWL grid-view">
+                                    <i class="far fa-heart" style="color:red"></i>
+                                </a>
+                                <a class="btn btn-outline-dark rounded-0 btnATC grid-view" onclick="AddCart(this)">Add to Cart</a>
+                                <a href="#" class="btnQV quickview">Quick view</a>
+                            </div>
+                        </div>
+
+                        <figcaption class="prod-desc center">
+                            <p class="prod-name"><a href="#">@data.ProductName</a></p>
+                            <div class="prod-price"><span class="price">$@data.ProductPrice</span></div>
+
+                        </figcaption>
+                        <button class="btn btn-outline-dark rounded-0 btnATC deleteWish">Delete</button>
+                    </figure>
+                    <br />
+
+                </div>
+            }
+
+            <div class="col-1"></div>
+        </div>
+
+
+
+
     </div>
 
-
-
-
-</div>
-
-@section viewJquery{
-    <script>
+    @section viewJquery{
+        <script>
 
             $(".card-figure").hover(function () {
                 $(this).find(".btnWL").addClass("showdown");
@@ -377,14 +377,6 @@
                 $(this).find(".btnQV").removeClass("hoverin");
                 $(this).find(".btnATC").removeClass("hoverin");
             });
-
-            $(".card-image").hover(function () {
-                $(this).attr("style", "opacity:0.5");
-                $(this).attr("src", $(this).attr("src").replace('1.jpg', '2.jpg'));
-            }, function () {
-                $(this).attr("style", "opacity:0.5");
-                $(this).attr("src", $(this).attr("src").replace('2.jpg', '1.jpg'));
-            });            
 
             $(".deleteWish,.btnWL").click(function (e) {
 
@@ -401,13 +393,13 @@
                     dataType: "text",
                     success: function (response) {
                         if (response) {
-                            alert('Delete wishlist')  
+                            alert('Delete wishlist')
                             $(`#${id}`).parent().remove();
                         }
                     }
-                });               
+                });
             });
-            $(this).remove(".card-figure");
+
             $(".card-image").hover(function () {
                 $(this).attr("style", "opacity:0.5");
                 var val = $(this).attr("src");
@@ -419,8 +411,23 @@
                 $(this).attr("src", $(this).attr("value"));
                 $(this).attr("value", val);
             });
-        
 
-    </script>
-}
+            function AddCart(e) {
+                var id = $(e).parents("figure").attr("id");
+                let quantity = 1;
+
+                $.ajax({
+                    type: "POST",
+                    //先確認目前的訂單狀況 再接AddCart的action
+                    url: "/FrontEnd/CheckOrder",
+                    data: { ProductID: id, Quantity: quantity },
+                    dataType: "text",
+                    success: function (response) {
+                        alert("Add to Cart Success!");
+                    }
+                });
+            }
+
+        </script>
+    }
 
