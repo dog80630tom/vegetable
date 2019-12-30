@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+//這個暫時用不到，參考用
 namespace vegetable.Models
 {
     public class ExternalLoginConfirmationViewModel

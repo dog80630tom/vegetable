@@ -11,8 +11,39 @@ namespace vegetable
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            
+            //show product 
+            routes.MapRoute(
+              name: "ShowProducts",
+              url: "Products/{query}",
+              defaults: new
+              {
+                  controller = "FrontEnd",
+                  action = "ShowProducts",
+                  query = UrlParameter.Optional
+              }
+          );
 
+            //耳環
+            routes.MapRoute(
+               name: "Earrings",
+               url: "Products/Earrings/{id}",
+               defaults: new
+               {
+                   controller = "FrontEnd",
+                   action = "ProductIndex",
+                   id = UrlParameter.Optional
+               }
+           );
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+               name: "HomePage",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "FrontEnd", action = "Index", id = UrlParameter.Optional }
+           );
+
+            
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

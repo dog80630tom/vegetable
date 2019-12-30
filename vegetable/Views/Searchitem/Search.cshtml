@@ -1,0 +1,56 @@
+﻿@model List<vegetable.Models.ViewModels.SearchViewModel>
+
+@{
+    ViewBag.Title = "item";
+    var routeValue = new RouteValueDictionary();
+
+}
+
+<h2>search</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+
+            @using (Html.BeginForm("Search", "Searchitem"))
+            {
+
+
+                <input type="text" asp-for=Seachstring id="Seachstring" name="Seachstring" /><input type="submit" class="btn btn-success" id="Search" />
+            }
+            <table id="PartialContainer">
+                <thead>
+
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+@section Endscripts
+{
+    <script>
+        $(function () {
+            var col = [{ data: "aaData",title:"產品ID" }]
+            $.ajax({
+                type: "POST",
+                url: "/Searchitem/Search",
+
+                dataType: "json",
+                success: function (response) {
+
+                    var data = JSON.parse(response);
+                    console.log(data.aaData)
+                    console.log(data);
+                    $('#PartialContainer').DataTable({
+
+                        data: data,
+                        columns:col
+                    });
+                }
+            });
+
+        });
+
+
+            
+    </script>
+}

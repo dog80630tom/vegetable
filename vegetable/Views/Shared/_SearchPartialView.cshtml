@@ -1,0 +1,19 @@
+﻿@model List<vegetable.Models.ViewModels.SearchViewModel>
+@{ 
+
+    
+}
+@for (int i = 0; i < Model.Count(); i++)
+{
+    <div class="card">
+        <div class="card-header">
+            @Html.HiddenFor(model => model[i].ProductID)
+            @Html.DisplayTextFor(model => model[i].ProductName)
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">@Html.DisplayTextFor(model => model[i].ProductDescription)</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+}

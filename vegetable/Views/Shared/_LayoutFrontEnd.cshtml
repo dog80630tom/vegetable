@@ -1,0 +1,1151 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LOVODA</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .icon {
+            font-size: 18px;
+        }
+
+        .band {
+            color: black;
+        }
+
+            .band:hover {
+                text-decoration: none;
+                color: black;
+            }
+
+        .navTop {
+            line-height: 40px;
+        }
+
+        .title {
+            font-family: 'Merriweather', serif;
+            font-size: 55pt;
+            font-weight: 400;
+        }
+
+        .btn-outline-dark {
+            color: #000;
+            border-color: #000;
+            border: 3px solid;
+            background: white;
+        }
+
+            .btn-outline-dark:hover {
+                color: white;
+                background: #000;
+                border-color: #000;
+            }
+
+        .dot:hover {
+            border-bottom: 1px dotted;
+        }
+
+        .icon:hover {
+            color: black;
+            transition: .2s;
+        }
+        /*頁面商品分類選單*/
+        .main-nav {
+            display: none;
+        }
+
+            .main-nav .nav-item .nav-link .line {
+                border-bottom: 2px solid white;
+                display: block;
+                transition: 0.5s;
+            }
+
+            .main-nav .nav-item:hover .nav-link .line {
+                transition: 0.5s;
+                border-bottom: 2px solid black;
+            }
+
+        .menu-block {
+            background-color: rgba(250,250,250,.95);
+            width: 100%;
+            position: absolute;
+            left: 0;
+            margin-top: 10px;
+            box-shadow: 1px 1px 10px #ddd;
+            padding: 40px;
+            z-index: 99;
+            display: none;
+            opacity: 0;
+        }
+
+        .bg-menu {
+            background-color: rgba(250,250,250,.95);
+            letter-spacing: 0.5px;
+            font-weight: 100;
+        }
+
+        .menu-list {
+            padding: 0;
+        }
+
+            .menu-list li {
+                padding: .3rem 0;
+                list-style: none;
+                color: black
+            }
+
+                .menu-list li a,
+                .menu-list li a:hover {
+                    text-decoration: none;
+                    color: black;
+                }
+
+                .menu-list li:not(:first-child) {
+                    font-weight: 100;
+                }
+
+        .main-nav .nav-item:hover .menu-block {
+            display: block;
+            transition: .2s;
+            opacity: 1;
+        }
+        /*silde bar*/
+        #mySidenav {
+            width: 300px;
+            margin-left: -300px;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            background-color: rgb(255, 255, 255);
+            overflow-x: hidden;
+            transition: 0.5s;
+            box-shadow: 1px 1px 10px #ddd;
+            padding-top: 60px;
+        }
+
+            .sidenav .menu-item {
+                cursor: pointer;
+                list-style: none;
+                display: flex;
+                /* line-height:2.5rem; */
+                border-top: 1px solid rgb(190, 190, 190);
+                display: flex;
+                justify-content: space-between;
+                padding: 10px 12px;
+                /*padding:6px 10px;*/
+            }
+
+                .sidenav .menu-item:hover {
+                    color: rgb(255, 255, 255);
+                    background: black;
+                    transition: .5s linear;
+                }
+
+                    .sidenav .menu-item:hover a {
+                        color: rgb(255, 255, 255);
+                    }
+
+                .sidenav .menu-item a {
+                    text-decoration: none;
+                    font-size: 14px;
+                    color: #000000;
+                    display: block;
+                    transition: 0.3s;
+                    /*padding:.5rem 0 .5rem .8rem;*/
+                }
+
+            .sidenav .menu-child {
+                list-style: none;
+                padding: 0;
+            }
+
+                .sidenav .menu-child li {
+                    padding: 10px 12px;
+                }
+
+                .sidenav .menu-child a {
+                    /*padding:.5rem 0 .5rem .8rem;*/
+                }
+
+            .sidenav .closebtn {
+                position: absolute;
+                top: .2rem;
+                right: .5rem;
+                font-size: 28px;
+            }
+        /*search-bar-sm相關 mobile*/
+        .search-bar-icon:hover {
+            text-decoration: none;
+        }
+
+        .search-bar-sm {
+            width: 90%;
+            margin: 1rem auto;
+            border-bottom: 2px solid black;
+            color: black;
+        }
+
+            .search-bar-sm input {
+                margin-top: 0;
+                border: none;
+                font-size: 12px;
+            }
+
+                .search-bar-sm input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                    color: black;
+                    opacity: 1; /* Firefox */
+                    transition: .2s linear;
+                }
+
+                .search-bar-sm input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+                    color: black;
+                }
+
+                .search-bar-sm input::-ms-input-placeholder { /* Microsoft Edge */
+                    color: black;
+                }
+
+                .search-bar-sm input:focus {
+                    /*outline:none;
+                     border:none;*/
+                    background: none;
+                }
+
+                    .search-bar-sm input:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                        padding-left: 20px;
+                        opacity: 0; /* Firefox */
+                        transition: .2s linear;
+                    }
+
+                    .search-bar-sm input:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
+                        padding-left: 20px;
+                        opacity: 0; /* Firefox */
+                        transition: .2s linear;
+                    }
+
+                    .search-bar-sm input:focus::-ms-input-placeholder { /* Microsoft Edge */
+                        padding-left: 20px;
+                        opacity: 0; /* Firefox */
+                        transition: .2s linear;
+                    }
+
+            .search-bar-sm .input-group-text {
+                background: none;
+                border: none;
+            }
+
+            .search-bar-sm input:focus {
+                box-shadow: none;
+            }
+
+        @@media screen and (min-width:992px) {
+            .search-bar-sm {
+                display: none;
+            }
+
+            .main-nav {
+                display: flex;
+            }
+        }
+        /* quick-search Search-bar-md*/
+        .quick-search {
+            color: red;
+        }
+
+        .quick-search {
+            position: relative;
+        }
+
+            .quick-search [type="checkbox"] {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                position: absolute;
+                opacity: 0;
+                z-index: 999;
+                right: 0;
+                top: 0;
+            }
+
+                .quick-search [type="checkbox"]:checked {
+                    position: fixed;
+                    right: 10px;
+                    top: 30px;
+                    opacity: 1;
+                    height: 30px;
+                    width: 30px;
+                }
+
+                    .quick-search [type="checkbox"]:checked::after {
+                        width: 30px;
+                        height: 30px;
+                        position: fixed;
+                        content: '';
+                        background: #fff8dc no-repeat;
+                        background-position: center;
+                        background-image: url(/Content/images/close-button.png);
+                        line-height: 30px;
+                        font-size: 30px;
+                        border: 1px solid grey;
+                        text-align: center;
+                    }
+
+                    .quick-search [type="checkbox"]:checked ~ .search-bar-md-warp {
+                        z-index: 99;
+                        transition: .2s linear;
+                        opacity: 1;
+                        visibility: visible;
+                    }
+
+        .search-bar-md-warp {
+            background: #fff8dc;
+            padding: 1.3rem 0;
+            opacity: 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            transition: .2s linear;
+            visibility: hidden;
+        }
+
+        .search-bar-md {
+            width: 35%;
+            margin: 0 auto;
+            border-bottom: 1px solid black;
+            color: black;
+        }
+
+            .search-bar-md input {
+                border: none;
+                font-size: 16px;
+                background: #fff8dc;
+            }
+
+                .search-bar-md input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                    color: black;
+                    opacity: 1; /* Firefox */
+                    transition: .2s linear;
+                }
+
+                .search-bar-md input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+                    color: black;
+                }
+
+                .search-bar-md input::-ms-input-placeholder { /* Microsoft Edge */
+                    color: black;
+                }
+
+                .search-bar-md input:focus {
+                    background: none;
+                }
+
+                    .search-bar-md input:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                        padding-left: 35px;
+                        opacity: 0;
+                        transition: .2s linear;
+                    }
+
+                    .search-bar-md input:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
+                        padding-left: 20px;
+                        opacity: 0; /* Firefox */
+                        transition: .2s linear;
+                    }
+
+                    .search-bar-md input:focus::-ms-input-placeholder { /* Microsoft Edge */
+                        padding-left: 20px;
+                        opacity: 0; /* Firefox */
+                        transition: .2s linear;
+                    }
+
+            .search-bar-md .input-group-text {
+                background: none;
+                border: none;
+            }
+
+            .search-bar-md input:focus {
+                box-shadow: none;
+            }
+
+        @@media screen and (max-width:992px) {
+            .search-bar-md-warp {
+                display: none;
+            }
+        }
+        /*footer相關*/
+        .bg-footer {
+            background: #d4a299;
+        }
+
+        .footericon {
+            font-size: 26px;
+        }
+
+        .footertext {
+            font-weight: 400;
+        }
+
+        .footer-list {
+            padding: 0;
+            margin-top: 3rem;
+        }
+
+            .footer-list li {
+                padding: .5rem .10rem;
+                list-style: none;
+                margin-right: 12px;
+                letter-spacing: 1px;
+                color: white;
+            }
+
+                .footer-list li a,
+                .footer-list li a:hover {
+                    color: white;
+                    text-decoration: none;
+                }
+
+                .footer-list li:not(:first-child) {
+                    font-weight: 100;
+                }
+        /*Login modal*/
+        input {
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 14px 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+            button:hover {
+                opacity: 0.8;
+            }
+
+        .closecontainer {
+            text-align: center;
+            margin: 24px 0;
+            position: relative;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+            .modal label {
+                padding: 10px 0;
+                margin-top: 5px;
+                margin-bottom: 0;
+            }
+
+            .modal input {
+                padding: 10px 0;
+                margin-top: 5px;
+                margin-bottom: 0;
+            }
+
+            .modal button {
+                padding: 10px 0;
+                margin: 20px 0;
+            }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 0% auto 10% auto;
+            border: 1px solid #888;
+            width: 550px;
+            height: 500px;
+            overflow: auto;
+        }
+
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #e82b1a;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #e82b1a;
+                cursor: pointer;
+            }
+
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+    </style>
+</head>
+<body class="pb-0">
+    <div id="main">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom p-0 justify-content-between" @*onclick="openNav()"*@>
+            <button class="navbar-toggler border-0" id="btn-slide" type="button" data-toggle="collapse" @*data-target="#navbarNavDropdown"*@ aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse p-0 justify-content-between" id="navbarNavDropdown">
+                <ul class="navbar-nav p-0">
+                    <li class="nav-item active border-right  p-0">
+                        <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("loginpage", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
+                    </li>
+
+                    @if (Request.Cookies["myaccount"] != null)
+                    {
+                        if ((string)TempData["roles"] == "Client")
+                        {
+                            <li class="nav-item active">
+                                <a class="nav-link text-dark mx-3 navTop">@TempData["username"].ToString()</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Product", "BackEnd")" class="nav-link text-dark mx-3 navTop">前往後台</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="nav-item active">
+                            @*<a href="@Url.Action("Login", "FrontEnd")" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>*@
+                            <a id="btn_login" class="nav-link text-dark mx-3 navTop"><span class="dot">LOGIN</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark  mx-3 navTop" href="@Url.Action("MemberRegist","FrontEnd")"><span class="dot">REGISTER</span></a>
+                        </li>
+                    }
+
+                </ul>
+                @*<a class="nav-link text-dark  mx-3 navTop" href="">US ONLY - FREE SHIPPING OVER $50 & FREE RETURNS SHOP NOW</a>*@
+                <ul class="navbar-nav p-0 text-center">
+
+                    <li class="nav-item active border-right border-left  p-0  quick-search">
+                        <input type="checkbox" />
+                        <a class="nav-link text-dark  mx-3 navTop" href="#">
+                            <i class="fas fa-search icon"></i>
+                        </a>
+                        @*quick-search Search-bar-md*@
+                        <div class="container-fluid search-bar-md-warp">
+                            <div class="input-group search-bar-md">
+                                <input id="search" type="text" class="form-control rounded-0" placeholder="Search">
+                                <div class="input-group-append">
+                                    <a href="#" id="searchBTN" class="input-group-text rounded-0 search-bar-icon">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link text-dark  mx-3 navTop" href="#"><span class="dot">GIFT CERTIFICATES</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark mx-3 navTop border-right border-left" href="#"><span class="dot">WISH LISTS</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark   mx-3 navTop" href="#"><span class="dot">CART</span><i class="far fa-clipboard icon ml-3"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+        <div id="mySidenav" class="sidenav">
+            <a href="#" class="closebtn" @*onclick="closeNav()"*@>&times;</a>
+            <ul class="p-0">
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#New" aria-expanded="false" aria-controls="New">
+                        <a>NEW</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul id="New" class="collapse menu-child">
+                        <li><a>New Arrivals</a></li>
+                        <li><a>Back in Stock</a></li>
+                    </ul>
+                </li>
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#Earrings" aria-expanded="false" aria-controls="Earrings">
+                        <a>EARRINGS</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul id="Earrings" class="collapse menu-child">
+                        <li>
+                            <a>Statement Earrings</a>
+                            <i class="fas fa-plus float-right" data-toggle="collapse" data-target="#Statement" aria-expanded="false" aria-controls="Statement"></i>
+                            <ul id="Statement" class="collapse menu-child py-2">
+                                <li><a>Drop Earrings</a></li>
+
+                                <li><a>Golden</a></li>
+                                <li><a>Lucite & Resin</a></li>
+                                <li><a>Crystal Clear</a></li>
+                                <li><a>Hoop Earrings</a></li>
+                                <li><a>Ear Jackets</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Charm Earrings</a></li>
+                        <li><a>Natural Earrings</a></li>
+                        <li><a>Hypoallergenic Earrings</a></li>
+                        <li><a>Fine Earrings</a></li>
+                    </ul>
+                </li>
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#Necklaces" aria-expanded="false" aria-controls="Necklaces">
+                        <a>NECKLACES</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul id="Necklaces" class="collapse menu-child">
+                        <li><a>Layered Necklaces</a></li>
+                        <li><a>Fine Necklaces</a></li>
+                        <li><a>Y-Necklace & Lariat</a></li>
+                        <li><a>Stone & Marble Necklaces</a></li>
+                        <li><a>Charm Necklaces</a></li>
+                        <li><a>Statement Necklaces</a></li>
+                        <li><a>Tassel & Pendant Necklaces</a></li>
+                        <li><a>Chokers</a></li>
+                    </ul>
+                </li>
+
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#Bracelets" aria-expanded="false" aria-controls="Bracelets">
+                        <a>BRACELETS</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul id="Bracelets" class="collapse menu-child">
+                        <li><a>Fine Bracelets</a></li>
+                        <li><a>Charm Bracelets</a></li>
+                        <li><a>Marble and Stone Jewelry</a></li>
+                        <li><a>Cuffs & Bangles</a></li>
+                        <li><a>Statement Bracelets</a></li>
+                        <li><a>Anklets</a></li>
+                    </ul>
+                </li>
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#Rings" aria-expanded="false" aria-controls="Rings">
+                        <a>RINGS</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul id="Rings" class="collapse menu-child">
+                        <li><a>Fine Rings</a></li>
+                        <li><a>Charm Rings</a></li>
+                        <li><a>Statement Rings</a></li>
+                        <li><a>Adjustable Rings</a></li>
+                    </ul>
+                </li>
+                <li class="d-block">
+                    <div class="menu-item" data-toggle="collapse" data-target="#Other" aria-expanded="false" aria-controls="Other">
+                        <a>OTHER ACCESSORIES</a>
+                        <a><i class="fas fa-chevron-down"></i></a>
+                    </div>
+                    <ul id="Other" class="collapse menu-child">
+                        <li><a>Scarves</a></li>
+                        <li><a>Purses & Totes</a></li>
+                        <li><a>Hats & Hair Accessories</a></li>
+                        <li><a>Bralettes</a></li>
+                    </ul>
+                </li>
+                @*<li><a href="#">Contact</a></li>*@
+                <li class="d-block">
+                    <div class="menu-item">
+                        <a>SALE</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOVODA</a></div>
+            </div>
+            <ul class="main-nav nav justify-content-center mb-4 align-items-center">
+                <li class="nav-item mx-2 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">NEW</span></a>
+                    <div class="menu-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-md-3 col-xl-2">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">New Arrivals</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-md-3 col-xl-2">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Back in Stock</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item  mx-2 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">EARRINGS</span></a>
+
+                    <div class="menu-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Statement Earrings</a></li>
+                                        <li><a href="#" class="dot">Drop Earrings</a></li>
+                                        <li><a href="#" class="dot">Golden</a></li>
+                                        <li><a href="#" class="dot">Lucite & Resin</a></li>
+                                        <li><a href="#" class="dot">Crystal Clear</a></li>
+                                        <li><a href="#" class="dot">Hoop Earrings</a></li>
+                                        <li><a href="#" class="dot">Ear Jackets</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Charm Earrings</a></li>
+                                        <li><a href="#" class="dot">Crawlers and Pins</a></li>
+                                        <li><a href="#" class="dot">Threader Earrings</a></li>
+                                        <li><a href="#" class="dot">Earring Sets</a></li>
+                                        <li><a href="#" class="dot">Cuffs</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Natural Earrings</a></li>
+                                        <li><a href="#" class="dot">Wood & Wicker</a></li>
+                                        <li><a href="#" class="dot">Stone & Marble Earrings</a></li>
+                                        <li><a href="#" class="dot">Geode Earrings</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Hypoallergenic Earrings</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Fine Earrings</a></li>
+                                        <li><a href="#" class="dot">Sterling Silver Earrings</a></li>
+                                        <li><a href="#" class="dot">Gold Plated Earrings</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item  mx-3 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">NECKLACES</span></a>
+                    <div class="menu-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-sm">
+                                    <div class="d-flex flex-column">
+                                        <ul class="menu-list">
+                                            <li><a href="#" class="dot">Layered Necklaces</a></li>
+                                        </ul>
+                                        <ul class="menu-list  mt-2">
+                                            <li><a href="#" class="dot">Tassel & Pendant Necklaces</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <div class="d-flex flex-column">
+                                        <ul class="menu-list">
+                                            <li><a href="#" class="dot">Fine Necklaces</a></li>
+                                        </ul>
+                                        <ul class="menu-list  mt-2">
+                                            <li><a href="#" class="dot">Chokers</a></li>
+                                            <li><a href="#" class="dot">Gold/Silver Chokers</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Y-Necklace & Lariat</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Stone & Marble Necklaces</a></li>
+                                        <li><a href="#" class="dot">Marble Necklace</a></li>
+                                        <li><a href="#" class="dot">Geode Necklaces</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Charm Necklaces</a></li>
+                                        <li><a href="#" class="dot">Statement Necklaces</a></li>
+                                        <li><a href="#" class="dot">Beaded Necklace</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item  mx-2 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">BRACELETS</span></a>
+                    <div class="menu-block w-100">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Fine Bracelets</a></li>
+                                    </ul>
+                                </div>
+                                <div class=" col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Charm Bracelets</a></li>
+                                        <li><a href="#" class="dot">Cord & Bead Bracelets</a></li>
+                                    </ul>
+                                </div>
+                                <div class=" col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Marble and Stone Jewelry</a></li>
+                                        <li><a href="#" class="dot">Cuffs & Bangles</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Statement Bracelets</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Anklets</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item  mx-2 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">RINGS</span></a>
+                    <div class="menu-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Fine Rings</a></li>
+                                        <li><a href="#" class="dot">Gem Stone Rings</a></li>
+                                    </ul>
+                                </div>
+                                <div class=" col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Charm Rings</a></li>
+                                        <li><a href="#" class="dot">Geode Rings</a></li>
+                                        <li><a href="#" class="dot">Marble Rings</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Statement Rings</a></li>
+                                        <li><a href="#" class="dot">Chunky Rings</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Adjustable Rings</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item  mx-2 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">OTHER ACCESSORIES</span></a>
+                    <div class="menu-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class=" col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Scarves</a></li>
+                                        <li><a href="#" class="dot">Light Scarves</a></li>
+                                        <li><a href="#" class="dot">Tie Scarves</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Purses & Totes</a></li>
+                                        <li><a href="#" class="dot">Backpack</a></li>
+                                        <li><a href="#" class="dot">Crossbody</a></li>
+                                        <li><a href="#" class="dot">Satchel</a></li>
+                                        <li><a href="#" class="dot">Totes</a></li>
+                                        <li><a href="#" class="dot">Wallets</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Hats & Hair Accessories</a></li>
+                                        <li><a href="#" class="dot">Hair Pins</a></li>
+                                        <li><a href="#" class="dot">Hair Ties</a></li>
+                                        <li><a href="#" class="dot">Hats</a></li>
+                                        <li><a href="#" class="dot">Headbands & Headwraps</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-6 col-sm">
+                                    <ul class="menu-list">
+                                        <li><a href="#" class="dot">Bralettes</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item  mx-1 pb-3">
+                    <a class="nav-link text-dark" href="#"><span class="line">SALE</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="input-group search-bar-sm rounded-0">
+            <input type="text" class="form-control rounded-0" placeholder="Search">
+            <div class="input-group-append">
+                <a href="#" class="input-group-text rounded-0 search-bar-icon ">
+                    <i class="fas fa-search "></i>
+                </a>
+            </div>
+        </div>
+        @RenderBody()
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jqueryval")
+        @RenderSection("scripts", required: false)
+        <footer id="footer" class=" bg-footer py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 col-md-3 col-xl-2">
+                        <ul class="footer-list">
+                            <li>SHOP</li>
+                            <li><a href="#" class="dot">Home</a></li>
+                            <li><a href="#" class="dot">new</a></li>
+                            <li><a href="#" class="dot">Earrings</a></li>
+                            <li><a href="#" class="dot">Necklaces</a></li>
+                            <li><a href="#" class="dot">Bracelets</a></li>
+                            <li><a href="#" class="dot">Rings</a></li>
+                            <li><a href="#" class="dot">Other Accessories</a></li>
+                            <li><a href="#" class="dot">Sale</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md-3 col-xl-2">
+                        <ul class="footer-list">
+                            <li>ABOUT US</li>
+                            <li><a href="#" class="dot">About us</a></li>
+                            <li><a href="#" class="dot">Style Blog</a></li>
+                            <li><a href="#" class="dot">Contact a Stylist</a></li>
+                            <li><a href="#" class="dot">Meet with a Stylist</a></li>
+                            <li><a href="#" class="dot">Visit Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md-3 col-xl-2">
+                        <ul class="footer-list">
+                            <li>CUSTOMER SERVICE</li>
+                            <li><a href="#" class="dot">Contact Us</a></li>
+                            <li><a href="#" class="dot">Shipping</a></li>
+                            <li><a href="#" class="dot">Returns Policy</a></li>
+                            <li><a href="#" class="dot">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md-3 col-xl-2">
+                        <ul class="footer-list">
+                            <li>FURTHER INFO</li>
+                            <li><a href="#" class="dot">Sitemap</a></li>
+                            <li><a href="#" class="dot">Affiliates</a></li>
+                            <li><a href="#" class="dot">Wholesale Application</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <ul class="footer-list">
+                            <li>STAY CONNECTED</li>
+                            <li>
+                                <a href="https://www.instagram.com/lovodashop/" target="_blank"><i class="fab fa-instagram mr-4 bg-footer footericon icon"></i></a>
+                                <a href="https://www.facebook.com/LovodaShop/" target="_blank"><i class="fab fa-facebook-f mr-4 bg-footer footericon icon"></i></a>
+                                <a href="https://www.pinterest.com/lovodashop/" target="_blank"><i class="fab fa-pinterest mr-4 bg-footer footericon icon"></i></a>
+                                <a href="https://twitter.com/LovodaShop" target="_blank"><i class="fab fa-twitter mr-4 bg-footer footericon icon"></i></a>
+                            </li>
+                            <li>FEATURED ON</li>
+                            <li>
+                                <img src="~/Content/images/asseenonwhite.png" width="370" alt="Alternate Text" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-footer text-light py-4 text-center">
+                <div class="container">
+                    <p class="footertext mb-5">
+                        <i class="far fa-copyright mr-1"></i> 2019 Lovoda All Rights Reserved.
+                    </p>
+                    <div class="row justify-content-center my-5">
+                        <a href="" class=" text-white mr-3 mt-2 text-white">
+                            <img src="~/Content/images/paypal-logo.png" alt="Alternate Text" />
+                        </a>
+                        <a href="" class="text-white mr-3 mt-2 text-white">
+                            <img src="~/Content/images/visa-pay-logo.png" alt="Alternate Text" />
+                        </a>
+                        <a href="" class="text-white mr-3 mt-2 text-white">
+                            <img src="~/Content/images/master-card-logo.png" alt="Alternate Text" />
+                        </a>
+                        <a href="" class="text-white mr-3 mt-2 text-white">
+                            <img src="~/Content/images/american-express-logo.png" alt="Alternate Text" />
+                        </a>
+                        <a href="" class="text-white mr-3 mt-2 text-white">
+                            <img src="~/Content/images/discover-logo-of-pay-system.png" alt="Alternate Text" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+        <div class="modal fade" id="loginModal" style="z-index:1000000000">
+            <div class="modal-dialog">
+                <div class="modal-content animate  rounded-0 m-0">
+                    <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
+                    <div class="container mt-5">
+                        <div class="row px-5">
+                            <div class="col-8 mx-auto justify-content-center">
+                                <h4><b>Sign In</b></h4>
+                                <label for="uname"><b>Email Address<span class="text-danger">*</span></b></label>
+                                <input class="w-100" type="text" placeholder="Enter Email" name="uname" id="loginId" required>
+                                <label for="psw"><b>Password<span class="text-danger">*</span></b></label>
+                                <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
+                                <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
+                                <button class="btn-outline-dark w-100 btn-block" id="gotoRegist">REGISTER</button>
+                                <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&https://localhost:44394&redirect_uri=https://vegetable20191226044821.azurewebsites.net/FrontEnd/GoogleLogin&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="  btn btn-outline-danger  fa-square-o"><i class="fab fa-google-plus fa-3x"></i></a>
+
+                                <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1653659088&redirect_uri=https://vegetable20191226044821.azurewebsites.net/frontend/LineLogin&scope=openid%20profile&state=abcde" class="  btn btn-outline-success  fa-square-o" >
+                                  <i class="fab fa-line fa-3x"></i>
+                                </a>
+
+                                <label class="mt-1 pt-0" for="pswproblem"><b>Forget your Password?</b></label><br />
+                                <label class="mt-1 pt-0" for="pswproblem" id="loginStatus" style="color:red"></label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @RenderSection("viewJquery", required: false)
+
+    <script>
+     
+
+        function openNav() {
+            // document.getElementById("mySidenav").style.width = "300px";
+            $('#mySidenav').css('margin-left', '0px');
+            //document.getElementById("main").style.marginLeft = "300px";
+            $('#main').css('margin-left', '300px');
+        }
+        function closeNav() {
+            //document.getElementById("mySidenav").style.width = "0";
+            $('#mySidenav').css('margin-left', '-300px');
+            //document.getElementById("main").style.marginLeft = "0";
+            $('#main').css('margin-left', '0px');
+        }
+
+
+        $(function () {
+
+            $('#btn-slide').click(openNav);
+            $('.closebtn').click(closeNav);
+
+
+            $("#btn_login").click(function () {
+                $('#loginModal').modal('show');
+            });
+            $("#gotoRegist").click(function () {
+                location.href = "/FrontEnd/MemberRegist"
+            });
+
+            $("#loginConfirm").click(function () {
+                var uname = $("#loginId").val();
+                var psw = $("#loginPsw").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/FrontEnd/Login",
+                    data: { uname, psw },
+                    success: function (back) {
+                        console.log('back', back);
+                        if (back == "1") {
+                            $("#loginStatus").html("登入成功");
+                            location.href = "/FrontEnd/MemberPageAddress"
+                        }
+                        else if (back == "2") {
+                            $("#loginStatus").html("此帳號尚未註冊，請先註冊");
+                        }
+                        else {
+                            $("#loginStatus").html("密碼錯誤");
+                        }
+
+                    }
+
+                });
+            });
+
+        });
+        $("#searchBTN").click(function () {
+            console.log("23234");
+            var condition = $("#search").val();
+            window.location.href = "/Products/" + condition;
+            //var SearchCondition  = {
+            //    "page": 1,
+            //    "Condition":condition
+            //}
+
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/frontend/ShowProducts",
+            //    data: { :SearchCondition },
+            //    success: function () {
+
+
+            //    }
+
+            //});
+        });
+    </script>
+    @RenderSection("Endscripts", required: false)
+</body>
+</html>
+

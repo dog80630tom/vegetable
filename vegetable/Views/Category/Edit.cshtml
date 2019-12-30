@@ -1,0 +1,42 @@
+﻿@model vegetable.Models.Category
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryPic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryDescription)
+            </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.EditorFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.EditorFor(model => model.CategoryPic)
+            </th>
+            <th>
+                @Html.EditorFor(model => model.CategoryDescription)
+            </th>
+        </tr>
+    </table>
+    <input type="submit" value="Save" class="btn btn-default" />
+}
+
