@@ -734,5 +734,11 @@ namespace vegetable.Controllers
             var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
             return memberData.MemberID;
         }
+
+        //一筆訂單的總價
+        //public int OrderPrice (memberId)
+        //{
+        
+        //}
     }
 }

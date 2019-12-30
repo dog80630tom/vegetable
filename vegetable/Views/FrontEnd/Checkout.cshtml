@@ -240,6 +240,7 @@
                     console.log( json );
                     var url = json.info.paymentUrl.web;
                     window.location.href = url;
+
                 },
                 error: function ( jqXHR, textStatus, errorThrown ) {
                     if ( jqXHR.readyState == 0 ) {
