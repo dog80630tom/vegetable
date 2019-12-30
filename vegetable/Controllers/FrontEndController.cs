@@ -58,6 +58,22 @@ namespace vegetable.Controllers
             {
                 query = query.ToLower();
             }
+            var categoryid = (from c in item.Categories
+                             where c.CategoryName.ToLower() == query
+                             select c.CategoryID).ToList();
+            var iscategory = categoryid.Count() == 1 ? true : false;
+            ViewBag.iscategory = iscategory;
+            if (iscategory)
+            {
+                var id = categoryid[0];
+                var parents = FindCategoryParents(id);
+                ViewBag.parents = parents;
+            }
+            else
+            {
+                var parents = "['" + query + "','Search']";
+                ViewBag.parents = parents;
+            }
 
             var allproducts = from p in item.Products
                               join c in item.Categories
@@ -142,6 +158,20 @@ namespace vegetable.Controllers
                 Url = picDetail.PicUrl
             };
             return JsonConvert.SerializeObject(currentitem);
+        }
+        public string FindCategoryParents(int? categoryid)
+        {
+            var categories = new List<string>();
+
+            Category category = item.Categories.Find(categoryid);
+            categories.Add(category.CategoryName);
+            categoryid = category.ParentID;
+            while (categoryid != null)
+            {
+                category = item.Categories.Find(categoryid);
+                categories.Add(category.CategoryName);
+            }
+            return JsonConvert.SerializeObject(categories);
         }
 
         public ActionResult MemberRegist ()
