@@ -523,12 +523,15 @@ namespace vegetable.Controllers
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
             var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+
+            Member.MemberPassword = Encryption.EncryptionMethod(Member.MemberPassword, Member.MemberName);
+
             Member.MemberID = memberData.MemberID;
             Member.MemberGender = memberData.MemberGender;
 
 
             services.EditMember(Member);
-            return RedirectToAction("Index", "FrontEnd");
+            return RedirectToAction("MemberPageOrder");
 
         }
 
