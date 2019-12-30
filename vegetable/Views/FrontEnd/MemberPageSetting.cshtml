@@ -267,6 +267,9 @@
             if (canSubmit) {
                 $('#submitInfor').removeClass("disable");
             }
+            else {
+                $('#submitInfor').addClass("disable");
+            }
         }
 
         function callAjax(uname, psw)
@@ -281,20 +284,21 @@
                     if (data == "1") {
                         $("#pwStat").html("Password correct");
                         canSubmit = true;
-                                    IfCanSubmit();
+                        IfCanSubmit();
                     }
                     else if (data == "3") {
                         $("#pwStat").html("Password incorrect");
                         canSubmit = false;
+                        IfCanSubmit();
                     }
                         else if (data == "2") {
                         $("#pwStat").html("2");
                         canSubmit = false;
+                        IfCanSubmit();
                     }
 
                 }   
              })
-            IfCanSubmit();
         }
 
 
