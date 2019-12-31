@@ -26,7 +26,7 @@ namespace vegetable.Services
 		}
 
 		//回傳一筆Order中 所有的商品數量
-		public Amount GetCartAmount (int memberID)
+		public Amount GetCarQuantity (int memberID)
 		{
 			using (SqlConnection conn = new SqlConnection(connectionStr))
 			{

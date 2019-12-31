@@ -171,20 +171,22 @@ namespace vegetable.Controllers
         public ActionResult getLine(int memberId)
         {
             LinePay line = new LinePay();
-            var data= line.passdata(memberId);
-            TempData["Pay"] = 10;
+            //一筆訂單的總價
+            int price = GetOrderPrice(memberId);
+            var data= line.passdata(memberId, price);
+            TempData ["Pay"] = price;
             return Json(data,JsonRequestBehavior.AllowGet);
         }
-        public ActionResult checkPay() {
-            var code = Request.QueryString["transactionId"];
-            int doll = (int)TempData["Pay"];
+        public string checkPay(string transactionId, int memberId) {
+            //var code = Request.QueryString["transactionId"];
+            int doll = GetOrderPrice(memberId);
             LinePay line = new LinePay();
-          var con=  line.confirm(doll, code);
+          var con=  line.confirm(doll, transactionId);
             if (con.returnCode == "0000")
             {
-                return Content("訂單成功");
+                return "true";
             }
-            return View();
+            return "false";
         }
         public ActionResult ProductIndex(int? id)
         {
@@ -722,7 +724,7 @@ namespace vegetable.Controllers
             var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
             var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
             CartServices cartServices = new CartServices();
-            int amount = cartServices.GetCartAmount(memberData.MemberID).CountAmount;
+            int amount = cartServices.GetCarQuantity(memberData.MemberID).CountAmount;
             return amount;
         }
 
@@ -736,9 +738,10 @@ namespace vegetable.Controllers
         }
 
         //一筆訂單的總價
-        public int GetOrderPrice (int MemberId)
+        public int GetOrderPrice (int memberId)
         {
-
+            CheckoutService checkoutService = new CheckoutService();
+            return checkoutService.GetOrderPrice(memberId);
         }
 
     }

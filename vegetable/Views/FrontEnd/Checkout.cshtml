@@ -50,7 +50,7 @@
                     <img class="ml-2" style="width:100px" src="~/Assets/Image/LINE-Pay.png" />
                 </div>
                 <div class="col-12 mt-3">
-                    <button id="Pay" class="btn btn-confirm rounded-0 text-white mw-100 w-100">PAID </button>
+                    <button id="Pay" class="btn btn-confirm rounded-0 text-white mw-100 w-100">PAY </button>
                 </div>
             </div>
             @*付款完成後填寫收件人資料*@
@@ -132,16 +132,37 @@
     @*格式化日期js*@
     <script src="~/Scripts/xdate.js"></script>
     <script>
-        //當前的Url
-        var Url = "";
+        var url = location.href;
         var memberId = 0;
         $( function () {
-            $( '#RecieverInfo' ).hide();
-            GetSubTotal();
             GetMembetId();
+            GetSubTotal();
+            SwitchPayAndRecirve( url );
             $( '#Checkout' ).click( Checkout );
             $( '#Pay' ).click( Payment );
         } );
+
+        //切換付款選項或收件人資訊
+        function SwitchPayAndRecirve( url ) {
+            let pay = CheckUrl( url );
+            if ( pay ) {
+                $( '#RecieverInfo' ).show();
+                $( '#Payment' ).hide();
+                LinePayDoubleCheck();
+            } else {
+                $( '#RecieverInfo' ).hide();
+            }
+        }
+
+        //確認Url是否因為linepay付款後變化
+        function CheckUrl(url) {
+            if ( url.indexOf( "transactionId" ) != -1 ) {
+                return true
+            }
+            else {
+                return false
+            }
+        }
 
         function GetSubTotal() {
             let sum = 0;
@@ -219,6 +240,7 @@
                     dataType: "text",
                     success: function ( response ) {
                         alert( '成功下訂' )
+                        window.location.href = "Order"
                     }
                 } );
             }
@@ -235,19 +257,18 @@
                 dataType: "text",
                 url: `/frontend/${actionName}`,
                 success: function ( respond ) {
-                    //將傳回的JSON資料轉成array
-                    var json = JSON.parse( JSON.parse( respond ) );
-                    console.log( json );
-                    var url = json.info.paymentUrl.web;
-                    window.location.href = url;
-
+                        ////將傳回的JSON資料轉成array
+                        var json = JSON.parse( JSON.parse( respond ) );
+                        console.log( json );
+                        var url = json.info.paymentUrl.web;
+                        window.location.href = url;
                 },
                 error: function ( jqXHR, textStatus, errorThrown ) {
                     if ( jqXHR.readyState == 0 ) {
                         console.log( 'Error: ' + textStatus + ' ' + errorThrown.message );
                     }
                 }
-            } )
+            })
         }
 
         //確認付款方式
@@ -258,7 +279,38 @@
                 }
             }
         }
+        
+        function GetMembetId() {
+            $.ajax( {
+                type: "get",
+                url: "/Frontend/GetMemberId",
+                dataType: "text",
+                success: function ( response ) {
+                    memberId = parseInt( response );
+                }
+            } );
+        }
 
+
+        //linepay 付款後確認
+        function LinePayDoubleCheck() {
+            let url = window.location.href;
+            let index = url.indexOf( 'transactionId=' )
+            let transactionId = url.slice( index ).replace( "transactionId=", "" )
+            console.log('md is', memberId)
+            $.ajax( {
+                type: "post",
+                url: "/FrontEnd/checkPay",
+                data: {
+                    transactionId : transactionId,
+                    memberId : memberId
+                },
+                dataType: "text",
+                success: function ( response ) {
+                    SwitchPayAndRecirve( response );
+                }
+            } );
+        }
 
         //檢查收件人資訊是否空白
         function CheckEmpty( item ) {
@@ -271,15 +323,5 @@
             return can;
         }
 
-        function GetMembetId() {
-            $.ajax( {
-                type: "get",
-                url: "/Frontend/GetMemberId",
-                dataType: "text",
-                success: function ( response ) {
-                    memberId = parseInt( response );
-                }
-            } );
-        }
     </script>
     }

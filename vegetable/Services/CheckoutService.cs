@@ -20,7 +20,7 @@ namespace vegetable.Services
                              join Products as p on p.ProductID = od.ProductID
                              where od.MemberID = {memberId} and DeliverName is null";
             
-                return conn.Query(sql).ToList().FirstOrDefault();
+                return conn.Query<int>(sql).ToList().FirstOrDefault();
             }
         }
     }
