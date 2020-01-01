@@ -59,7 +59,6 @@ namespace vegetable.Controllers
 
             if (temp)
             {
-                //需要做一個view跟他說有產品屬於這個類別所以不能刪除?
                 TempData["CanNotDelete"] = true;
         
                 return RedirectToAction("Index");

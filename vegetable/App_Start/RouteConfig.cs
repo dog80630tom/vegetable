@@ -203,6 +203,17 @@ namespace vegetable
                }
             );
 
+            //訂單管理頁
+            routes.MapRoute(
+               name: "OrderManagement",
+               url: "AdminOrder",
+               defaults: new
+               {
+                   controller = "Orders",
+                   action = "Index"
+               }
+            );
+
             //績效管理頁
             routes.MapRoute(
                name: "ChartManagement",
