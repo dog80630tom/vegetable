@@ -177,16 +177,16 @@ namespace vegetable.Controllers
             TempData ["Pay"] = price;
             return Json(data,JsonRequestBehavior.AllowGet);
         }
-        public string checkPay(string transactionId, int memberId) {
+        public bool checkPay(string transactionId, int memberId) {
             //var code = Request.QueryString["transactionId"];
             int doll = GetOrderPrice(memberId);
             LinePay line = new LinePay();
           var con=  line.confirm(doll, transactionId);
             if (con.returnCode == "0000")
             {
-                return "true";
+                return true;
             }
-            return "false";
+            return false;
         }
         public ActionResult ProductIndex(int? id)
         {
