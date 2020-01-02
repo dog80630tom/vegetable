@@ -610,7 +610,7 @@
                         <a href="/">Home</a>
                     </li>
                     <li class="breadcrumb-item" v-for="tag in tags" style="text-transform:capitalize;">
-                        <a href=`/Product/${tag}`>{{tag}}</a>
+                        <a :href=`/Products/${tag}`>{{tag}}</a>
                     </li>
                 </ul>
                 <!-- 要塞目錄資料及連結資料   結尾-->
@@ -626,21 +626,9 @@
                         <div class="sidebarBlock" id="sidebar-wrapper">
                             <h6 class="side-module-heading"><span>Categories</span></h6>
                             <ul class="navList">
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/crawlers-and-pins/"
-                                       alt="Crawlers and Pins" title="Crawlers and Pins">Crawlers and Pins</a>
-                                </li>
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/threader-earrings/"
-                                       alt="Threader Earrings" title="Threader Earrings">Threader Earrings</a>
-                                </li>
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/earring-sets/"
-                                       alt="Earring Sets" title="Earring Sets">Earring Sets</a>
-                                </li>
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/cuffs/" alt="Cuffs"
-                                       title="Cuffs">Cuffs</a>
+                                <li class="navList-item" v-for="cat in categories">
+                                    <a class="navList-action" :href=`/Products/${cat}`
+                                       :alt=`${cat}` :title=`${cat}`>{{cat}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -648,7 +636,7 @@
                             <h6 class="side-module-heading"><span>Shop by Price</span></h6>
                             <ul>
                                 <li v-for="interval in intervals" v-on:click="pricefilter(interval.low,interval.height)">
-                                    <a alt=interval title=interval>${{interval.low}}.00 - ${{interval.height}}.00</a>
+                                    <a :alt=`${interval}` :title=`${interval}`>${{interval.low}}.00 - ${{interval.height}}.00</a>
                                 </li>
                             </ul>
                         </div>
@@ -667,7 +655,7 @@
                 </div>
                 <main class="page-content col-sm-9">
                     <div class="category-heading">
-                        <h1 class="page-heading">Y-Necklace &amp; Lariat</h1>
+                        <h1 class="page-heading">{{title}}</h1>
                     </div>
 
                     <div id="product-listing-container" class="showMoreCat">
@@ -848,7 +836,7 @@
                                 "Url": {"Url1":"https://i.imgur.com/M4LckHK.jpg","Url2":"https://i.imgur.com/hHN1xsw.jpg","Url3":"https://i.imgur.com/Ome1dkY.jpg"}
                            };
         var parents = @Html.Raw(ViewBag.parents);
-        console.log(parents);
+        var children = @Html.Raw(ViewBag.children);
         var app = new Vue({
             el: '#app',
             data: {
@@ -860,7 +848,9 @@
                 'filterproducts': '',
                 'isRed': false,
                 'currentproduct': thisproduct,
-                'alltags': parents
+                'alltags': parents,
+                'title': parents[0],
+                'categories':children,
             },
             methods: {
                 //分頁按下動作
@@ -895,7 +885,7 @@
                             app.currentproduct.Url = JSON.parse(app.currentproduct.Url);
                             $('#QuickViewModal').modal('show');
                         }
-                    });            
+                    });
                 },
                 //quickview換pics
                 picchange(e) {
@@ -966,7 +956,6 @@
                     for (var i = 0; i < parents.length; i=i+1 ) {
                         ascparents[i] = parents[parents.length-i-1];
                     }
-                    console.log(ascparents)
                     return ascparents
                 }
             },

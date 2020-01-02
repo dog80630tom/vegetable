@@ -60,38 +60,102 @@ namespace vegetable.Controllers
             }
             var categoryid = (from c in item.Categories
                              where c.CategoryName.ToLower() == query
-                             select c.CategoryID).ToList();
+                             select c).ToList();
             var iscategory = categoryid.Count() == 1 ? true : false;
             ViewBag.iscategory = iscategory;
+
+            var allproducts = new List<ProductList>();
             if (iscategory)
             {
-                var id = categoryid[0];
+                var id = categoryid[0].CategoryID;
                 var parents = FindCategoryParents(id);
                 ViewBag.parents = parents;
+                var children = FindCategoryChildren(id);
+                ViewBag.children = JsonConvert.SerializeObject(children["categories"]);
+                var allcategories = children["products"];
+                var iteminallproducts = new List<ProductList>();
+                foreach (string iteminall in allcategories)
+                {
+                    iteminallproducts = (from p in item.Products
+                                       join c in item.Categories
+                                       on p.CategoryID equals c.CategoryID
+                                       join pd in item.PicDetails
+                                       on p.ProductID equals pd.ProductID
+                                       where c.CategoryName == iteminall
+                                       select new ProductList
+                                       {
+                                           ProductID = p.ProductID,
+                                           CategoryName = c.CategoryName,
+                                           ProductName = p.ProductName,
+                                           ProductDescription = p.ProductDescription,
+                                           UnitsInStock = p.UnitsInStock,
+                                           ProductPrice = p.ProductPrice,
+                                           Url = pd.PicUrl
+                                       }).ToList();
+                    if (iteminallproducts.Count() != 0)
+                    {
+                        allproducts.AddRange(iteminallproducts);
+                    }
+                }
+                //allproducts = (from p in item.Products
+                //                join c in item.Categories
+                //                on p.CategoryID equals c.CategoryID
+                //                join pd in item.PicDetails
+                //                on p.ProductID equals pd.ProductID
+                //                where allcategories.ToLower().Contains(c.CategoryName.ToLower())
+                //                select new ProductList
+                //                {
+                //                    ProductID = p.ProductID,
+                //                    CategoryName = c.CategoryName,
+                //                    ProductName = p.ProductName,
+                //                    ProductDescription = p.ProductDescription,
+                //                    UnitsInStock = p.UnitsInStock,
+                //                    ProductPrice = p.ProductPrice,
+                //                    Url = pd.PicUrl
+                //                }).ToList();
             }
             else
             {
                 var parents = "['" + query + "','Search']";
                 ViewBag.parents = parents;
-            }
+                ViewBag.children = "";
 
-            var allproducts = from p in item.Products
-                              join c in item.Categories
-                              on p.CategoryID equals c.CategoryID
-                              join pd in item.PicDetails
-                              on p.ProductID equals pd.ProductID
-                              where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
-                              select new ProductList { 
-                                  ProductID = p.ProductID,
-                                  CategoryName = c.CategoryName,
-                                  ProductName = p.ProductName,
-                                  ProductDescription = p.ProductDescription,
-                                  UnitsInStock = p.UnitsInStock,
-                                  ProductPrice = p.ProductPrice,
-                                  Url = pd.PicUrl
-                              };                
-            var JSONTO = allproducts.ToList();       
-            foreach (ProductList p in JSONTO)
+                allproducts = (from p in item.Products
+                                join c in item.Categories
+                                on p.CategoryID equals c.CategoryID
+                                join pd in item.PicDetails
+                                on p.ProductID equals pd.ProductID
+                                where p.ProductName.ToLower().Contains(query)
+                                select new ProductList
+                                {
+                                    ProductID = p.ProductID,
+                                    CategoryName = c.CategoryName,
+                                    ProductName = p.ProductName,
+                                    ProductDescription = p.ProductDescription,
+                                    UnitsInStock = p.UnitsInStock,
+                                    ProductPrice = p.ProductPrice,
+                                    Url = pd.PicUrl
+                                }).ToList();
+            }     
+            if(allproducts.Count == 0) {
+
+                allproducts = (from p in item.Products
+                               join c in item.Categories
+                               on p.CategoryID equals c.CategoryID
+                               join pd in item.PicDetails
+                               on p.ProductID equals pd.ProductID
+                               select new ProductList
+                               {
+                                   ProductID = p.ProductID,
+                                   CategoryName = c.CategoryName,
+                                   ProductName = p.ProductName,
+                                   ProductDescription = p.ProductDescription,
+                                   UnitsInStock = p.UnitsInStock,
+                                   ProductPrice = p.ProductPrice,
+                                   Url = pd.PicUrl
+                               }).ToList();
+            }
+            foreach (ProductList p in allproducts)
             {
                 //用viewbag丟json格式到view
                 //判斷會員登入
@@ -138,7 +202,7 @@ namespace vegetable.Controllers
                     ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryName:'" + p.CategoryName + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                 }
             }
-                ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
+                ViewBag.products = ViewBag.products.TrimEnd(',');
             
             return View();
         }
@@ -166,15 +230,44 @@ namespace vegetable.Controllers
         {
             var categories = new List<string>();
 
-            Category category = item.Categories.Find(categoryid);
+            Category category = item.Categories.FirstOrDefault(x => x.CategoryID == categoryid);
             categories.Add(category.CategoryName);
             categoryid = category.ParentID;
             while (categoryid != null)
             {
-                category = item.Categories.Find(categoryid);
+                category = item.Categories.FirstOrDefault(x => x.CategoryID == categoryid);
                 categories.Add(category.CategoryName);
             }
             return JsonConvert.SerializeObject(categories);
+        }
+        public Dictionary<string, List<string>> FindCategoryChildren(int? categoryid)
+        {
+            var allcategories = new List<string>();
+            var mycategories = new List<string>();
+            Category category = item.Categories.FirstOrDefault(x => x.CategoryID == categoryid);
+            List<Category> childrencategories = item.Categories.Where(x => x.ParentID == categoryid).ToList();
+            foreach (Category categoryfirst in childrencategories)
+            {
+                List<string> stringlist = new List<string>();
+                List<Category> garndsoncategories = item.Categories.Where(x => x.ParentID == categoryfirst.CategoryID).ToList();
+                if (garndsoncategories.Count != 0)
+                {
+                    foreach (Category categorysecond in garndsoncategories)
+                    {
+                        allcategories.Add(categorysecond.CategoryName);
+                    }
+                }
+                else
+                {
+                    allcategories.Add(categoryfirst.CategoryName);
+                }
+                mycategories.Add(categoryfirst.CategoryName);
+            }
+            var categorymassege = new Dictionary<string, List<string>>();
+            categorymassege.Add("categories" , mycategories);
+            categorymassege.Add("products", allcategories);
+
+            return categorymassege;
         }
 
         public ActionResult MemberRegist ()
