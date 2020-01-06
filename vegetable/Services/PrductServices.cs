@@ -34,7 +34,7 @@ namespace vegetable.Services
             error.IsSuccess = true;
             item.Products.Add(product);
             item.SaveChanges();
-            item.Database.ExecuteSqlCommand($"insert into PicDetails values({product.ProductID},'{pic.PicUrl})')");
+            item.Database.ExecuteSqlCommand($"insert into PicDetails values({product.ProductID},'{pic.PicUrl}')");
             //using (var data = item.Database.BeginTransaction())
             //{
             //    try
