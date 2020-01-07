@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    @*<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />*@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOBEDA</title>
@@ -622,7 +622,7 @@
                         if ((string)TempData["roles"] == "Client")
                         {
                             <li class="nav-item active">
-                                <a class="nav-link text-dark mx-3 navTop">@TempData ["username"].ToString()</a>
+                                <a class="nav-link text-dark mx-3 navTop">@TempData["username"].ToString()</a>
                             </li>
                             <li class="nav-item">
                                 <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
@@ -866,9 +866,9 @@
                             <input class="w-100" type="password" placeholder="Enter Password" name="psw" id="loginPsw" required>
                             <button class="btn-outline-dark w-100 btn-block" type="submit" id="loginConfirm">LOGIN</button>
                             <button class="btn-outline-dark w-100 btn-block" id="gotoRegist">REGISTER</button>
-                            <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&https://localhost:44394&redirect_uri=https://localhost:44394/FrontEnd/GoogleLogin&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="  btn btn-outline-danger  fa-square-o"><i class="fab fa-google-plus fa-3x"></i></a>
+                            <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20email%20profile&https://vegetable20191216120019.azurewebsites.net/&redirect_uri=https://vegetable20191216120019.azurewebsites.net/FrontEnd/GoogleLogin&response_type=code&client_id=145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com&approval_prompt=force" id="google" class="  btn btn-outline-danger  fa-square-o"><i class="fab fa-google-plus fa-3x"></i></a>
 
-                            <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1653659088&redirect_uri=https://localhost:44394/frontend/LineLogin&scope=openid%20profile&state=abcde" class="  btn btn-outline-success  fa-square-o">
+                            <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1653659088&redirect_uri=https://vegetable20191216120019.azurewebsites.net/FrontEnd/LineLogin&scope=openid%20profile%20email&state=abcde" class="  btn btn-outline-success  fa-square-o">
                                 <i class="fab fa-line fa-3x"></i>
                             </a>
 

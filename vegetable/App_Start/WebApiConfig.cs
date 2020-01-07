@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace vegetable
 {
@@ -10,6 +12,10 @@ namespace vegetable
         public static void Register(HttpConfiguration config)
         {
             // Web API 設定和服務
+           
+
+            config.EnableCors();
+            //config.EnableCors();
 
             // Web API 路由
             config.MapHttpAttributeRoutes();

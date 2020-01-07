@@ -127,8 +127,8 @@
         }
 
     .order-detail-heading {
-        margin-top:0;
-        margin-bottom:0;
+        margin-top: 0;
+        margin-bottom: 0;
         display: inline-block;
         padding: 20px 15px 8px;
         font-size: 12px;
@@ -136,21 +136,24 @@
         text-align: left;
         text-transform: capitalize;
     }
-    .order-detail label{
-        margin:10px;
-        width:150px;
-    }
-    .order-detail span{
-        display:inline-block;
-        margin:10px;
-        width:150px;
-    }
-    .order-detail.row{
-        margin:0;
+
+    .order-detail label {
+        margin: 10px;
+        width: 150px;
     }
 
-    .product-detail.row, .product-detail .row{
-        margin:0;
+    .order-detail span {
+        display: inline-block;
+        margin: 10px;
+        width: 150px;
+    }
+
+    .order-detail.row {
+        margin: 0;
+    }
+
+    .product-detail.row, .product-detail .row {
+        margin: 0;
     }
 
     /*cart header*/
@@ -205,13 +208,11 @@
         color: #fff;
     }
 
-    .btn-checkout,
-    .btn-checkout:hover {
-        border-color: #000 !important;
-        background: #000 !important;
-    }
-
-
+        .btn-checkout,
+        .btn-checkout:hover {
+            border-color: #000 !important;
+            background: #000 !important;
+        }
 </style>
 
 
@@ -273,9 +274,9 @@
     <div class="order-detail-content">
         <div class="order-detail row">
             <div class="col-6">
-                <label class="text-right">OrderDate:</label><span>2019/11/30 14:30</span><br/>
-                <label class="text-right">TrackingNumber:</label><span>201911301430054321</span><br/>
-                <label class="text-right">Total:</label><span>$289</span><br/>
+                <label class="text-right">OrderDate:</label><span>2019/11/30 14:30</span><br />
+                <label class="text-right">TrackingNumber:</label><span>201911301430054321</span><br />
+                <label class="text-right">Total:</label><span>$289</span><br />
             </div>
         </div>
         <div class="product-detail row">
@@ -347,14 +348,14 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-12 p-0">
-                            <button class="btn btn-checkout rounded-0 mw-100 w-100">PROCEED TO CHECKOUT</button>
+                            <button type="button" id="checkout" class="btn btn-checkout rounded-0 mw-100 w-100">PROCEED TO CHECKOUT</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-           
+
         </div>
     </div>
     <div class="alert invisible">
@@ -364,4 +365,43 @@
         </p>
     </div>
 </div>
+@section Endscripts
+{
+    <script>
+        var remainingRetry = 3;
 
+        function postdata() {
+           
+       
+
+            $.ajax({
+                type: "post",
+                
+                url: "/frontend/getLine",
+               
+               
+              
+                success: function (data2) {
+                    //將傳回的JSON資料轉成array
+                    var json= JSON.parse(data2);
+                    console.log(json);
+                    var url = json.info.paymentUrl.web;
+                    window.location.href = url;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.readyState == 0) {
+                        console.log('Error: ' + textStatus + ' ' + errorThrown.message);
+                    }
+                }
+
+            })
+        }
+        $(function () {
+            $("#checkout").click(function (e) {
+                postdata();
+
+            });
+
+        });
+    </script>
+}
