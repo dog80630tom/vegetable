@@ -236,6 +236,7 @@ namespace vegetable.Controllers
             while (categoryid != null)
             {
                 category = item.Categories.FirstOrDefault(x => x.CategoryID == categoryid);
+                categoryid = category.ParentID;
                 categories.Add(category.CategoryName);
             }
             return JsonConvert.SerializeObject(categories);
@@ -246,22 +247,35 @@ namespace vegetable.Controllers
             var mycategories = new List<string>();
             Category category = item.Categories.FirstOrDefault(x => x.CategoryID == categoryid);
             List<Category> childrencategories = item.Categories.Where(x => x.ParentID == categoryid).ToList();
-            foreach (Category categoryfirst in childrencategories)
+            if (childrencategories.Count != 0)
             {
-                List<string> stringlist = new List<string>();
-                List<Category> garndsoncategories = item.Categories.Where(x => x.ParentID == categoryfirst.CategoryID).ToList();
-                if (garndsoncategories.Count != 0)
+                foreach (Category categoryfirst in childrencategories)
                 {
-                    foreach (Category categorysecond in garndsoncategories)
+                    List<string> stringlist = new List<string>();
+                    List<Category> garndsoncategories = item.Categories.Where(x => x.ParentID == categoryfirst.CategoryID).ToList();
+                    if (garndsoncategories.Count != 0)
                     {
-                        allcategories.Add(categorysecond.CategoryName);
+                        foreach (Category categorysecond in garndsoncategories)
+                        {
+                            allcategories.Add(categorysecond.CategoryName);
+                        }
                     }
+                    else
+                    {
+                        allcategories.Add(categoryfirst.CategoryName);
+                    }
+                    mycategories.Add(categoryfirst.CategoryName);
                 }
-                else
+            }
+            else
+            {
+                allcategories.Add(category.CategoryName);
+                Category fathercategory = item.Categories.FirstOrDefault(x => x.CategoryID == category.ParentID);
+                childrencategories = item.Categories.Where(x => x.ParentID == fathercategory.CategoryID).ToList();
+                foreach (Category categoryfirst in childrencategories)
                 {
-                    allcategories.Add(categoryfirst.CategoryName);
+                    mycategories.Add(categoryfirst.CategoryName);
                 }
-                mycategories.Add(categoryfirst.CategoryName);
             }
             var categorymassege = new Dictionary<string, List<string>>();
             categorymassege.Add("categories" , mycategories);
