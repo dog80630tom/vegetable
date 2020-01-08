@@ -27,38 +27,39 @@ namespace vegetable
             //耳環
             routes.MapRoute(
                name: "Earrings",
-               url: "Products/Earrings/{id}",
+               url: "Products/{cat}/{id}",
                defaults: new
                {
                    controller = "FrontEnd",
                    action = "ProductIndex",
+                   cat = UrlParameter.Optional,
                    id = UrlParameter.Optional
                }
            );
 
             //手環
-            routes.MapRoute(
-               name: "Bracelets",
-               url: "Products/Bracelets/{id}",
-               defaults: new
-               {
-                   controller = "FrontEnd",
-                   action = "ProductIndex",
-                   id = UrlParameter.Optional
-               }
-           );
+           // routes.MapRoute(
+           //    name: "Bracelets",
+           //    url: "Products/Bracelets/{id}",
+           //    defaults: new
+           //    {
+           //        controller = "FrontEnd",
+           //        action = "ProductIndex",
+           //        id = UrlParameter.Optional
+           //    }
+           //);
 
             //項鍊
-            routes.MapRoute(
-               name: "Necklaces",
-               url: "Products/Necklaces/{id}",
-               defaults: new
-               {
-                   controller = "FrontEnd",
-                   action = "ProductIndex",
-                   id = UrlParameter.Optional
-               }
-           );
+           // routes.MapRoute(
+           //    name: "Necklaces",
+           //    url: "Products/Necklaces/{id}",
+           //    defaults: new
+           //    {
+           //        controller = "FrontEnd",
+           //        action = "ProductIndex",
+           //        id = UrlParameter.Optional
+           //    }
+           //);
 
             //購物車
             routes.MapRoute(

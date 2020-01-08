@@ -1,425 +1,401 @@
-
+@model List<vegetable.Models.ProductList>
 @{
     ViewBag.Title = @ViewBag.ProductName;
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
+
+    var tags = @ViewBag.parents;
 }
 @section styles{
 
     <style>
-            /**/
-            /** {
+        /**/
+        /** {
             font-family: "Open Sans",Arial,Helvetica,sans-serif;
         }*/
 
-            .fa-star {
-                color: rgb(255, 210, 0);
-            }
+        .fa-star {
+            color: rgb(255, 210, 0);
+        }
 
-            /*.Product-info {
+        /*.Product-info {
             box-sizing: border-box;
             width: 120px;
         }*/
 
-            .btn-size {
-                border: 1px solid #dedede;
-            }
+        .btn-size {
+            border: 1px solid #dedede;
+        }
 
-            .add-to-cart {
-                border: 2px solid #000;
-            }
+        .add-to-cart {
+            border: 2px solid #000;
+        }
 
-            .productView-title {
-                font-size: 20px;
-                font-weight: 400;
-                margin: 0 10px 10px 0;
-                letter-spacing: .02em;
-                line-height: 32px;
-            }
+        .productView-title {
+            font-size: 20px;
+            font-weight: 400;
+            margin: 0 10px 10px 0;
+            letter-spacing: .02em;
+            line-height: 32px;
+        }
 
-            .productView-rating {
-                padding-top: 8px;
-                padding-bottom: 27px;
-            }
+        .productView-rating {
+            padding-top: 8px;
+            padding-bottom: 27px;
+        }
 
-            .productView-price {
-                font-family: Poppins,Arial,Helvetica,sans-serif;
-                font-size: 20px;
-                font-weight: 400;
-                color: #000;
-                letter-spacing: .02em;
-            }
+        .productView-price {
+            font-family: Poppins,Arial,Helvetica,sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: #000;
+            letter-spacing: .02em;
+        }
 
-            #button#form-action-addToCart {
-                font-size: 90px;
-                min-width: 270px;
-                max-width: 280px;
-                display: -ms-inline-flexbox;
-                display: inline-flex;
-                -ms-flex-pack: center;
-                justify-content: center;
-                color: #000;
-                background-color: #fff;
-                border-color: #000;
-            }
+        #button#form-action-addToCart {
+            font-size: 90px;
+            min-width: 270px;
+            max-width: 280px;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            -ms-flex-pack: center;
+            justify-content: center;
+            color: #000;
+            background-color: #fff;
+            border-color: #000;
+        }
 
-            /*產品小圖和社群列*/
-            .productView-thumbnail {
-                display: flex;
-                justify-content: center;
-            }
+        /*產品小圖和社群列*/
+        .productView-thumbnail {
+            display: flex;
+            justify-content: center;
+        }
 
-            /*產品小圖*/
-            .viewPic {
-                width: 64px;
-                height: 97px;
-            }
+        /*產品小圖*/
+        .viewPic {
+            width: 64px;
+            height: 97px;
+        }
 
             .viewPic:hover {
-                cursor:pointer;
+                cursor: pointer;
             }
 
-            .btn-outline-white, .RAndQ {
-                border: 1px solid #e5e5e5;
-            }
+        .btn-outline-white, .RAndQ {
+            border: 1px solid #e5e5e5;
+        }
 
-            #questionCount, #reviewCount {
-                background: #eee;
-                padding: 2px 5px;
-                margin-left: 10px;
-            }
+        #questionCount, #reviewCount {
+            background: #eee;
+            padding: 2px 5px;
+            margin-left: 10px;
+        }
 
-            /*防止layout margin影響*/
-            button {
-                margin: 0;
-                /*去除點擊後的籃框*/
-                box-shadow: none;
-                outline: none;
-            }
+        /*防止layout margin影響*/
+        button {
+            margin: 0;
+            /*去除點擊後的籃框*/
+            box-shadow: none;
+            outline: none;
+        }
 
-            /*數量input大小*/
-            #quantity {
-                width: 68px;
-                height: 42px;
-            }
+        /*數量input大小*/
+        #quantity {
+            width: 68px;
+            height: 42px;
+        }
 
-            .btn:focus, .btn:active {
-                outline: none !important;
-                box-shadow: none;
-            }
+        .btn:focus, .btn:active {
+            outline: none !important;
+            box-shadow: none;
+        }
 
-            /*nav bar*/
-            #container_page_nav {
-                background-color: #f7f8f9;
-                padding: 20px 0 15px 15px;
-                margin-top: 15px;
-                margin-bottom: 36px;
-            }
+        /*nav bar*/
+        #container_page_nav {
+            background-color: #f7f8f9;
+            padding: 20px 0 15px 15px;
+            margin-top: 15px;
+            margin-bottom: 36px;
+        }
 
-            .breadcrumb {
-                background-color: #f7f8f9;
-                padding: 0;
-                margin: 0;
-            }
+        .breadcrumb {
+            background-color: #f7f8f9;
+            padding: 0;
+            margin: 0;
+        }
 
-            .breadcrumb-item {
-                display: inline-block;
-                padding-right: 10px;
-            }
+        .breadcrumb-item {
+            display: inline-block;
+            padding-right: 10px;
+        }
 
-                .breadcrumb-item::before {
-                    content: ">" !important;
-                    color: #b4b4b4 !important;
-                    margin: 0 12px 0 3px;
-                }
+        .breadcrumb-item::before {
+            content: ">" !important;
+            color: #b4b4b4 !important;
+            margin: 0 12px 0 3px;
+        }
 
-                .breadcrumb-item:first-child::before {
-                    display: none;
-                }
+        .breadcrumb-item:first-child::before {
+            display: none;
+        }
 
-                .breadcrumb-item a {
-                    color: #b4b4b4;
-                }
+        .breadcrumb-item a {
+            color: #b4b4b4;
+        }
 
-                    .breadcrumb-item a:hover {
-                        color: #000;
-                        /*border-bottom: 1px solid #000;*/
-                    }
+        .breadcrumb-item a:hover {
+            color: #000;
+            border-bottom: 1px solid #000;
+        }
 
-                .breadcrumb-item.active a:hover {
-                    color: #b4b4b4;
-                }
+        .breadcrumb-item.active a:hover {
+            color: #b4b4b4;
+        }
 
-            /*產品 card*/
-            nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
-                background: #fff;
-                position: relative;
-                text-decoration: none !important;
-            }
-
-
-
-            nav.navBar--sub ul.navBar-section li.navBar-item a {
-                font-size: 13px;
-                font-weight: 700;
-                display: block;
-                display: table-cell;
-                padding: 15px 30px 3px;
-                transition: background .3s ease 0s;
-                vertical-align: middle;
-                letter-spacing: .1em;
-                text-transform: uppercase;
-                color: #000;
-                border: 1px solid #e5e5e5;
-                background: #f7f8f9;
-                text-decoration: none !important;
-                float: left;
-                height: 51.6px;
-            }
-
-            .navBar-section {
-                list-style-type: none;
-            }
+        /*產品 card*/
+        nav.navBar--sub ul.navBar-section li.navBar-item.is-active a {
+            background: #fff;
+            position: relative;
+            text-decoration: none !important;
+        }
 
 
-            .btn.btn-checkout, .btn.btn-checkout:hover {
-                border-color: #000;
-                background: #000;
-            }
 
-            .btn.btn-checkout {
-                max-width: 270px;
-                padding-top: 10px;
-                color: #fff;
-            }
+        nav.navBar--sub ul.navBar-section li.navBar-item a {
+            font-size: 13px;
+            font-weight: 700;
+            display: block;
+            display: table-cell;
+            padding: 15px 30px 3px;
+            transition: background .3s ease 0s;
+            vertical-align: middle;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #000;
+            border: 1px solid #e5e5e5;
+            background: #f7f8f9;
+            text-decoration: none !important;
+            float: left;
+            height: 51.6px;
+        }
 
-            .form-input, .form-select {
-                border-style: solid;
-                border-width: 1px;
-                font-family: inherit;
-                margin: 0;
-                font-size: 1rem;
-                width: 100%;
-                height: 42px;
-                padding: 0px;
-                transition: border-color .1s ease-out;
-                background-color: #fff;
-                border-color: #dcdcdc;
-                color: #454545;
-                max-width: none;
-            }
-
-            .page-heading {
-                font-size: 24px;
-            }
-
-            .alert {
-                padding: 10px 30px 1px 25px;
-                margin-top: 40px;
-                margin-bottom: 160px;
-                border-radius: 1px;
-                background-color: #d9edf7;
-                border-color: #bce8f1;
-                color: #31708f;
-            }
-
-            ul {
-                padding-left: 0px;
-            }
-
-            .container_page {
-                margin: 0 auto;
-                padding-bottom: 80px;
-                border-top: 1px solid #eaeaea;
-            }
-
-            .productBlockContainer {
-                margin: 0 -15px;
-                display: flex;
-                /*flex-wrap:wrap;*/
-            }
-
-            .prod-item {
-                margin-bottom: 27px;
-                width: 33.33%;
-                float: left;
-            }
-
-            .card-figure {
-                padding: 0;
-                position: relative;
-                margin-top: 0;
-            }
-
-            .prod-item .prod-image {
-                position: relative;
-                margin-bottom: 21px;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-                .prod-item .prod-image > a {
-                    display: inline-flex;
-                    justify-content: center;
-                    align-items: center;
-                    align-content: center;
-                    width: 100%;
-                }
-
-            .card-image {
-                width: 350px;
-                /*height: 405px;*/
-                max-width: 100%;
-            }
-
-            .prod-item .prod-image > a img.lazyloaded {
-                width: 100% !important;
-            }
-
-            .card-image {
-                border: 0;
-                display: inline-block;
-            }
-
-            .actions > .btnQV,
-            .actions > a.btnWL,
-            .actions > a.btnATC {
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease 0s;
-                position: absolute;
-            }
-
-            .actions > a.btnWL {
-                top: -20px;
-                right: 13px;
-                display: inline-block;
-                width: 30px;
-                padding: 5px;
-                font-size: 16px;
-                text-align: center;
-            }
-
-                .actions > a.btnWL:hover {
-                    border-bottom: none;
-                }
-
-            .btnWL {
-                font-weight: 400;
-                color: #000;
-            }
-
-                .btnWL:hover {
-                    cursor: pointer;
-                    color: #000;
-                    border-bottom: 1px dotted #000;
-                }
+        .navBar-section {
+            list-style-type: none;
+        }
 
 
-            .actions > a.btnATC {
-                width: 100%;
-                bottom: 10px;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-weight: 700;
-            }
+        .btn.btn-checkout, .btn.btn-checkout:hover {
+            border-color: #000;
+            background: #000;
+        }
 
-            .actions > .btnQV {
-                right: 0px;
-                top: 50%;
-                transform: translateY(-50%);
-                left: 0px;
-                width: 106px;
-                height: 33px;
-                margin: 0 auto;
-                color: #000;
-                border: 2px solid #000;
-                background-color: #fff;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-family: Poppins, Arial, Helvetica, sans-serif;
-                font-weight: 700;
-            }
+        .btn.btn-checkout {
+            max-width: 270px;
+            padding-top: 10px;
+            color: #fff;
+        }
 
-                .actions > .btnQV:hover {
-                    border: 1px solid #000;
-                }
+        .form-input, .form-select {
+            border-style: solid;
+            border-width: 1px;
+            font-family: inherit;
+            margin: 0;
+            font-size: 1rem;
+            width: 100%;
+            height: 42px;
+            padding: 0px;
+            transition: border-color .1s ease-out;
+            background-color: #fff;
+            border-color: #dcdcdc;
+            color: #454545;
+            max-width: none;
+        }
 
-            .productBlockContainer.row:after {
-                content: "";
-                display: table;
-                clear: both;
-            }
+        .page-heading {
+            font-size: 24px;
+        }
 
-            .prod-name a {
-                font-weight: 400;
-                color: #000;
-            }
+        .alert {
+            padding: 10px 30px 1px 25px;
+            margin-top: 40px;
+            margin-bottom: 160px;
+            border-radius: 1px;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+            color: #31708f;
+        }
 
-                .prod-name a:hover {
-                    color: #000;
-                }
+        ul {
+            padding-left: 0px;
+        }
 
-            .prod-summary {
-                font-weight: 400;
-                line-height: 1.5rem;
-            }
+        .container_page {
+            margin: 0 auto;
+            padding-bottom: 80px;
+            border-top: 1px solid #eaeaea;
+        }
 
-            .hoverin {
-                opacity: 1 !important;
-                visibility: visible !important;
-            }
+        .productBlockContainer {
+            margin: 0 -15px;
+            display: flex;
+            /*flex-wrap:wrap;*/
+        }
 
-            .showdown {
-                opacity: 1 !important;
-                visibility: visible !important;
-                top: 15px !important;
-            }
+        .prod-item {
+            margin-bottom: 27px;
+            width: 33.33%;
+            float: left;
+        }
 
-            .btnWL span {
-                font-weight: 400;
-                color: #000;
-                border-bottom: 1px dotted #000;
-                margin-left: 10px;
-            }
+        .card-figure {
+            padding: 0;
+            position: relative;
+            margin-top: 0;
+        }
 
-            .btnWL i {
-                font-weight: 400;
-                color: #000;
-                font-size: 16px;
-                margin-left: 40px;
-            }
+        .prod-item .prod-image {
+            position: relative;
+            margin-bottom: 21px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
+        .prod-item .prod-image > a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            width: 100%;
+        }
 
-                .btnWL span:hover, .btnWL i:hover {
-                    cursor: pointer;
-                    color: #000;
-                }
+        .card-image {
+            width: 350px;
+            /*height: 405px;*/
+            max-width: 100%;
+        }
+
+        .prod-item .prod-image > a img.lazyloaded {
+            width: 100% !important;
+        }
+
+        .actions > .btnQV, .actions > a.btnWL, .actions > a.btnATC {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease 0s;
+            position: absolute;
+        }
+
+        .actions > a.btnWL {
+            top: -20px;
+            right: 13px;
+            display: inline-block;
+            width: 30px;
+            padding: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .actions > a.btnWL:hover {
+            border-bottom: none;
+        }
+
+        .actions > a.btnATC {
+            width: 100%;
+            bottom: 10px;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-weight: 700;
+        }
+
+        .actions > .btnQV {
+            right: 0px;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0px;
+            width: 106px;
+            height: 33px;
+            margin: 0 auto;
+            color: #000;
+            border: 2px solid #000;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Poppins,Arial,Helvetica,sans-serif;
+            font-weight: 700;
+        }
+
+        .actions > .btnQV:hover {
+            border: 1px solid #000;
+        }
+
+        .productBlockContainer.row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .prod-name a {
+            font-weight: 400;
+            color: #000;
+        }
+
+        .prod-name a:hover {
+            color: #000;
+        }
+
+        .hoverin {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .showdown {
+            opacity: 1 !important;
+            visibility: visible !important;
+            top: 15px !important;
+        }
+
+        .btnWL span {
+            font-weight: 400;
+            color: #000;
+            border-bottom: 1px dotted #000;
+            margin-left: 10px;
+        }
+
+        .btnWL i {
+            font-weight: 400;
+            color: #000;
+            font-size: 16px;
+            margin-left: 40px;
+        }
+
+        .btnWL span:hover, .btnWL i:hover {
+            cursor: pointer;
+            color: #000;
+        }
     </style>
 }
 
+<div class="container_page">
     <div id="container_page_nav">
         <div class="container">
             <!-- 要塞目錄資料及連結資料   開頭-->
             <!-- 動態綁定有a標籤href及text屬性 -->
             <ul class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                 </li>
-                <li class="breadcrumb-item">
-                    <a href="#">New</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="#"> New Arrivals</a>
-                </li>
-                <li class="breadcrumb-item active">
-                    <a href="#"> Tie and Knot Ring</a>
-                </li>
+                @foreach (var tag in tags)
+                {
+                    <li class="breadcrumb-item" style="text-transform:capitalize;">
+                        <a :href="/Products/@tag">@tag</a>
+                    </li>
+                }
             </ul>
             <!-- 要塞目錄資料及連結資料   結尾-->
         </div>
     </div>
+</div>
     <div class="container">
         <div class="row my-5" id="PicVue">
 
@@ -494,7 +470,7 @@
 
             <div id="SAndR" class="col-xl-12 mt-4">
                 <div>Shipping and Returns Policy</div>
-                <div class="mt-3"><a href="@Url.Action("Shipping", "FrontEnd") ">Shipping FAQ</a></div>
+                <div class="mt-3"><a href="@Url.Action(" Shipping", "FrontEnd" ) ">Shipping FAQ</a></div>
                 <div class="mt-3"><a href="javascript:void(0) ">Returns / Exchanges FAQ</a></div>
             </div>
         </div>
@@ -605,87 +581,36 @@
 
     <div class="container">
         <div class="productBlockContainer row">
-            <div class="prod-item col-xl-4">
-                <figure class="card-figure">
-                    <div class="prod-image">
-                        <a href="#">
-                            <img class="card-image"
-                                 src="https://i.imgur.com/RekqJO3.jpg">
-                        </a>
-                        <div class="actions">
-                            <a href="#" class="btnWL">
-                                <i class="far fa-heart"></i>
+            @foreach (var data in Model)
+            {
+                var urls = Json.Decode(data.Url);
+                <div class="prod-item col-xl-4">
+                    <figure class="card-figure" id="@data.ProductID">
+                        <div class="prod-image">
+                            <a href="#">
+                                <img class="card-image" value="@urls.Url2"
+                                     src="@urls.Url1">
                             </a>
-                            <a href="#" class="btn btn-outline-dark rounded-0 btnATC">
-                                <i class="fa fa-heart-o"></i>Add to
-                                Cart
-                            </a>
-
-
-                            <a href="#" class="btnQV quickview">Quick view</a>
+                            <div class="actions">
+                                <a class="btnWL">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                                <a class="btn btn-outline-dark rounded-0 btnATC">
+                                    <i class="fa fa-heart-o"></i>
+                                </a>
+                                <a class="btnQV quickview">Quick view</a>
+                            </div>
                         </div>
-                    </div>
-                    <figcaption class="prod-desc">
-                        <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                        <div class="prod-price text-center"><span class="price">$24.00</span></div>
-
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="prod-item col-xl-4">
-                <figure class="card-figure">
-                    <div class="prod-image">
-                        <a href="#">
-                            <img class="card-image"
-                                 src="https://i.imgur.com/RekqJO3.jpg">
-                        </a>
-                        <div class="actions">
-                            <a href="#" class="btnWL">
-                                <i class="far fa-heart"></i>
-                            </a>
-                            <a href="#" class="btn btn-outline-dark rounded-0 btnATC">
-                                <i class="fa fa-heart-o"></i>Add to
-                                Cart
-                            </a>
-                            <a href="#" class="btnQV quickview">Quick view</a>
-                        </div>
-                    </div>
-                    <figcaption class="prod-desc">
-                        <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                        <div class="prod-price text-center"><span class="price">$24.00</span></div>
-
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="prod-item col-xl-4">
-                <figure class="card-figure">
-                    <div class="prod-image">
-                        <a href="#">
-                            <img class="card-image"
-                                 src="https://i.imgur.com/RekqJO3.jpg">
-                        </a>
-                        <div class="actions">
-                            <a href="#" class="btnWL">
-                                <i class="far fa-heart"></i>
-                            </a>
-                            <a href="#" class="btn btn-outline-dark rounded-0 btnATC">
-                                <i class="fa fa-heart-o"></i>Add to
-                                Cart
-                            </a>
-                            <a href="#" class="btnQV quickview">Quick view</a>
-                        </div>
-                    </div>
-                    <figcaption class="prod-desc">
-                        <p class="prod-name text-center"><a href="#">Shine Bright Y-Necklace (14K)</a></p>
-                        <div class="prod-price text-center"><span class="price">$24.00</span></div>
-
-
-                    </figcaption>
-                </figure>
-            </div>
+                        <figcaption class="prod-desc">
+                            <p class="prod-name text-center"><a>@data.ProductName</a></p>
+                            <div class="prod-price text-center"><span class="price">$@data.ProductPrice.00</span></div>
+                        </figcaption>
+                    </figure>
+                </div>
+            }
         </div>
     </div>
- @section Vuejs{
+    @section Vuejs{
         <script>
         var picVue = new Vue({
             el: '#PicVue',
@@ -706,7 +631,6 @@
 
     @section viewJquery{
         <script>
-        
         //隱藏Shipping and Returns
         $( '#SAndR' ).hide();
         //隱藏問題跟回顧表格
