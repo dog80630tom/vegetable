@@ -545,6 +545,7 @@
             background-color: rgb(0, 0, 0);
             background-color: rgba(0, 0, 0, 0.4);
             padding-top: 60px;
+            padding-right:0 !important;
         }
 
             .modal label {
@@ -630,7 +631,7 @@
                         else
                         {
                             <li class="nav-item active">
-                                <a href="@Url.Action("Product", "BackEnd")" class="nav-link text-dark mx-3 navTop">前往後台</a>
+                                <a href="@Url.Action("Index", "Home")" class="nav-link text-dark mx-3 navTop">前往後台</a>
                             </li>
                             <li class="nav-item">
                                 <a href="@Url.Action("Logout", "FrontEnd")" class="nav-link text-dark mx-3 navTop">登出</a>
@@ -692,14 +693,14 @@
                     <ul :id="c1.listname" class="collapse menu-child">
                         <li v-for="c2 in c1.childs">
                             <div v-if="c2.childs.length!==0" class="categoryitems">
-                                <a :href=`/Products/${c1.name}` class="dot">{{c2.name}}</a>
+                                <a :href=`/Products/${c2.name}` class="dot">{{c2.name}}</a>
                                 <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" :data-target="'#'+c2.listname" aria-expanded="false" :aria-controls="c2.listname"></i>
                                 <ul :id="c2.listname" class="collapse menu-child py-2">
-                                    <li v-for="c3 in c2.childs"><a class="dot" href="">{{c3.name}}</a></li>
+                                    <li v-for="c3 in c2.childs"><a class="dot" :href=`/Products/${c3.name}`>{{c3.name}}</a></li>
                                 </ul>
                             </div>
                             <div v-else>
-                                <a :href=`/Products/${c1.name}` class="dot">{{c2.name}}</a>
+                                <a :href=`/Products/${c2.name}` class="dot">{{c2.name}}</a>
                             </div>
 
                         </li>
@@ -742,8 +743,8 @@
                             <div class="row">
                                 <div v-for="c2 in c1.childs" class="col-6 col-md-3 col-xl-2">
                                     <ul class="menu-list">
-                                        <li><a :href=`/Products/${c1.name}` class="dot">{{c2.name}}</a></li>
-                                        <li v-for="c3 in c2.childs"><a :href=`/Products/${c1.name}` class="dot">{{c3.name}}</a></li>
+                                        <li><a :href=`/Products/${c2.name}` class="dot">{{c2.name}}</a></li>
+                                        <li v-for="c3 in c2.childs"><a :href=`/Products/${c3.name}` class="dot">{{c3.name}}</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -999,8 +1000,9 @@
                         console.log('back', back);
                         if (back == "1") {
                             $("#loginStatus").html("sign in suceesfully");
-                            location.reload()
-
+                            //location.href = "/FrontEnd/MemberPageOrder"
+                            $('#loginModal').modal('hide');
+                            location.reload();
                         }
                         else if ( back == "2" ) {
                             $( "#loginStatus" ).html( "This account doesn't exist" );
