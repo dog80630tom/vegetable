@@ -335,6 +335,7 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SearchitemController.cs" />
+    <Compile Include="Cors\AllowCrossSiteAttribute.cs" />
     <Compile Include="Helper\MyHtmlHelper.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\AdminRespond.cs" />
@@ -344,6 +345,7 @@
     <Compile Include="Models\Customer_Question.cs" />
     <Compile Include="Models\Customer_Review.cs" />
     <Compile Include="Models\HomePageAD.cs" />
+    <Compile Include="Models\LinePay\LinePay.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\ProductLIst.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
@@ -742,6 +744,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="identity.aspx" />
+    <Content Include="Properties\PublishProfiles\vegetable.pubxml.user" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />

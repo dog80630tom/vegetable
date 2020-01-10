@@ -13,6 +13,8 @@ using vegetable.Services;
 using Member = vegetable.Models.Member;
 using vegetable.Models.ViewModels;
 using vegetable.Respository;
+using vegetable.Cors;
+using vegetable.Models.LinePay;
 
 namespace vegetable.Controllers
 {
