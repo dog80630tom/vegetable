@@ -4,6 +4,7 @@
     var quantityAdd = "quantityAdd" + Model.OrderDetailsID;
     var quantityReduce = "quantityReduce" + Model.OrderDetailsID;
     var quantity = "quantity" + Model.OrderDetailsID;
+    var urls = Json.Decode(Model.PicUrl);
 }
 
 @* 購物車內容 *@
@@ -12,7 +13,7 @@
         <div class="row">
             @* 圖片 *@
             <div class="col-5">
-                <img id="productImg" src="~/Assets/ProductPics/@Model.CategoryName/@Model.ProductName/1.jpg" alt="@Model.ProductName" />
+                <img class="productImg" src="@urls.Url1" alt="@Model.ProductName" />
             </div>
             @* 名稱 大小 *@
             <div class="col-7">
