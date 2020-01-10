@@ -18,6 +18,13 @@ namespace vegetable
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            RegisterCors(MvcCorsConfiguration.Configuration);
+        }
+        private void RegisterCors(MvcCorsConfiguration corsConfig)
+        {
+            var corsAttr = new EnableCorsAttribute("https://www.youtube.com", "*", "*");
+            corsConfig.AllowAll();
+
             //強制回傳資料型態都為JSON
             //GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
         }

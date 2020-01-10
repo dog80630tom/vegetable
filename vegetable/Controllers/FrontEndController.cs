@@ -303,9 +303,31 @@ namespace vegetable.Controllers
                             select o;
             return View(pageorder.ToList());
         }
-        public ActionResult MemberPageOrderDetail ()
+        [AllowCrossSite]
+        public ActionResult MemberPageOrderDetail()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult getLine(int memberId)
+        {
+            LinePay line = new LinePay();
+            //一筆訂單的總價
+            int price = GetOrderPrice(memberId);
+            var data= line.passdata(memberId, price);
+            TempData ["Pay"] = price;
+            return Json(data,JsonRequestBehavior.AllowGet);
+        }
+        public bool checkPay(string transactionId, int memberId) {
+            //var code = Request.QueryString["transactionId"];
+            int doll = GetOrderPrice(memberId);
+            LinePay line = new LinePay();
+          var con=  line.confirm(doll, transactionId);
+            if (con.returnCode == "0000")
+            {
+                return true;
+            }
+            return false;
         }
 
 
@@ -767,7 +789,7 @@ namespace vegetable.Controllers
             var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
             IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberData.MemberID);
 
-            return View("Cart", cartVM);
+            return View("MemberPageOrderDetail", cartVM);
         }
 
         public void DeleteCart (int cartId)
@@ -846,5 +868,33 @@ namespace vegetable.Controllers
                 return "false";
             }
         }
+
+        //回傳一筆Order中 所有的商品數量
+        public int GetCartAmount ()
+        {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            CartServices cartServices = new CartServices();
+            int amount = cartServices.GetCarQuantity(memberData.MemberID).CountAmount;
+            return amount;
+        }
+
+        //取得會員ID
+        public int GetMemberId ()
+        {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            return memberData.MemberID;
+        }
+
+        //一筆訂單的總價
+        public int GetOrderPrice (int memberId)
+        {
+            CheckoutService checkoutService = new CheckoutService();
+            return checkoutService.GetOrderPrice(memberId);
+        }
+
     }
 }

@@ -338,6 +338,7 @@
     <Compile Include="Helper\MyHtmlHelper.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\AdminRespond.cs" />
+    <Compile Include="Models\Amount.cs" />
     <Compile Include="Models\CartDetail.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer_Question.cs" />
@@ -382,6 +383,7 @@
     <Compile Include="Respository\OrderDetailRepository.cs" />
     <Compile Include="Services\CartServices.cs" />
     <Compile Include="Services\CategoryServices.cs" />
+    <Compile Include="Services\CheckoutService.cs" />
     <Compile Include="Services\MemberServices.cs" />
     <Compile Include="Services\PrductServices.cs" />
     <Compile Include="Startup.cs" />
@@ -391,6 +393,7 @@
     <Content Include="Assets\Image\041bed60-0226-4c8a-9147-f684ca29d1de.jpg" />
     <Content Include="Assets\Image\1_zIroyuyAYS7ch96mnfCK7A.png" />
     <Content Include="Assets\Image\20140329.jpg" />
+    <Content Include="Assets\Image\LINE-Pay.png" />
     <Content Include="Assets\Image\長春花-粉紅1.jpg" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\1.jpg" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\2.jpg" />
@@ -768,6 +771,7 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="libman.json" />
+    <None Include="Properties\PublishProfiles\vegetable20191226094631 - Web Deploy.pubxml" />
     <Content Include="Assets\ProductPics\Bracelets\productbook_page2.csv" />
     <Content Include="Assets\ProductPics\Earrings\productbook.csv" />
     <Content Include="Assets\ProductPics\Necklaces\productbook.csv" />
