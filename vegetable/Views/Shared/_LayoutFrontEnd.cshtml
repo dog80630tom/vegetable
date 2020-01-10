@@ -592,6 +592,24 @@
             -webkit-animation: animatezoom 0.6s;
             animation: animatezoom 0.6s
         }
+
+        /*購物車顯示數量*/
+        .cart-relative {
+            position: relative;
+        }
+
+        .cart-absolute {
+            font-size:14px;
+            position: absolute;
+            top: 5px;
+            right: 12px;
+            background-color: #d4a299;
+            color: #fff;
+        }
+
+        .cart-i-con{
+            font-size:24px;
+        }
     </style>
     @RenderSection("styles", required: false)
 </head>
@@ -612,13 +630,13 @@
 
             <div class="collapse navbar-collapse p-0 justify-content-between" id="navbarNavDropdown">
                 <ul class="navbar-nav p-0">
-                    @if (Request.Cookies["myaccount"] != null)
+                    @if (Request.Cookies ["myaccount"] != null)
                     {
                         <li class="nav-item active border-right  p-0">
                             <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("MemberPageOrder", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
                         </li>
 
-                        if ((string)TempData["roles"] == "Client")
+                        if ((string)TempData ["roles"] == "Client")
                         {
                             <li class="nav-item active">
                                 <a class="nav-link text-dark mx-3 navTop">@TempData ["username"].ToString()</a>
@@ -676,7 +694,11 @@
                         <a class="nav-link text-dark mx-3 navTop" href="/FrontEnd/MemberPageWishlist"><span class="dot">WISH LISTS</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark   mx-3 navTop" href="/Cart"><span class="dot">CART</span><i class="far fa-clipboard icon ml-3"></i></a>
+                        <a class="nav-link text-dark   mx-3 navTop" href="/Cart">
+                            <span class="dot">CART</span>
+                            @*購物車i con 和顯示數目的badge*@
+                            <i class="far fa-clipboard icon ml-3 cart-relative cart-i-con"></i><a href="#" class="badge badge-primary rounded-circle cart-absolute">0</a>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -762,24 +784,24 @@
         </div>
     </div>
     <div>
-    @RenderBody()
+        @RenderBody()
     </div>
     @*------------------------footer------------------------------------------------------------------------- *@
     <footer id="footer" class=" bg-footer py-5">
         <div class="container">
             <div class="row">
                 <div class="col-6 col-md-3 col-xl-2">
-                     <ul class="footer-list">
-                            <li>SHOP</li>
-                            <li><a href="/FrontEnd/Index" class="dot">Home</a></li>
-                            <li><a href="/Products/new" class="dot">new</a></li>
-                            <li><a href="/Products/Earrings" class="dot">Earrings</a></li>
-                            <li><a href="/Products/Necklaces" class="dot">Necklaces</a></li>
-                            <li><a href="/Products/Bracelets" class="dot">Bracelets</a></li>
-                            <li><a href="/Products/Rings" class="dot">Rings</a></li>
-                            <li><a href="/Products/Other Accessories" class="dot">Other Accessories</a></li>
-                            <li><a href="/Products/Sale" class="dot">Sale</a></li>
-                        </ul>
+                    <ul class="footer-list">
+                        <li>SHOP</li>
+                        <li><a href="/FrontEnd/Index" class="dot">Home</a></li>
+                        <li><a href="/Products/new" class="dot">new</a></li>
+                        <li><a href="/Products/Earrings" class="dot">Earrings</a></li>
+                        <li><a href="/Products/Necklaces" class="dot">Necklaces</a></li>
+                        <li><a href="/Products/Bracelets" class="dot">Bracelets</a></li>
+                        <li><a href="/Products/Rings" class="dot">Rings</a></li>
+                        <li><a href="/Products/Other Accessories" class="dot">Other Accessories</a></li>
+                        <li><a href="/Products/Sale" class="dot">Sale</a></li>
+                    </ul>
                 </div>
                 <div class="col-6 col-md-3 col-xl-2">
                     <ul class="footer-list">
@@ -880,26 +902,26 @@
             </div>
         </div>
     </div>
-    
+
 
     @RenderSection("scripts", required: false)
     <script>
         var btn;
-        function openNav(selector) {
+        function openNav( selector ) {
             //$('#ProductSidenav').css('margin-left', '0px');
-            $(selector).css('margin-left', '0px');
-            $('#main').css('margin-left', '280px');
-            $('.lock-background').css('display', 'block');
-            $('body').css('overflow', 'hidden');
+            $( selector ).css( 'margin-left', '0px' );
+            $( '#main' ).css( 'margin-left', '280px' );
+            $( '.lock-background' ).css( 'display', 'block' );
+            $( 'body' ).css( 'overflow', 'hidden' );
             btn = selector;
-            console.log('btn is', btn);
+            console.log( 'btn is', btn );
         }
-        function closeNav(selector) {
+        function closeNav( selector ) {
             //$('#ProductSidenav').css('margin-left', '-280px');
-            $(selector).css('margin-left', '-280px');
-            console.log('close', this);
-            $('#main').css('margin-left', '0px');
-            $('.lock-background').css('display', 'none');
+            $( selector ).css( 'margin-left', '-280px' );
+            console.log( 'close', this );
+            $( '#main' ).css( 'margin-left', '0px' );
+            $( '.lock-background' ).css( 'display', 'none' );
         }
         //function openNavLogin() {
         //    $('#LoginSidenav').css('margin-left', '0px');
@@ -910,12 +932,12 @@
         //    $('#main').css('margin-left', '0px');
         //}
         function unlock() {
-            $('body').css('overflow', 'auto');
-            $('.lock-background').css('display', 'none');
-            closeNav(btn);
+            $( 'body' ).css( 'overflow', 'auto' );
+            $( '.lock-background' ).css( 'display', 'none' );
+            closeNav( btn );
         }
         function Binding() {
-            var vm = new Vue({
+            var vm = new Vue( {
                 el: '#main',
                 data: {
                     categories: []
@@ -933,72 +955,72 @@
                             "Postman-Token": "c87fd111-8d9c-48a4-9ce6-73ac1c87b509"
                         }
                     }
-                    $.ajax(settings).done(function (response) {
-                        console.log(response);
+                    $.ajax( settings ).done( function ( response ) {
+                        console.log( response );
                         vm.categories = response;
-                    });
+                    } );
                 }
-            });
+            } );
         }
         Binding();
     </script>
     @RenderSection("Vuejs", required: false)
     <script>
-        $('#btn-slide').click(function () {
-            openNav('#ProductSidenav');
-        });
-        $(".lock-background").on('click', unlock);
-        $('#btn-slide-login').click(function () { openNav('#LoginSidenav') });
+        $( '#btn-slide' ).click( function () {
+            openNav( '#ProductSidenav' );
+        } );
+        $( ".lock-background" ).on( 'click', unlock );
+        $( '#btn-slide-login' ).click( function () { openNav( '#LoginSidenav' ) } );
         //$('#btn-slide-login').click(openNav);
-        $('#Close-ProductSideNav').click(function () { closeNav('#ProductSidenav') });
-        $('#Close-LoginSideNav').click(function () { closeNav('#LoginSidenav') });
+        $( '#Close-ProductSideNav' ).click( function () { closeNav( '#ProductSidenav' ) } );
+        $( '#Close-LoginSideNav' ).click( function () { closeNav( '#LoginSidenav' ) } );
         //$('#btn-slide-login').click(openNav);
 
 
-        $("#btn_login").click(function () {
-            $('#loginModal').modal('show');
-        });
-        $("#gotoRegist").click(function () {
+        $( "#btn_login" ).click( function () {
+            $( '#loginModal' ).modal( 'show' );
+        } );
+        $( "#gotoRegist" ).click( function () {
             location.href = "/FrontEnd/MemberRegist"
-        });
+        } );
 
-        $("#loginConfirm").click(function () {
-            var uname = $("#loginId").val();
-            var psw = $("#loginPsw").val();
+        $( "#loginConfirm" ).click( function () {
+            var uname = $( "#loginId" ).val();
+            var psw = $( "#loginPsw" ).val();
 
-            $.ajax({
+            $.ajax( {
                 type: "POST",
                 url: "/FrontEnd/Login",
                 data: { uname, psw },
-                success: function (back) {
-                    console.log('back', back);
-                    if (back == "1") {
-                        $("#loginStatus").html("sign in suceesfully");
+                success: function ( back ) {
+                    console.log( 'back', back );
+                    if ( back == "1" ) {
+                        $( "#loginStatus" ).html( "sign in suceesfully" );
                         location.reload()
                     }
-                    else if (back == "2") {
-                        $("#loginStatus").html("This account doesn't exist");
+                    else if ( back == "2" ) {
+                        $( "#loginStatus" ).html( "This account doesn't exist" );
                     }
                     else {
-                        $("#loginStatus").html("Your password is incorrect. Please try again.");
+                        $( "#loginStatus" ).html( "Your password is incorrect. Please try again." );
                     }
                 }
-            });
-        });
+            } );
+        } );
 
-        $("#loginId").keydown(function (event) {
-            if (event.which == 13) {
-                var uname = $("#loginId").val();
-                var psw = $("#loginPsw").val();
+        $( "#loginId" ).keydown( function ( event ) {
+            if ( event.which == 13 ) {
+                var uname = $( "#loginId" ).val();
+                var psw = $( "#loginPsw" ).val();
 
                 $.ajax( {
                     type: "POST",
                     url: "/FrontEnd/Login",
                     data: { uname, psw },
-                    success: function (back) {
-                        console.log('back', back);
-                        if (back == "1") {
-                            $("#loginStatus").html("sign in suceesfully");
+                    success: function ( back ) {
+                        console.log( 'back', back );
+                        if ( back == "1" ) {
+                            $( "#loginStatus" ).html( "sign in suceesfully" );
                             location.reload()
 
                         }
@@ -1009,48 +1031,48 @@
                             $( "#loginStatus" ).html( "Your password is incorrect. Please try again." );
                         }
                     }
-                });
+                } );
             }
-        });
+        } );
 
-        $("#loginPsw").keydown(function (event) {
-            if (event.which == 13) {
-                var uname = $("#loginId").val();
-                var psw = $("#loginPsw").val();
+        $( "#loginPsw" ).keydown( function ( event ) {
+            if ( event.which == 13 ) {
+                var uname = $( "#loginId" ).val();
+                var psw = $( "#loginPsw" ).val();
 
-                $.ajax({
+                $.ajax( {
                     type: "POST",
                     url: "/FrontEnd/Login",
                     data: { uname, psw },
-                    success: function (back) {
-                        console.log('back', back);
-                        if (back == "1") {
-                            $("#loginStatus").html("sign in suceesfully");
+                    success: function ( back ) {
+                        console.log( 'back', back );
+                        if ( back == "1" ) {
+                            $( "#loginStatus" ).html( "sign in suceesfully" );
                             location.reload()
                         }
-                        else if (back == "2") {
-                            $("#loginStatus").html("This account doesn't exist");
+                        else if ( back == "2" ) {
+                            $( "#loginStatus" ).html( "This account doesn't exist" );
                         }
                         else {
-                            $("#loginStatus").html("Your password is incorrect. Please try again.");
+                            $( "#loginStatus" ).html( "Your password is incorrect. Please try again." );
                         }
                     }
-                });
+                } );
             }
-        });
+        } );
 
 
-        $("#searchBTN").click(function () {
-            var condition = $("#search").val();
+        $( "#searchBTN" ).click( function () {
+            var condition = $( "#search" ).val();
             window.location.href = "/Products/" + condition;
-        });
+        } );
 
-        $("#search").keydown(function (event) {
-            if (event.which == 13) {
-                var condition = $("#search").val();
+        $( "#search" ).keydown( function ( event ) {
+            if ( event.which == 13 ) {
+                var condition = $( "#search" ).val();
                 window.location.href = "/Products/" + condition;
             }
-        });
+        } );
     </script>
     @RenderSection("viewJquery", required: false)
     @RenderSection("Endscripts", required: false)
