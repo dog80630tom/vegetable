@@ -7,6 +7,7 @@ using System.Web.Http.Cors;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Thinktecture.IdentityModel.Http.Cors.Mvc;
 
 namespace vegetable
 {
