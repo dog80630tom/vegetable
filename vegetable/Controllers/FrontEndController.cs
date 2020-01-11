@@ -332,12 +332,11 @@ namespace vegetable.Controllers
             return false;
         }
 
-
-        public ActionResult ProductIndex (int id)
+        public ActionResult ProductIndex (string cat, int id)
         {
             var isWish = "false";
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
-            if (rqstCookie!=null) 
+            if (rqstCookie != null)
             {
                 var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
                 var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
@@ -358,6 +357,7 @@ namespace vegetable.Controllers
             //{
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             //}
+
             using (ItemContext item = new ItemContext())
             {
                 Product product = item.Products.Find(id);
@@ -376,9 +376,30 @@ namespace vegetable.Controllers
                 ViewBag.ProductPrice = product.ProductPrice;
                 ViewBag.ProductUrl = picDetail.PicUrl;
                 //ViewBag.ProductUrl = JsonConvert.SerializeObject(picDetail.PicUrl);
-                return View();
+                var parentstring = FindCategoryParents(product.CategoryID);
+                var parents = FindCategoryParents(product.CategoryID).Replace(@"""", "").Replace(@"\\", "").Replace(@"[", "").Replace(@"]", "").Split(',');
+                ViewBag.parents = parents.Reverse();
+
+                List<ProductList> products = (from p in item.Products
+                                              join c in item.Categories
+                                              on p.CategoryID equals c.CategoryID
+                                              join pic in item.PicDetails
+                                              on p.ProductID equals pic.ProductID
+                                              where p.CategoryID == product.CategoryID
+                                              select new ProductList
+                                              {
+                                                  ProductID = p.ProductID,
+                                                  CategoryName = c.CategoryName,
+                                                  ProductName = p.ProductName,
+                                                  ProductDescription = p.ProductDescription,
+                                                  UnitsInStock = p.UnitsInStock,
+                                                  ProductPrice = p.ProductPrice,
+                                                  Url = pic.PicUrl
+                                              }).ToList();
+                return View(products);
             }
         }
+    
         public ActionResult MemberPageAddress ()
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
