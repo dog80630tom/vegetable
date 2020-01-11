@@ -27,6 +27,8 @@ namespace vegetable
             var corsAttr = new EnableCorsAttribute("https://www.youtube.com", "*", "*");
             corsConfig.AllowAll();
 
+            //強制回傳資料型態都為JSON
+            //GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
         }
     }
 }
