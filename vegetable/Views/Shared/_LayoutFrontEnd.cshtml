@@ -698,7 +698,8 @@
                         <a class="nav-link text-dark   mx-3 navTop" href="/Cart">
                             <span class="dot">CART</span>
                             @*購物車i con 和顯示數目的badge*@
-                            <i class="far fa-clipboard icon ml-3 cart-relative cart-i-con"></i><a href="#" class="badge badge-primary rounded-circle cart-absolute">0</a>
+                            <i class="far fa-clipboard icon ml-3 cart-relative cart-i-con"></i>
+                            <a id="CartAmount" href="#" class="badge badge-primary rounded-circle cart-absolute">0</a>
                         </a>
                     </li>
                 </ul>
@@ -963,6 +964,20 @@
                 }
             } );
         }
+        
+        //顯示現在購物車內有幾項商品
+        function GetCartAmount() {
+            $.ajax( {
+                type: "GET",
+                url: "/Frontend/GetCartAmount",
+                dataType: "text",
+                success: function ( response ) {
+                    $( '#CartAmount' ).text( `${response}` );
+                }
+            } );
+        }
+
+        GetCartAmount();
         Binding();
     </script>
     @RenderSection("Vuejs", required: false)
