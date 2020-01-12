@@ -37,10 +37,17 @@ namespace vegetable
                     "~/Content/Css/zabuto_calendar.css",
                     "~/Content/Css/datatables.css"));
 
-            bundles.Add(new StyleBundle("~/bundles/CartJs").Include(
-                "~/Scripts/vue.js",
-                "~/Scripts/Cart.js"
+            bundles.Add(new StyleBundle("~/Content/loadingCSS").Include(
+                "~/Assets/node_modules/rocket-loader/css/loader.min.css",
+                "~/Assets/node_modules/loading.css"
                 ));
+
+            bundles.Add(new ScriptBundle("~/bundles/loadingJS").Include(
+                       "~/Assets/node_modules/rocket-tools/js/tools.min.js",
+                       "~/Assets/node_modules/rocket-loader/js/loader.min.js",
+                       "~/Assets/node_modules/loading.js"
+                       ));
+
         }
     }
 }

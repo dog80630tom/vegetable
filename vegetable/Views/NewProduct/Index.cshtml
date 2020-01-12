@@ -4,6 +4,8 @@
     ViewBag.Title = "產品管理";
 }
 
+<div id="loading"></div>
+<div class="mask"></div>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -48,18 +50,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ProductPrice)
             </td>
-            <td class="product-pic" style="width:380px">
+            <td class="product-pic" style="width:400px">
                 @Html.DisplayFor(modelItem => item.PicUrl)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new
                 {
                     id = item.ProductID
-                }) 
+                })
                 @*@Html.ActionLink("Details", "Details", new
-                {
-                    id = item.ProductID
-                })*@ 
+                    {
+                        id = item.ProductID
+                    })*@
                 @Html.ActionLink("Delete", "Delete", new
                 {
                     id = item.ProductID
@@ -70,17 +72,19 @@
 
 </table>
 
+@Styles.Render("~/Content/loadingCSS")
+@Scripts.Render("~/bundles/loadingJS")
 @section BackStageVue{
     <script>
         $( '.product-pic' ).each( function ( index, element ) {
             let jsonUrl = $( element ).text();
-            let url = JSON.parse(jsonUrl)
+            let url = JSON.parse( jsonUrl )
             $( element ).html( '' );
-            var html = ` 
-                <img class="" style="height: 170px; width: auto; display: inline;" src=${url.Url1} alt="">
-                <img class="" style="height: 170px; width: auto; display: inline;" src="${url.Url2}" alt="">
-                <img class="" style="height: 170px; width: auto; display: inline;" src="${url.Url3}" alt="">
-                `
+            var html = `
+                                <img class="" style="height: 170px; width: auto; display: inline;" src=${url.Url1} alt="">
+                                <img class="" style="height: 170px; width: auto; display: inline;" src="${url.Url2}" alt="">
+                                <img class="" style="height: 170px; width: auto; display: inline;" src="${url.Url3}" alt="">
+                                `
             $( element ).html( html );
         } );
 
@@ -89,5 +93,6 @@
             $( element ).html( '' );
             $( element ).html( html );
         } );
+        CloseLoading()
     </script>
-    }
+}

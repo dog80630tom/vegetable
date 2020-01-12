@@ -400,6 +400,33 @@
     <Content Include="Assets\Image\20140329.jpg" />
     <Content Include="Assets\Image\LINE-Pay.png" />
     <Content Include="Assets\Image\長春花-粉紅1.jpg" />
+    <Content Include="Assets\node_modules\es6-promise\auto.js" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.js" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.min.js" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.js" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.min.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise.auto.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\-internal.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\asap.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\enumerator.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\polyfill.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\all.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\race.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\reject.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\resolve.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\then.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\utils.js" />
+    <Content Include="Assets\node_modules\loading.js" />
+    <Content Include="Assets\node_modules\rocket-loader\build\js\loader.js" />
+    <Content Include="Assets\node_modules\rocket-loader\css\loader.min.css" />
+    <Content Include="Assets\node_modules\rocket-loader\index.html" />
+    <Content Include="Assets\node_modules\rocket-loader\js\loader.min.js" />
+    <Content Include="Assets\node_modules\rocket-tools\build\js\bindings.js" />
+    <Content Include="Assets\node_modules\rocket-tools\build\js\tools.js" />
+    <Content Include="Assets\node_modules\rocket-tools\js\tools.min.js" />
+    <Content Include="Assets\node_modules\loading.css" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\1.jpg" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\2.jpg" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\3.jpg" />
@@ -778,6 +805,31 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="libman.json" />
+    <Content Include="Assets\node_modules\es6-promise\CHANGELOG.md" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.map" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.min.map" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.map" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.min.map" />
+    <Content Include="Assets\node_modules\es6-promise\LICENSE" />
+    <Content Include="Assets\node_modules\es6-promise\package.json" />
+    <Content Include="Assets\node_modules\es6-promise\README.md" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\css\_execute.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\loader.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_colour.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_dots.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_loader.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_pulse.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_size.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_spinner.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_variable.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\_development.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\_import.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\cockpit.json" />
+    <Content Include="Assets\node_modules\rocket-loader\package.json" />
+    <Content Include="Assets\node_modules\rocket-loader\README.md" />
+    <Content Include="Assets\node_modules\rocket-tools\cockpit.json" />
+    <Content Include="Assets\node_modules\rocket-tools\package.json" />
+    <Content Include="Assets\node_modules\rocket-tools\README.md" />
     <None Include="Properties\PublishProfiles\vegetable20191226094631 - Web Deploy.pubxml" />
     <Content Include="Assets\ProductPics\Bracelets\productbook_page2.csv" />
     <Content Include="Assets\ProductPics\Earrings\productbook.csv" />
@@ -914,6 +966,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Assets\node_modules\es6-promise\es6-promise.d.ts" />
+    <TypeScriptCompile Include="Assets\node_modules\rocket-tools\rocket-tools.d.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
