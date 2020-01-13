@@ -427,6 +427,7 @@
     <Content Include="Assets\node_modules\rocket-tools\build\js\tools.js" />
     <Content Include="Assets\node_modules\rocket-tools\js\tools.min.js" />
     <Content Include="Assets\node_modules\loading.css" />
+    <Content Include="Assets\ProductPics\Asymmetrical Circle Drop Earrings\1.jpg" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\1.jpg" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\2.jpg" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\3.jpg" />
@@ -949,7 +950,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\ProductPics\Asymmetrical Circle Drop Earrings\" />
     <Folder Include="Assets\ProductPics\Candy Stone Earring Set %2814K%29\" />
     <Folder Include="Assets\ProductPics\Crystal Flowers Earring Set %2814K%29\" />
     <Folder Include="Assets\ProductPics\Double the Gold Ear Cuff %2814K%29\" />
