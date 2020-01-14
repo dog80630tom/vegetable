@@ -11,18 +11,18 @@ namespace vegetable.Models.ViewModels
         [Key]
         public int ProductID { get; set; }
 
-        [Display(Name = "產品名稱")]
+        [Display(Name = "名稱")]
         public string ProductName { get; set; }
-        [Display(Name = "產品類別")]
+        [Display(Name = "類別")]
         public int CategoryId { get; set; }
-        [Display(Name = "產品描述")]
+        [Display(Name = "描述")]
         public string ProductDescription { get; set; }
         [Display(Name = "庫存")]
         public int UnitsInStock { get; set; }   
-        [Display(Name = "產品價格")]
+        [Display(Name = "價格")]
         public decimal ProductPrice { get; set; }
 
-        [Display(Name = "圖片路徑")]
+        [Display(Name = "圖片")]
         public string PicUrl { get; set; }
 
     }
