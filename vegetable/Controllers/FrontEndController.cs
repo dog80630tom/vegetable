@@ -15,6 +15,7 @@ using vegetable.Models.ViewModels;
 using vegetable.Respository;
 using vegetable.Cors;
 using vegetable.Models.LinePay;
+using System.Web.Script.Serialization;
 
 namespace vegetable.Controllers
 {
@@ -917,6 +918,19 @@ namespace vegetable.Controllers
         {
             CheckoutService checkoutService = new CheckoutService();
             return checkoutService.GetOrderPrice(memberId);
+        }
+
+        public string FloatCart ()
+        {
+            //取得cookie中的會員資料
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberData.MemberID);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var jsonCart = serializer.Serialize(cartVM);
+
+            return jsonCart;
         }
 
     }
