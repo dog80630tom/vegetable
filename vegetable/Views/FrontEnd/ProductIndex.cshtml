@@ -866,7 +866,8 @@
                 data: { /*MemberID: memberId,*/ ProductID: productId, Quantity: quantity },
                 dataType: "text",
                 success: function ( response ) {
-                    alert("abc");
+                    alert( "Add to cart successfully!" );
+                    GetCartAmount()
                 }
             } );
         }

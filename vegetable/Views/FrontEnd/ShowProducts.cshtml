@@ -1068,7 +1068,8 @@
                 data: { ProductID: productId, Quantity: quantity },
                 dataType: "text",
                 success: function ( response ) {
-                    alert( "Add to Cart Success!" );
+                    alert( "Add to cart successfully!" );
+                    GetCartAmount()
                 }
             } );
         }
