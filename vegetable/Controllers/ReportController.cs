@@ -16,8 +16,8 @@ namespace vegetable.Controllers
     {
         ItemContext context = new ItemContext();
         public IEnumerable<ReportViewModel> initreportdata() {
-            string sql = @"select * from CartDetails cart
-left join Products p on cart.ProductID = p.ProductID
+            string sql = @"select * from OrderDetails od
+left join Products p on od.ProductID = p.ProductID
  ";
             ConnRespository<ReportViewModel> Respository = new ConnRespository<ReportViewModel>(context);
         var data   = Respository.GetAll(sql);

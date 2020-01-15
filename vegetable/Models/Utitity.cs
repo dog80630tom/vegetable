@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
+using System.IdentityModel;
 
 namespace vegetable.Models { 
 
@@ -153,7 +154,7 @@ namespace vegetable.Models {
                 }
             }
         }
-        public static Line GetUserInfoLine(string token)
+        public static Line GetUserInfoLine(string token,string token_id)
         {
             try
             {
@@ -164,10 +165,15 @@ namespace vegetable.Models {
 
                 //get
                 string JSON = wc.DownloadString("https://api.line.me/v2/profile");
+                var JwtSecurityToken = new System.IdentityModel.Tokens.JwtSecurityToken(token_id);
+                var email = "";
+                //如果有email
+                if (JwtSecurityToken.Claims.ToList().Find(c => c.Type == "email") != null)
+                    email = JwtSecurityToken.Claims.First(c => c.Type == "email").Value;
 
                 //parsing JSON
                 var Result = Newtonsoft.Json.JsonConvert.DeserializeObject<Line>(JSON);
-
+                Result.email = email;
                 return Result;
             }
             catch (WebException ex)
