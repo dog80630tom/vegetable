@@ -702,11 +702,19 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\brands.css" />
+    <Content Include="Content\brands.min.css" />
     <Content Include="Content\Chart.css" />
     <Content Include="Content\Chart.min.css" />
+    <Content Include="Content\Css\style-responsive.css" />
+    <Content Include="Content\Css\style.css" />
+    <Content Include="Content\Css\table-responsive.css" />
+    <Content Include="Content\Css\to-do.css" />
+    <Content Include="Content\Css\zabuto_calendar.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fontawesome-all.css" />
+    <Content Include="Content\fontawesome-all.min.css" />
     <Content Include="Content\fontawesome.css" />
     <Content Include="Content\fontawesome.min.css" />
     <Content Include="Content\images\1-1.jpg" />
@@ -749,15 +757,24 @@
     <Content Include="Content\images\discover-logo-of-pay-system.png" />
     <Content Include="Content\images\master-card-logo.png" />
     <Content Include="Content\images\paypal-logo.png" />
-    <Content Include="Content\images\Product\p1.jpg" />
-    <Content Include="Content\images\Product\p2.jpg" />
-    <Content Include="Content\images\Product\p3.jpg" />
     <Content Include="Content\images\visa-pay-logo.png" />
     <Content Include="Content\images\新增分頁.html" />
     <Content Include="Content\images\新增分頁_files\edit.html" />
     <Content Include="Content\images\新增分頁_files\saved_resource.html" />
     <Content Include="Content\images\新增分頁_files\single.html" />
+    <Content Include="Content\jquery.gritter.css" />
+    <Content Include="Content\jquery.gritter0.css" />
+    <Content Include="Content\paypal-logo.png" />
+    <Content Include="Content\regular.css" />
+    <Content Include="Content\regular.min.css" />
+    <Content Include="Content\solid.css" />
+    <Content Include="Content\solid.min.css" />
+    <Content Include="Content\style-responsive.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\svg-with-js.css" />
+    <Content Include="Content\svg-with-js.min.css" />
+    <Content Include="Content\v4-shims.css" />
+    <Content Include="Content\v4-shims.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -942,7 +959,6 @@
     <Folder Include="Assets\ProductPics\Crystal Flowers Earring Set %2814K%29\" />
     <Folder Include="Assets\ProductPics\Double the Gold Ear Cuff %2814K%29\" />
     <Folder Include="Assets\ProductPics\Dynasty Dangle Hook Earrings %2814K%29\" />
-    <Folder Include="Content\Css\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
