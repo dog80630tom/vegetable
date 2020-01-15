@@ -13,6 +13,9 @@ using vegetable.Services;
 using Member = vegetable.Models.Member;
 using vegetable.Models.ViewModels;
 using vegetable.Respository;
+using vegetable.Cors;
+using vegetable.Models.LinePay;
+using System.Web.Script.Serialization;
 
 namespace vegetable.Controllers
 {
@@ -58,27 +61,107 @@ namespace vegetable.Controllers
             {
                 query = query.ToLower();
             }
+            var categoryid = (from c in item.Categories
+                             where c.CategoryName.ToLower() == query
+                             select c).ToList();
+            var iscategory = categoryid.Count() == 1 ? true : false;
+            ViewBag.iscategory = iscategory;
 
-            var allproducts = from p in item.Products
-                              join c in item.Categories
-                              on p.CategoryID equals c.CategoryID
-                              join pd in item.PicDetails
-                              on p.ProductID equals pd.ProductID
-                              where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
-                              select new ProductList { 
-                                  ProductID = p.ProductID,
-                                  CategoryID = p.CategoryID,
-                                  ProductName = p.ProductName,
-                                  ProductDescription = p.ProductDescription,
-                                  UnitsInStock = p.UnitsInStock,
-                                  ProductPrice = p.ProductPrice,
-                                  Url = pd.PicUrl
-                              };                
-            var JSONTO = allproducts.ToList();       
-            foreach (ProductList p in JSONTO)
+            var allproducts = new List<ProductList>();
+            if (iscategory)
             {
-                //用viewbag丟json格式到view             
-                //判斷會員登入                         
+                var id = categoryid[0].CategoryID;
+                var parents = FindCategoryParents(id);
+                ViewBag.parents = parents;
+                var children = FindCategoryChildren(id);
+                ViewBag.children = JsonConvert.SerializeObject(children["categories"]);
+                var allcategories = children["products"];
+                var iteminallproducts = new List<ProductList>();
+                foreach (string iteminall in allcategories)
+                {
+                    iteminallproducts = (from p in item.Products
+                                       join c in item.Categories
+                                       on p.CategoryID equals c.CategoryID
+                                       join pd in item.PicDetails
+                                       on p.ProductID equals pd.ProductID
+                                       where c.CategoryName == iteminall
+                                       select new ProductList
+                                       {
+                                           ProductID = p.ProductID,
+                                           CategoryName = c.CategoryName,
+                                           ProductName = p.ProductName,
+                                           ProductDescription = p.ProductDescription,
+                                           UnitsInStock = p.UnitsInStock,
+                                           ProductPrice = p.ProductPrice,
+                                           Url = pd.PicUrl
+                                       }).ToList();
+                    if (iteminallproducts.Count() != 0)
+                    {
+                        allproducts.AddRange(iteminallproducts);
+                    }
+                }
+                //allproducts = (from p in item.Products
+                //                join c in item.Categories
+                //                on p.CategoryID equals c.CategoryID
+                //                join pd in item.PicDetails
+                //                on p.ProductID equals pd.ProductID
+                //                where allcategories.ToLower().Contains(c.CategoryName.ToLower())
+                //                select new ProductList
+                //                {
+                //                    ProductID = p.ProductID,
+                //                    CategoryName = c.CategoryName,
+                //                    ProductName = p.ProductName,
+                //                    ProductDescription = p.ProductDescription,
+                //                    UnitsInStock = p.UnitsInStock,
+                //                    ProductPrice = p.ProductPrice,
+                //                    Url = pd.PicUrl
+                //                }).ToList();
+            }
+            else
+            {
+                var parents = "['" + query + "','Search']";
+                ViewBag.parents = parents;
+                ViewBag.children = "";
+
+                allproducts = (from p in item.Products
+                                join c in item.Categories
+                                on p.CategoryID equals c.CategoryID
+                                join pd in item.PicDetails
+                                on p.ProductID equals pd.ProductID
+                                where p.ProductName.ToLower().Contains(query)
+                                select new ProductList
+                                {
+                                    ProductID = p.ProductID,
+                                    CategoryName = c.CategoryName,
+                                    ProductName = p.ProductName,
+                                    ProductDescription = p.ProductDescription,
+                                    UnitsInStock = p.UnitsInStock,
+                                    ProductPrice = p.ProductPrice,
+                                    Url = pd.PicUrl
+                                }).ToList();
+            }     
+            if(allproducts.Count == 0) {
+
+                allproducts = (from p in item.Products
+                               join c in item.Categories
+                               on p.CategoryID equals c.CategoryID
+                               join pd in item.PicDetails
+                               on p.ProductID equals pd.ProductID
+                               select new ProductList
+                               {
+                                   ProductID = p.ProductID,
+                                   CategoryName = c.CategoryName,
+                                   ProductName = p.ProductName,
+                                   ProductDescription = p.ProductDescription,
+                                   UnitsInStock = p.UnitsInStock,
+                                   ProductPrice = p.ProductPrice,
+                                   Url = pd.PicUrl
+                               }).ToList();
+            }
+            foreach (ProductList p in allproducts)
+            {
+                //用viewbag丟json格式到view
+                //判斷會員登入
                 //if (rqstCookie != null)
                 //{
                 //    foreach (int id in wishproducts)
@@ -110,19 +193,19 @@ namespace vegetable.Controllers
                     }
                     if (isWish)
                     {
-                        ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
+                        ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryName:'" + p.CategoryName + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:'color:red'},";
                     }
                     else
                     {
-                        ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                        ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryName:'" + p.CategoryName + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                     }
                 }
                 else
                 {
-                    ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryID:" + p.CategoryID + ",ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
+                    ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryName:'" + p.CategoryName + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                 }
             }
-                ViewBag.products = ViewBag.prodUcts.TrimEnd(',');
+                ViewBag.products = ViewBag.products.TrimEnd(',');
             
             return View();
         }
@@ -130,11 +213,14 @@ namespace vegetable.Controllers
         public string ProductQuickView(int id)
         {
             Product product = item.Products.Find(id);
+            var categoryname = (from c in item.Categories
+                               where c.CategoryID == product.CategoryID
+                               select c.CategoryName).FirstOrDefault();
             PicDetail picDetail = item.PicDetails.Find(id);
             var currentitem = new ProductList
             {
                 ProductID = product.ProductID,
-                CategoryID = product.CategoryID,
+                CategoryName = categoryname,
                 ProductName = product.ProductName,
                 ProductDescription = product.ProductDescription,
                 UnitsInStock = product.UnitsInStock,
@@ -142,6 +228,63 @@ namespace vegetable.Controllers
                 Url = picDetail.PicUrl
             };
             return JsonConvert.SerializeObject(currentitem);
+        }
+        public string FindCategoryParents(int? categoryid)
+        {
+            var categories = new List<string>();
+
+            Category category = item.Categories.FirstOrDefault(x => x.CategoryID == categoryid);
+            categories.Add(category.CategoryName);
+            categoryid = category.ParentID;
+            while (categoryid != null)
+            {
+                category = item.Categories.FirstOrDefault(x => x.CategoryID == categoryid);
+                categoryid = category.ParentID;
+                categories.Add(category.CategoryName);
+            }
+            return JsonConvert.SerializeObject(categories);
+        }
+        public Dictionary<string, List<string>> FindCategoryChildren(int? categoryid)
+        {
+            var allcategories = new List<string>();
+            var mycategories = new List<string>();
+            Category category = item.Categories.FirstOrDefault(x => x.CategoryID == categoryid);
+            List<Category> childrencategories = item.Categories.Where(x => x.ParentID == categoryid).ToList();
+            if (childrencategories.Count != 0)
+            {
+                foreach (Category categoryfirst in childrencategories)
+                {
+                    List<string> stringlist = new List<string>();
+                    List<Category> garndsoncategories = item.Categories.Where(x => x.ParentID == categoryfirst.CategoryID).ToList();
+                    if (garndsoncategories.Count != 0)
+                    {
+                        foreach (Category categorysecond in garndsoncategories)
+                        {
+                            allcategories.Add(categorysecond.CategoryName);
+                        }
+                    }
+                    else
+                    {
+                        allcategories.Add(categoryfirst.CategoryName);
+                    }
+                    mycategories.Add(categoryfirst.CategoryName);
+                }
+            }
+            else
+            {
+                allcategories.Add(category.CategoryName);
+                Category fathercategory = item.Categories.FirstOrDefault(x => x.CategoryID == category.ParentID);
+                childrencategories = item.Categories.Where(x => x.ParentID == fathercategory.CategoryID).ToList();
+                foreach (Category categoryfirst in childrencategories)
+                {
+                    mycategories.Add(categoryfirst.CategoryName);
+                }
+            }
+            var categorymassege = new Dictionary<string, List<string>>();
+            categorymassege.Add("categories" , mycategories);
+            categorymassege.Add("products", allcategories);
+
+            return categorymassege;
         }
 
         public ActionResult MemberRegist ()
@@ -154,37 +297,68 @@ namespace vegetable.Controllers
         }
         public ActionResult MemberPageOrder ()
         {
-            return View();
-        }
-        public ActionResult MemberPageOrderDetail ()
-        {
-            return View();
-        }
 
-
-        public ActionResult ProductIndex (int? id)
-        {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
             var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
-
-            var wishproducts = (from p in item.Products
-                            join w in item.WishLists
-                            on p.ProductID equals w.ProductID
-                            where memberData.MemberID == w.MemberID && w.ProductID == id
-                            select p.ProductID).ToList();
-
-            var isWish = "false";
-            if (wishproducts.Count() == 1)
+            var pageorder = from o in item.Orders
+                            where memberData.MemberID == o.MemberID
+                            select o;
+            return View(pageorder.ToList());
+        }
+        [AllowCrossSite]
+        public ActionResult MemberPageOrderDetail()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult getLine(int memberId)
+        {
+            LinePay line = new LinePay();
+            //一筆訂單的總價
+            int price = GetOrderPrice(memberId);
+            var data= line.passdata(memberId, price);
+            TempData ["Pay"] = price;
+            return Json(data,JsonRequestBehavior.AllowGet);
+        }
+        public bool checkPay(string transactionId, int memberId) {
+            //var code = Request.QueryString["transactionId"];
+            int doll = GetOrderPrice(memberId);
+            LinePay line = new LinePay();
+          var con=  line.confirm(doll, transactionId);
+            if (con.returnCode == "0000")
             {
-                isWish = "true";
+                return true;
+            }
+            return false;
+        }
+
+        public ActionResult ProductIndex (string cat, int id)
+        {
+            var isWish = "false";
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            if (rqstCookie != null)
+            {
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+
+                var wishproducts = (from p in item.Products
+                                    join w in item.WishLists
+                                    on p.ProductID equals w.ProductID
+                                    where memberData.MemberID == w.MemberID
+                                    select p.ProductID).ToList();
+                if (wishproducts.Contains(id))
+                {
+                    isWish = "true";
+                }
             }
             ViewBag.isWish = isWish;
-            //沒有傳入id
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //沒有傳入id(小嫚暫時拿掉)
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+
             using (ItemContext item = new ItemContext())
             {
                 Product product = item.Products.Find(id);
@@ -194,7 +368,7 @@ namespace vegetable.Controllers
                 {
                     return HttpNotFound();
                 }
-                ViewBag.MemberID = memberData.MemberID;
+                //ViewBag.MemberID = memberData.MemberID;(小嫚暫時拿掉)
                 //預設為1
                 ViewBag.CartID = 1;
                 ViewBag.ProductID = id;
@@ -203,9 +377,30 @@ namespace vegetable.Controllers
                 ViewBag.ProductPrice = product.ProductPrice;
                 ViewBag.ProductUrl = picDetail.PicUrl;
                 //ViewBag.ProductUrl = JsonConvert.SerializeObject(picDetail.PicUrl);
-                return View();
+                var parentstring = FindCategoryParents(product.CategoryID);
+                var parents = FindCategoryParents(product.CategoryID).Replace(@"""", "").Replace(@"\\", "").Replace(@"[", "").Replace(@"]", "").Split(',');
+                ViewBag.parents = parents.Reverse();
+
+                List<ProductList> products = (from p in item.Products
+                                              join c in item.Categories
+                                              on p.CategoryID equals c.CategoryID
+                                              join pic in item.PicDetails
+                                              on p.ProductID equals pic.ProductID
+                                              where p.CategoryID == product.CategoryID
+                                              select new ProductList
+                                              {
+                                                  ProductID = p.ProductID,
+                                                  CategoryName = c.CategoryName,
+                                                  ProductName = p.ProductName,
+                                                  ProductDescription = p.ProductDescription,
+                                                  UnitsInStock = p.UnitsInStock,
+                                                  ProductPrice = p.ProductPrice,
+                                                  Url = pic.PicUrl
+                                              }).ToList();
+                return View(products);
             }
         }
+    
         public ActionResult MemberPageAddress ()
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
@@ -238,13 +433,15 @@ namespace vegetable.Controllers
             var wishproducts = from p in item.Products
                                join w in item.WishLists
                                on p.ProductID equals w.ProductID
+                               join c in item.Categories
+                               on p.CategoryID equals c.CategoryID
                                join pd in item.PicDetails
                                on p.ProductID equals pd.ProductID
                                where memberData.MemberID == w.MemberID
                                select new ProductList
                                {
                                    ProductID = p.ProductID,
-                                   CategoryID = p.CategoryID,
+                                   CategoryName = c.CategoryName,
                                    ProductName = p.ProductName,
                                    ProductDescription = p.ProductDescription,
                                    UnitsInStock = p.UnitsInStock,
@@ -253,7 +450,7 @@ namespace vegetable.Controllers
                                };
             return View(wishproducts.ToList());
         }
-        [HttpPost]
+    [HttpPost]
         public bool AddWish ([Bind(Include = "MemberID,ProductID")] WishList wish)
         {
             bool isSuccess = false;
@@ -262,18 +459,21 @@ namespace vegetable.Controllers
                 using (ItemContext item = new ItemContext())
                 {
                     HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
-                    var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
-                    var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
-                    wish.MemberID = memberData.MemberID;
-                    item.WishLists.Add(wish);
-                    try
+                    if (rqstCookie!=null)
                     {
-                        item.SaveChanges();
-                        isSuccess = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw;
+                        var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                        var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                        wish.MemberID = memberData.MemberID;
+                        item.WishLists.Add(wish);
+                        try
+                        {
+                            item.SaveChanges();
+                            isSuccess = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
                     }
                 }
             }
@@ -370,16 +570,16 @@ namespace vegetable.Controllers
             if (string.IsNullOrEmpty(code))
                 return Content("沒有收到 Code");
 
-            var token = isRock.LineLoginV21.Utility.GetTokenFromCode(code,
+            var token = Utility.GetTokenFromCodeLine(code,
                  "1653659088",
                  "27d426186987ed6e5d69cb7601129805",
-                 "https://localhost:44394/frontend/LineLogin");
+                 "https://vegetable20191216120019.azurewebsites.net/FrontEnd/LineLogin");
 
-            var UserInfoResult = isRock.LineLoginV21.Utility.GetUserProfile(token.access_token);
+            var UserInfoResult = Utility.GetUserInfoLine(token.access_token,token.id_token);
             // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
 
             int i = 0;
-            var email = UserInfoResult.statusMessage;
+            var email = UserInfoResult.email;
             var name = UserInfoResult.displayName;
             var password2 = UserInfoResult.userId;
             if (!item.Members.Any(x => x.MemberEmail == email))
@@ -410,7 +610,7 @@ namespace vegetable.Controllers
             var token = Utility.GetTokenFromCode(code,
                  "145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com",
                  "At2kDe1L5weKB4Xf7dpf6rmx",
-                 "https://localhost:44394/FrontEnd/GoogleLogin");
+                 "https://vegetable20191216120019.azurewebsites.net/FrontEnd/GoogleLogin");
 
             var UserInfoResult = Utility.GetUserInfo(token.access_token);
             // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
@@ -522,12 +722,15 @@ namespace vegetable.Controllers
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
             var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
             var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+
+            Member.MemberPassword = Encryption.EncryptionMethod(Member.MemberPassword, Member.MemberName);
+
             Member.MemberID = memberData.MemberID;
             Member.MemberGender = memberData.MemberGender;
 
 
             services.EditMember(Member);
-            return RedirectToAction("Index", "FrontEnd");
+            return RedirectToAction("MemberPageOrder");
 
         }
 
@@ -610,7 +813,7 @@ namespace vegetable.Controllers
             var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
             IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberData.MemberID);
 
-            return View("Cart", cartVM);
+            return View("MemberPageOrderDetail", cartVM);
         }
 
         public void DeleteCart (int cartId)
@@ -658,5 +861,77 @@ namespace vegetable.Controllers
         {
             orderDetail.UpdateCart(cartId, quantity);
         }
+
+        public ActionResult CartItems ()
+        {
+            if (HttpContext.Request.Cookies.Get("myaccount") != null)
+            {
+                HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                CartServices cartServices = new CartServices();
+                OrderDetail []  products = cartServices.GetCartItems(memberData.MemberID);
+                return Json(products, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return null;
+            }
+           
+        }
+
+        //確認現在是否登入
+        public string CheckLoginApi ()
+        {
+            if (HttpContext.Request.Cookies.Get("myaccount") != null)
+            {
+                return "true";
+            }
+            else
+            {
+                return "false";
+            }
+        }
+
+        //回傳一筆Order中 所有的商品數量
+        public int GetCartAmount ()
+        {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            CartServices cartServices = new CartServices();
+            int amount = cartServices.GetCarQuantity(memberData.MemberID).CountAmount;
+            return amount;
+        }
+
+        //取得會員ID
+        public int GetMemberId ()
+        {
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            return memberData.MemberID;
+        }
+
+        //一筆訂單的總價
+        public int GetOrderPrice (int memberId)
+        {
+            CheckoutService checkoutService = new CheckoutService();
+            return checkoutService.GetOrderPrice(memberId);
+        }
+
+        public string FloatCart ()
+        {
+            //取得cookie中的會員資料
+            HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
+            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+            IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberData.MemberID);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var jsonCart = serializer.Serialize(cartVM);
+
+            return jsonCart;
+        }
+
     }
 }

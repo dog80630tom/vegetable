@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
@@ -50,8 +50,14 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="IdentityModel, Version=4.1.1.0, Culture=neutral, PublicKeyToken=e7877f4675df049f, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityModel.4.1.1\lib\net472\IdentityModel.dll</HintPath>
+    </Reference>
     <Reference Include="Imgur.API, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Imgur.API.4.0.1\lib\net45\Imgur.API.dll</HintPath>
+    </Reference>
+    <Reference Include="JWT, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JWT.5.3.1\lib\net472\JWT.dll</HintPath>
     </Reference>
     <Reference Include="LineBot, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LineBotSDK.2.0.7\lib\net45\LineBot.dll</HintPath>
@@ -138,6 +144,9 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.6.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
     </Reference>
@@ -153,15 +162,21 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Selectors" />
+    <Reference Include="System.IdentityModel.Services" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.40306.1554, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.4.403061554\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
@@ -170,11 +185,14 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -182,6 +200,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -225,6 +246,9 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Thinktecture.IdentityModel, Version=3.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Thinktecture.IdentityModel.3.6.1\lib\net45\Thinktecture.IdentityModel.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -314,14 +338,17 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SearchitemController.cs" />
+    <Compile Include="Cors\AllowCrossSiteAttribute.cs" />
     <Compile Include="Helper\MyHtmlHelper.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\AdminRespond.cs" />
+    <Compile Include="Models\Amount.cs" />
     <Compile Include="Models\CartDetail.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer_Question.cs" />
     <Compile Include="Models\Customer_Review.cs" />
     <Compile Include="Models\HomePageAD.cs" />
+    <Compile Include="Models\LinePay\LinePay.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\ProductLIst.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
@@ -359,7 +386,9 @@
     <Compile Include="Respository\MemberResp\Encryption.cs" />
     <Compile Include="Respository\MemberResp\initMember.cs" />
     <Compile Include="Respository\OrderDetailRepository.cs" />
+    <Compile Include="Services\CartServices.cs" />
     <Compile Include="Services\CategoryServices.cs" />
+    <Compile Include="Services\CheckoutService.cs" />
     <Compile Include="Services\MemberServices.cs" />
     <Compile Include="Services\PrductServices.cs" />
     <Compile Include="Startup.cs" />
@@ -369,7 +398,36 @@
     <Content Include="Assets\Image\041bed60-0226-4c8a-9147-f684ca29d1de.jpg" />
     <Content Include="Assets\Image\1_zIroyuyAYS7ch96mnfCK7A.png" />
     <Content Include="Assets\Image\20140329.jpg" />
+    <Content Include="Assets\Image\LINE-Pay.png" />
     <Content Include="Assets\Image\長春花-粉紅1.jpg" />
+    <Content Include="Assets\node_modules\es6-promise\auto.js" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.js" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.min.js" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.js" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.min.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise.auto.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\-internal.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\asap.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\enumerator.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\polyfill.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\all.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\race.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\reject.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\resolve.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\then.js" />
+    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\utils.js" />
+    <Content Include="Assets\node_modules\loading.js" />
+    <Content Include="Assets\node_modules\rocket-loader\build\js\loader.js" />
+    <Content Include="Assets\node_modules\rocket-loader\css\loader.min.css" />
+    <Content Include="Assets\node_modules\rocket-loader\index.html" />
+    <Content Include="Assets\node_modules\rocket-loader\js\loader.min.js" />
+    <Content Include="Assets\node_modules\rocket-tools\build\js\bindings.js" />
+    <Content Include="Assets\node_modules\rocket-tools\build\js\tools.js" />
+    <Content Include="Assets\node_modules\rocket-tools\js\tools.min.js" />
+    <Content Include="Assets\node_modules\loading.css" />
+    <Content Include="Assets\ProductPics\Asymmetrical Circle Drop Earrings\1.jpg" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\1.jpg" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\2.jpg" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\3.jpg" />
@@ -717,6 +775,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="identity.aspx" />
+    <Content Include="Properties\PublishProfiles\vegetable.pubxml.user" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -746,14 +806,38 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="libman.json" />
+    <Content Include="Assets\node_modules\es6-promise\CHANGELOG.md" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.map" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.min.map" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.map" />
+    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.min.map" />
+    <Content Include="Assets\node_modules\es6-promise\LICENSE" />
+    <Content Include="Assets\node_modules\es6-promise\package.json" />
+    <Content Include="Assets\node_modules\es6-promise\README.md" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\css\_execute.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\loader.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_colour.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_dots.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_loader.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_pulse.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_size.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_spinner.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_variable.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\_development.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\build\sass\_import.scss" />
+    <Content Include="Assets\node_modules\rocket-loader\cockpit.json" />
+    <Content Include="Assets\node_modules\rocket-loader\package.json" />
+    <Content Include="Assets\node_modules\rocket-loader\README.md" />
+    <Content Include="Assets\node_modules\rocket-tools\cockpit.json" />
+    <Content Include="Assets\node_modules\rocket-tools\package.json" />
+    <Content Include="Assets\node_modules\rocket-tools\README.md" />
+    <None Include="Properties\PublishProfiles\LOBEDA - Web Deploy.pubxml" />
     <Content Include="Assets\ProductPics\Bracelets\productbook_page2.csv" />
     <Content Include="Assets\ProductPics\Earrings\productbook.csv" />
     <Content Include="Assets\ProductPics\Necklaces\productbook.csv" />
     <Content Include="Content\images\新增分頁_files\cb=gapi.loaded_0" />
     <Content Include="Content\images\新增分頁_files\rs=AA2YrTu9sefoC04t9EOZHAHJP1FzEZa-0Q" />
     <Content Include="Content\images\新增分頁_files\rs=AA2YrTvcyElvG1NEufCZYW6zt4mY2f3Dug" />
-    <None Include="Properties\PublishProfiles\vegetable.pubxml" />
-    <None Include="Properties\PublishProfiles\vegetable20191226044317 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -792,7 +876,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -865,7 +948,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\ProductPics\Asymmetrical Circle Drop Earrings\" />
     <Folder Include="Assets\ProductPics\Candy Stone Earring Set %2814K%29\" />
     <Folder Include="Assets\ProductPics\Crystal Flowers Earring Set %2814K%29\" />
     <Folder Include="Assets\ProductPics\Double the Gold Ear Cuff %2814K%29\" />
@@ -882,6 +964,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Assets\node_modules\es6-promise\es6-promise.d.ts" />
+    <TypeScriptCompile Include="Assets\node_modules\rocket-tools\rocket-tools.d.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>

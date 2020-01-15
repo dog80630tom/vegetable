@@ -55,5 +55,10 @@ namespace vegetable.Models.ViewModels
         {
             get; set;
         }
+
+        public string PicUrl
+        {
+            get; set;
+        }
     }
 }
