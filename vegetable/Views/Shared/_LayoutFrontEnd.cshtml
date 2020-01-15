@@ -709,13 +709,13 @@
 
             <div class="collapse navbar-collapse p-0 justify-content-between" id="navbarNavDropdown">
                 <ul class="navbar-nav p-0">
-                    @if (Request.Cookies ["myaccount"] != null)
+                    @if (Request.Cookies["myaccount"] != null)
                     {
                         <li class="nav-item active border-right  p-0">
                             <a class="nav-link text-dark mx-3 navTop" href="@Url.Action("MemberPageOrder", "FrontEnd")"><span class="dot">ACCOUNT</span></a>
                         </li>
 
-                        if ((string)TempData ["roles"] == "Client")
+                        if ((string)TempData["roles"] == "Client")
                         {
                             <li class="nav-item active">
                                 <a class="nav-link text-dark mx-3 navTop">@TempData ["username"].ToString()</a>
@@ -788,20 +788,20 @@
             <ul class="p-0">
                 <li v-for="c1 in categories" class="d-block">
                     <div class="menu-item" data-toggle="collapse" :data-target="'#'+c1.listname" aria-expanded="false" :aria-controls="c1.listname">
-                        <a :href=`/Products/${c1.name}`>{{c1.name.toUpperCase()}}</a>
+                        <a :href=`/Products/${c1.label}`>{{c1.label.toUpperCase()}}</a>
                         <a><i class="fas fa-chevron-down"></i></a>
                     </div>
                     <ul :id="c1.listname" class="collapse menu-child">
-                        <li v-for="c2 in c1.childs">
-                            <div v-if="c2.childs.length!==0" class="categoryitems">
-                                <a :href=`/Products/${c2.name}` class="dot">{{c2.name}}</a>
+                        <li v-for="c2 in c1.children">
+                            <div v-if="c2.children.length!==0" class="categoryitems">
+                                <a :href=`/Products/${c1.label}` class="dot">{{c2.label}}</a>
                                 <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" :data-target="'#'+c2.listname" aria-expanded="false" :aria-controls="c2.listname"></i>
                                 <ul :id="c2.listname" class="collapse menu-child py-2">
-                                    <li v-for="c3 in c2.childs"><a class="dot" :href=`/Products/${c3.name}`>{{c3.name}}</a></li>
+                                    <li v-for="c3 in c2.children"><a class="dot" href="">{{c3.label}}</a></li>
                                 </ul>
                             </div>
                             <div v-else>
-                                <a :href=`/Products/${c2.name}` class="dot">{{c2.name}}</a>
+                                <a :href=`/Products/${c1.label}` class="dot">{{c2.label}}</a>
                             </div>
 
                         </li>
@@ -832,28 +832,28 @@
             </ul>
         </div>
         @*-----------------------------content Category Bar-----------------------------------------------------------------------------*@
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOBEDA</a></div>
-            </div>
-            <ul class="main-nav nav justify-content-center mb-4 align-items-center">
-                <li v-for="c1 in categories" class="nav-item mx-2 pb-3">
-                    <a :href=`/Products/${c1.name}` class="nav-link text-dark"><span class="line">{{c1.name.toUpperCase()}}</span></a>
-                    <div v-if="c1.childs.length!==0" class="menu-block">
-                        <div class="container">
-                            <div class="row">
-                                <div v-for="c2 in c1.children" class="col-6 col-md-3 col-xl-2">
-                                    <ul class="menu-list">
-                                        <li><a :href=`/Products/${c2.name}` class="dot">{{c2.name}}</a></li>
-                                        <li v-for="c3 in c2.childs"><a :href=`/Products/${c3.name}` class="dot">{{c3.name}}</a></li>
-                                    </ul>
-                                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOBEDA</a></div>
+        </div>
+        <ul class="main-nav nav justify-content-center mb-4 align-items-center">
+            <li v-for="c1 in categories" class="nav-item mx-2 pb-3">
+                <a :href=`/Products/${c1.label}` class="nav-link text-dark"><span class="line">{{c1.label.toUpperCase()}}</span></a>
+                <div v-if="c1.children.length!==0" class="menu-block">
+                    <div class="container">
+                        <div class="row">
+                            <div v-for="c2 in c1.children" class="col-6 col-md-3 col-xl-2">
+                                <ul class="menu-list">
+                                    <li><a :href=`/Products/${c1.label}` class="dot">{{c2.label}}</a></li>
+                                    <li v-for="c3 in c2.children"><a :href=`/Products/${c1.label}` class="dot">{{c3.label}}</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                </li>
-            </ul>
-        </div>
+                </div>
+            </li>
+        </ul>
+    </div>
         <div class="input-group search-bar-sm rounded-0">
             <input type="text" class="form-control rounded-0" placeholder="Search">
             <div class="input-group-append">
@@ -1116,7 +1116,7 @@
             $( '#minCartCard' ).append( template );
         }
 
-        GetCartAmount();
+        //GetCartAmount();
         Binding();
     </script>
 
