@@ -26,7 +26,7 @@
             <div class="col-md-10">
                 @*@Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })*@
-                <el-input :disabled="true" placeholder="請選擇商品類別" v-model="inputCategory">
+                <el-input :disabled="disable" placeholder="請選擇商品類別" v-model="inputCategory" id="CategoryId" name="CategoryId" :value="inputCategory"> 
                     <el-button slot="append" icon="el-icon-edit" @@click="() => openappendform()"></el-button>
                 </el-input>
             </div>
@@ -41,7 +41,6 @@
                                  node-key="id"
                                  empty-text="暫無數據"
                                  ref="tree"
-                               
                                  highlight-current
                                  :expand-on-click-node="false">
                             <span class="custom-tree-node" slot-scope="{ node, data }">
@@ -146,6 +145,8 @@
             el: '#app',
             data: {
                 inputCategory: '',
+                id: '',
+                disable: true,
                 currentdata: null,
                 currentnode: null,
                 catrgoriesdata: [],
@@ -176,10 +177,20 @@
 
 
                     }).then(() => {
-                   
-                        vm.inputCategory = vm.$refs.tree.getCheckedNodes()[0].label;
+
+                        vm.inputCategory = vm.$refs.tree.getCheckedNodes()[0].id;
+                        vm.id = vm.$refs.tree.getCheckedNodes()[0].id;
                         this.$refs.tree.setCheckedKeys([]);
+                           this.disable = false;
+                        this.dialogVisible = false;
+                        this.$message({
+                            type: 'success',
+                            message: '選擇商品類別成功'
+
+                        })
+                     
                     }).catch(() => {
+
                         this.$message({
                             type: 'error',
                             message: '已取消選擇'
@@ -189,7 +200,7 @@
 
                 },
                 Checkitem(value, data) {
-                   this.$refs.tree.setCheckedKeys([]);
+                    this.$refs.tree.setCheckedKeys([]);
                 }
             }
         });
