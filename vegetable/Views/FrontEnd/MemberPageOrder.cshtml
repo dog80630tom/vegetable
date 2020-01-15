@@ -1,6 +1,6 @@
-﻿
+﻿@model List<vegetable.Models.Order>
 @{
-    ViewBag.Title = "MemberPageOrder";
+    ViewBag.Title = "Order";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
 
@@ -138,10 +138,10 @@
 
     tr.order-item {
         height: 40px;
-        border-bottom:1px solid #e8e8e8;
+        border-bottom: 1px solid #e8e8e8;
     }
 
-    .order-item-block div{
+    .order-item-block div {
         margin-top: 15px;
         margin-bottom: 5px;
         font-weight: 500;
@@ -170,8 +170,8 @@
         color: #454545;
         padding: 7px 15px 7px 9px;
         height: 38px;
-        font-size:11px;
-        width:150px;
+        font-size: 11px;
+        width: 150px;
     }
 
     .actionBar select option {
@@ -189,16 +189,29 @@
                 <a href="@Url.Action("Index", "FrontEnd")">Home</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="@Url.Action("MemberPageOrder", "FrontEnd")">Member</a>
+                <a href="/Order">Member</a>
             </li>
             <li class="breadcrumb-item current">
-                <a href="@Url.Action("MemberPageOrder", "FrontEnd")"> Order</a>
+                <a href="/Order"> Order</a>
             </li>
 
         </ul>
         <!-- 要塞目錄資料及連結資料   結尾-->
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -210,25 +223,25 @@
             <nav class="navBar navBar--sub navBar--account">
                 <ul class="navBar-section">
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberPageOrder">Orders</a>
+                        <a class="navBar-action" href="/Order">Orders</a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberPageAddress">Addresses</a>
+                        <a class="navBar-action" href="/Cart">Cart</a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberPageWishlist">Wish List </a>
+                        <a class="navBar-action" href="/WishList">Wish List </a>
                     </li>
                     <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberCart">Cart</a>
+                        <a class="navBar-action" href="/Member">Account Settings</a>
                     </li>
-                    <li class="navBar-item is-active">
-                        <a class="navBar-action" href="/FrontEnd/MemberPageSetting">Account Settings</a>
-                    </li>
-
                 </ul>
             </nav>
         </div>
     </div>
+
+
+
+
     <main class="account account--fixed">
         <div class="account-body">
             <section class="account-content">
@@ -255,55 +268,37 @@
                     <thead>
                         <tr>
                             <th class="order-header-item">OrderDate</th>
-                            <th class="order-header-item">TrackingNumber</th>
-                            <th class="order-header-item">Total</th>
+                            <th class="order-header-item">Name</th>
+                            <th class="order-header-item">Address</th>
+                            <th class="order-header-item">Phone</th>
                             <th class="order-header-item">OrderDetail&Status</th>
                         </tr>
                     </thead>
-                    <tbody class="order-list">
-                        <tr class="order-item">
-                            <td class="order-item-block">
-                                <div>2019/11/30 14:30</div>
-                            </td>
-                            <td class="order-item-block">
-                                <div>201911301430054321</div>
-                            </td>
-                            <td class="order-item-block">
-                                <div>$289</div>
-                            </td>
-                            <td class="order-item-block">
-                                <div><a href="#">Order Status</a></div>
-                            </td>
-                        </tr>
-                        <tr class="order-item">
-                            <td class="order-item-block">
-                                <div>2019/11/30 14:30</div>
-                            </td>
-                            <td class="order-item-block">
-                                <div>201911301430054321</div>
-                            </td>
-                            <td class="order-item-block">
-                                <div>$289</div>
-                            </td>
-                            <td class="order-item-block">
-                                <div><a href="#">Shipping Status</a></div>
-                            </td>
-                        </tr>
-                        <tr class="order-item">
-                            <td class="order-item-block">
-                                <div>2019/11/30 14:30</div>
-                            </td>
-                            <td class="order-item-block">
-                                <div>201911301430054321</div>
-                            </td>
-                            <td class="order-item-block">
-                                <div>$289</div>
-                            </td>
-                            <td class="order-item-block">
-                                <div><a href="#">Order Status</a></div>
-                            </td>
-                        </tr>
-                    </tbody>
+                    @foreach (var data in Model) 
+                    { 
+                    
+                <tbody class="order-list">
+
+                    <tr class="order-item">
+                        <td class="order-item-block">
+                            <div>@data.OrderDate</div>
+                        </td>
+                        <td class="order-item-block">
+                            <div>@data.DeliverName</div>
+                        </td>
+                        <td class="order-item-block">
+                            <div>@data.DeliverAddress</div>
+                        </td>
+                        <td class="order-item-block">
+                            <div>@data.DeliverPhone</div>
+                        </td>
+                        <td class="order-item-block">
+                            <div><a href="/FrontEnd/MemberPageOrderDetail">Order Status</a></div>
+                        </td>
+                    </tr>
+                </tbody>
+                    }
+                
                 </table>
                 <div class="alert invisible">
                     <p class="alertBox-column alertBox-message">

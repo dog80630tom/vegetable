@@ -1,313 +1,311 @@
-﻿@model List<vegetable.Models.ProductList>
+@model List<vegetable.Models.ProductList>
 
 @{
     ViewBag.Title = "Products";
     Layout = "~/Views/Shared/_LayoutFrontEnd.cshtml";
 }
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-@section styles{
-    <style>
+<style>
 
-            a,
-            a:hover,
-            img,
-            img:hover {
-                text-decoration: none
+    a,
+    a:hover,
+    img,
+    img:hover {
+        text-decoration: none
+    }
+
+        a:active,
+        a:focus,
+        img:active,
+        img:focus {
+            text-decoration: none
+        }
+
+    ul {
+        list-style: none;
+        margin: 0;
+    }
+
+    a:hover {
+        cursor: pointer;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    .show-all {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* ---------------------- */
+    #container_page_nav {
+        background-color: #f7f8f9;
+        padding: 20px 0 15px 15px;
+        margin-top: 15px;
+        margin-bottom: 36px;
+    }
+
+    .breadcrumb {
+        background-color: #f7f8f9;
+        padding: 0;
+        margin: 0;
+    }
+
+    .breadcrumb-item {
+        display: inline-block;
+        padding-right: 10px;
+    }
+
+        .breadcrumb-item::before {
+            content: ">" !important;
+            color: #b4b4b4 !important;
+            margin: 0 12px 0 3px;
+        }
+
+        .breadcrumb-item:first-child::before {
+            display: none;
+        }
+
+        .breadcrumb-item a {
+            color: #b4b4b4;
+        }
+
+            .breadcrumb-item a:hover {
+                color: #000;
+                border-bottom: 1px solid #000;
             }
 
-                a:active,
-                a:focus,
-                img:active,
-                img:focus {
-                    text-decoration: none
+        .breadcrumb-item.active a:hover {
+            color: #b4b4b4;
+        }
+
+    /* ---------------------- */
+    .container_page {
+        margin: 0;
+    }
+
+    /* ---------------------- */
+    .container_page_body {
+        padding: 0 15px;
+    }
+
+    .sidebarBlock {
+        margin-bottom: 17px;
+    }
+
+    .side-module-heading {
+        font-weight: 800;
+        padding: 22px 0;
+        margin-bottom: 0;
+        text-transform: capitalize;
+        margin-top: 0;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .navList-item {
+        padding: 0 0 22px 0;
+    }
+
+        .sidebarBlock a,
+        .navList-item p {
+            color: #000;
+            transition: all .3s ease 0s;
+        }
+
+    .navList-action {
+        padding: 0;
+        display: inline;
+        font-weight: 600;
+    }
+
+        .navList-action:hover {
+            border-bottom: 1px dotted #000;
+        }
+
+    .side-module-heading + ul {
+        padding: 0;
+    }
+
+        .side-module-heading + ul li:not(.navList-item) {
+            padding: 0 0 10px 0;
+        }
+
+            .side-module-heading + ul li:not(.navList-item) a:hover {
+                border-bottom: 1px solid #000;
+            }
+
+    /* ---------------------- */
+
+    .category-heading .page-heading {
+        display: inline-block;
+        padding: 2px 0 20px;
+        margin-bottom: 3px;
+        font-size: 24px;
+        font-weight: 700;
+        text-align: left;
+        text-transform: capitalize;
+    }
+
+    .view-mode-btn {
+        display: inline-flex;
+        align-items: center;
+        position: relative;
+        width: 150px;
+    }
+
+        .view-mode-btn a.current-view {
+            cursor: default;
+        }
+
+        .view-mode-btn label {
+            width: 65px;
+            font-weight: 600;
+            white-space: nowrap;
+            letter-spacing: .05em;
+            padding-right: 12px;
+            margin: 0;
+        }
+
+    .btn-group {
+        display: flex;
+    }
+
+    .view-mode-btn a,
+    .view-mode-btn a:active,
+    .view-mode-btn a:focus,
+    .view-mode-btn a:hover {
+        font-size: 11px;
+        font-weight: 400;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 40px;
+        height: 40px;
+        margin-right: 0;
+        margin-left: 0;
+        text-decoration: none;
+        padding: 5px;
+        border: 1px solid #e5e5e5;
+    }
+
+        .view-mode-btn a > div {
+            width: 30px;
+        }
+
+        .view-mode-btn a#grid-view {
+            margin-right: -1px;
+        }
+
+            .view-mode-btn a#grid-view .icon-bar {
+                width: 4px;
+            }
+
+                .view-mode-btn a#grid-view .icon-bar:after,
+                .view-mode-btn a#grid-view .icon-bar:before {
+                    position: absolute;
+                    display: block;
+                    width: 4px;
+                    height: 4px;
+                    content: '';
+                    transition: all .15s ease;
+                    background: #e5e5e5;
                 }
 
-            ul {
-                list-style: none;
-                margin: 0;
-            }
-
-            a:hover {
-                cursor: pointer;
-            }
-
-            li {
-                list-style: none;
-            }
-
-            .show-all {
-                margin: 0;
-                padding: 0;
-            }
-
-            /* ---------------------- */
-            #container_page_nav {
-                background-color: #f7f8f9;
-                padding: 20px 0 15px 15px;
-                margin-top: 15px;
-                margin-bottom: 36px;
-            }
-
-            .breadcrumb {
-                background-color: #f7f8f9;
-                padding: 0;
-                margin: 0;
-            }
-
-            .breadcrumb-item {
-                display: inline-block;
-                padding-right: 10px;
-            }
-
-                .breadcrumb-item::before {
-                    content: ">" !important;
-                    color: #b4b4b4 !important;
-                    margin: 0 12px 0 3px;
+                .view-mode-btn a#grid-view .icon-bar:before {
+                    left: -5px;
                 }
 
-                .breadcrumb-item:first-child::before {
-                    display: none;
+                .view-mode-btn a#grid-view .icon-bar:after {
+                    right: -5px;
                 }
 
-                .breadcrumb-item a {
-                    color: #b4b4b4;
-                }
+    a.current-view .icon-bar:after,
+    a.current-view .icon-bar:before,
+    a.current-view .icon-bar {
+        background: #232323 !important;
+    }
 
-                    .breadcrumb-item a:hover {
-                        color: #000;
-                        border-bottom: 1px solid #000;
-                    }
+    .view-mode-btn a .icon-bar {
+        filter: alpha(opacity=100);
+        opacity: 1;
+        position: relative;
+        top: -1px;
+        width: 14px;
+        height: 4px;
+        margin: 1px auto 0;
+        transition: all .15s ease;
+        background: #e5e5e5;
+    }
 
-                .breadcrumb-item.active a:hover {
-                    color: #b4b4b4;
-                }
+    .actionBar {
+        text-align: right;
+        margin-left: 40px;
+        display: inline-block;
+        clear: both;
+    }
 
-            /* ---------------------- */
-            .container_page {
-                margin: 0;
-            }
+    .form-field {
+        margin: 0;
+        display: inline-block;
+    }
 
-            /* ---------------------- */
-            .container_page_body {
-                padding: 0 15px;
-            }
+    .form-select {
+        display: inline-block;
+        max-width: 180px;
+        border: 1px solid #dedede;
+        cursor: pointer;
+        color: #454545;
+        padding: 7px 15px 7px 9px;
+        min-width: 90px;
+        height: 38px;
+    }
 
-            .sidebarBlock {
-                margin-bottom: 17px;
-            }
+    .actionBar select option {
+        padding: 5px 10px;
+    }
 
-            .side-module-heading {
-                font-weight: 800;
-                padding: 22px 0;
-                margin-bottom: 0;
-                text-transform: capitalize;
-                margin-top: 0;
-                margin-bottom: 30px;
-                border-bottom: 1px solid #eee;
-            }
+    .form-label {
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        position: relative;
+        padding-right: 12px;
+        margin: 0;
+    }
 
-            .navList-item {
-                padding: 0 0 22px 0;
-            }
+    .product-pagination {
+        margin-bottom: 25px;
+        justify-content: center;
+        text-align: right;
+        font-weight: 600;
+    }
 
-                .sidebarBlock a,
-                .navList-item p {
-                    color: #000;
-                    transition: all .3s ease 0s;
-                }
+    .module-wrapper {
+        margin: 0 0 20px;
+    }
 
-            .navList-action {
-                padding: 0;
-                display: inline;
-                font-weight: 600;
-            }
+    .productBlockContainer {
+        margin: 0 -15px;
+        display: flex;
+        /*flex-wrap:wrap;*/
+    }
 
-                .navList-action:hover {
-                    border-bottom: 1px dotted #000;
-                }
+    .prod-item {
+        margin-bottom: 27px;
+        width: 33.33%;
+        float: left;
+    }
 
-            .side-module-heading + ul {
-                padding: 0;
-            }
-
-                .side-module-heading + ul li:not(.navList-item) {
-                    padding: 0 0 10px 0;
-                }
-
-                    .side-module-heading + ul li:not(.navList-item) a:hover {
-                        border-bottom: 1px solid #000;
-                    }
-
-            /* ---------------------- */
-
-            .category-heading .page-heading {
-                display: inline-block;
-                padding: 2px 0 20px;
-                margin-bottom: 3px;
-                font-size: 24px;
-                font-weight: 700;
-                text-align: left;
-                text-transform: capitalize;
-            }
-
-            .view-mode-btn {
-                display: inline-flex;
-                align-items: center;
-                position: relative;
-                width: 150px;
-            }
-
-                .view-mode-btn a.current-view {
-                    cursor: default;
-                }
-
-                .view-mode-btn label {
-                    width: 65px;
-                    font-weight: 600;
-                    white-space: nowrap;
-                    letter-spacing: .05em;
-                    padding-right: 12px;
-                    margin: 0;
-                }
-
-            .btn-group {
-                display: flex;
-            }
-
-            .view-mode-btn a,
-            .view-mode-btn a:active,
-            .view-mode-btn a:focus,
-            .view-mode-btn a:hover {
-                font-size: 11px;
-                font-weight: 400;
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                width: 40px;
-                height: 40px;
-                margin-right: 0;
-                margin-left: 0;
-                text-decoration: none;
-                padding: 5px;
-                border: 1px solid #e5e5e5;
-            }
-
-                .view-mode-btn a > div {
-                    width: 30px;
-                }
-
-                .view-mode-btn a#grid-view {
-                    margin-right: -1px;
-                }
-
-                    .view-mode-btn a#grid-view .icon-bar {
-                        width: 4px;
-                    }
-
-                        .view-mode-btn a#grid-view .icon-bar:after,
-                        .view-mode-btn a#grid-view .icon-bar:before {
-                            position: absolute;
-                            display: block;
-                            width: 4px;
-                            height: 4px;
-                            content: '';
-                            transition: all .15s ease;
-                            background: #e5e5e5;
-                        }
-
-                        .view-mode-btn a#grid-view .icon-bar:before {
-                            left: -5px;
-                        }
-
-                        .view-mode-btn a#grid-view .icon-bar:after {
-                            right: -5px;
-                        }
-
-            a.current-view .icon-bar:after,
-            a.current-view .icon-bar:before,
-            a.current-view .icon-bar {
-                background: #232323 !important;
-            }
-
-            .view-mode-btn a .icon-bar {
-                filter: alpha(opacity=100);
-                opacity: 1;
-                position: relative;
-                top: -1px;
-                width: 14px;
-                height: 4px;
-                margin: 1px auto 0;
-                transition: all .15s ease;
-                background: #e5e5e5;
-            }
-
-            .actionBar {
-                text-align: right;
-                margin-left: 40px;
-                display: inline-block;
-                clear: both;
-            }
-
-            .form-field {
-                margin: 0;
-                display: inline-block;
-            }
-
-            .form-select {
-                display: inline-block;
-                max-width: 180px;
-                border: 1px solid #dedede;
-                cursor: pointer;
-                color: #454545;
-                padding: 7px 15px 7px 9px;
-                min-width: 90px;
-                height: 38px;
-            }
-
-            .actionBar select option {
-                padding: 5px 10px;
-            }
-
-            .form-label {
-                display: inline-block;
-                text-transform: uppercase;
-                letter-spacing: .05em;
-                position: relative;
-                padding-right: 12px;
-                margin: 0;
-            }
-
-            .product-pagination {
-                margin-bottom: 25px;
-                justify-content: center;
-                text-align: right;
-                font-weight: 600;
-            }
-
-            .module-wrapper {
-                margin: 0 0 20px;
-            }
-
-            .productBlockContainer {
-                margin: 0 -15px;
-                display: flex;
-                /*flex-wrap:wrap;*/
-            }
-
-            .prod-item {
-                margin-bottom: 27px;
-                width: 33.33%;
-                float: left;
-            }
-
-            /*:not(.productList).module-wrapper .prod-item{
+    /*:not(.productList).module-wrapper .prod-item{
                 width: 33.33%;
             }*/
 
-            /*.module-wrapper .productBlockContainer.columns-3 .prod-item{
+    /*.module-wrapper .productBlockContainer.columns-3 .prod-item{
                 position:relative;
                 height:100%;
                 padding:0 15px;
@@ -316,215 +314,292 @@
                 align-items:stretch;
             }*/
 
-            /*:not(.productList).module-wrapper .prod-item .card-figure {
+    /*:not(.productList).module-wrapper .prod-item .card-figure {
                 height:auto;
                 background:0 0
             }*/
 
-            .card-figure {
-                padding: 0;
-                position: relative;
-                margin-top: 0;
-            }
+    .card-figure {
+        padding: 0;
+        position: relative;
+        margin-top: 0;
+    }
 
-            .prod-item .prod-image {
-                position: relative;
-                margin-bottom: 21px;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+    .prod-item .prod-image {
+        position: relative;
+        margin-bottom: 21px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-                .prod-item .prod-image > a {
-                    display: inline-flex;
-                    justify-content: center;
-                    align-items: center;
-                    align-content: center;
-                    width: 100%;
-                }
+        .prod-item .prod-image > a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            width: 100%;
+        }
 
-            .card-image {
-                width: 270px;
-                height: 405px;
-                max-width: 100%;
-                border: 0;
-                display: inline-block;
-            }
+    .card-image {
+        width: 270px;
+        height: 405px;
+        max-width: 100%;
+        border: 0;
+        display: inline-block;
+    }
 
-            .prod-item .prod-image > a img.lazyloaded {
-                width: 100% !important;
-            }
+    .prod-item .prod-image > a img.lazyloaded {
+        width: 100% !important;
+    }
 
-            .actions > .btnQV, .actions > a.btnWL, .actions > a.btnATC {
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease 0s;
-                position: absolute;
-            }
+    .actions > .btnQV, .actions > a.btnWL, .actions > a.btnATC {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease 0s;
+        position: absolute;
+    }
 
-            .actions > a.btnWL {
-                top: -20px;
-                right: 13px;
-                display: inline-block;
-                width: 30px;
-                padding: 5px;
-                font-size: 16px;
-                text-align: center;
-            }
+    .actions > a.btnWL {
+        top: -20px;
+        right: 13px;
+        display: inline-block;
+        width: 30px;
+        padding: 5px;
+        font-size: 16px;
+        text-align: center;
+    }
 
-                .actions > a.btnWL:hover {
-                    border-bottom: none;
-                }
+        .actions > a.btnWL:hover {
+            border-bottom: none;
+        }
 
-            .btnWL span, .btnWL i {
-                font-weight: 400;
-                color: #000;
-            }
+    .btnWL span, .btnWL i {
+        font-weight: 400;
+        color: #000;
+    }
 
-            .prod-desc .btnWL i {
-                font-size: 16px;
-                margin-left: 40px;
-            }
+    .prod-desc .btnWL i {
+        font-size: 16px;
+        margin-left: 40px;
+    }
 
-            .prod-desc .btnWL span {
-                border-bottom: 1px dotted #000;
-                margin-left: 10px;
-            }
+    .prod-desc .btnWL span {
+        border-bottom: 1px dotted #000;
+        margin-left: 10px;
+    }
 
-                .prod-desc .btnWL span:hover, .prod-desc .btnWL i:hover {
-                    cursor: pointer;
-                    color: #000;
-                }
+        .prod-desc .btnWL span:hover, .prod-desc .btnWL i:hover {
+            cursor: pointer;
+            color: #000;
+        }
 
 
-            .actions > a.btnATC {
-                width: 100%;
-                bottom: 10px;
-                left: 50%;
-                transform: translate(-50%,-50%);
-                font-weight: 700;
-            }
+    .actions > a.btnATC {
+        width: 100%;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        font-weight: 700;
+    }
 
-            .actions > .btnQV {
-                right: 0px;
-                top: 50%;
-                transform: translateY(-50%);
-                left: 0px;
-                width: 106px;
-                height: 33px;
-                margin: 0 auto;
-                color: #000;
-                border: 2px solid #000;
-                background-color: #fff;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-family: Poppins,Arial,Helvetica,sans-serif;
-                font-weight: 700;
-            }
+    .actions > .btnQV {
+        right: 0px;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0px;
+        width: 106px;
+        height: 33px;
+        margin: 0 auto;
+        color: #000;
+        border: 2px solid #000;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Poppins,Arial,Helvetica,sans-serif;
+        font-weight: 700;
+    }
 
-                .actions > .btnQV:hover {
-                    border: 1px solid #000;
-                }
+        .actions > .btnQV:hover {
+            border: 1px solid #000;
+        }
 
-            .productBlockContainer.row:after {
-                content: "";
-                display: table;
-                clear: both;
-            }
+    .productBlockContainer.row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 
-            .prod-name a {
-                font-weight: 400;
-                color: #000;
-            }
+    .prod-name a {
+        font-weight: 400;
+        color: #000;
+    }
 
-                .prod-name a:hover {
-                    color: #000;
-                }
+        .prod-name a:hover {
+            color: #000;
+        }
 
-            .prod-summary {
-                font-weight: 400;
-                line-height: 1.5rem;
-            }
+    .prod-summary {
+        font-weight: 400;
+        line-height: 1.5rem;
+    }
 
-            .hoverin {
-                opacity: 1 !important;
-                visibility: visible !important;
-            }
+    .hoverin {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
 
-            .showdown {
-                opacity: 1 !important;
-                visibility: visible !important;
-                top: 15px !important;
-            }
+    .showdown {
+        opacity: 1 !important;
+        visibility: visible !important;
+        top: 15px !important;
+    }
 
-            ul {
-                padding: 0;
-            }
+    ul {
+        padding: 0;
+    }
 
-            .pagination-list li {
-                display: inline;
-                padding: 0 5px;
-            }
+    .pagination-list li {
+        display: inline;
+        padding: 0 5px;
+    }
 
-            .pagination-list .pagination-item a {
-                color: #000;
-                font-weight: 600;
-            }
+    .pagination-list .pagination-item a {
+        color: #000;
+        font-weight: 600;
+    }
 
-                .pagination-list .pagination-item a:hover {
-                    text-decoration: none;
-                    color: #000;
-                }
+        .pagination-list .pagination-item a:hover {
+            text-decoration: none;
+            color: #000;
+        }
 
-            .selectedpage a {
-                border-bottom: 1px dotted #000;
-            }
+    .selectedpage a {
+        border-bottom: 1px dotted #000;
+    }
 
-                .selectedpage a:hover {
-                    cursor: none;
-                }
+        .selectedpage a:hover {
+            cursor: none;
+        }
 
-            .pagination-item--next a, .pagination-item--previous a {
-                color: #000;
-                border-bottom: 1px dotted #000;
-            }
+    .pagination-item--next a, .pagination-item--previous a {
+        color: #000;
+        border-bottom: 1px dotted #000;
+    }
 
-                .pagination-item--next a:hover, .pagination-item--previous a:hover {
-                    color: #000;
-                }
+        .pagination-item--next a:hover, .pagination-item--previous a:hover {
+            color: #000;
+        }
 
-            .prod-desc > a.btnATC {
-                width: 40%;
-                font-weight: 700;
-            }
+    .pagination-link:hover {
+        cursor: pointer;
+    }
 
-            .prod-desc {
-                padding-top: 25px;
-            }
-
-            .prod-image-small {
-                padding: 0;
-            }
-            /*.imghchange {
+    /*.imghchange {
             height:300px;
             margin-bottom:0 !important;
             border-bottom:1px solid #ccc;
         }*/
-            figure {
-                margin: 20px 0;
-            }
+    figure {
+        margin: 20px 0;
+    }
 
-            .center {
-                text-align: center;
-            }
+    .center {
+        text-align: center;
+    }
 
-            .pagination-link:hover {
-                cursor: pointer;
-            }
-    </style>
+    .pagination-link:hover {
+        cursor: pointer;
+    }
+
+    /*quickview modal*/
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+    }
+
+        .modal label {
+            padding: 10px 0;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+
+        .modal input {
+            padding: 10px 0;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+
+        .modal button {
+            padding: 10px 0;
+            margin: 20px 0;
+        }
+
+    .quickview .modal-content {
+        background-color: #fefefe;
+        margin: 0% auto !important;
+        border: 1px solid #888;
+        width: 1000px;
+        height: 100%;
+        overflow: auto;
+    }
+
+    .quickview .modal-dialog {
+        margin: auto;
+        max-width: none !important;
+        height: 650px !important;
+    }
+
+    .close {
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #e82b1a;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #e82b1a;
+            cursor: pointer;
+        }
+
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+
+    /*產品小圖和社群列*/
+    .productView-thumbnail {
+        display: flex;
+        justify-content: center;
+    }
+
+    /*產品小圖*/
+    .viewPic {
+        width: 80px;
+        height: auto;
+    }
+
+        .viewPic:hover {
+            cursor: pointer;
+        }
+</style>
 }
-
+@*loading效果*@
+<div id="loading"></div>
+<div class="mask"></div>
 
 <div id="app" class="show-all">
     <div class="container_page">
@@ -534,13 +609,10 @@
                 <!-- 動態綁定有a標籤href及text屬性 -->
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="#">Home</a>
+                        <a href="/">Home</a>
                     </li>
-                    <li class="breadcrumb-item">
-                        <a href="#">Necklaces</a>
-                    </li>
-                    <li class="breadcrumb-item active">
-                        <a href="#">Y-Necklace &amp; Lariat</a>
+                    <li class="breadcrumb-item" v-for="tag in tags" style="text-transform:capitalize;">
+                        <a :href=`/Products/${tag}`>{{tag}}</a>
                     </li>
                 </ul>
                 <!-- 要塞目錄資料及連結資料   結尾-->
@@ -556,21 +628,9 @@
                         <div class="sidebarBlock" id="sidebar-wrapper">
                             <h6 class="side-module-heading"><span>Categories</span></h6>
                             <ul class="navList">
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/crawlers-and-pins/"
-                                       alt="Crawlers and Pins" title="Crawlers and Pins">Crawlers and Pins</a>
-                                </li>
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/threader-earrings/"
-                                       alt="Threader Earrings" title="Threader Earrings">Threader Earrings</a>
-                                </li>
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/earring-sets/"
-                                       alt="Earring Sets" title="Earring Sets">Earring Sets</a>
-                                </li>
-                                <li class="navList-item">
-                                    <a class="navList-action" href="https://lovoda.com/cuffs/" alt="Cuffs"
-                                       title="Cuffs">Cuffs</a>
+                                <li class="navList-item" v-for="cat in categories">
+                                    <a class="navList-action" :href=`/Products/${cat}`
+                                       :alt=`${cat}` :title=`${cat}`>{{cat}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -578,7 +638,7 @@
                             <h6 class="side-module-heading"><span>Shop by Price</span></h6>
                             <ul>
                                 <li v-for="interval in intervals" v-on:click="pricefilter(interval.low,interval.height)">
-                                    <a alt=interval title=interval>${{interval.low}}.00 - ${{interval.height}}.00</a>
+                                    <a :alt=`${interval}` :title=`${interval}`>${{interval.low}}.00 - ${{interval.height}}.00</a>
                                 </li>
                             </ul>
                         </div>
@@ -597,7 +657,7 @@
                 </div>
                 <main class="page-content col-sm-9">
                     <div class="category-heading">
-                        <h1 class="page-heading">Y-Necklace &amp; Lariat</h1>
+                        <h1 class="page-heading">{{title}}</h1>
                     </div>
 
                     <div id="product-listing-container" class="showMoreCat">
@@ -638,45 +698,44 @@
                             </form>
                         </div>
 
-                        <form action="/compare" method="POST">
-                            <div class="module-wrapper">
-                                <div class="productBlockContainer row">
-                                    <div class="prod-item viewchange col-4" v-for="data in products.slice(beginitem,enditem)">
-                                        <figure class="card-figure viewchange" :id=`${data.ProductID}`>
-                                            <div class="prod-image viewchange">
-                                                <a :href=`Earrings/${data.ProductID}`>
-                                                    <img class="card-image viewchange" :id=`${data.ProductName}`
-                                                         :src=`${data.Url.Url1}` :value=`${data.Url.Url2}`>
+                        <div class="module-wrapper">
+                            <div class="productBlockContainer row">
+                                <div class="prod-item viewchange col-4" v-for="data in products.slice(beginitem,enditem)">
+                                    <figure class="card-figure viewchange" :id=`${data.ProductID}`>
+                                        <div class="prod-image viewchange">
+                                            <a :href=`${data.CategoryName}/${data.ProductID}`>
+                                                <img class="card-image viewchange" :id=`${data.ProductName}`
+                                                     :src=`${data.Url.Url1}` :value=`${data.Url.Url2}`>
+                                            </a>
+                                            <div class="actions">
+                                                <a class="btnWL grid-view" :value=`${data.ProductID}`>
+                                                    <i class="fas fa-heart" :style=`${data.IsRed}`></i>
                                                 </a>
-                                                <div class="actions">
-                                                    <a href="#" class="btnWL grid-view" :value=`${data.ProductID}`>
-                                                        <i class="fas fa-heart" :style=`${data.IsRed}`></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-outline-dark rounded-0 btnATC grid-view"><i class="fa fa-heart-o"></i>Add to Cart</a>
-                                                    <a href="#" class="btnQV quickview">Quick view</a>
-                                                </div>
+                                                <a class="btn btn-outline-dark rounded-0 btnATC grid-view" :value=`${data.ProductID}` v-on:click='addtocart($event)'>Add to Cart</a>
+                                                <a class="btnQV" :value=`${data.ProductID}` v-on:click='getquickview($event)'>Quick view</a>
+                                            </div>
+                                        </div>
+
+                                        <figcaption class="prod-desc viewchange center">
+                                            <p class="prod-name"><a href="#">{{data.ProductName}}</a></p>
+                                            <div class="prod-price"><span class="price">${{data.ProductPrice}}.00</span></div>
+                                            <div class="prod-summary list-view">
+                                                @*<p>
+                                                        {{data.ProductDescription}}
+                                                    </p>*@
                                             </div>
 
-                                            <figcaption class="prod-desc viewchange center">
-                                                <p class="prod-name"><a href="#">{{data.ProductName}}</a></p>
-                                                <div class="prod-price"><span class="price">${{data.ProductPrice}}.00</span></div>
-                                                <div class="prod-summary list-view">
-                                                    @*<p>
-                                                            {{data.ProductDescription}}
-                                                        </p>*@
-                                                </div>
-
-                                                <a href="#" class="btn btn-outline-dark btnATC rounded-0 list-view">Add to Cart</a>
-                                                <a href="#" class="btnWL list-view">
-                                                    <i class="far fa-heart"></i><span>Add to Wish list</span>
-                                                </a>
-                                            </figcaption>
-                                        </figure>
-                                    </div>
-                                    <hr class="list-view" />
+                                            <a class="btn btn-outline-dark btnATC rounded-0 list-view" :value=`${data.ProductID}` v-on:click='addtocart($event)'>Add to Cart</a>
+                                            <a class="btnWL list-view" :value=`${data.ProductID}`>
+                                                <i class="far fa-heart" :style=`${data.IsRed}`></i><span>Add to Wish List</span>
+                                            </a>
+                                        </figcaption>
+                                    </figure>
                                 </div>
+                                <hr class="list-view" />
                             </div>
-                        </form>
+                        </div>
+
 
 
                         <div class="product-pagination bottom">
@@ -704,27 +763,99 @@
                 </main>
             </div>
         </div>
+    </div>
 
+    <div class="modal fade quickview" style="z-index:1000000000" id="QuickViewModal">
+        <div class="modal-dialog">
+            <div class="modal-content animate  rounded-0 m-0">
+                <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
+                <div class="container mt-5">
+                    <div class="row mt-2 mb-4">
+                        <div class="col-5 px-2 ml-5">
+                            <figure class="figure">
+                                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100" :src='currentproduct.Url.Url1'>
+                            </figure>
+                        </div>
+                        <div class="col-6 p-4">
+                            <div id="ProductName" class="productView-title">{{currentproduct.ProductName}}</div>
+                            <div class="productView-rating"></div>
+                            <div id="ProductPrice " class="productView-price">${{currentproduct.ProductPrice}}.00</div>
+                            <span>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <hr>
+                            <div class="productView-rating"></div>
+
+                            <input id="ProductID" type="hidden" name="ProductID" v-bind:value='currentproduct.ProductID' />
+
+                            <div>Quantity:</div>
+
+                            <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+                            <input id="quantity" name="Quantity" value="1" class="text-center" />
+                            <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+                            <div class="productView-rating"></div>
+                            <button class="btn btn-outline-dark rounded-0" onclick="AddCart()">ADD TO CART</button>
+                            <a href="#" class="btnWL list-view" id="AWL">
+                                <i class="far fa-heart"></i><span>Add to Wish list</span>
+                            </a>
+                        </div>
+                        <div class="col-12 mt-4 " id="ProductPics">
+                            <div class="col-5 text-center p-0 productView-thumbnail">
+                                <a class="mr-3">
+                                    <img class="viewPic thumbnail" v-on:click='picchange($event)' :src='currentproduct.Url.Url1' />
+                                </a>
+                                <a class="mr-3">
+                                    <img class="viewPic thumbnail" v-on:click='picchange($event)' :src='currentproduct.Url.Url2' />
+                                </a>
+                                <a>
+                                    <img class="viewPic thumbnail" v-on:click='picchange($event)' :src='currentproduct.Url.Url3' />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-@section viewJquery{
+@*loading效果*@
+@Styles.Render("~/Content/loadingCSS")
+@Scripts.Render("~/bundles/loadingJS")
+@section Vuejs{
     <script>
-
-    $(function () {
         var pageshowitems = 12.0;
         var totalproducts = [@Html.Raw(ViewBag.products)];
         var priceinterval = [{ low: 0, height: 19 }, { low: 19., height: 23 }, { low: 23, height: 27 }, { low: 27, height: 31 }, { low: 31, height: 35 }];
+        var thisproduct = {
+                                "ProductID": 57,
+                                "CategoryName": "123",
+                                "ProductName": "Glamour Ring Earring Set (14K)",
+                                "ProductDescription": "Three gold and sparkly earrings! Circle stone earring, round stone earring, and gold sphere earring</br>‧ 14K Plated Gold over Sterling Silver</br>Measurements:</br>‧ Length: .5 in. / 1.3 cm.</br>",
+                                "UnitsInStock": 50,
+                                "ProductPrice": 30.00,
+                                "Url": {"Url1":"https://i.imgur.com/M4LckHK.jpg","Url2":"https://i.imgur.com/hHN1xsw.jpg","Url3":"https://i.imgur.com/Ome1dkY.jpg"}
+                           };
+        var parents = @Html.Raw(ViewBag.parents);
+        var children = @Html.Raw(ViewBag.children);
         var app = new Vue({
             el: '#app',
             data: {
-                allproducts: totalproducts,
-                curpage: '1',
-                selectedvalue: '',
-                intervals:priceinterval,
-                products: _.orderBy(totalproducts, ['ProductID'], ['asc']),
-                filterproducts: '',
-                isRed:false
+                'allproducts': totalproducts,
+                'curpage': '1',
+                'selectedvalue': '',
+                'intervals':priceinterval,
+                'products': _.orderBy(totalproducts, ['ProductID'], ['asc']),
+                'filterproducts': '',
+                'isRed': false,
+                'currentproduct': thisproduct,
+                'alltags': parents,
+                'title': parents[0],
+                'categories':children,
             },
             methods: {
                 //分頁按下動作
@@ -743,6 +874,36 @@
                         return item.ProductPrice > low && item.ProductPrice <= height;
                     });
                     app.products = filterproducts;
+                },
+                //quickviewmodal
+                getquickview(e) {
+                    var id = $(e.currentTarget).attr("value");
+                    $.ajax({
+                        type: "GET",
+                        url: "/FrontEnd/ProductQuickView",
+                        data: {
+                            id: id
+                        },
+                        dataType: "text",
+                        success: function (response) {
+                            app.currentproduct = JSON.parse(response);
+                            app.currentproduct.Url = JSON.parse(app.currentproduct.Url);
+                            $('#QuickViewModal').modal('show');
+                        }
+                    });
+                },
+                //quickview換pics
+                picchange(e) {
+                    e.preventDefault();
+                    // 大小圖片的src
+                    largePicSrc = $(e.currentTarget).attr("src");
+                    $('#LargePic').attr("src", $(e.currentTarget).attr("src"));
+                },
+                //addtocart
+                addtocart(e) {
+                    let id = $(e.currentTarget).attr("value");
+                    let quantity = 1;
+                    AddCart(id, quantity);
                 },
             },
 
@@ -766,7 +927,7 @@
                     }
                     app.allproducts = item;
                     app.products = item;
-                },
+                }
             },
 
             computed: {
@@ -775,7 +936,7 @@
                     return (this.curpage - 1) * 12;
                 },
                 enditem() {
-                        return (this.curpage) * 12;
+                    return (this.curpage) * 12;
                 },
                 //分頁列顯示設定
                 sum() {
@@ -795,10 +956,21 @@
                         return true;
                     }
                 },
+                tags() {
+                    var ascparents=[];
+                    for (var i = 0; i < parents.length; i=i+1 ) {
+                        ascparents[i] = parents[parents.length-i-1];
+                    }
+                    return ascparents
+                }
             },
         })
 
+    </script>
+}
 
+@section viewJquery{
+    <script>
         $( ".list-view" ).hide();
         $( "#grid-view" ).click( function () {
             $( ".list-view" ).hide();
@@ -810,8 +982,8 @@
             $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
             $( ".card-image.viewchange" ).removeClass( "h-100" );
             $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
+        } );
 
-        });
         $( "#list-view" ).click( function () {
             $( ".grid-view" ).hide();
             $( ".list-view" ).show();
@@ -822,7 +994,6 @@
             $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
             $( ".card-image.viewchange" ).addClass( "h-100" );
             $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
-
         } );
 
         $( ".card-figure" ).hover( function () {
@@ -835,30 +1006,26 @@
             $( this ).find( ".btnATC" ).removeClass( "hoverin" );
         } );
 
-        $(".card-image").hover(function () {
-            $(this).attr("style", "opacity:0.5");
-            var val = $(this).attr("src");
-            $(this).attr("src", $(this).attr("value"));
-            $(this).attr("value", val);
+        $( ".card-image" ).hover( function () {
+            $( this ).attr( "style", "opacity:0.5" );
+            var val = $( this ).attr( "src" );
+            $( this ).attr( "src", $( this ).attr( "value" ) );
+            $( this ).attr( "value", val );
         }, function () {
-            $(this).attr("style", "opacity:0.5");
-            var val = $(this).attr("src");
-            $(this).attr("src", $(this).attr("value"));
-            $(this).attr("value", val);
-        });
+            $( this ).attr( "style", "opacity:0.5" );
+            var val = $( this ).attr( "src" );
+            $( this ).attr( "src", $( this ).attr( "value" ) );
+            $( this ).attr( "value", val );
+        } );
 
-        $(".btnWL").click(function (e) {
+        $( ".btnWL" ).click( function ( e ) {
             e.preventDefault();
-            var item = $(this);
-            var id = item.parents("figure").attr("id");
-            var isRed = item.find("i").attr("style") == null ? false : true;
-            //if ($(this).find("i").attr("style") == null) {
-            //    var isRed = false;
-            //} else {
-            //    var isRed = true;
-            //}
-            if (isRed) {
-                $.ajax({
+            var item = $( this );
+            var id = item.parents( "figure" ).attr( "id" );
+            var isRed = item.find( "i" ).attr( "style" ) == null ? false : true;
+
+            if ( isRed ) {
+                $.ajax( {
                     type: "POST",
                     url: "/FrontEnd/DeleteWish",
                     data: {
@@ -866,32 +1033,47 @@
                         ProductID: id
                     },
                     dataType: "text",
-                    success: function (response) {
-                        if (response) {
-                            alert('Delete wishlist');
-                            item.find("i").removeAttr("style")
+                    success: function ( response ) {
+                        if ( response ) {
+                            alert( 'Delete wishlist' );
+                            item.find( "i" ).removeAttr( "style" )
                         }
                     }
-                });
+                } );
             } else {
-                $.ajax({
+                $.ajax( {
                     type: "POST",
                     url: "/FrontEnd/AddWish",
                     data: {
-                        MemberID:0,
-                        ProductID:id
+                        MemberID: 0,
+                        ProductID: id
                     },
                     dataType: "text",
-                    success: function (response) {
-                        if (response) {
-                            alert('Add to wishlist');
-                            item.find("i").attr("style", "color:red");
+                    success: function ( response ) {
+                        if ( response ) {
+                            alert( 'Add to wishlist' );
+                            item.find( "i" ).attr( "style", "color:red" );
                         }
                     }
-                });
+                } );
             }
-        });
-    });
+        } );
+
+        //新增購物車 ajax
+        function AddCart( productId, quantity ) {
+            $.ajax( {
+                type: "POST",
+                //先確認目前的訂單狀況 再接AddCart的action
+                url: "/FrontEnd/CheckOrder",
+                data: { ProductID: productId, Quantity: quantity },
+                dataType: "text",
+                success: function ( response ) {
+                    alert( "Add to cart successfully!" );
+                    GetCartAmount()
+                }
+            } );
+        }
+        CloseLoading()
     </script>
 }
 

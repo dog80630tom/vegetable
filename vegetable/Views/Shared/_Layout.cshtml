@@ -5,96 +5,100 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="~/Scripts/vue.js"></script>
     <title>後台管理者頁面</title>
 
     @Styles.Render("~/Content/vegetable")
     @Styles.Render("~/Content/adminCss")
-    
+
     @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
     <style>
         body {
-            font-size:15px;
-            background:#fffafa;
+            font-size: 15px;
+            background: #fffafa;
             font-family: Comic Sans MS,arial,"Microsoft JhengHei","微軟正黑體",sans-serif;
         }
 
         .btn-mytype {
-            font-weight:600;
-            border-radius:20px;
-            letter-spacing:0.1em;
-            color:white!important ;
-            padding:3px 10px;
-            margin:2px;
+            font-weight: 600;
+            border-radius: 20px;
+            letter-spacing: 0.1em;
+            color: white !important;
+            padding: 3px 10px;
+            margin: 2px;
         }
 
         .btn-mycreatetype {
-            background-color:#ffc107;
-            border:2px solid #ffc107;
+            background-color: #ffc107;
+            border: 2px solid #ffc107;
         }
 
-        .btn-mycreatetype:hover {
-            color:#ffc107 !important;
-            background-color:#fff;
-            border:2px solid #ffc107;
-            letter-spacing:0.1em;
-        }
+            .btn-mycreatetype:hover {
+                color: #ffc107 !important;
+                background-color: #fff;
+                border: 2px solid #ffc107;
+                letter-spacing: 0.1em;
+            }
 
         .btn-myedittype {
-            background-color:#00d975;
-            border:2px solid #00d975;
+            background-color: #00d975;
+            border: 2px solid #00d975;
         }
 
-        .btn-myedittype:hover {
-            color:#00d975 !important;
-            background-color:#fff;
-            border:2px solid #00d975;
-            letter-spacing:0.1em;
-        }
+            .btn-myedittype:hover {
+                color: #00d975 !important;
+                background-color: #fff;
+                border: 2px solid #00d975;
+                letter-spacing: 0.1em;
+            }
 
         .btn-mydeletetype {
-            background-color:#c15ff5;
-            border:2px solid #c15ff5;
+            background-color: #c15ff5;
+            border: 2px solid #c15ff5;
         }
 
-        .btn-mydeletetype:hover {
-            color:#c15ff5 !important;
-            background-color:#fff;
-            border:2px solid #c15ff5;
-            letter-spacing:0.1em;
-        }
+            .btn-mydeletetype:hover {
+                color: #c15ff5 !important;
+                background-color: #fff;
+                border: 2px solid #c15ff5;
+                letter-spacing: 0.1em;
+            }
 
         .btn-mydetailtype {
-            background-color:#84C1FF;
-            border:2px solid #84C1FF;
+            background-color: #84C1FF;
+            border: 2px solid #84C1FF;
         }
 
-        .btn-mydetailtype:hover {
-            color:#84C1FF !important;
-            background-color:#fff;
-            border:2px solid #84C1FF;
-            letter-spacing:0.1em;
-        }
+            .btn-mydetailtype:hover {
+                color: #84C1FF !important;
+                background-color: #fff;
+                border: 2px solid #84C1FF;
+                letter-spacing: 0.1em;
+            }
 
         table {
             width: unset !important;
-            border-collapse:collapse;
+            border-collapse: collapse;
             border: 3px solid #dee2e6;
-            background-color:#fff;
+            background-color: #fff;
         }
 
-        table thead {
-            border: 2px solid #dee2e6;
-        }
+            table thead {
+                border: 2px solid #dee2e6;
+            }
 
         ul.sidebar-menu li a {
-            font-size:15px;
+            font-size: 15px;
         }
 
         .content-title {
-            margin:20px;
+            margin: 20px;
         }
-        
+
         /*table tbody tr:nth-of-type(odd) {
             background-color:#fffdfd;
         }
@@ -123,10 +127,9 @@
 
 
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @RenderSection("EndCss", required: false)
     @RenderSection("Endscripts", required: false)
+    @RenderSection("BackStageVue", required: false)
 </body>
 </html>
