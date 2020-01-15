@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "分類管理";
 }
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 
 <div class="content-title mx-auto" style="width:75vw !important">
@@ -15,8 +21,8 @@
                 @Html.DisplayNameFor(model => model.CategoryName)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.CategoryPic)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.CategoryPic)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.CategoryDescription)
             </th>
@@ -25,7 +31,7 @@
             </th>
         </tr>
     </thead>
-    
+
     <tbody>
         @foreach (var item in Model)
         {
@@ -34,20 +40,20 @@
                     @Html.DisplayFor(modelItem => item.CategoryName)
                 </td>
                 @*<td>
-                    @Html.DisplayFor(modelItem => item.CategoryPic)
-                </td>*@
+                        @Html.DisplayFor(modelItem => item.CategoryPic)
+                    </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.CategoryDescription)
                 </td>
                 <td class="text-right">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID } , new { @class = "btn-mytype btn-myedittype mr-2" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.CategoryID } , new { @class = "btn-mytype btn-mydetailtype mr-2" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID } , new { @class = "btn-mytype btn-mydeletetype mr-2" })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }, new { @class = "btn-mytype btn-myedittype mr-2" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CategoryID }, new { @class = "btn-mytype btn-mydetailtype mr-2" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID }, new { @class = "btn-mytype btn-mydeletetype mr-2" })
                 </td>
             </tr>
         }
     </tbody>
-    
+
 
 </table>
 
