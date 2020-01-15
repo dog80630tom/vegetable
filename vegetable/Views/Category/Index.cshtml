@@ -14,71 +14,30 @@
 <div class="content-title mx-auto" style="width:75vw !important">
     <h2>分類管理</h2>
 </div>
-@*<table class="table mx-auto" style="width:75vw !important">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CategoryName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CategoryPic)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CategoryDescription)
-                </th>
-                <th class="text-right">
-                    @Html.ActionLink("Create New", "Create", null, new { @class = "btn-mytype btn-mycreatetype mr-2" })
-                </th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryName)
-                </td>
-                <td>
-                @Html.DisplayFor(modelItem => item.CategoryPic)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParentID)
-                </td>
-                <td class="text-right">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }, new { @class = "btn-mytype btn-myedittype mr-2" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.CategoryID }, new { @class = "btn-mytype btn-mydetailtype mr-2" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID }, new { @class = "btn-mytype btn-mydeletetype mr-2" })
-                </td>
-            </tr>
-            }
-        </tbody>
-
-
-    </table>*@
-
 <div class="custom-tree-container" id="app">
     <div class="block">
         <el-tree :data="catrgoriesdata"
-                 show-checkbox
                  node-key="id"
-                 @*default-expand-all*@
+                 empty-text="暫無數據"
                  :expand-on-click-node="false">
             <span class="custom-tree-node" slot-scope="{ node, data }">
                 <span>{{ node.label }}</span>
                 <span>
                     <el-row>
                         <el-button type="success"
-                                   size="medium"
-                                   icon="el-icon-edit"
-                                   @@click="() => append(data)">
+                                   size="mini"
+                                   icon="el-icon-document-add"
+                                   @@click="() => openappendform(data)">
                             新增
                         </el-button>
+                        <el-button type="warning"
+                                   size="mini"
+                                   icon="el-icon-edit"
+                                   @@click="() =>openeditform(node,data)">
+                            修改
+                        </el-button>
                         <el-button type="danger"
-                                   size="medium"
+                                   size="mini"
                                    icon="el-icon-delete"
                                    @@click="() => remove(node, data)">
                             刪除
@@ -91,136 +50,22 @@
     </div>
     <el-dialog title="提示"
                :visible.sync="dialogVisible"
-               width="30%"
-               :before-close="handleClose">
-        <el-form ref="form" :model="form" label-width="150px">
+               width="30%">
+        <el-form :label-position="labelPosition" ref="form" :model="form" label-width="150px">
             <el-form-item label="CategoryName">
-                <el-input v-model="form.CategoryName"></el-input>
+                <el-input v-model="form.CategoryName" placeholder="請輸入產品種類名稱"></el-input>
             </el-form-item>
             <el-form-item label="CategoryDescription">
-                <el-input v-model="form.CategoryDescription"></el-input>
+                <el-input v-model="form.CategoryDescription" placeholder="請輸入產品描述"></el-input>
             </el-form-item>
-</el-form>
-                <span slot="footer" class="dialog-footer">
-                    <el-button @@click="dialogVisible = false">取消</el-button>
-                    <el-button type="primary" @@click="dialogVisible = false">確定</el-button>
-                </span>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button @@click="dialogVisible = false">取消</el-button>
+            <el-button v-if="mode=='append'" type="primary" @@click="() => append()">確定</el-button>
+            <el-button v-if="mode=='edit'" type="primary" @@click="() => edit()">確定</el-button>
+        </span>
     </el-dialog>
-
 </div>
-
-<script>
-    let id = 1000;
-    //var catrgoriesdata = [{
-    //    id: 1,
-    //    label: '一级 1',
-    //    children: [{
-    //        id: 4,
-    //        label: '二级 1-1',
-    //        children: [{
-    //            id: 9,
-    //            label: '三级 1-1-1'
-    //        }, {
-    //            id: 10,
-    //            label: '三级 1-1-2'
-    //        }]
-    //    }]
-    //}, {
-    //    id: 2,
-    //    label: '一级 2',
-    //    children: [{
-    //        id: 5,
-    //        label: '二级 2-1'
-    //    }, {
-    //        id: 6,
-    //        label: '二级 2-2'
-    //    }]
-    //}, {
-    //    id: 3,
-    //    label: '一级 3',
-    //    children: [{
-    //        id: 7,
-    //        label: '二级 3-1'
-    //    }, {
-    //        id: 8,
-    //        label: '二级 3-2'
-    //    }]
-    //}];
-    var vm = new Vue({
-        el: '#app',
-        data: {
-            catrgoriesdata: [],
-            dialogVisible: false,
-            form: {
-                CategoryName: '',
-                CategoryDescription:''
-
-            }
-        },
-        mounted: function () {
-            var settings = {
-                "async": true,
-                "crossDomain": true,
-                "url": "/api/CategoriesApi",
-                "method": "GET",
-            }
-
-            $.ajax(settings).done(function (response) {
-                console.log(response);
-                vm.catrgoriesdata = response;
-            });
-        },
-        
-        methods: {
-            append(data) {
-                this.dialogVisible = true;
-                console.log(data)
-                let item = {
-                    "CategoryName": data.form.CategoryName,
-                    "ParentID": data.id,
-                    "CategoryDescription": data.form.CategoryDescription
-            }
-                $.ajax({
-	                    type: 'POST',
-	                    url:'/api/CategoriesApi',
-	                    data: item,
-	                    dataType:'json',
-                    success: function (response) {
-                        alert('成功新增資料');
-                    }
-                    });
-                const newChild = {
-                    id: id++,
-                    label: 'testtest',
-                    children: []
-                };
-                if (!data.children) {
-                    this.$set(data, 'children', []);
-                }
-                data.children.push(newChild);
-
-
-            },
-            remove(node, data) {
-                const parent = node.parent;
-                const children = parent.data.children || parent.data;
-                const index = children.findIndex(d => d.id === data.id);
-                children.splice(index, 1);
-            },
-             handleClose(done) {
-                    this.$confirm('確認關閉？')
-                    .then(_ => {
-                                done();
-                                })
-                    .catch(_ => {});
-                    }
-             }
-        
-    });
-
-
-</script>
-
 <style>
     .custom-tree-node {
         flex: 1;
@@ -231,30 +76,151 @@
         padding-right: 8px;
     }
 </style>
-
-
-<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="CanNotDeleteCategory" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="CanNotDeleteCategory">無法刪除此種類</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">請先刪除屬於該種類的產品</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">確定</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 @section Endscripts{
     <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                currentdata: null,
+                currentnode: null,
+                catrgoriesdata: [],
+                dialogVisible: false,
+                mode: '',
+                labelPosition: 'left',
+                form: {
+                    CategoryName: '',
+                    CategoryDescription: ''
+                }
+            },
+            mounted: function () {
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "/api/CategoriesApi",
+                    "method": "GET",
+                }
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                    vm.catrgoriesdata = response;
+                });
+            },
+            methods: {
+                openappendform(inputdata) {
+                    this.dialogVisible = true;
+                    this.currentdata = inputdata;
+                    vm.form.CategoryName = '';
+                    vm.form.CategoryDescription = '';
+                    vm.mode = 'append';
+                },
+                append() {
 
-        if ('@TempData["CanNotDelete"]'=='True') {
-            $('#modal2').modal('show');
+                    let item = {
+                        "CategoryName": this.form.CategoryName,
+                        "ParentID": this.currentdata.id,
+                        "CategoryDescription": this.form.CategoryDescription
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/CategoriesApi',
+                        data: item,
+                        dataType: 'json',
+                        success: function (response) {
+
+                            vm.$message({
+                                type: 'success',
+                                message: '新增成功!'
+                            });
+                            vm.dialogVisible = false;
+                            vm.form.CategoryName = '';
+                            vm.form.CategoryDescription = '';
+                            if (!vm.currentdata.children) {
+                                this.$set(vm.currentdata, 'children', []);
+                            }
+                            let newData = {
+                                label: item.CategoryName,
+                                listitemdescription: item.CategoryDescription,
+                                id: response.CategoryID
+                            }
+                            vm.currentdata.children.push(newData);
+                            vm.currentdata = null;
+                        }
+                    });
+                },
+                remove(node, data) {
+                    debugger
+                    this.$confirm('此操作將刪除該商品種類，是否繼續？', '提示', {
+                        confirmButtonText: '確定',
+                        cancelButtonText: '取消',
+                        type: 'warning',
+                        center: true
+                    }).then(() => {
+                        const parent = node.parent;
+                        const children = parent.data.children || parent.data;
+                        const index = children.findIndex(d => d.id === data.id);
+                        children.splice(index, 1);
+                        $.ajax({
+                            type: 'DELETE',
+                            url: `/api/CategoriesApi/${data.id}`,
+                            data: data,
+                            dataType: 'json',
+                            success: function (response) {
+                                vm.$message({
+                                    type: 'success',
+                                    message: '删除成功!'
+                                });
+                            }
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'error',
+                            message: '已取消删除'
+                        });
+                    });
+                },
+                openeditform(node, data) {
+                    this.currentnode = node;
+                    this.dialogVisible = true;
+                    this.currentdata = data;
+                    vm.form.CategoryName = data.label;
+                    vm.form.CategoryDescription = data.listitemdescription;
+                    vm.mode = 'edit';
+                },
+                edit() {
+                    this.$confirm('此操作將修改該商品種類，是否繼續？', '提示', {
+                        confirmButtonText: '確定',
+                        cancelButtonText: '取消',
+                        type: 'warning',
+                        center: true
+                    }).then(() => {
+                        let item = {
+                            "CategoryName": this.form.CategoryName,
+                            "CategoryID": this.currentdata.id,
+                            "CategoryDescription": this.form.CategoryDescription,
+                            "ParentID": this.currentnode.parent.key
+                        }
+                        $.ajax({
+                            type: 'PUT',
+                            url: `/api/CategoriesApi/${this.currentdata.id}`,
+                            data: item,
+                            dataType: 'json',
+                            success: function (response) {
+                                vm.dialogVisible = false;
+                                vm.currentdata.label = vm.form.CategoryName;
+                                vm.currentdata.listitemdescription = vm.form.CategoryDescription;
+                                vm.$message({
+                                    type: 'success',
+                                    message: '修改成功!'
+                                });
+                            }
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'error',
+                            message: '已取消修改'
+                        });
+                    });
+                }
             }
+        });
     </script>
 }

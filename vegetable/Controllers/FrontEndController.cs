@@ -76,7 +76,7 @@ namespace vegetable.Controllers
                                   Url = pd.PicUrl.Replace(")","")
                               };
                                                         
-            var JSONTO = allproducts.ToList();       
+            var JSONTO = allproducts.OrderBy(x=>x.CategoryID).Take(5).ToList();       
             foreach (ProductList p in JSONTO)
             {
                 //用viewbag丟json格式到view             

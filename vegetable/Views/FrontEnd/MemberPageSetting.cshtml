@@ -1,4 +1,4 @@
-@model vegetable.Models.Member
+﻿@model vegetable.Models.Member
 
 @{
     ViewBag.Title = "MemberPageSetting";
@@ -229,11 +229,11 @@
         var confirmPsw = false;
         $(function () {
             $("#UpdateMember").click(function () {
-                 var uname = $("#userEmail").val();
+                  var uname = $("#userEmail").val();
                     var psw = $("#psw").val();
                     $.ajax({
                         type: "POST",
-                        url: "/FontEnd/Login",
+                        url: "/FrontEnd/Login",
                         data: { uname, psw },
                         success: function (back) {
                             console.log('back', back);
