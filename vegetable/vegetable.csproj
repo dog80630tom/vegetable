@@ -838,7 +838,6 @@
     <Content Include="Content\images\新增分頁_files\cb=gapi.loaded_0" />
     <Content Include="Content\images\新增分頁_files\rs=AA2YrTu9sefoC04t9EOZHAHJP1FzEZa-0Q" />
     <Content Include="Content\images\新增分頁_files\rs=AA2YrTvcyElvG1NEufCZYW6zt4mY2f3Dug" />
-    <None Include="Properties\PublishProfiles\vegetable20191226044317 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
