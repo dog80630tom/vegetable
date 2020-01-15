@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     @*<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />*@
     <meta charset="utf-8" />
@@ -842,7 +842,7 @@
                     <div v-if="c1.childs.length!==0" class="menu-block">
                         <div class="container">
                             <div class="row">
-                                <div v-for="c2 in c1.childs" class="col-6 col-md-3 col-xl-2">
+                                <div v-for="c2 in c1.children" class="col-6 col-md-3 col-xl-2">
                                     <ul class="menu-list">
                                         <li><a :href=`/Products/${c2.name}` class="dot">{{c2.name}}</a></li>
                                         <li v-for="c3 in c2.childs"><a :href=`/Products/${c3.name}` class="dot">{{c3.name}}</a></li>
@@ -1022,8 +1022,6 @@
                 el: '#main',
                 data: {
                     categories: []
-
-
                 },
                 mounted: function () {
                     var settings = {
@@ -1031,10 +1029,6 @@
                         "crossDomain": true,
                         "url": "/api/CategoriesApi",
                         "method": "GET",
-                        "headers": {
-                            "cache-control": "no-cache",
-                            "Postman-Token": "c87fd111-8d9c-48a4-9ce6-73ac1c87b509"
-                        }
                     }
                     $.ajax( settings ).done( function ( response ) {
                         console.log( response );

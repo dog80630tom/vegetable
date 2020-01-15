@@ -67,8 +67,24 @@ namespace vegetable.Controllers
             var iscategory = categoryid.Count() == 1 ? true : false;
             ViewBag.iscategory = iscategory;
 
-            var allproducts = new List<ProductList>();
-            if (iscategory)
+            var allproducts = from p in item.Products
+                              join c in item.Categories
+                              on p.CategoryID equals c.CategoryID
+                              join pd in item.PicDetails
+                              on p.ProductID equals pd.ProductID
+                              where p.ProductName.ToLower().Contains(query) || c.CategoryName.ToLower().Contains(query)
+                              select new ProductList { 
+                                  ProductID = p.ProductID,
+                                  CategoryID = p.CategoryID,
+                                  ProductName = p.ProductName,
+                                  ProductDescription = p.ProductDescription,
+                                  UnitsInStock = p.UnitsInStock,
+                                  ProductPrice = p.ProductPrice,
+                                  Url = pd.PicUrl.Replace(")","")
+                              };
+                                                        
+            var JSONTO = allproducts.OrderBy(x=>x.CategoryID).Take(5).ToList();       
+            foreach (ProductList p in JSONTO)
             {
                 var id = categoryid[0].CategoryID;
                 var parents = FindCategoryParents(id);
