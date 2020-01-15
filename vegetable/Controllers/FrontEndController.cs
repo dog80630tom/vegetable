@@ -35,7 +35,7 @@ namespace vegetable.Controllers
         //產品顯示功能
         [Route("product")]
         [HttpGet]
-        public ActionResult ShowProducts (string query)
+        public ActionResult ShowProducts(string query)
         {
             List<int> wishproducts = new List<int>();
             //先抓取是否登入
@@ -62,8 +62,8 @@ namespace vegetable.Controllers
                 query = query.ToLower();
             }
             var categoryid = (from c in item.Categories
-                             where c.CategoryName.ToLower() == query
-                             select c).ToList();
+                              where c.CategoryName.ToLower() == query
+                              select c).ToList();
             var iscategory = categoryid.Count() == 1 ? true : false;
             ViewBag.iscategory = iscategory;
 
@@ -80,21 +80,21 @@ namespace vegetable.Controllers
                 foreach (string iteminall in allcategories)
                 {
                     iteminallproducts = (from p in item.Products
-                                       join c in item.Categories
-                                       on p.CategoryID equals c.CategoryID
-                                       join pd in item.PicDetails
-                                       on p.ProductID equals pd.ProductID
-                                       where c.CategoryName == iteminall
-                                       select new ProductList
-                                       {
-                                           ProductID = p.ProductID,
-                                           CategoryName = c.CategoryName,
-                                           ProductName = p.ProductName,
-                                           ProductDescription = p.ProductDescription,
-                                           UnitsInStock = p.UnitsInStock,
-                                           ProductPrice = p.ProductPrice,
-                                           Url = pd.PicUrl
-                                       }).ToList();
+                                         join c in item.Categories
+                                         on p.CategoryID equals c.CategoryID
+                                         join pd in item.PicDetails
+                                         on p.ProductID equals pd.ProductID
+                                         where c.CategoryName == iteminall
+                                         select new ProductList
+                                         {
+                                             ProductID = p.ProductID,
+                                             CategoryName = c.CategoryName,
+                                             ProductName = p.ProductName,
+                                             ProductDescription = p.ProductDescription,
+                                             UnitsInStock = p.UnitsInStock,
+                                             ProductPrice = p.ProductPrice,
+                                             Url = pd.PicUrl
+                                         }).ToList();
                     if (iteminallproducts.Count() != 0)
                     {
                         allproducts.AddRange(iteminallproducts);
@@ -124,23 +124,24 @@ namespace vegetable.Controllers
                 ViewBag.children = "";
 
                 allproducts = (from p in item.Products
-                                join c in item.Categories
-                                on p.CategoryID equals c.CategoryID
-                                join pd in item.PicDetails
-                                on p.ProductID equals pd.ProductID
-                                where p.ProductName.ToLower().Contains(query)
-                                select new ProductList
-                                {
-                                    ProductID = p.ProductID,
-                                    CategoryName = c.CategoryName,
-                                    ProductName = p.ProductName,
-                                    ProductDescription = p.ProductDescription,
-                                    UnitsInStock = p.UnitsInStock,
-                                    ProductPrice = p.ProductPrice,
-                                    Url = pd.PicUrl
-                                }).ToList();
-            }     
-            if(allproducts.Count == 0) {
+                               join c in item.Categories
+                               on p.CategoryID equals c.CategoryID
+                               join pd in item.PicDetails
+                               on p.ProductID equals pd.ProductID
+                               where p.ProductName.ToLower().Contains(query)
+                               select new ProductList
+                               {
+                                   ProductID = p.ProductID,
+                                   CategoryName = c.CategoryName,
+                                   ProductName = p.ProductName,
+                                   ProductDescription = p.ProductDescription,
+                                   UnitsInStock = p.UnitsInStock,
+                                   ProductPrice = p.ProductPrice,
+                                   Url = pd.PicUrl
+                               }).ToList();
+            }
+            if (allproducts.Count == 0)
+            {
 
                 allproducts = (from p in item.Products
                                join c in item.Categories
@@ -205,8 +206,8 @@ namespace vegetable.Controllers
                     ViewBag.products += "{ProductID:" + p.ProductID + ",Url:" + p.Url + ",CategoryName:'" + p.CategoryName + "',ProductName:'" + p.ProductName + "',UnitsInStock:" + p.UnitsInStock + ",ProductPrice:" + p.ProductPrice + ",IsRed:''},";
                 }
             }
-                ViewBag.products = ViewBag.products.TrimEnd(',');
-            
+            ViewBag.products = ViewBag.products.TrimEnd(',');
+
             return View();
         }
         [HttpGet]
