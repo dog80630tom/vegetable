@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
@@ -831,14 +831,13 @@
     <Content Include="Assets\node_modules\rocket-tools\cockpit.json" />
     <Content Include="Assets\node_modules\rocket-tools\package.json" />
     <Content Include="Assets\node_modules\rocket-tools\README.md" />
-    <None Include="Properties\PublishProfiles\vegetable20191226094631 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\LOBEDA - Web Deploy.pubxml" />
     <Content Include="Assets\ProductPics\Bracelets\productbook_page2.csv" />
     <Content Include="Assets\ProductPics\Earrings\productbook.csv" />
     <Content Include="Assets\ProductPics\Necklaces\productbook.csv" />
     <Content Include="Content\images\新增分頁_files\cb=gapi.loaded_0" />
     <Content Include="Content\images\新增分頁_files\rs=AA2YrTu9sefoC04t9EOZHAHJP1FzEZa-0Q" />
     <Content Include="Content\images\新增分頁_files\rs=AA2YrTvcyElvG1NEufCZYW6zt4mY2f3Dug" />
-    <None Include="Properties\PublishProfiles\vegetable.pubxml" />
     <None Include="Properties\PublishProfiles\vegetable20191226044317 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
