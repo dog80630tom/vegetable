@@ -60,9 +60,12 @@ namespace vegetable.Models.LinePay
         }
     }
 
+    
+
     [AllowCrossSite]
     public class LinePay
     {
+        static string Url = "https://lobeda.azurewebsites.net/";
         public string passdata (int memberId, int price)
         {
             var post = new WebClient();
@@ -116,7 +119,7 @@ namespace vegetable.Models.LinePay
                 orderId = productInfo.OrderID.ToString(),
                 productImageUrl = url.Url1,
                 amount = price,
-                confirmUrl = "https://localhost:44394/Checkout"
+                confirmUrl = Url + "Checkout"
 
             };
             return linedata;
