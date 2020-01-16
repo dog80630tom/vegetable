@@ -574,7 +574,7 @@ namespace vegetable.Controllers
             var token = Utility.GetTokenFromCodeLine(code,
                  "1653659088",
                  "27d426186987ed6e5d69cb7601129805",
-                 "https://vegetable20191216120019.azurewebsites.net/FrontEnd/LineLogin");
+                 HttpContext.Request.Url.AbsoluteUri+"/FrontEnd/LineLogin");
 
             var UserInfoResult = Utility.GetUserInfoLine(token.access_token,token.id_token);
             // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
@@ -620,7 +620,7 @@ namespace vegetable.Controllers
             var token = Utility.GetTokenFromCode(code,
                  "145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com",
                  "At2kDe1L5weKB4Xf7dpf6rmx",
-                 "https://vegetable20191216120019.azurewebsites.net/FrontEnd/GoogleLogin");
+                 HttpContext.Request.Url.AbsoluteUri+ "/FrontEnd/GoogleLogin");
 
             var UserInfoResult = Utility.GetUserInfo(token.access_token);
             // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
