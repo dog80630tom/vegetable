@@ -26,7 +26,7 @@
             <div class="col-md-10">
                 @*@Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })*@
-                <el-input :disabled="disable" placeholder="請選擇商品類別" v-model="inputCategory" id="CategoryId" name="CategoryId" :value="inputCategory"> 
+                <el-input :disabled="disable" placeholder="請選擇商品類別" v-model="inputCategory" id="CategoryId" name="CategoryId" :value="inputCategory">
                     <el-button slot="append" icon="el-icon-edit" @@click="() => openappendform()"></el-button>
                 </el-input>
             </div>
@@ -42,7 +42,8 @@
                                  empty-text="暫無數據"
                                  ref="tree"
                                  highlight-current
-                                 :expand-on-click-node="false">
+                                 :expand-on-click-node="false"
+                                 v-on:check-change="handleCheckedChange">
                             <span class="custom-tree-node" slot-scope="{ node, data }">
                                 <span>{{ node.label }}</span>
                             </span>
@@ -181,14 +182,14 @@
                         vm.inputCategory = vm.$refs.tree.getCheckedNodes()[0].id;
                         vm.id = vm.$refs.tree.getCheckedNodes()[0].id;
                         this.$refs.tree.setCheckedKeys([]);
-                           this.disable = false;
+                        this.disable = false;
                         this.dialogVisible = false;
                         this.$message({
                             type: 'success',
                             message: '選擇商品類別成功'
 
                         })
-                     
+
                     }).catch(() => {
 
                         this.$message({
@@ -199,8 +200,9 @@
 
 
                 },
-                Checkitem(value, data) {
-                    this.$refs.tree.setCheckedKeys([]);
+                handleCheckedChange(data, checked, indeterminate) {
+                    if (checked)
+                        this.$refs.tree.setCheckedKeys([data.id]);
                 }
             }
         });
