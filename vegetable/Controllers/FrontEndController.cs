@@ -598,6 +598,15 @@ namespace vegetable.Controllers
             }
             var membership = (from m in item.Members where m.MemberEmail == email select m).FirstOrDefault();
             var password = Encryption.EncryptionMethod(password2, membership.MemberName);
+            if (CheckAdmin(password2, password, "Admin"))
+            {
+                TempData["roles"] = "Admin";
+            }
+            else
+            {
+                TempData["roles"] = "Client";
+
+            }
             LoginProcessmdfity("Client", membership.MemberName, true, membership);
 
             return RedirectToAction("MemberPageAddresschange");
@@ -634,7 +643,16 @@ namespace vegetable.Controllers
             }
             var membership = (from m in item.Members where m.MemberEmail == email select m).FirstOrDefault();
             var password = Encryption.EncryptionMethod(password2, membership.MemberName);
-            LoginProcessmdfity("Client", membership.MemberName, true, membership);
+            if (CheckAdmin(password2, password, "Admin"))
+            {
+                TempData["roles"] = "Admin";
+            }
+            else
+            {
+                TempData["roles"] = "Client";
+
+            }
+                LoginProcessmdfity("Client", membership.MemberName, true, membership);
 
             return RedirectToAction("MemberPageAddresschange");
         }
@@ -654,7 +672,25 @@ namespace vegetable.Controllers
                 if (membership [0].MemberEmail == uname && password == membership [0].MemberPassword)
                 {
                     LoginProcess("Client", membership [0].MemberName, true, membership [0]);
+                    if(CheckAdmin(psw,password,"Admin"))
+                    {
+                        TempData["roles"] = "Admin";
+                        HttpCookie rqsCookie = HttpContext.Request.Cookies.Get("myaccount");
+                        var memberDataobj = FormsAuthentication.Decrypt(rqsCookie.Value);
+                        var memberData = JsonConvert.DeserializeObject<Member>(memberDataobj.UserData);
+                        TempData["username"] = memberData.MemberName;
 
+                    }
+                    else
+                    {
+
+                        TempData["roles"] = "Client";
+                        HttpCookie rqsCookie = HttpContext.Request.Cookies.Get("myaccount");
+                        var memberDataobj = FormsAuthentication.Decrypt(rqsCookie.Value);
+                        var memberData = JsonConvert.DeserializeObject<Member>(memberDataobj.UserData);
+                        TempData["username"] = memberData.MemberName;
+
+                    }
                     return "1";
                 }
                 return "3";
@@ -932,6 +968,13 @@ namespace vegetable.Controllers
             var jsonCart = serializer.Serialize(cartVM);
 
             return jsonCart;
+        }
+
+
+        public bool CheckAdmin(string password , string psw, string MemberName) {
+            string password2 = Encryption.EncryptionMethod(password, MemberName);
+
+            return (from m in item.Members where m.MemberPassword == password2 select m).Any();
         }
 
     }
