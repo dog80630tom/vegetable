@@ -36,6 +36,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <LegacyPublishPropertiesPageEnabled>true</LegacyPublishPropertiesPageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,6 +49,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System.Core">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
     </Reference>
@@ -400,32 +406,11 @@
     <Content Include="Assets\Image\20140329.jpg" />
     <Content Include="Assets\Image\LINE-Pay.png" />
     <Content Include="Assets\Image\長春花-粉紅1.jpg" />
-    <Content Include="Assets\node_modules\es6-promise\auto.js" />
-    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.js" />
-    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.min.js" />
-    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.js" />
-    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.min.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise.auto.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\-internal.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\asap.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\enumerator.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\polyfill.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\all.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\race.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\reject.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\promise\resolve.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\then.js" />
-    <Content Include="Assets\node_modules\es6-promise\lib\es6-promise\utils.js" />
     <Content Include="Assets\node_modules\loading.js" />
     <Content Include="Assets\node_modules\rocket-loader\build\js\loader.js" />
     <Content Include="Assets\node_modules\rocket-loader\css\loader.min.css" />
     <Content Include="Assets\node_modules\rocket-loader\index.html" />
     <Content Include="Assets\node_modules\rocket-loader\js\loader.min.js" />
-    <Content Include="Assets\node_modules\rocket-tools\build\js\bindings.js" />
-    <Content Include="Assets\node_modules\rocket-tools\build\js\tools.js" />
-    <Content Include="Assets\node_modules\rocket-tools\js\tools.min.js" />
     <Content Include="Assets\node_modules\loading.css" />
     <Content Include="Assets\ProductPics\Asymmetrical Circle Drop Earrings\1.jpg" />
     <Content Include="Assets\ProductPics\Bracelets\Awaken Bead Bracelet - Blue %2814K%29\1.jpg" />
@@ -711,16 +696,26 @@
     <Content Include="Assets\ProductPics\Necklaces\Under the Sea Necklace %2814K%29\1.jpg" />
     <Content Include="Assets\ProductPics\Necklaces\Under the Sea Necklace %2814K%29\2.jpg" />
     <Content Include="Assets\ProductPics\Necklaces\Under the Sea Necklace %2814K%29\3.jpg" />
+    <Content Include="Assets\ruby.ico" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\brands.css" />
+    <Content Include="Content\brands.min.css" />
     <Content Include="Content\Chart.css" />
     <Content Include="Content\Chart.min.css" />
+    <Content Include="Content\Css\style-responsive.css" />
+    <Content Include="Content\Css\style.css" />
+    <Content Include="Content\Css\table-responsive.css" />
+    <Content Include="Content\Css\to-do.css" />
+    <Content Include="Content\Css\zabuto_calendar.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fontawesome-all.css" />
+    <Content Include="Content\fontawesome-all.min.css" />
     <Content Include="Content\fontawesome.css" />
     <Content Include="Content\fontawesome.min.css" />
     <Content Include="Content\images\1-1.jpg" />
@@ -763,20 +758,28 @@
     <Content Include="Content\images\discover-logo-of-pay-system.png" />
     <Content Include="Content\images\master-card-logo.png" />
     <Content Include="Content\images\paypal-logo.png" />
-    <Content Include="Content\images\Product\p1.jpg" />
-    <Content Include="Content\images\Product\p2.jpg" />
-    <Content Include="Content\images\Product\p3.jpg" />
     <Content Include="Content\images\visa-pay-logo.png" />
     <Content Include="Content\images\新增分頁.html" />
     <Content Include="Content\images\新增分頁_files\edit.html" />
     <Content Include="Content\images\新增分頁_files\saved_resource.html" />
     <Content Include="Content\images\新增分頁_files\single.html" />
+    <Content Include="Content\jquery.gritter.css" />
+    <Content Include="Content\jquery.gritter0.css" />
+    <Content Include="Content\paypal-logo.png" />
+    <Content Include="Content\regular.css" />
+    <Content Include="Content\regular.min.css" />
+    <Content Include="Content\solid.css" />
+    <Content Include="Content\solid.min.css" />
+    <Content Include="Content\style-responsive.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\svg-with-js.css" />
+    <Content Include="Content\svg-with-js.min.css" />
+    <Content Include="Content\v4-shims.css" />
+    <Content Include="Content\v4-shims.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="identity.aspx" />
-    <Content Include="Properties\PublishProfiles\vegetable.pubxml.user" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -806,14 +809,6 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="libman.json" />
-    <Content Include="Assets\node_modules\es6-promise\CHANGELOG.md" />
-    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.map" />
-    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.auto.min.map" />
-    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.map" />
-    <Content Include="Assets\node_modules\es6-promise\dist\es6-promise.min.map" />
-    <Content Include="Assets\node_modules\es6-promise\LICENSE" />
-    <Content Include="Assets\node_modules\es6-promise\package.json" />
-    <Content Include="Assets\node_modules\es6-promise\README.md" />
     <Content Include="Assets\node_modules\rocket-loader\build\sass\css\_execute.scss" />
     <Content Include="Assets\node_modules\rocket-loader\build\sass\loader.scss" />
     <Content Include="Assets\node_modules\rocket-loader\build\sass\module\_colour.scss" />
@@ -828,18 +823,16 @@
     <Content Include="Assets\node_modules\rocket-loader\cockpit.json" />
     <Content Include="Assets\node_modules\rocket-loader\package.json" />
     <Content Include="Assets\node_modules\rocket-loader\README.md" />
-    <Content Include="Assets\node_modules\rocket-tools\cockpit.json" />
-    <Content Include="Assets\node_modules\rocket-tools\package.json" />
-    <Content Include="Assets\node_modules\rocket-tools\README.md" />
-    <None Include="Properties\PublishProfiles\vegetable20191226094631 - Web Deploy.pubxml" />
+    <Content Include="webfonts\fa-brands-400.svg" />
+    <Content Include="webfonts\fa-regular-400.svg" />
+    <Content Include="webfonts\fa-solid-900.svg" />
+    <None Include="Properties\PublishProfiles\LOBEDA - Web Deploy.pubxml" />
     <Content Include="Assets\ProductPics\Bracelets\productbook_page2.csv" />
     <Content Include="Assets\ProductPics\Earrings\productbook.csv" />
     <Content Include="Assets\ProductPics\Necklaces\productbook.csv" />
     <Content Include="Content\images\新增分頁_files\cb=gapi.loaded_0" />
     <Content Include="Content\images\新增分頁_files\rs=AA2YrTu9sefoC04t9EOZHAHJP1FzEZa-0Q" />
     <Content Include="Content\images\新增分頁_files\rs=AA2YrTvcyElvG1NEufCZYW6zt4mY2f3Dug" />
-    <None Include="Properties\PublishProfiles\vegetable.pubxml" />
-    <None Include="Properties\PublishProfiles\vegetable20191226044317 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -947,6 +940,21 @@
     <Content Include="Views\NewProduct\Index.cshtml" />
     <Content Include="Views\NewProduct\Create.cshtml" />
     <Content Include="Views\NewProduct\Edit.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.woff" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
+    <Content Include="webfonts\fa-regular-400.eot" />
+    <Content Include="webfonts\fa-regular-400.ttf" />
+    <Content Include="webfonts\fa-regular-400.woff" />
+    <Content Include="webfonts\fa-regular-400.woff2" />
+    <Content Include="webfonts\fa-solid-900.eot" />
+    <Content Include="webfonts\fa-solid-900.ttf" />
+    <Content Include="webfonts\fa-solid-900.woff" />
+    <Content Include="webfonts\fa-solid-900.woff2" />
+    <Content Include="Views\FrontEnd\Checkout.cshtml" />
+    <Content Include="Views\Shared\_MinCartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -954,7 +962,6 @@
     <Folder Include="Assets\ProductPics\Crystal Flowers Earring Set %2814K%29\" />
     <Folder Include="Assets\ProductPics\Double the Gold Ear Cuff %2814K%29\" />
     <Folder Include="Assets\ProductPics\Dynasty Dangle Hook Earrings %2814K%29\" />
-    <Folder Include="Content\Css\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -966,8 +973,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Assets\node_modules\es6-promise\es6-promise.d.ts" />
-    <TypeScriptCompile Include="Assets\node_modules\rocket-tools\rocket-tools.d.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
