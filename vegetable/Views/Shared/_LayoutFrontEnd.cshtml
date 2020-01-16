@@ -15,6 +15,8 @@
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>-->
     <script src="~/Scripts/vue.js"></script>
+    @*icon*@
+    <link rel="Shortcut Icon" type="image/x-icon" href="~/Assets/ruby.ico" />
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -1053,7 +1055,7 @@
         //顯示浮動購物車視窗
         function FloatCart() {
             $( '#cartFloat' ).show();
-            let jsonCart = AjaxCart();
+            AjaxCart();
         }
 
         //關閉浮動購物車視窗
