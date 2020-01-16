@@ -565,16 +565,17 @@ namespace vegetable.Controllers
             services.CreateMember(Member);
             return Redirect("/FrontEnd/Index");
         }
+        
         public ActionResult LineLogin ()
         {
             var code = Request.QueryString ["code"];
             if (string.IsNullOrEmpty(code))
                 return Content("沒有收到 Code");
-
+            var url = HttpContext.Request.Url.Host;
             var token = Utility.GetTokenFromCodeLine(code,
                  "1653659088",
                  "27d426186987ed6e5d69cb7601129805",
-                 HttpContext.Request.Url.AbsoluteUri+"FrontEnd/LineLogin");
+                 "https://"+ url +"/FrontEnd/LineLogin");
 
             var UserInfoResult = Utility.GetUserInfoLine(token.access_token,token.id_token);
             // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
@@ -620,7 +621,7 @@ namespace vegetable.Controllers
             var token = Utility.GetTokenFromCode(code,
                  "145015126077-5afcqbo9rc629k3ilceajnbfrlrdamlj.apps.googleusercontent.com",
                  "At2kDe1L5weKB4Xf7dpf6rmx",
-                 HttpContext.Request.Url.AbsoluteUri+ "FrontEnd/GoogleLogin");
+                 "https://" + HttpContext.Request.Url.Host+ "/FrontEnd/GoogleLogin");
 
             var UserInfoResult = Utility.GetUserInfo(token.access_token);
             // 這邊不建議直接把 Token 當做參數傳給 CallAPI 可以避免 Token 洩漏
