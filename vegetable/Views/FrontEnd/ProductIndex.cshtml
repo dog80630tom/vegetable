@@ -586,30 +586,88 @@
                 var urls = Json.Decode(data.Url);
                 <div class="prod-item col-xl-4">
                     <figure class="card-figure" id="@data.ProductID">
-                        <div class="prod-image">
-                            <a href="#">
-                                <img class="card-image" value="@urls.Url2"
-                                     src="@urls.Url1">
+                        <div class="prod-image ">
+                            <a href="@data.CategoryName/@data.ProductID">
+                                <img class="card-image"
+                                     src="@urls.Url1" value="@urls.Url2">
                             </a>
                             <div class="actions">
-                                <a class="btnWL">
-                                    <i class="far fa-heart"></i>
+                                <a href="#" class="btnWL grid-view">
+                                    <i class="far fa-heart" style="color:red"></i>
                                 </a>
-                                <a class="btn btn-outline-dark rounded-0 btnATC">
-                                    <i class="fa fa-heart-o"></i>
-                                </a>
-                                <a class="btnQV quickview">Quick view</a>
+                                <a class="btn btn-outline-dark rounded-0 btnATC grid-view" onclick="AddCart(this)">Add to Cart</a>
+                                <a class="btnQV quickview" onclick="QuickView(this)">Quick view</a>
                             </div>
                         </div>
-                        <figcaption class="prod-desc">
-                            <p class="prod-name text-center"><a>@data.ProductName</a></p>
-                            <div class="prod-price text-center"><span class="price">$@data.ProductPrice.00</span></div>
+
+                        <figcaption class="prod-desc center">
+                            <p class="prod-name"><a href="#">@data.ProductName</a></p>
+                            <div class="prod-price"><span class="price">$@data.ProductPrice</span></div>
+
                         </figcaption>
                     </figure>
                 </div>
             }
         </div>
     </div>
+
+    <div class="modal fade quickview" style="z-index:1000000000" id="QuickViewModal">
+        <div class="modal-dialog">
+            <div class="modal-content animate  rounded-0 m-0">
+                <button type="button" class="close mt-3" data-dismiss="modal">&times;</button>
+                <div class="container mt-5">
+                    <div class="row mt-2 mb-4">
+                        <div class="col-5 px-2 ml-5">
+                            <figure class="figure">
+                                <img id="LargePic" class="ProductLargeImg figure-img img-fluid w-100">
+                            </figure>
+                        </div>
+                        <div class="col-6 p-4">
+                            <div id="ProductName" class="productView-title"></div>
+                            <div class="productView-rating"></div>
+                            <div id="ProductPrice " class="productView-price"></div>
+                            <span>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                            <hr>
+                            <div class="productView-rating"></div>
+
+                            <input id="ProductID" type="hidden" name="ProductID" />
+
+                            <div>Quantity:</div>
+
+                            <button id="quantityAdd" type="button" class="btn btn-outline-dark rounded-0 btn-size"><i class="fas fa-chevron-up"></i></button>
+                            <input id="quantity" name="Quantity" value="1" class="text-center" />
+                            <button id="quantityReduce" type="button" class="btn btn-outline-dark rounded-0 btn-size mr-2"><i class="fas fa-chevron-down"></i></button>
+                            <div class="productView-rating"></div>
+                            <button class="btn btn-outline-dark rounded-0" onclick="AddCart(this)">ADD TO CART</button>
+                            <a href="#" class="btnWL list-view" id="AWL">
+                                <i class="far fa-heart"></i><span>Add to Wish list</span>
+                            </a>
+                        </div>
+                        <div class="col-12 mt-4 " id="ProductPics">
+                            <div class="col-5 text-center p-0 productView-thumbnail">
+                                <a class="mr-3">
+                                    <img class="viewPic thumbnail" onclick='PicChange(this)' />
+                                </a>
+                                <a class="mr-3">
+                                    <img class="viewPic thumbnail" onclick='PicChange(this)' />
+                                </a>
+                                <a>
+                                    <img class="viewPic thumbnail" onclick='PicChange(this)' />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @section Vuejs{
         <script>
         var picVue = new Vue({
@@ -794,5 +852,35 @@
                 }
             } );
         }
+
+        function QuickView(e) {
+            var id = $(e).parents("figure").attr("id");
+            $.ajax({
+                type: "GET",
+                url: "/FrontEnd/ProductQuickView",
+                data: {
+                    id: id
+                },
+                dataType: "text",
+                success: function (response) {
+                    var currentproduct = JSON.parse(response);
+                    currentproduct.Url = JSON.parse(currentproduct.Url);
+                    $('.modal #LargePic').attr('src', currentproduct.Url.Url1);
+                    $('.modal #ProductName').text(currentproduct.ProductName);
+                    $('.modal #ProductPrice').text('$' + currentproduct.ProductPrice + '.00');
+                    $('.modal figure').attr('id', currentproduct.ProductID);
+                    $('.modal #ProductID').attr('value', currentproduct.ProductID);
+                    $('.modal #ProductPics img')[0].src=currentproduct.Url.Url1;
+                    $('.modal #ProductPics img')[1].src=currentproduct.Url.Url2;
+                    $('.modal #ProductPics img')[2].src=currentproduct.Url.Url3;
+
+                    $('#QuickViewModal').modal('show');
+                }
+            });
+        }    
+
+        function PicChange(e) {
+            $('.modal #LargePic').attr('src',$(e).attr('src'));
+        }  
         </script>
     }
