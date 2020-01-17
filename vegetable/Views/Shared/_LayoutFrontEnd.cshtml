@@ -796,14 +796,14 @@
                     <ul :id="c1.listname" class="collapse menu-child">
                         <li v-for="c2 in c1.children">
                             <div v-if="c2.children.length!==0" class="categoryitems">
-                                <a :href=`/Products/${c1.label}` class="dot">{{c2.label}}</a>
+                                <a :href=`/Products/${c2.label}` class="dot">{{c2.label}}</a>
                                 <i class="fas fa-plus float-right btn-plus" data-toggle="collapse" :data-target="'#'+c2.listname" aria-expanded="false" :aria-controls="c2.listname"></i>
                                 <ul :id="c2.listname" class="collapse menu-child py-2">
-                                    <li v-for="c3 in c2.children"><a class="dot" href="">{{c3.label}}</a></li>
+                                    <li v-for="c3 in c2.children"><a class="dot" href=`/Products/${c3.label}`>{{c3.label}}</a></li>
                                 </ul>
                             </div>
                             <div v-else>
-                                <a :href=`/Products/${c1.label}` class="dot">{{c2.label}}</a>
+                                <a :href=`/Products/${c2.label}` class="dot">{{c2.label}}</a>
                             </div>
 
                         </li>
@@ -846,8 +846,8 @@
                         <div class="row">
                             <div v-for="c2 in c1.children" class="col-6 col-md-3 col-xl-2">
                                 <ul class="menu-list">
-                                    <li><a :href=`/Products/${c1.label}` class="dot">{{c2.label}}</a></li>
-                                    <li v-for="c3 in c2.children"><a :href=`/Products/${c1.label}` class="dot">{{c3.label}}</a></li>
+                                    <li><a :href=`/Products/${c2.label}` class="dot">{{c2.label}}</a></li>
+                                    <li v-for="c3 in c2.children"><a :href=`/Products/${c3.label}` class="dot">{{c3.label}}</a></li>
                                 </ul>
                             </div>
                         </div>
