@@ -18,9 +18,21 @@ namespace vegetable.Controllers
         public IEnumerable<ReportViewModel> initreportdata() {
             string sql = @"select * from OrderDetails od
 left join Products p on od.ProductID = p.ProductID
+left join Orders o on od.OrderID=o.OrderID
+where o.DeliverName is not null and o.DeliverPhone is not null and o.DeliverAddress is not null
  ";
             ConnRespository<ReportViewModel> Respository = new ConnRespository<ReportViewModel>(context);
         var data   = Respository.GetAll(sql);
+            foreach (var date in data)
+            {
+
+                date.Month = date.OrderDate.Month;
+
+            
+            }
+
+
+
 
             return data;
         }

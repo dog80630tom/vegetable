@@ -11,7 +11,7 @@ namespace vegetable
     {
         public static void RegisterRoutes (RouteCollection routes)
         {
-            
+
             //show product 
             routes.MapRoute(
               name: "SearchProducts",
@@ -38,28 +38,28 @@ namespace vegetable
            );
 
             //手環
-           // routes.MapRoute(
-           //    name: "Bracelets",
-           //    url: "Products/Bracelets/{id}",
-           //    defaults: new
-           //    {
-           //        controller = "FrontEnd",
-           //        action = "ProductIndex",
-           //        id = UrlParameter.Optional
-           //    }
-           //);
+            // routes.MapRoute(
+            //    name: "Bracelets",
+            //    url: "Products/Bracelets/{id}",
+            //    defaults: new
+            //    {
+            //        controller = "FrontEnd",
+            //        action = "ProductIndex",
+            //        id = UrlParameter.Optional
+            //    }
+            //);
 
             //項鍊
-           // routes.MapRoute(
-           //    name: "Necklaces",
-           //    url: "Products/Necklaces/{id}",
-           //    defaults: new
-           //    {
-           //        controller = "FrontEnd",
-           //        action = "ProductIndex",
-           //        id = UrlParameter.Optional
-           //    }
-           //);
+            // routes.MapRoute(
+            //    name: "Necklaces",
+            //    url: "Products/Necklaces/{id}",
+            //    defaults: new
+            //    {
+            //        controller = "FrontEnd",
+            //        action = "ProductIndex",
+            //        id = UrlParameter.Optional
+            //    }
+            //);
 
             //購物車
             routes.MapRoute(

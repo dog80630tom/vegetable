@@ -592,12 +592,14 @@
         height: auto;
     }
 
-    .viewPic:hover {
-        cursor:pointer;
-    }
+        .viewPic:hover {
+            cursor: pointer;
+        }
 </style>
 }
-
+@*loading效果*@
+<div id="loading"></div>
+<div class="mask"></div>
 
 <div id="app" class="show-all">
     <div class="container_page">
@@ -821,6 +823,9 @@
     </div>
 </div>
 
+@*loading效果*@
+@Styles.Render("~/Content/loadingCSS")
+@Scripts.Render("~/bundles/loadingJS")
 @section Vuejs{
     <script>
         var pageshowitems = 12.0;
@@ -966,61 +971,61 @@
 
 @section viewJquery{
     <script>
-        $(".list-view").hide();
-        $("#grid-view").click(function () {
-            $(".list-view").hide();
-            $(".grid-view").show();
-            $("#grid-view").addClass("current-view");
-            $("#list-view").removeClass("current-view");
-            $(".prod-item.viewchange").removeClass("col-12 d-inline-block imghchange").addClass("col-4");
-            $(".card-figure.viewchange").removeClass("row");
-            $(".prod-image.viewchange").removeClass("col-3 px-0 imghchange");
-            $(".card-image.viewchange").removeClass("h-100");
-            $(".prod-desc.viewchange").removeClass("col-9 mt-2").addClass("center");;
-        });
+        $( ".list-view" ).hide();
+        $( "#grid-view" ).click( function () {
+            $( ".list-view" ).hide();
+            $( ".grid-view" ).show();
+            $( "#grid-view" ).addClass( "current-view" );
+            $( "#list-view" ).removeClass( "current-view" );
+            $( ".prod-item.viewchange" ).removeClass( "col-12 d-inline-block imghchange" ).addClass( "col-4" );
+            $( ".card-figure.viewchange" ).removeClass( "row" );
+            $( ".prod-image.viewchange" ).removeClass( "col-3 px-0 imghchange" );
+            $( ".card-image.viewchange" ).removeClass( "h-100" );
+            $( ".prod-desc.viewchange" ).removeClass( "col-9 mt-2" ).addClass( "center" );;
+        } );
 
-        $("#list-view").click(function () {
-            $(".grid-view").hide();
-            $(".list-view").show();
-            $("#grid-view").removeClass("current-view");
-            $("#list-view").addClass("current-view");
-            $(".prod-item.viewchange").removeClass("col-4").addClass("col-12 d-inline-block imghchange");
-            $(".card-figure.viewchange").addClass("row");
-            $(".prod-image.viewchange").addClass("col-3 px-0 imghchange");
-            $(".card-image.viewchange").addClass("h-100");
-            $(".prod-desc.viewchange").addClass("col-9 mt-2").removeClass("center");;
-        });
+        $( "#list-view" ).click( function () {
+            $( ".grid-view" ).hide();
+            $( ".list-view" ).show();
+            $( "#grid-view" ).removeClass( "current-view" );
+            $( "#list-view" ).addClass( "current-view" );
+            $( ".prod-item.viewchange" ).removeClass( "col-4" ).addClass( "col-12 d-inline-block imghchange" );
+            $( ".card-figure.viewchange" ).addClass( "row" );
+            $( ".prod-image.viewchange" ).addClass( "col-3 px-0 imghchange" );
+            $( ".card-image.viewchange" ).addClass( "h-100" );
+            $( ".prod-desc.viewchange" ).addClass( "col-9 mt-2" ).removeClass( "center" );;
+        } );
 
-        $(".card-figure").hover(function () {
-            $(this).find(".btnWL").addClass("showdown");
-            $(this).find(".btnQV").addClass("hoverin");
-            $(this).find(".btnATC").addClass("hoverin");
+        $( ".card-figure" ).hover( function () {
+            $( this ).find( ".btnWL" ).addClass( "showdown" );
+            $( this ).find( ".btnQV" ).addClass( "hoverin" );
+            $( this ).find( ".btnATC" ).addClass( "hoverin" );
         }, function () {
-            $(this).find(".btnWL").removeClass("showdown");
-            $(this).find(".btnQV").removeClass("hoverin");
-            $(this).find(".btnATC").removeClass("hoverin");
-        });
+            $( this ).find( ".btnWL" ).removeClass( "showdown" );
+            $( this ).find( ".btnQV" ).removeClass( "hoverin" );
+            $( this ).find( ".btnATC" ).removeClass( "hoverin" );
+        } );
 
-        $(".card-image").hover(function () {
-            $(this).attr("style", "opacity:0.5");
-            var val = $(this).attr("src");
-            $(this).attr("src", $(this).attr("value"));
-            $(this).attr("value", val);
+        $( ".card-image" ).hover( function () {
+            $( this ).attr( "style", "opacity:0.5" );
+            var val = $( this ).attr( "src" );
+            $( this ).attr( "src", $( this ).attr( "value" ) );
+            $( this ).attr( "value", val );
         }, function () {
-            $(this).attr("style", "opacity:0.5");
-            var val = $(this).attr("src");
-            $(this).attr("src", $(this).attr("value"));
-            $(this).attr("value", val);
-        });
+            $( this ).attr( "style", "opacity:0.5" );
+            var val = $( this ).attr( "src" );
+            $( this ).attr( "src", $( this ).attr( "value" ) );
+            $( this ).attr( "value", val );
+        } );
 
-        $(".btnWL").click(function (e) {
+        $( ".btnWL" ).click( function ( e ) {
             e.preventDefault();
-            var item = $(this);
-            var id = item.parents("figure").attr("id");
-            var isRed = item.find("i").attr("style") == null ? false : true;
+            var item = $( this );
+            var id = item.parents( "figure" ).attr( "id" );
+            var isRed = item.find( "i" ).attr( "style" ) == null ? false : true;
 
-            if (isRed) {
-                $.ajax({
+            if ( isRed ) {
+                $.ajax( {
                     type: "POST",
                     url: "/FrontEnd/DeleteWish",
                     data: {
@@ -1028,15 +1033,15 @@
                         ProductID: id
                     },
                     dataType: "text",
-                    success: function (response) {
-                        if (response) {
-                            alert('Delete wishlist');
-                            item.find("i").removeAttr("style")
+                    success: function ( response ) {
+                        if ( response ) {
+                            alert( 'Delete wishlist' );
+                            item.find( "i" ).removeAttr( "style" )
                         }
                     }
-                });
+                } );
             } else {
-                $.ajax({
+                $.ajax( {
                     type: "POST",
                     url: "/FrontEnd/AddWish",
                     data: {
@@ -1044,29 +1049,31 @@
                         ProductID: id
                     },
                     dataType: "text",
-                    success: function (response) {
-                        if (response) {
-                            alert('Add to wishlist');
-                            item.find("i").attr("style", "color:red");
+                    success: function ( response ) {
+                        if ( response ) {
+                            alert( 'Add to wishlist' );
+                            item.find( "i" ).attr( "style", "color:red" );
                         }
                     }
-                });
+                } );
             }
-        });
+        } );
 
         //新增購物車 ajax
-        function AddCart(productId,quantity) {
-            $.ajax({
+        function AddCart( productId, quantity ) {
+            $.ajax( {
                 type: "POST",
                 //先確認目前的訂單狀況 再接AddCart的action
                 url: "/FrontEnd/CheckOrder",
                 data: { ProductID: productId, Quantity: quantity },
                 dataType: "text",
-                success: function (response) {
-                    alert("Add to Cart Success!");
+                success: function ( response ) {
+                    alert( "Add to cart successfully!" );
+                    GetCartAmount()
                 }
-            });
+            } );
         }
+        CloseLoading()
     </script>
 }
 

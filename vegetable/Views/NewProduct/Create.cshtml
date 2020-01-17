@@ -1,4 +1,8 @@
 ﻿@model vegetable.Models.ViewModels.JsonProductDetail
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 
 @using (Html.BeginForm())
@@ -17,12 +21,41 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="app">
             @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })*@
+                <el-input :disabled="disable" placeholder="請選擇商品類別" v-model="inputCategory" id="CategoryId" name="CategoryId" :value="inputCategory">
+                    <el-button slot="append" icon="el-icon-edit" @@click="() => openappendform()"></el-button>
+                </el-input>
             </div>
+
+            <el-dialog title="產品類別選擇"
+                       :visible.sync="dialogVisible"
+                       width="30%">
+                <div class="custom-tree-container">
+                    <div class="block">
+                        <el-tree :data="catrgoriesdata"
+                                 show-checkbox
+                                 node-key="id"
+                                 empty-text="暫無數據"
+                                 ref="tree"
+                                 highlight-current
+                                 :expand-on-click-node="false"
+                                 v-on:check-change="handleCheckedChange"
+                                 check-strictly>
+                            <span class="custom-tree-node" slot-scope="{ node, data }">
+                                <span>{{ node.label }}</span>
+                            </span>
+                        </el-tree>
+                    </div>
+                </div>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @@click="dialogVisible = false">取消</el-button>
+                    <el-button type="primary" @@click="append()">確定</el-button>
+                </span>
+            </el-dialog>
         </div>
 
         <div class="form-group">
@@ -89,14 +122,19 @@
             </div>
         </div>
     </div>
-
-
-    }
-
-
+}
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<style>
+    .el-input-group__append {
+        color: #fff;
+        background-color: #409eff;
+        border-color: #409eff;
+    }
+</style>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -105,6 +143,72 @@
 @section Endscripts
 {
     <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                inputCategory: '',
+                id: '',
+                disable: true,
+                currentdata: null,
+                currentnode: null,
+                catrgoriesdata: [],
+                dialogVisible: false,
+            },
+            mounted: function () {
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "/api/CategoriesApi",
+                    "method": "GET",
+                }
+                $.ajax(settings).done(function (response) {
+
+                    vm.catrgoriesdata = response;
+                });
+            },
+            methods: {
+                openappendform() {
+                    this.dialogVisible = true;
+                    console.log(this);
+                },
+                append() {
+                    this.$confirm('此操作將選擇該商品種類，是否繼續？', '提示', {
+                        confirmButtonText: '確定',
+                        cancelButtonText: '取消',
+                        type: 'warning',
+
+
+                    }).then(() => {
+
+                        vm.inputCategory = vm.$refs.tree.getCheckedNodes()[0].id;
+                        vm.id = vm.$refs.tree.getCheckedNodes()[0].id;
+                        this.$refs.tree.setCheckedKeys([]);
+                        this.disable = false;
+                        this.dialogVisible = false;
+                        this.$message({
+                            type: 'success',
+                            message: '選擇商品類別成功'
+
+                        })
+
+                    }).catch(() => {
+
+                        this.$message({
+                            type: 'error',
+                            message: '已取消選擇'
+                        });
+                    });
+
+
+                },
+                handleCheckedChange(data, checked, indeterminate) {
+                    if (checked)
+                       
+                        this.$refs.tree.setCheckedKeys([data.id]);
+                }
+            }
+        });
+
         var src;
         $("#Pic1").change(function (e) {
             var fp = $("#Pic1").val().split("\\");
@@ -131,7 +235,7 @@
                             $("#PicUrl1Img").attr("style", "width:20%;height:20%")
                             document.getElementById("PicUrl1Img").src = response;
                             document.getElementById("PicUrl1label").innerText = response;
-                            $("#PicUrl1").attr("value",response);
+                            $("#PicUrl1").attr("value", response);
 
                         }
                     });
@@ -162,7 +266,7 @@
                             $("#PicUrl2Img").attr("style", "width:20%;height:20%")
                             document.getElementById("PicUrl2Img").src = response;
                             document.getElementById("PicUrl2label").innerText = response;
-                            $("#PicUrl2").attr("value",response);
+                            $("#PicUrl2").attr("value", response);
                         }
                     });
                 }
@@ -193,7 +297,7 @@
                             $("#PicUrl3Img").attr("style", "width:20%;height:20%")
                             document.getElementById("PicUrl3Img").src = response;
                             document.getElementById("PicUrl3label").innerText = response;
-                            $("#PicUrl3").attr("value",response);
+                            $("#PicUrl3").attr("value", response);
 
                         }
                     });

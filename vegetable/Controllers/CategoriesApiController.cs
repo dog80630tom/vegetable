@@ -24,21 +24,24 @@ namespace vegetable.Controllers
                                             .Select(c1 => new 
                                                 { 
                                                   id = c1.CategoryID,
-                                                  name = c1.CategoryName,
+                                                  label = c1.CategoryName,
                                                   listname=c1.CategoryName.Replace(" ","-"),
-                                                  childs = db.Categories.Where(c2 => c2.ParentID != null && c2.ParentID == c1.CategoryID)
+                                                  listitemdescription=c1.CategoryDescription,
+                                                  children = db.Categories.Where(c2 => c2.ParentID != null && c2.ParentID == c1.CategoryID)
                                                   .Select(c2 => new
                                                   {
                                                       id = c2.CategoryID,
-                                                      name = c2.CategoryName,
+                                                      label = c2.CategoryName,
                                                       listname = c2.CategoryName.Replace(" ","-").Replace("&","and"),
-                                                      childs = db.Categories.Where(c3 => c3.ParentID != null && c3.ParentID == c2.CategoryID)
+                                                      listitemdescription = c2.CategoryDescription,
+                                                      children = db.Categories.Where(c3 => c3.ParentID != null && c3.ParentID == c2.CategoryID)
                                                       .Select(c3=>new { 
                                                             id=c3.CategoryID,
-                                                            name=c3.CategoryName
+                                                            label=c3.CategoryName,
+                                                            listitemdescription = c3.CategoryDescription,
                                                       })
                                                   })
-                                            }
+                                             }
                                             );
             return rtnCategory;
         }
@@ -115,7 +118,6 @@ namespace vegetable.Controllers
             {
                 return NotFound();
             }
-
             db.Categories.Remove(category);
             db.SaveChanges();
 
@@ -130,7 +132,6 @@ namespace vegetable.Controllers
             }
             base.Dispose(disposing);
         }
-
         private bool CategoryExists(int id)
         {
             return db.Categories.Count(e => e.CategoryID == id) > 0;
