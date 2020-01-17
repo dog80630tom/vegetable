@@ -935,11 +935,18 @@ namespace vegetable.Controllers
         public int GetCartAmount ()
         {
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
-            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
-            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
-            CartServices cartServices = new CartServices();
-            int amount = cartServices.GetCarQuantity(memberData.MemberID).CountAmount;
-            return amount;
+            if (rqstCookie != null)
+            {
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                CartServices cartServices = new CartServices();
+                int amount = cartServices.GetCarQuantity(memberData.MemberID).CountAmount;
+                return amount;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         //取得會員ID
@@ -962,13 +969,20 @@ namespace vegetable.Controllers
         {
             //取得cookie中的會員資料
             HttpCookie rqstCookie = HttpContext.Request.Cookies.Get("myaccount");
-            var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
-            var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
-            IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberData.MemberID);
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            var jsonCart = serializer.Serialize(cartVM);
+            if (rqstCookie != null)
+            {
+                var memberDataObj = FormsAuthentication.Decrypt(rqstCookie.Value);
+                var memberData = JsonConvert.DeserializeObject<Member>(memberDataObj.UserData);
+                IEnumerable<OrderDetailViewModel> cartVM = orderDetail.GetAllCart(memberData.MemberID);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                var jsonCart = serializer.Serialize(cartVM);
 
-            return jsonCart;
+                return jsonCart;
+            }
+            else
+            {
+                return null;
+            }
         }
 
 
