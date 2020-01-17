@@ -8,7 +8,6 @@
 
 <div class="container" style="padding-top:50px">
     <div class="row">
-        <
         <div class="col-md-5 shadow p-3 mb-5 bg-white rounded">
             <div class="col-md-12" style="padding-top:50px; padding-bottom:20px"><h3>報表資料</h3></div>
 
@@ -30,53 +29,15 @@
 {
     <script>
         var reportlist = [];
-        $.ajax({
-            type: "POST",
-            url: "/Report/GetReportData",
-
-            dataType: "json",
-            success: function (response) {
-                var data = JSON.parse(response);
-                console.log(data);
-                $("#datatable").DataTable({
-                    data: data,
-                    select: {
-                        style: 'multi',
-                        action: function () {
-                            var count = $("#datatable").rows({ selected: true }).data();
-                            console.log(count);
-
-                        }
-                    },
-                    columns: [
-                        { data: "ProductName", title: "產品名稱" }, { data: "Quantity", title: "購買數量" }, { data: "ProductPrice", title: "價格" }]
-
-                });
-                $("#datatable tbody").on('click', 'tr', function (e) {
-
-
-                    console.log();
-                    if (!$(this).hasClass('selected')) {
-                        $.each($("#datatable").DataTable().rows(this).data(), function () {
-
-                            reportlist.push((this['ProductPrice'])*(this['Quantity']));
-
-                        });
-                    }
-                    else {
-                        reportlist.splice(jQuery.inArray(reportlist, reportlist), 1);
-                    }
-                });
-                console.log(reportlist);
-            }
-        });
-
-        var Create = function () {
+        var date = [];
+        var chart;
+         var Create = function () {
+            
             var ctx = $("#mychart");
-            var chart = new Chart(ctx,{
+            chart = new Chart(ctx,{
                 type: 'pie',
                 data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: date,
                 datasets: [{
                     label: 'My First dataset',
                     backgroundColor: ['red','orange','yellow','green','blue','Purple','#ffce56'],
@@ -84,7 +45,8 @@
                     data: reportlist,
                     fill: false,
                 }]
-            },
+                },
+                animating: true,
                 options: {
                 responsive: true,
                 title: {
@@ -105,15 +67,68 @@
                     }]
                 }
             }
-        }
+            })
+             
+                
 
 
-                )
+                
 
 
 
             }
+        $.ajax({
+            type: "POST",
+            url: "/Report/GetReportData",
 
+            dataType: "json",
+            success: function (response) {
+                var data = JSON.parse(response);
+            
+                $("#datatable").DataTable({
+                    data: data,
+                    select: {
+                        style: 'multi',
+                        action: function () {
+                            var count = $("#datatable").rows({ selected: true }).data();
+                     
+
+                        }
+                    },
+                    columns: [
+                        { data: "OrderDate", title: "銷售日期" },{ data: "ProductName", title: "產品名稱" }, { data: "Quantity", title: "購買數量" }, { data: "ProductPrice", title: "價格" }]
+
+                });
+                $("#datatable tbody").on('click', 'tr', function (e) {
+
+
+                    
+                    if (!$(this).hasClass('selected')) {
+                   
+                        $.each($("#datatable").DataTable().rows(this).data(), function () {
+                            
+                               
+                            
+                            reportlist.push((this['ProductPrice']) * (this['Quantity']));
+                            console.log(this['OrderDate']);
+                            date.push((this['Month']) + "月");
+                            chart.destroy();
+                        });
+                    }
+                    else {
+                            
+                        reportlist.splice(jQuery.inArray(reportlist, reportlist), 1);
+                        date.splice(jQuery.inArray(date, date), 1);
+                    chart.destroy();
+                    }
+                        
+                });
+               
+            }
+        });
+     
+       
+          
 
 
 
