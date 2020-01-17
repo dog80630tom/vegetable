@@ -43,7 +43,8 @@
                                  ref="tree"
                                  highlight-current
                                  :expand-on-click-node="false"
-                                 v-on:check-change="handleCheckedChange">
+                                 v-on:check-change="handleCheckedChange"
+                                 check-strictly>
                             <span class="custom-tree-node" slot-scope="{ node, data }">
                                 <span>{{ node.label }}</span>
                             </span>
@@ -202,6 +203,7 @@
                 },
                 handleCheckedChange(data, checked, indeterminate) {
                     if (checked)
+                       
                         this.$refs.tree.setCheckedKeys([data.id]);
                 }
             }
