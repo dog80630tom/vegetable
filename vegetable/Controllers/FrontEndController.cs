@@ -121,7 +121,7 @@ namespace vegetable.Controllers
             {
                 var parents = "['" + query + "','Search']";
                 ViewBag.parents = parents;
-                ViewBag.children = "";
+                ViewBag.children = "[]";
 
                 allproducts = (from p in item.Products
                                join c in item.Categories
@@ -379,25 +379,25 @@ namespace vegetable.Controllers
                 ViewBag.ProductUrl = picDetail.PicUrl;
                 //ViewBag.ProductUrl = JsonConvert.SerializeObject(picDetail.PicUrl);
                 var parentstring = FindCategoryParents(product.CategoryID);
-                var parents = FindCategoryParents(product.CategoryID).Replace(@"""", "").Replace(@"\\", "").Replace(@"[", "").Replace(@"]", "").Split(',');
+                var parents = FindCategoryParents(product.CategoryID).Replace(@"""","").Replace(@"\\", "").Replace(@"[", "").Replace(@"]", "").Split(',');
                 ViewBag.parents = parents.Reverse();
 
-                List<ProductList> products = (from p in item.Products
-                                              join c in item.Categories
-                                              on p.CategoryID equals c.CategoryID
-                                              join pic in item.PicDetails
-                                              on p.ProductID equals pic.ProductID
-                                              where p.CategoryID == product.CategoryID
-                                              select new ProductList
-                                              {
-                                                  ProductID = p.ProductID,
-                                                  CategoryName = c.CategoryName,
-                                                  ProductName = p.ProductName,
-                                                  ProductDescription = p.ProductDescription,
-                                                  UnitsInStock = p.UnitsInStock,
-                                                  ProductPrice = p.ProductPrice,
-                                                  Url = pic.PicUrl
-                                              }).ToList();
+                List<ProductList> products= (from p in item.Products
+                                             join c in item.Categories
+                                             on p.CategoryID equals c.CategoryID
+                                             join pic in item.PicDetails
+                                             on p.ProductID equals pic.ProductID
+                                             where p.CategoryID == product.CategoryID
+                                             select new ProductList
+                                             {
+                                                 ProductID = p.ProductID,
+                                                 CategoryName = c.CategoryName,
+                                                 ProductName = p.ProductName,
+                                                 ProductDescription = p.ProductDescription,
+                                                 UnitsInStock = p.UnitsInStock,
+                                                 ProductPrice = p.ProductPrice,
+                                                 Url = pic.PicUrl
+                                             }).ToList();
                 return View(products);
             }
         }

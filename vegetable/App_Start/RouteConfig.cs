@@ -211,7 +211,7 @@ namespace vegetable
                url: "AdminChart",
                defaults: new
                {
-                   controller = "Home",
+                   controller = "Report",
                    action = "Index"
                }
             );
