@@ -36,7 +36,7 @@ GROUP BY year(o.OrderDate), MONTH(o.OrderDate)
 left join Products p on o.ProductID=p.ProductID
 left join Orders od on o.OrderID=od.OrderID
 left join Categories c on p.CategoryID=c.CategoryID
-where o.DeliverName is not null and o.DeliverPhone is not null and o.DeliverAddress is not null
+where od.DeliverName is not null and od.DeliverPhone is not null and od.DeliverAddress is not null
  GRoup by c.CategoryName,Month(od.OrderDate),year(od.OrderDate)
  ";
             ConnRespository<ReportViewModel> Respository = new ConnRespository<ReportViewModel>(context);
