@@ -834,32 +834,32 @@
             </ul>
         </div>
         @*-----------------------------content Category Bar-----------------------------------------------------------------------------*@
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOBEDA</a></div>
-        </div>
-        <ul class="main-nav nav justify-content-center mb-4 align-items-center">
-            <li v-for="c1 in categories" class="nav-item mx-2 pb-3">
-                <a :href=`/Products/${c1.label}` class="nav-link text-dark"><span class="line">{{c1.label.toUpperCase()}}</span></a>
-                <div v-if="c1.children.length!==0" class="menu-block">
-                    <div class="container">
-                        <div class="row">
-                            <div v-for="c2 in c1.children" class="col-6 col-md-3 col-xl-2">
-                                <ul class="menu-list">
-                                    <li><a :href=`/Products/${c2.label}` class="dot">{{c2.label}}</a></li>
-                                    <li v-for="c3 in c2.children"><a :href=`/Products/${c3.label}` class="dot">{{c3.label}}</a></li>
-                                </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center title my-4"><a href="@Url.Action("index", "FrontEnd")" class="band">LOBEDA</a></div>
+            </div>
+            <ul class="main-nav nav justify-content-center mb-4 align-items-center">
+                <li v-for="c1 in categories" class="nav-item mx-2 pb-3">
+                    <a :href=`/Products/${c1.label}` class="nav-link text-dark"><span class="line">{{c1.label.toUpperCase()}}</span></a>
+                    <div v-if="c1.children.length!==0" class="menu-block">
+                        <div class="container">
+                            <div class="row">
+                                <div v-for="c2 in c1.children" class="col-6 col-md-3 col-xl-2">
+                                    <ul class="menu-list">
+                                        <li><a :href=`/Products/${c2.label}` class="dot">{{c2.label}}</a></li>
+                                        <li v-for="c3 in c2.children"><a :href=`/Products/${c3.label}` class="dot">{{c3.label}}</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+                </li>
+            </ul>
+        </div>
         <div class="input-group search-bar-sm rounded-0">
-            <input type="text" class="form-control rounded-0" placeholder="Search">
+            <input type="text" id="RwdSearch" class="form-control rounded-0" placeholder="Search">
             <div class="input-group-append">
-                <a href="#" class="input-group-text rounded-0 search-bar-icon ">
+                <a href="#" id="RwdSearchBtn" class="input-group-text rounded-0 search-bar-icon">
                     <i class="fas fa-search "></i>
                 </a>
             </div>
@@ -1125,114 +1125,124 @@
 
     @RenderSection("Vuejs", required: false)
     <script>
-        $( '#btn-slide' ).click( function () {
-            openNav( '#ProductSidenav' );
-        } );
-        $( ".lock-background" ).on( 'click', unlock );
-        $( '#btn-slide-login' ).click( function () { openNav( '#LoginSidenav' ) } );
+        $('#btn-slide').click(function () {
+            openNav('#ProductSidenav');
+        });
+        $(".lock-background").on('click', unlock);
+        $('#btn-slide-login').click(function () { openNav('#LoginSidenav') });
         //$('#btn-slide-login').click(openNav);
-        $( '#Close-ProductSideNav' ).click( function () { closeNav( '#ProductSidenav' ) } );
-        $( '#Close-LoginSideNav' ).click( function () { closeNav( '#LoginSidenav' ) } );
+        $('#Close-ProductSideNav').click(function () { closeNav('#ProductSidenav') });
+        $('#Close-LoginSideNav').click(function () { closeNav('#LoginSidenav') });
         //$('#btn-slide-login').click(openNav);
 
 
-        $( "#btn_login" ).click( function () {
-            $( '#loginModal' ).modal( 'show' );
-        } );
-        $( "#gotoRegist" ).click( function () {
+        $("#btn_login").click(function () {
+            $('#loginModal').modal('show');
+        });
+        $("#gotoRegist").click(function () {
             location.href = "/FrontEnd/MemberRegist"
-        } );
+        });
 
-        $( "#loginConfirm" ).click( function () {
-            var uname = $( "#loginId" ).val();
-            var psw = $( "#loginPsw" ).val();
+        $("#loginConfirm").click(function () {
+            var uname = $("#loginId").val();
+            var psw = $("#loginPsw").val();
 
-            $.ajax( {
+            $.ajax({
                 type: "POST",
                 url: "/FrontEnd/Login",
                 data: { uname, psw },
-                success: function ( back ) {
-                    console.log( 'back', back );
-                    if ( back == "1" ) {
-                        $( "#loginStatus" ).html( "sign in suceesfully" );
+                success: function (back) {
+                    console.log('back', back);
+                    if (back == "1") {
+                        $("#loginStatus").html("sign in suceesfully");
                         location.reload()
                     }
-                    else if ( back == "2" ) {
-                        $( "#loginStatus" ).html( "This account doesn't exist" );
+                    else if (back == "2") {
+                        $("#loginStatus").html("This account doesn't exist");
                     }
                     else {
-                        $( "#loginStatus" ).html( "Your password is incorrect. Please try again." );
+                        $("#loginStatus").html("Your password is incorrect. Please try again.");
                     }
                 }
-            } );
-        } );
+            });
+        });
 
-        $( "#loginId" ).keydown( function ( event ) {
-            if ( event.which == 13 ) {
-                var uname = $( "#loginId" ).val();
-                var psw = $( "#loginPsw" ).val();
+        $("#loginId").keydown(function (event) {
+            if (event.which == 13) {
+                var uname = $("#loginId").val();
+                var psw = $("#loginPsw").val();
 
-                $.ajax( {
+                $.ajax({
                     type: "POST",
                     url: "/FrontEnd/Login",
                     data: { uname, psw },
-                    success: function ( back ) {
-                        console.log( 'back', back );
-                        if ( back == "1" ) {
-                            $( "#loginStatus" ).html( "sign in suceesfully" );
+                    success: function (back) {
+                        console.log('back', back);
+                        if (back == "1") {
+                            $("#loginStatus").html("sign in suceesfully");
                             //location.href = "/FrontEnd/MemberPageOrder"
-                            $( '#loginModal' ).modal( 'hide' );
+                            $('#loginModal').modal('hide');
                             location.reload();
                         }
-                        else if ( back == "2" ) {
-                            $( "#loginStatus" ).html( "This account doesn't exist" );
+                        else if (back == "2") {
+                            $("#loginStatus").html("This account doesn't exist");
                         }
                         else {
-                            $( "#loginStatus" ).html( "Your password is incorrect. Please try again." );
+                            $("#loginStatus").html("Your password is incorrect. Please try again.");
                         }
                     }
-                } );
+                });
             }
-        } );
+        });
 
-        $( "#loginPsw" ).keydown( function ( event ) {
-            if ( event.which == 13 ) {
-                var uname = $( "#loginId" ).val();
-                var psw = $( "#loginPsw" ).val();
+        $("#loginPsw").keydown(function (event) {
+            if (event.which == 13) {
+                var uname = $("#loginId").val();
+                var psw = $("#loginPsw").val();
 
-                $.ajax( {
+                $.ajax({
                     type: "POST",
                     url: "/FrontEnd/Login",
                     data: { uname, psw },
-                    success: function ( back ) {
-                        console.log( 'back', back );
-                        if ( back == "1" ) {
-                            $( "#loginStatus" ).html( "sign in suceesfully" );
+                    success: function (back) {
+                        console.log('back', back);
+                        if (back == "1") {
+                            $("#loginStatus").html("sign in suceesfully");
                             location.reload()
                         }
-                        else if ( back == "2" ) {
-                            $( "#loginStatus" ).html( "This account doesn't exist" );
+                        else if (back == "2") {
+                            $("#loginStatus").html("This account doesn't exist");
                         }
                         else {
-                            $( "#loginStatus" ).html( "Your password is incorrect. Please try again." );
+                            $("#loginStatus").html("Your password is incorrect. Please try again.");
                         }
                     }
-                } );
+                });
             }
-        } );
+        });
 
 
-        $( "#searchBTN" ).click( function () {
-            var condition = $( "#search" ).val();
+        $("#searchBTN").click(function () {
+            var condition = $("#search").val();
             window.location.href = "/Products/" + condition;
-        } );
+        });
 
-        $( "#search" ).keydown( function ( event ) {
-            if ( event.which == 13 ) {
-                var condition = $( "#search" ).val();
+        $("#search").keydown(function (event) {
+            if (event.which == 13) {
+                var condition = $("#search").val();
                 window.location.href = "/Products/" + condition;
             }
-        } );
+        });
+        $("#RwdSearchBtn").click(function () {
+            var conditionRwd = $("#RwdSearch").val();
+            window.location.href = "/Products/" + conditionRwd;
+        });
+        $("#RwdSearch").keydown(function (event) {
+            if (event.which == 13) {
+                var conditionRwd = $("#RwdSearch").val();
+                window.location.href = "/Products/" + conditionRwd;
+            }
+        });
     </script>
     @RenderSection("viewJquery", required: false)
     @RenderSection("Endscripts", required: false)
