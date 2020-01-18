@@ -1067,7 +1067,7 @@
         function AjaxCart() {
             $.ajax( {
                 type: "GET",
-                url: "frontend/FloatCart",
+                url: "/frontend/FloatCart",
                 async: false,
                 success: function ( response ) {
                     let arr = JSON.parse( response )
