@@ -356,6 +356,7 @@
     <Compile Include="Models\HomePageAD.cs" />
     <Compile Include="Models\LinePay\LinePay.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Price.cs" />
     <Compile Include="Models\ProductLIst.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
     <Compile Include="Models\ItemContext.cs" />
