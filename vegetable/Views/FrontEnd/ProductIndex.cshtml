@@ -373,6 +373,72 @@
             cursor: pointer;
             color: #000;
         }
+        /*quickview modal*/
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+    }
+
+        .modal label {
+            padding: 10px 0;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+
+        .modal input {
+            padding: 10px 0;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+
+        .modal button {
+            padding: 10px 0;
+            margin: 20px 0;
+        }
+
+    .quickview .modal-content {
+        background-color: #fefefe;
+        margin: 0% auto !important;
+        border: 1px solid #888;
+        width: 1000px;
+        height: 100%;
+        overflow: auto;
+    }
+
+    .quickview .modal-dialog {
+        margin: auto;
+        max-width: none !important;
+        height: 650px !important;
+    }
+
+    .close {
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #e82b1a;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #e82b1a;
+            cursor: pointer;
+        }
+
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
     </style>
 }
 
