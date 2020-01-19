@@ -106,7 +106,6 @@ namespace vegetable.Services
                 error.IsSuccess = true;
                 try
                 {
-                 
                     item.Entry(picDetail.FirstOrDefault()).State = EntityState.Deleted;
                     item.SaveChanges();
 

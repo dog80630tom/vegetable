@@ -341,6 +341,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\NewProductController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SearchitemController.cs" />
@@ -397,6 +398,7 @@
     <Compile Include="Services\CategoryServices.cs" />
     <Compile Include="Services\CheckoutService.cs" />
     <Compile Include="Services\MemberServices.cs" />
+    <Compile Include="Services\OrderServices.cs" />
     <Compile Include="Services\PrductServices.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -941,6 +943,8 @@
     <Content Include="Views\NewProduct\Index.cshtml" />
     <Content Include="Views\NewProduct\Create.cshtml" />
     <Content Include="Views\NewProduct\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="webfonts\fa-brands-400.ttf" />
